@@ -1,7 +1,7 @@
 import $ from 'jquery'
 import findTabbable from '../../../external/findTabbable'
 
-import keycode from '../keycode'
+import keyCodes from '../keyCodes'
 
 /**
  * It restricts focus inside element.
@@ -88,6 +88,6 @@ export default class FocusScope {
 	}
 
 	static handleKeyDown(event) {
-		if (event.keyCode === keycode.TAB) this.getActiveInstance().scopeTab(event)
+		if (event.keyCode === keyCodes.TAB) this.getActiveInstance().scopeTab(event)
 	}
 }

@@ -148,7 +148,8 @@ class Tooltip extends React.Component {
 			}),
 			layerProps: {
 				closeOnEsc: true // TODO when open with click but not hover??
-			}
+			},
+			open: this.state.open
 		}, target)
 
 		let tooltip = this.renderTooltip()
@@ -158,7 +159,7 @@ class Tooltip extends React.Component {
 				style: {progress: spring(this.state.open ? 1 : 0, [320, 30])}
 			}, (value) => {
 				let animatedTooltip = React.cloneElement(
-					this.getChildComponent('animation'), 
+					this.getChildComponent('animation'),
 					{progress: value.progress},
 					tooltip
 				)

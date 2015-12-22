@@ -16,18 +16,18 @@ import LAYER_TYPES from './layerTypes'
  * @param {boolean} [props.closeOnEsc=true]
  * @param {boolean} [props.overlay=false] - Close page with transparent overlay.
  * @param {boolean} [props.closeOnOverlayClick=false]
+ * @param {function} [props.onClose]
  */
 @mixinDecorator(StylesMixin, ManagedStateMixin)
-class Layer extends React.Component {
-	static displayName = 'ZContextLayer'
-
+class ZContextLayer extends React.Component {
 	static propTypes = {
 		type: React.PropTypes.oneOf(LAYER_TYPES),
 		global: React.PropTypes.bool,
 		closeOnEsc: React.PropTypes.bool,
 		overlay: React.PropTypes.bool,
 		closeOnOverlayClick: React.PropTypes.bool,
-		onRender: React.PropTypes.func
+		onRender: React.PropTypes.func,
+		onClose: React.PropTypes.func
 	}
 
 	static defaultProps = {
@@ -43,7 +43,7 @@ class Layer extends React.Component {
 			position: 'fixed',
 			height: '100%',
 			width: '100%',
-			webkitTapHighlightColor: 'rgba(0,0,0,0)'
+			WebkitTapHighlightColor: 'rgba(0,0,0,0)'
 		}
 	}
 
@@ -52,7 +52,7 @@ class Layer extends React.Component {
 	componentWillUnmount() { this.close() }
 
 	setLayer() {
-		if (this.state.open) {
+		if (this.props.open) {
 			if (!this.layerKey) this.open()
 			else this.update()
 		} else {
@@ -73,7 +73,7 @@ class Layer extends React.Component {
 	createOverlay() {
 		let props = {style: this.styles.overlay}
 		if (this.props.closeOnOverlayClick) {
-			props.onClick = () => { this.setManagedState({open: false}) }
+			props.onClick = this.onClose.bind(this)
 		}
 		return React.DOM.div(props)
 	}
@@ -99,7 +99,7 @@ class Layer extends React.Component {
 
 		if (this.props.closeOnEsc) {
 			this.listener = (event) => {
-				if (event.keyCode === 27) this.setManagedState({open: false}) // TODO keycodes
+				if (event.keyCode === 27) this.onClose() // TODO keycodes
 			}
 			$(document).bind('keydown', this.listener)
 		}
@@ -119,6 +119,10 @@ class Layer extends React.Component {
 		}
 		this.layerKey = undefined
 	}
+
+	onClose() {
+		if (this.props.onClose) this.props.onClose()
+	}
 }
 
-export default Layer
+export default ZContextLayer

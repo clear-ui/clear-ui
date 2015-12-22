@@ -2,8 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import _ from 'underscore'
 
-import mixinDecorator from '../utils/mixin/decorator'
-import ManagedStateMixin from '../utils/managedStateMixin'
 import cloneReferencedElement from '../utils/cloneReferencedElement'
 import ZContext from '../zContext'
 import AttachmentClass from './class'
@@ -11,8 +9,6 @@ import AttachmentClass from './class'
 /**
  * Attaches element to target.
  * It uses ZContext to create separate layer and AttachmentClass for attaching.
- *
- * @mod {boolean} open
  * @param {object} props.attachment - AttachmentClass option.
  * @param {number} [props.viewportPadding] - AttachmentClass option.
  * @param {string} [props.mirrorAttachment] - AttachmentClass option.
@@ -21,7 +17,6 @@ import AttachmentClass from './class'
  * @param {React.Element} props.element - Attached element.
  * @param {React.Element} props.children - Attachment target.
  */
-@mixinDecorator(ManagedStateMixin)
 class Attachment extends React.Component {
 	static propTypes = {
 		attachment: React.PropTypes.oneOfType([
@@ -33,7 +28,7 @@ class Attachment extends React.Component {
 	}
 
 	componentDidUpdate() {
-		if (!this.state.open) this.destroyAttachment()
+		if (!this.props.open) this.destroyAttachment()
 	}
 
 	componentWillUnmount() {
@@ -46,15 +41,13 @@ class Attachment extends React.Component {
 		target = cloneReferencedElement(target, {ref: (ref) => { this.targetRef = ref }})
 
 		let layer
-		if (this.state.open) {
+		if (this.props.open) {
 			element = cloneReferencedElement(element, {ref: (ref) => { this.elementRef = ref }})
 			let layerProps = {
 				...this.props.layerProps,
-				onSetMod: { // FIXME
-					open: (val) => { this.setManagedState({open: val}) }
-				},
+				onClose: this.props.onClose,
 				onRender: this.onRender.bind(this),
-				state: {open: this.state.open}
+				open: this.props.open
 			}
 			layer = React.createElement(ZContext.Layer, layerProps, element)
 		}

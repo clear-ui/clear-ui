@@ -56,7 +56,7 @@ export default class Sticky extends React.Component {
 			}
 			let container = React.DOM.div({style}, elem)
 			let content = React.createElement(ZContext.Layer, {
-				mods: {open: true},
+				open: true,
 				type: 'fixed',
 				key: 'layer'
 			}, container)
@@ -121,12 +121,14 @@ export default class Sticky extends React.Component {
 		return {fixed, position}
 	}
 
+	/*
 	saveScrollDirection() {
 		let scrollDelta = scrollTop - this.prevScrollTop
 		this.prevScrollTop = scrollTop
 		this.prevScrollDirection = this.scrollDirection
 		this.scrollDirection = (scrollDelta > 0) ? 'up' : 'down'
 	}
+   */
 
 	/*
 	makeOversizedPosition() {
