@@ -1,28 +1,15 @@
 import React from 'react'
 
 import BaseMenu from 'clear-ui-base/lib/menu'
-import Item from '../item'
-import Label from './label'
+import transferProps from 'clear-ui-base/lib/utils/transferProps'
+import MenuItem from './item'
+import MenuLabel from './label'
 
 const TRANSFERED_PROPS = ['indent', 'height', 'padding', 'multiline']
 
-/**
- * It sets element's props that does not have values
- * to values from another element.
- */
-export default function transferProps(from, to, propNames) {
-	let props = {}
-	for (let propName of propNames) {
-		if (to.props[propName] === undefined) {
-			props[propName] = from.props[propName]
-		}
-	}
-	return React.cloneElement(to, props)
-}
-
-export default class Menu extends BaseMenu {
+class Menu extends BaseMenu {
 	static defaultProps = {
-		itemType: Item
+		itemType: MenuItem
 	}
 
 	render() {
@@ -39,3 +26,6 @@ export default class Menu extends BaseMenu {
 		return React.cloneElement(container, null, content)
 	}
 }
+
+export default Menu
+export {MenuItem, MenuLabel}

@@ -16,7 +16,6 @@ function getStyles(props, state) {
 		userSelect: 'none',
 		fontFamily: 'inherit',
 		backgroundClip: 'padding-box',
-		transition: 'background .15s',
 		border: 'none',
 		boxSizing: 'border-box',
 		padding: `0 ${PADDING}rem`,
@@ -37,7 +36,7 @@ function getStyles(props, state) {
 		display: 'inline-block',
 		height: '100%'
 	}
-	
+
 	let leftIcon, rightIcon
 	if (props.leftIcon || props.rightIcon) {
 		let icon = {
