@@ -2,11 +2,12 @@ import React from 'react'
 
 import Tappable from '../tappable'
 import FocusableTappable from '../focusableTappable'
-import mixin from '../utils/mixin'
+import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 
-class Item extends React.Component {
+@mixinDecorator(StylesMixin, ChildComponentsMixin)
+class MenuItem extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {rightIconState: 'initial'}
@@ -52,13 +53,17 @@ class Item extends React.Component {
 		return React.createElement(FocusableTappable, {
 			tabIndex: this.props.tabIndex,
 			disabled: this.props.disabled,
-			onTap: this.props.onTap,
+			onTap: this.onTap.bind(this),
 			onChangeState: (state) => { this.setState({itemState: state}) },
 			preventFocusOnTap: true,
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
 		}, this.renderContainer())
 	}
+
+	onTap() {
+		if (this.state.rightIconState === 'initial' && this.props.onTap) this.props.onTap()
+	}
 }
 
-export default mixin(Item, StylesMixin, ChildComponentsMixin)
+export default MenuItem
