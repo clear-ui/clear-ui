@@ -20,10 +20,8 @@ function postprocessStyle(style) {
 
 export default {
 	getStyles(props, state, context) {
-		let stylesSource = composeStyles(this.constructor.styles, props.styles)
-		let styles = typeof stylesSource === 'function' ?
-			stylesSource(props, state, context) :
-			stylesSource
+		let stylesFn = composeStyles(this.constructor.styles, props.styles)
+		let styles = stylesFn(props, state, context)
 		for (let elem in styles) {
 			styles[elem] = postprocessStyle(styles[elem])
 		}
@@ -33,7 +31,7 @@ export default {
 	componentWillMount() {
 		this.__super()
 		if (!this.state) this.state = {}
-		this.getStyles(this.props, this.state, this.context)
+		this.getStyles(this.props, this.state)
 	},
 
 	componentWillUpdate(nextProps, nextState) {

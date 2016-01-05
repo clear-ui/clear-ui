@@ -9,7 +9,7 @@ export default function composeStyles(...stylesList) {
 			let result = typeof styles === 'function' ? styles(props, state) : styles
 			for (let item in result) {
 				if (composed[item] === undefined) composed[item] = {}
-				composed[item] = Object.assign(composed[item], result[item])
+				Object.assign(composed[item], result[item])
 			}
 		}
 		return composed

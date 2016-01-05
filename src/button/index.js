@@ -1,16 +1,42 @@
 import React from 'react'
 
-import mixin from '../utils/mixin'
+import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import FocusableTappable from '../focusableTappable'
 
+/**
+ * Base button component.
+ *
+ * It allows to handle taps and display button states
+ * consistently across different input methods - touch, mouse or keyboard.
+ */
+@mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
 class Button extends React.Component {
 	static propTypes = {
+		/**
+		 * Handler of the tap event.
+		 * It can be triggered with either mouse, touch,
+		 * or with pressing Enter key on the focused button.
+		 */
+		onTap: React.PropTypes.func,
+
+		/** Disabled state of the button. */
 		disabled: React.PropTypes.bool,
-		//tabIndex: ?
-		onTap: React.PropTypes.func
+
+		/** HTML tabIndex attribute. */
+		tabIndex: React.PropTypes.any,
+
+		/**
+		 * If true, button will became focused when you navigate to it
+		 * using Tab key, but not when click or touch.
+		 **/
+		preventFocusOnTap: React.PropTypes.bool
+	}
+
+	static defaultProps = {
+		preventFocusOnTap: true
 	}
 
 	renderContainer() {
@@ -39,4 +65,4 @@ class Button extends React.Component {
 	}
 }
 
-export default mixin(Button, StylesMixin, ManagedStateMixin, ChildComponentsMixin)
+export default Button

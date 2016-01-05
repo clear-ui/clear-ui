@@ -27,7 +27,11 @@ class Checkbox extends React.Component {
 		}, this.renderContainer())
 	}
 
-	/** @abstract */
+	/**
+	 * @method
+	 * @abstract
+	 * @return {element} Root element of the checkbox.
+	 */
 	renderContainer() {
 		throw new Error('Not implemented')
 	}

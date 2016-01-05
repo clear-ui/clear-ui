@@ -43,7 +43,7 @@ function calcPosition(measurements, attachment) {
 
 function calcCoord(value, size) {
 	let coord = (value.unit === '%') ? (size * value.value / 100) : value.value
-	if (value.mirror) coord = size - coord
+	if (value.mirrored) coord = size - coord
 	return coord
 }
 

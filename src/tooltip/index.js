@@ -6,6 +6,7 @@ import ManagedStateMixin from '../utils/managedStateMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Attachment from '../attachment'
 import Tappable from '../tappable'
+import Animation, {fadeAndSlide, fadeAndScale, fade} from 'clear-ui-base/lib/animations'
 import {Motion, spring, presets} from 'react-motion'
 
 const OPPOSITE_SIDES = {
@@ -89,6 +90,29 @@ class Tooltip extends React.Component {
 		closeTimeout: 0
 	}
 
+	static childComponents = {
+		animation: (props, state) => {
+			if (props.animation === 'slide') {
+				return React.createElement(Animation, {
+					fn: fadeAndSlide,
+					params: {side: state.side}
+				})
+			}
+
+			if (props.animation === 'scale') {
+				return React.createElement(Animation, {
+					fn: fadeAndScale,
+					params: {origin: `${OPPOSITE_SIDES[state.side]} center`}
+				})
+			}
+
+			if (props.animation === 'fade') {
+				return React.createElement(Animation, {fn: fade})
+			}
+		}
+	}
+
+
 	componentWillReceiveProps(props) {
 		//let side = props.sides[0]
 		//this.updateSide(side)
@@ -146,9 +170,9 @@ class Tooltip extends React.Component {
 			attachment: this.props.sides.map((side) => {
 				return createAttachmentPoint(side, this.props.align, this.getOffset())
 			}),
-			layerProps: {
-				closeOnEsc: true // TODO when open with click but not hover??
-			},
+			//layerProps: {
+				//closeOnEsc: true when open with click but not hover
+			//},
 			open: this.state.open
 		}, target)
 
@@ -158,14 +182,14 @@ class Tooltip extends React.Component {
 				defaultStyle: {progress: 0},
 				style: {progress: spring(this.state.open ? 1 : 0, [320, 30])}
 			}, (value) => {
-				let animatedTooltip = React.cloneElement(
+				let tooltipAnimation = React.cloneElement(
 					this.getChildComponent('animation'),
 					{progress: value.progress},
 					tooltip
 				)
 				return React.cloneElement(attachment, {
-					state: {open: this.state.open || value.progress !== 0},
-					element: animatedTooltip
+					open: this.state.open || value.progress !== 0,
+					element: tooltipAnimation
 				})
 			})
 		} else {

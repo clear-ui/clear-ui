@@ -100,16 +100,17 @@ export default class Attachment {
 	}
 
 	setPosition(position) {
-		let css = SUPPORTS_TRANSFORM ?
-			{
-				transform: `translate(${position.left}px, ${position.top}px)`,
-				top: 0, left: 0
-			} :
-			position
+		//let css = SUPPORTS_TRANSFORM ?
+			//{
+				//transform: `translate(${position.left}px, ${position.top}px)`,
+				//top: 0, left: 0
+			//} :
+			//position
 		//if (!_.isEqual(css, this.cachedCss)) {
 		//	this.cachedCss = css
-		this.options.element.css(css)
+		//this.options.element.css(css)
 		//}
+		this.options.element.css(position)
 	}
 
 	static updatePosition() {

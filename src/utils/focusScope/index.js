@@ -45,6 +45,7 @@ export default class FocusScope {
 			this.savedFocus = document.activeElement
 			this.bindHandlers()
 		}
+		document.activeElement.blur()
 		inst.setFocus()
 	}
 

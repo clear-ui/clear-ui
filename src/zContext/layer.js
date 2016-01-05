@@ -21,21 +21,19 @@ import LAYER_TYPES from './layerTypes'
 @mixinDecorator(StylesMixin, ManagedStateMixin)
 class ZContextLayer extends React.Component {
 	static propTypes = {
+		open: React.PropTypes.bool,
+		onClose: React.PropTypes.func,
 		type: React.PropTypes.oneOf(LAYER_TYPES),
 		global: React.PropTypes.bool,
 		closeOnEsc: React.PropTypes.bool,
 		overlay: React.PropTypes.bool,
 		closeOnOverlayClick: React.PropTypes.bool,
 		onRender: React.PropTypes.func,
-		onClose: React.PropTypes.func
 	}
 
 	static defaultProps = {
 		type: 'popup',
-		global: false,
-		closeOnEsc: true,
-		overlay: false,
-		closeOnOverlayClick: false
+		closeOnEsc: true
 	}
 
 	static styles = {

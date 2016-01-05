@@ -2,7 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 
 import keyCodes from '../utils/keyCodes'
-import mixin from '../utils/mixin'
+import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
 /**
@@ -10,6 +10,7 @@ import StylesMixin from '../utils/stylesMixin'
  * @param {function(item: React.Element)} [props.onSelect]
  * @param [props.value]
  */
+@mixinDecorator(StylesMixin)
 class Menu extends React.Component {
 	componentDidMount() { this.setActive() }
 	componentDidUpdate() { this.setActive() }
@@ -19,14 +20,16 @@ class Menu extends React.Component {
 		let content = React.Children.map(this.props.children, function(elem) {
 			if (elem.type === this.props.itemType && !elem.props.disabled) {
 				return React.cloneElement(elem, {
-					state: (this.state.hoveredItem === elem) ?
-						(this.state.hoveredItemActive ? 'active' : 'hovered') :
-						'initial',
 					selected: this.props.value !== undefined &&
 						elem.props.value === this.props.value,
 					onTap: this.select.bind(this, elem),
+					state: {
+						itemState: (this.state.hoveredItem === elem) ?
+							(this.state.hoveredItemActive ? 'active' : 'hovered') :
+							'initial'
+					},
 					onChangeState: {
-						state: (state) => { this.onChangeItemState(elem, state) }
+						itemState: (state) => { this.onChangeItemState(elem, state) }
 					}
 				})
 			} else {
@@ -121,4 +124,4 @@ class Menu extends React.Component {
 	}
 }
 
-export default mixin(Menu, StylesMixin)
+export default Menu

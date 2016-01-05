@@ -7,27 +7,64 @@ import getScrollbarWidth from '../utils/getScrollbarWidth'
 import FocusScope from '../utils/focusScope'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
+import ChildComponentsMixin from '../utils/childComponentsMixin'
+import Animation, {slide, scale, fade} from '../animations'
 
 const SUPPORTS_TRANSFORM = 'transform' in document.body.style
 const scrollbarWidth = getScrollbarWidth()
 
 /*
- * @param {number} props.width
- * @param {boolean} props.alignTop
- * @param {boolean} [props.closeOnOverlayClick=true]
+ * @param {number|string} [props.width] - Width of the modal (value of the CSS-property width).
+ * @param {boolean} props.alignTop // TODO
+ * @param {boolean} [props.closeOnClickOutside=true]
  * @param {boolean} [props.closeOnClick=false]
  * @param {boolean} [props.closeOnEsc=true]
- * @param {boolean} [props.showCloseButton=true]
- * @param {boolean} [props.showOverlay=true]
-*/
-@mixinDecorator(StylesMixin)
+ * @param {'fade'|'scale'|'slideDown'} [props.animation='fade']
+ */
+@mixinDecorator(StylesMixin, ChildComponentsMixin)
 class Modal extends React.Component {
 	static defaultProps = {
-		closeOnOverlayClick: true,
+		closeOnClickOutside: true,
 		closeOnClick: false,
 		closeOnEsc: true,
-		showOverlay: true,
-		showCloseButton: true
+		animation: 'fade'
+	}
+
+	static styles = (props) => {
+		let root = {
+			position: 'fixed',
+			top: 0,
+			left: 0,
+			width: '100%',
+			height: '100%',
+			overflow: 'auto',
+			WebkitOverflowScrolling: 'touch'
+		}
+
+		let modal = {
+			position: 'absolute',
+			userSelect: 'text'
+		}
+		if (props.width) modal.width = props.width
+
+		return {root, modal}
+	}
+
+	static childComponents = {
+		animation: (props) => {
+			if (props.animation === 'slideDown') {
+				return React.createElement(Animation, {
+					fn: slide,
+					params: {side: 'bottom', distance: 64}
+				})
+			}
+			if (props.animation === 'scale') {
+				return React.createElement(Animation, {
+					fn: scale,
+					params: {initialScale: 0.5, origin: 'top center'}
+				})
+			}
+		}
 	}
 
 	componentDidUpdate() {
@@ -39,47 +76,76 @@ class Modal extends React.Component {
 	}
 
 	render() {
-		return React.createElement(Motion, {
-			defaultStyle: {opacity: 0},
-			style: {opacity: spring(this.props.open ? 1 : 0)}
-		}, (value) => {
-			let isClosing = !this.props.open && value.opacity !== 0
-
-			let content = React.DOM.div({
-				//className: this.buildOwnClassName('modal', 'content'),
-				ref: (ref) => { this.contentRef = ref },
-				style: {
-					...this.styles.content,
-					marginLeft: (isClosing && this.doesPageHasScroll()) ?
-						Math.floor(scrollbarWidth / 2) : 0
-				}
-			}, this.props.children)
-
-			let elem = React.DOM.div({
-				onClick: this.onClick.bind(this),
-				style: {
-					...this.styles.root,
-					opacity: value.opacity,
-					overflow: isClosing ? 'hidden' : 'auto'
-				},
-				ref: (ref) => { this.elemRef = ref }
-			}, content)
-
-			return React.createElement(ZContext.Layer, {
-				type: 'modal',
-				closeOnEsc: this.props.closeOnEsc,
-				open: this.props.open || value.opacity !== 0,
-				onClose: this.onClose.bind(this),
-				onRender: this.onRender.bind(this)
-			}, elem)
+		let modal = React.cloneElement(this.renderModal(), {
+			ref: (ref) => { this.modalRef = ref }
 		})
+
+		let root = React.DOM.div({
+			onClick: this.onClick.bind(this),
+			style: this.styles.root,
+			ref: (ref) => { this.elemRef = ref }
+		}, modal)
+
+		let layer = React.createElement(ZContext.Layer, {
+			type: 'modal',
+			closeOnEsc: this.props.closeOnEsc,
+			open: this.props.open,
+			onClose: this.onClose.bind(this),
+			onRender: this.onRender.bind(this)
+		}, root)
+
+		if (this.props.animation) {
+			return React.createElement(Motion, {
+				defaultStyle: {progress: 0},
+				style: {progress: spring(this.props.open ? 1 : 0, [320, 30])}
+			}, (value) => {
+				let isClosing = !this.props.open && value.opacity !== 0
+
+				let animatedModal = React.cloneElement(modal, {
+					style: {
+						...modal.props.style,
+						marginLeft: (isClosing && this.doesPageHasScroll()) ?
+							Math.round(scrollbarWidth / 2) : 0
+					}
+				})
+
+				let modalAnimation = this.props.animation === 'fade' ?
+					animatedModal :
+					React.cloneElement(
+						this.getChildComponent('animation'),
+						{progress: value.progress},
+						animatedModal
+					)
+
+				let rootAnimation = React.createElement(
+					Animation,
+					{fn: fade, progress: value.progress},
+					React.cloneElement(root, {
+						style: {
+							...root.props.style,
+							overflow: isClosing ? 'hidden' : 'auto'
+						}
+					}, modalAnimation)
+				)
+
+				return React.cloneElement(layer, {
+					open: this.state.open || value.progress !== 0
+				}, rootAnimation)
+			})
+		} else {
+			return layer
+		}
+	}
+
+	renderModal() {
+		return React.DOM.div({style: this.styles.modal}, this.props.children)
 	}
 
 	onClick(event) {
-		if (this.props.closeOnOverlayClick) {
+		if (this.props.closeOnClickOutside) {
 			if (event.target === this.elemRef) this.onClose()
 		} else if (this.props.closeOnClick) {
-			if ($(event.target).closest(this.contentRef).length) {
+			if ($(event.target).closest(this.modalRef).length) {
 				this.onClose()
 			}
 		}
@@ -102,7 +168,7 @@ class Modal extends React.Component {
 			})
 			this.resizeListener = this.setSize.bind(this)
 			$(window).bind('resize scroll', this.resizeListener)
-			this.focusScope = new FocusScope(this.contentRef)
+			this.focusScope = new FocusScope(this.modalRef)
 		}
 		this.setSize()
 	}
@@ -115,27 +181,28 @@ class Modal extends React.Component {
 	}
 
 	setSize() {
-		let content = $(this.contentRef)
+		let modal = $(this.modalRef)
 		let position = {}
 
 		let windowHeight = $(window).height()
 		let windowWidth = $(window).width()
 
-		let heightWithMargins = content.outerHeight(true)
+		let heightWithMargins = modal.outerHeight(true)
 		if (heightWithMargins > windowHeight) {
 			position.top = 0
 		} else {
 			position.top = Math.round((windowHeight - heightWithMargins) / 2)
 		}
 
-		let width = content.outerWidth()
+		let width = modal.outerWidth()
 		position.left = Math.round((windowWidth - width) / 2)
 
-		content.css(SUPPORTS_TRANSFORM ?
-			{
-				transform: `translate(${position.left}px, ${position.top}px)`,
-				top: 0, left: 0
-			} :
+		modal.css(
+			//SUPPORTS_TRANSFORM ?
+			//{
+				//transform: `translate(${position.left}px, ${position.top}px)`,
+				//top: 0, left: 0
+			//} :
 			position)
 	}
 }

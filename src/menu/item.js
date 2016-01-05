@@ -4,9 +4,9 @@ import Tappable from '../tappable'
 import FocusableTappable from '../focusableTappable'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
-import ChildComponentsMixin from '../utils/childComponentsMixin'
+import ManagedStateMixin from '../utils/managedStateMixin'
 
-@mixinDecorator(StylesMixin, ChildComponentsMixin)
+@mixinDecorator(StylesMixin, ManagedStateMixin)
 class MenuItem extends React.Component {
 	constructor(props) {
 		super(props)
@@ -54,7 +54,7 @@ class MenuItem extends React.Component {
 			tabIndex: this.props.tabIndex,
 			disabled: this.props.disabled,
 			onTap: this.onTap.bind(this),
-			onChangeState: (state) => { this.setState({itemState: state}) },
+			onChangeState: (state) => { this.setManagedState({itemState: state}) },
 			preventFocusOnTap: true,
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }

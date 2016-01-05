@@ -23,7 +23,7 @@ export default {
 	callOnChangeState(state) {
 		if (this.props.onChangeState) {
 			for (let key in state) {
-				let value = mods[key]
+				let value = state[key]
 				let handler = this.props.onChangeState[key]
 				if (handler) handler(value)
 			}

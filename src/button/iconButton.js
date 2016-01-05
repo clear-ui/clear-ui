@@ -2,10 +2,24 @@ import React from 'react'
 
 import Button from './index.js'
 
+/**
+ * Button than can have icons at the left and right side.
+ *
+ * Additional styleable elements:
+ * - leftIcon - container of the left icon.
+ * - rightIcon - container of the right icon.
+ */
 export default class IconButton extends Button {
 	static propTypes = {
 		...Button.propTypes,
+
+		/**
+		 * Icon element that appears at the left side of the button.
+		 * It can be SVG-icon, font-icon or any arbitrary element.
+		 */
 		leftIcon: React.PropTypes.node,
+
+		/** Icon element that appears at the right side of the button. */
 		rightIcon: React.PropTypes.node
 	}
 
