@@ -79,7 +79,7 @@ function getStyles(props, state) {
 		lineHeight: size.height + 'rem'
 	})
 
-	if (props.elastic) {
+	if (props.fullWidth) {
 		root.width = '100%'
 		Object.assign(label, {
 			display: 'block',
@@ -90,19 +90,37 @@ function getStyles(props, state) {
 	return {root, label, rightIcon, leftIcon, innerOutline, outerOutline}
 }
 
-let propTypes = React.PropTypes
-
+/**
+ * Button with common styles for web-buttons.
+ *
+ * Additional styleable elements:
+ * - outerOutline - shows focus and invalid states.
+ * - innerOutline - shows white line inside colored buttons.
+ */
 export default class Button extends BaseIconButton {
+	static propTypes = {
+		...BaseIconButton.defaultProps,
+
+		/**
+		 * Height of the button.
+		 * Possible values are: 'small', 'default', 'big'.
+		 */
+		height: React.PropTypes.oneOf(Object.keys(SIZES)),
+
+		/**
+		 * Background color of the button.
+		 * Possible values are: \`'grey'\`, \`'red'\`, \`'green'\` or \`'blue'\`.
+		 */
+		color: React.PropTypes.string,
+
+		/** If true, field stretches to 100% width. */
+		fullWidth: React.PropTypes.bool
+	}
+
 	static defaultProps = {
 		...BaseIconButton.defaultProps,
 		height: 'default',
-		padding: 'default'
-	}
-
-	static propTypes = {
-		...BaseIconButton.defaultProps,
-		height: propTypes.oneOf(Object.keys(SIZES)),
-		elastic: propTypes.bool
+		color: 'grey'
 	}
 
 	static styles = composeStyles(BaseIconButton.styles, getStyles)

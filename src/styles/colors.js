@@ -2,7 +2,7 @@ import Color from 'color'
 
 const black = Color('black')
 
-export default { 
+export default {
 	black1: black.clone().value(25).rgbaString(),
 	black2: black.clone().value(50).rgbaString(),
 	black3: black.clone().value(70).rgbaString(),

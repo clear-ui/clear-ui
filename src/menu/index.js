@@ -13,10 +13,10 @@ class Menu extends BaseMenu {
 	}
 
 	render() {
-		let container = super.container()
+		let container = super.render()
 
-		let content = React.Children.Map(container.props.children, (elem) => {
-			if (elem.type === Label || elem.type === Item) {
+		let content = React.Children.map(container.props.children, (elem) => {
+			if (elem.type === MenuLabel || elem.type === MenuItem) {
 				return transferProps(this, elem, TRANSFERED_PROPS)
 			} else {
 				return elem

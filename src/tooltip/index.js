@@ -2,7 +2,7 @@ import React from 'react'
 
 import BaseTooltip from 'clear-ui-base/lib/tooltip'
 import getArrowStyle from 'clear-ui-base/lib/tooltip/getArrowStyle'
-import {FadeAnimation} from 'clear-ui-base/lib/animations'
+import Animation, {fade} from 'clear-ui-base/lib/animations'
 import COLORS from '../styles/colors'
 import SIZES from '../styles/sizes'
 import SHADOWS from '../styles/shadows'
@@ -70,7 +70,7 @@ export default class Tooltip extends BaseTooltip {
 	}
 
 	static childComponents = {
-		animation: React.createElement(FadeAnimation)
+		animation: React.createElement(Animation, {fn: fade})
 	}
 
 	renderArrow() {

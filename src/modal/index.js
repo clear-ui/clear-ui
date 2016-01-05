@@ -2,36 +2,29 @@ import React from 'react'
 
 import BaseModal from 'clear-ui-base/lib/modal'
 import SHADOWS from '../styles/shadows'
+import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 
 class Modal extends BaseModal {
-	static styles = (props) => {
-		let root = {
-			position: 'fixed',
-			top: 0,
-			left: 0,
-			width: '100%',
-			height: '100%',
-			overflow: 'auto',
-			willChange: 'opacity',
-			WebkitOverflowScrolling: 'touch'
-		}
+	static styles = composeStyles(
+		BaseModal.styles,
+		(props) => {
+			let root = {
+				willChange: 'opacity'
+			}
 
-		if (props.showOverlay) {
-			root.backgroundColor = 'rgba(0,0,0,.5)'
-		}
+			if (props.showOverlay) root.backgroundColor = 'rgba(0,0,0,.5)'
 
-		let content = {
-			position: 'absolute',
-			padding: '1.5rem',
-			background: 'white',
-			userSelect: 'text',
-			margin: '2rem 0',
-			willChange: 'left, top, transform',
-			boxShadow: SHADOWS[3]
-		}
+			let modal = {
+				padding: '1.5rem',
+				background: 'white',
+				margin: '2rem 0',
+				willChange: 'left, top, transform',
+				boxShadow: SHADOWS[3]
+			}
 
-		return {root, content}
-	}
+			return {root, modal}
+		}
+	)
 }
 
 export default Modal

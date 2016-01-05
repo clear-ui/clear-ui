@@ -99,7 +99,7 @@ export default class RaisedButton extends Button {
 
 	static propTypes = {
 		...Button.propTypes,
-		color: React.PropTypes.oneOf(['grey', 'red', 'green', 'blue'])
+		color: React.PropTypes.string
 	}
 
 	static styles = composeStyles(Button.styles, getStyles)
