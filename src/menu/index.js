@@ -3,7 +3,7 @@ import React from 'react'
 import BaseMenu from 'clear-ui-base/lib/menu'
 import MenuItem from './item'
 
-export default class Menu extends BaseMenu {
+class Menu extends BaseMenu {
 	static defaultProps = {
 		itemType: MenuItem
 	}
@@ -31,3 +31,6 @@ export default class Menu extends BaseMenu {
 		return React.cloneElement(container, null, content)
 	}
 }
+
+export default Menu
+export {MenuItem}

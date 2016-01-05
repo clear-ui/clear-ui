@@ -12,10 +12,10 @@ export default {
 		`0 1px 5px 0 ${ambientShadowColor}`,
 
 	3:  `0 3px 4px 0 ${umbraColor},` +
- 		`0 3px 3px -2px ${penumbraColor},` +
+		`0 3px 3px -2px ${penumbraColor},` +
         `0 1px 8px 0 ${ambientShadowColor}`,
 
-  	4:  `0 4px 5px 0 ${umbraColor},` +
+	4:  `0 4px 5px 0 ${umbraColor},` +
 		`0 2px 4px -1px ${penumbraColor},` +
 		`0 1px 10px 0 ${ambientShadowColor}`,
 
@@ -30,7 +30,7 @@ export default {
 	16: `0 16px 24px 2px ${umbraColor},` +
 		`0  6px 30px 5px ${ambientShadowColor},` +
 		`0  8px 10px -5px ${penumbraColor}`,
-	
+
 	24: `0  9px 46px  8px ${umbraColor},` +
 		`0 11px 15px -7px ${ambientShadowColor},` +
 		`0 24px 38px  3px ${penumbraColor}`

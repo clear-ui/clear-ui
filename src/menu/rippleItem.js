@@ -1,9 +1,12 @@
 import React from 'react'
 
+import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import BaseItem from 'clear-ui-base/lib/menu/item'
 import Ripples from '../ripples'
 
 // Item that contains inside Ripples component
+@mixinDecorator(ChildComponentsMixin)
 export default class RippleItem extends BaseItem {
 	static defaultProps = {
 		...BaseItem.defaultProps,
@@ -25,7 +28,7 @@ export default class RippleItem extends BaseItem {
 		let container = super.renderContainer()
 
 		let ripples
-		if (this.props.ripples && 
+		if (this.props.ripples &&
 			!this.props.disabled &&
 			this.state.rightIconState === 'initial'
 		) {

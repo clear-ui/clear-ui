@@ -40,7 +40,7 @@ export default class FlatButton extends MaterialButton {
 					root.background = props.ripples ? hoveredColor : activeColor
 				}
 			}
-			
+
 			return {root}
 		}
 	)

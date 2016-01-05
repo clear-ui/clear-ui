@@ -2,10 +2,12 @@ import React from 'react'
 
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import RippleButton from './rippleButton'
-import mixin from 'clear-ui-base/lib/utils/mixin'
-import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
+import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import ThemeMixin from '../themeMixin'
+import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 
+// Button with basic material styles.
+@mixinDecorator(ThemeMixin)
 class MaterialButton extends RippleButton {
 	static contextTypes = {
 		clearUiMaterialTheme: React.PropTypes.object
@@ -49,4 +51,4 @@ class MaterialButton extends RippleButton {
 	)
 }
 
-export default mixin(MaterialButton, ThemeMixin)
+export default MaterialButton

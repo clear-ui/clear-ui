@@ -3,7 +3,7 @@ import React from 'react'
 import BaseButton from 'clear-ui-base/lib/button'
 import Ripples from '../ripples'
 
-// Button that contains inside Ripples component
+// Button that shows ripples effect on press.
 export default class RippleButton extends BaseButton {
 	static defaultProps = {
 		...BaseButton.defaultProps,
@@ -18,7 +18,7 @@ export default class RippleButton extends BaseButton {
 		root: {
 			position: 'relative',
 			overflow: 'hidden',
-			// This is need so that ripples do not bleed past border radius.
+			// This is needed so that ripples do not bleed past border radius.
 			// See: http://stackoverflow.com/questions/17298739
 			transform: 'translate3d(0, 0, 0)'
 		}

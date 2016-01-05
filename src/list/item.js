@@ -2,7 +2,7 @@ import React from 'react'
 import Color from 'color'
 
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
-import composeChildComponents from 
+import composeChildComponents from
 	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
 import RippleItem from '../menu/rippleItem'
 import COLORS from '../styles/colors'
@@ -21,7 +21,7 @@ function getStyles(props, state) {
 	let linesNumber = props.secondaryText ?
 		(props.secondaryTextLines === 2 ? 3 : 2) :
 		1
-	
+
 	let paddingTop, paddingBottom
 	if (linesNumber === 1) {
 		if (props.leftAvatar || props.rightAvatar) {

@@ -28,6 +28,7 @@ function getStyles(props, state) {
 	let label = {
 		color: state.theme.text,
 		overflowX: 'hidden',
+		whiteSpace: 'nowrap',
 		transition
 	}
 

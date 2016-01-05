@@ -6,7 +6,11 @@ import ThemeMixin from '../themeMixin'
 
 class List extends React.Component {
 	render() {
-		return React.DOM.div({style: {padding: '8px 0'}}, this.props.children)
+		let firstChildren = React.Children.toArray(this.props.children)[0]
+		return React.DOM.div({style: {
+			paddingTop: (firstChildren && firstChildren.type === ListSubheader) ? 0 : 8,
+			paddingBottom: 8
+		}}, this.props.children)
 	}
 }
 
