@@ -1,0 +1,50 @@
+@import '~clear-ui/lib/utils/css/colors.scss';
+
+@import '../../../external/bootstrap/breakpointsMixins.scss';
+@import '../../utils/breakpoints.scss';
+
+.components {
+	display: flex;
+	min-height: 100%;
+}
+
+.components__nav {
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	background: color-black(5);
+	width: 15rem;
+	flex: 0 0 15rem;
+}
+
+.components__content {
+	background: white;
+	position: relative;
+	flex: 1 0 auto;
+	max-width: 90rem
+}
+
+@include media-breakpoint-down(desktop, $breakpoints) {
+	.components__nav {
+		width: 12rem;
+		flex: 0 0 12rem;
+		overflow: hidden;
+	}
+}
+
+@include media-breakpoint-down(phone, $breakpoints) {
+	.components {
+		display: block
+	}
+
+	.components__nav {
+		width: auto;
+		column-width: 10rem;
+		overflow: auto;
+	}
+}
+
+@media (max-width: 21rem) {
+	.components__nav {
+		column-width: auto
+	}
+}
