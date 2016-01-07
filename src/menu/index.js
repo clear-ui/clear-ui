@@ -27,5 +27,11 @@ class Menu extends BaseMenu {
 	}
 }
 
+class MenuDivider extends React.Component {
+	render() {
+		return <div/>
+	}
+}
+
 export default Menu
-export {MenuItem, MenuLabel}
+export {MenuItem, MenuLabel, MenuDivider}
