@@ -3,7 +3,9 @@ import React from 'react'
 import Tappable from './tappable'
 import keyCodes from './utils/keyCodes'
 
-// Tappable that supports focusing and pressing with Enter button.
+/**
+ * Tappable that supports focusing and pressing with Enter button.
+ */
 export default class FocusableTappable extends React.Component {
 	static propTypes = {
 		...Tappable.propTypes,

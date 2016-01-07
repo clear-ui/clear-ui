@@ -5,6 +5,8 @@ import keyCodes from '../utils/keyCodes'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
+import MenuItem from './item'
+
 /**
  * @param {boolean} [props.active=true] - Is keyboard navigation active.
  * @param {function(item: React.Element)} [props.onSelect]
@@ -125,3 +127,4 @@ class Menu extends React.Component {
 }
 
 export default Menu
+export {MenuItem}

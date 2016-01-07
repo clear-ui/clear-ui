@@ -1,4 +1,5 @@
 import React from 'react'
+import {Motion, spring} from 'react-motion'
 
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
@@ -6,8 +7,7 @@ import ManagedStateMixin from '../utils/managedStateMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Attachment from '../attachment'
 import Tappable from '../tappable'
-import Animation, {fadeAndSlide, fadeAndScale, fade} from 'clear-ui-base/lib/animations'
-import {Motion, spring, presets} from 'react-motion'
+import Animation, {fadeAndSlide, fadeAndScale, fade} from '../animations'
 
 const OPPOSITE_SIDES = {
 	top: 'bottom',

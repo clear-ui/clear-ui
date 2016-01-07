@@ -99,7 +99,7 @@ class Modal extends React.Component {
 				defaultStyle: {progress: 0},
 				style: {progress: spring(this.props.open ? 1 : 0, [320, 30])}
 			}, (value) => {
-				let isClosing = !this.props.open && value.opacity !== 0
+				let isClosing = !this.props.open && value.progress !== 0
 
 				let animatedModal = React.cloneElement(modal, {
 					style: {

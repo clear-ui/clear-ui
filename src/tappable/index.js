@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 
-import mixin from '../utils/mixin'
+import mixinDecorator from '../utils/mixin/decorator'
 import BindMethodsMixin from '../utils/bindMethodsMixin'
 
 let blockMouseEvents
@@ -14,11 +14,12 @@ let STATE_HOVERED = 'hovered'
 /**
  * Helper for handling touch and mouse events for button-like components.
  * @param {function} [props.onTap] Tap event handler.
- * @param {function(event: object)} [props.onTapStart]
- * @param {function(event: object)} [props.onTapEnd]
- * @param {function(state: string)} [props.onChangeState] Handler of state changes.
+ * @param {function} [props.onTapStart] (event: object)
+ * @param {function} [props.onTapEnd] (event: object)
+ * @param {function} [props.onChangeState] (state: string) Handler of state changes.
  *     State can be one of the following: 'initial', 'hovered', or 'active'.
  */
+@mixinDecorator(BindMethodsMixin)
 class Tappable extends React.Component {
 	static propTypes = {
 		onChangeState: React.PropTypes.func,
@@ -147,4 +148,4 @@ class Tappable extends React.Component {
 	}
 }
 
-export default mixin(Tappable, BindMethodsMixin)
+export default Tappable

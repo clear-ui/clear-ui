@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
+import {Motion, spring} from 'react-motion'
 
+import Animation, {fadeAndSlide, fadeAndScale, fade} from '../animations'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
+import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import Attachment from '../attachment'
 
@@ -16,11 +19,12 @@ import Attachment from '../attachment'
  * @param {element} props.trigger - Dropdown trigger.
  * @param {node} props.children - Dropdown content.
  */
-@mixinDecorator(StylesMixin, ManagedStateMixin)
+@mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
 class Dropdown extends React.Component {
 	static defaultProps = {
 		expandSide: 'right',
-		vertSide: 'bottom'
+		vertSide: 'bottom',
+		animation: 'fade'
 	}
 
 	static styles = {
@@ -28,9 +32,33 @@ class Dropdown extends React.Component {
 		list: {position: 'absolute'}
 	}
 
+	static childComponents = {
+		animation: (props, state) => {
+			//TODO know not only side but also mirrored
+			
+			//if (props.animation === 'slide') {
+				//return React.createElement(Animation, {
+					//fn: fadeAndSlide,
+					//params: {side: state.side}
+				//})
+			//}
+
+			//if (props.animation === 'scale') {
+				//return React.createElement(Animation, {
+					//fn: fadeAndScale,
+					//params: {origin: `${OPPOSITE_SIDES[state.side]} center`}
+				//})
+			//}
+
+			if (props.animation === 'fade') {
+				return React.createElement(Animation, {fn: fade})
+			}
+		}
+	}
+
 	render() {
 		let trigger = React.cloneElement(this.getTrigger(), {
-			ref: (ref) => { this.triggerRef = ref },
+			ref: (ref) => { this.triggerRef = ref }
 		})
 
 		let menu = React.cloneElement(this.getMenu(), {
@@ -44,7 +72,7 @@ class Dropdown extends React.Component {
 			ref: (ref) => { this.listRef = ref }
 		}, menu)
 
-		let props = {
+		let attachment = React.createElement(Attachment, {
 			open: this.state.open,
 			onClose: () => { this.setManagedState({open: false}) },
 			attachment: this.getAttachmentPoint(),
@@ -56,10 +84,27 @@ class Dropdown extends React.Component {
 				closeOnEsc: true
 			},
 			element: list
-		}
+		}, trigger)
 
-		return React.DOM.div({style: this.styles.root},
-			React.createElement(Attachment, props, trigger))
+		if (this.props.animation) {
+			let attachmentAnimation = React.createElement(Motion, {
+				defaultStyle: {progress: 0},
+				style: {progress: spring(this.state.open ? 1 : 0, [320, 30])}
+			}, (value) => {
+				let listAnimation = React.cloneElement(
+					this.getChildComponent('animation'),
+					{progress: value.progress},
+					list
+				)
+				return React.cloneElement(attachment, {
+					open: this.state.open || value.progress !== 0,
+					element: listAnimation
+				})
+			})
+			return React.DOM.div({style: this.styles.root}, attachmentAnimation)
+		} else {
+			return React.DOM.div({style: this.styles.root}, attachment)
+		}
 	}
 
 	getAttachmentPoint() {
@@ -69,7 +114,7 @@ class Dropdown extends React.Component {
 		return {
 			target: `${oppositeSide} ${this.props.vertSide}`,
 			element: `${oppositeSide} ${oppositeVertSide}`
-			//offset: '0 -1px'
+			// offset: '0 -1px' // TODO offset
 		}
 	}
 
@@ -80,10 +125,6 @@ class Dropdown extends React.Component {
 	 */
 	getMenu() {
 		throw new Error('Not implemented')
-	}
-
-	getAnimation() {
-		// TODO
 	}
 
 	getTrigger() {
