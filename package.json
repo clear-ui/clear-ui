@@ -23,11 +23,18 @@
   "license": "Unlicence",
   "dependencies": {
     "color": "^0.10.1",
-    "react-addons-transition-group": "^0.14.2"
+    "react-addons-transition-group": "^0.14.2",
+    "react-motion": "^0.3.1"
   },
   "peerDependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.6",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^1.0.2",
+    "eslint-plugin-react": "^3.11.2"
   }
 }

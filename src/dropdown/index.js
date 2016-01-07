@@ -30,7 +30,7 @@ class Dropdown extends BaseDropdown {
 				right: padding,
 				bottom: 8,
 				height: 1,
-				background: '#ccc',
+				background: '#ccc'
 			}
 
 			let triangleIcon = {
@@ -40,7 +40,7 @@ class Dropdown extends BaseDropdown {
 				right: padding,
 				top: 12,
 				color: state.theme.secondary,
-				fill: state.theme.secondary,
+				fill: state.theme.secondary
 			}
 
 			let list = {
@@ -56,11 +56,11 @@ class Dropdown extends BaseDropdown {
 	getAttachmentPoint() {
 		let oppositeSide = (this.props.expandSide === 'left') ? 'right' : 'left'
 		let oppositeVertSide = (this.props.vertSide === 'bottom') ? 'top' : 'bottom'
-		let offset = 8
+		let offset = -8
 		return {
 			target: `${oppositeSide} ${oppositeVertSide}`,
 			element: `${oppositeSide} ${oppositeVertSide}`,
-			offset: `0 ${-offset}px`
+			offset: `0 ${offset}px`
 		}
 	}
 

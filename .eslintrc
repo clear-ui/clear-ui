@@ -18,6 +18,8 @@
 		"one-var": [2, {
 			"initialized": "never"
 		}],
+
+		"react/jsx-uses-react": 1,
 		"react/wrap-multilines": 0,
 		"react/prop-types": 0,
 		"react/no-multi-comp": 0,
