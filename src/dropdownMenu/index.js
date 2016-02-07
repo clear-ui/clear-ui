@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import {Motion, spring} from 'react-motion'
 
+import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
 import Animation, {fadeAndSlide, fadeAndScale, fade} from '../animations'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
@@ -20,51 +21,45 @@ import Attachment from '../attachment'
  * @param {node} props.children - Dropdown content.
  */
 @mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
-class Dropdown extends React.Component {
+class DropdownMenu extends React.Component {
 	static defaultProps = {
 		expandSide: 'right',
 		vertSide: 'bottom',
-		animation: 'fade'
+		animation: 'fade',
+		maxHeight: Infinity,
+		listOffset: 10
 	}
 
 	static styles = {
-		root: {display: 'inline-block'},
+		root: {display: 'inline-block'}, // TODO why?
 		list: {position: 'absolute'}
 	}
 
 	static childComponents = {
-		animation: (props, state) => {
-			//TODO know not only side but also mirrored
-			
-			//if (props.animation === 'slide') {
-				//return React.createElement(Animation, {
-					//fn: fadeAndSlide,
-					//params: {side: state.side}
-				//})
-			//}
-
-			//if (props.animation === 'scale') {
-				//return React.createElement(Animation, {
-					//fn: fadeAndScale,
-					//params: {origin: `${OPPOSITE_SIDES[state.side]} center`}
-				//})
-			//}
-
+		animation: (props) => {
 			if (props.animation === 'fade') {
 				return React.createElement(Animation, {fn: fade})
 			}
-		}
+		},
+
+		menu: null
 	}
 
 	render() {
-		let trigger = React.cloneElement(this.getTrigger(), {
+		let trigger = React.cloneElement(this.renderTrigger(), {
 			ref: (ref) => { this.triggerRef = ref }
 		})
 
-		let menu = React.cloneElement(this.getMenu(), {
+		let menu = React.cloneElement(this.getChildComponent('menu'), {
 			active: true,
 			value: this.props.value,
-			onSelect: this.onItemSelect.bind(this)
+			onSelect: this.onItemSelect.bind(this),
+			styles: {
+				root: {
+					overflow: 'auto'
+				}
+			},
+			ref: (ref) => { this.menuRef = ref }
 		}, this.props.children)
 
 		let list = React.DOM.div({
@@ -73,17 +68,16 @@ class Dropdown extends React.Component {
 		}, menu)
 
 		let attachment = React.createElement(Attachment, {
+			element: list,
 			open: this.state.open,
 			onClose: () => { this.setManagedState({open: false}) },
-			attachment: this.getAttachmentPoint(),
-			mirrorAttachment: 'all',
 			layerProps: {
-				onRender: this.setListWidth.bind(this),
+				onRender: this.setSizes.bind(this),
 				overlay: true,
 				closeOnOverlayClick: true,
 				closeOnEsc: true
 			},
-			element: list
+			...this.getAttachmentConfig()
 		}, trigger)
 
 		if (this.props.animation) {
@@ -107,31 +101,30 @@ class Dropdown extends React.Component {
 		}
 	}
 
-	getAttachmentPoint() {
+	getAttachmentConfig() {
 		let oppositeSide = (this.props.expandSide === 'left') ? 'right' : 'left'
 		let oppositeVertSide = (this.props.vertSide === 'bottom') ? 'top' : 'bottom'
 
 		return {
-			target: `${oppositeSide} ${this.props.vertSide}`,
-			element: `${oppositeSide} ${oppositeVertSide}`
-			// offset: '0 -1px' // TODO offset
+			attachment: {
+				target: `${oppositeSide} ${this.props.vertSide}`,
+				element: `${oppositeSide} ${oppositeVertSide}`
+				// offset: '0 -1px' // TODO offset
+			},
+			mirrorAttachment: true
 		}
 	}
 
-	/**
-	 * @abstract
-	 * @method
-	 * Method that returns implementation of the Menu component.
-	 */
-	getMenu() {
-		throw new Error('Not implemented')
-	}
-
-	getTrigger() {
-		return React.DOM.div({
-			style: this.styles.trigger,
-			onClick: () => { this.setManagedState({open: true}) }
-		}, this.props.trigger)
+	renderTrigger() {
+		if (this.props.tappable) {
+			return React.cloneElement(this.props.trigger, {
+				onTap: () => { this.setManagedState({open: true}) }
+			})
+		} else {
+			return React.createElement(FocusableTappable, {
+				onTap: () => { this.setManagedState({open: true}) }
+			}, React.DOM.div({style: this.styles.trigger}, this.props.trigger))
+		}
 	}
 
 	onItemSelect(item) {
@@ -139,13 +132,14 @@ class Dropdown extends React.Component {
 		this.setManagedState({open: false})
 	}
 
-	setListWidth() {
+	calcListWidth() {
 		let triggerElem = $(ReactDOM.findDOMNode(this.triggerRef))
 		let listElem = $(ReactDOM.findDOMNode(this.listRef))
 
 		let widthDiff = listElem.outerWidth() - listElem.width()
 
 		let triggerWidth = triggerElem.outerWidth()
+		// TODO add scrollbar with if list has scroll
 		let minWidth = triggerWidth - widthDiff
 		let width
 		if (this.props.width) {
@@ -154,8 +148,28 @@ class Dropdown extends React.Component {
 			width = (unit === '%') ? (triggerWidth * num / 100) : num
 			width -= widthDiff
 		}
-		listElem.css({minWidth, width})
+		return {minWidth, width}
+	}
+
+	setListWidth() {
+		let listElem = $(ReactDOM.findDOMNode(this.listRef))
+		listElem.css(this.calcListWidth())
+	}
+
+	setMenuHeight() {
+		let menuElem = $(ReactDOM.findDOMNode(this.menuRef))
+		let heightDiff = menuElem.outerHeight() - menuElem.height()
+		let maxHeight = Math.min(
+			$(window).height() - 2 * this.props.listOffset,
+			this.props.maxHeight
+		) - heightDiff
+		menuElem.css({maxHeight})
+	}
+
+	setSizes() {
+		this.setListWidth()
+		this.setMenuHeight()
 	}
 }
 
-export default Dropdown
+export default DropdownMenu

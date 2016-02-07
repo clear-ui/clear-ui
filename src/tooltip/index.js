@@ -113,10 +113,10 @@ class Tooltip extends React.Component {
 	}
 
 
-	componentWillReceiveProps(props) {
+	//componentWillReceiveProps(props) {
 		//let side = props.sides[0]
 		//this.updateSide(side)
-	}
+	//}
 
 	updateSide(side) {
 		if (this.state.side !== side) this.setState({side})
@@ -160,7 +160,7 @@ class Tooltip extends React.Component {
 			target = React.createElement(Tappable, props, target)
 		}
 
-		let attachment =  React.createElement(Attachment, {
+		let attachment = React.createElement(Attachment, {
 			onSetMod: { // FIXME
 				open: (val) => { this.setManagedState({open: val}) }
 			},
@@ -177,6 +177,7 @@ class Tooltip extends React.Component {
 		}, target)
 
 		let tooltip = this.renderTooltip()
+
 		if (this.props.animation) {
 			return React.createElement(Motion, {
 				defaultStyle: {progress: 0},

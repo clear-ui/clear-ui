@@ -56,16 +56,16 @@ class Attachment extends React.Component {
 	}
 
 	onRender() {
-		let origOnRender = this.props.layerProps && this.props.layerProps.onRender
-		if (origOnRender) origOnRender()
+		let propsOnRender = this.props.layerProps && this.props.layerProps.onRender
+		if (propsOnRender) propsOnRender()
 		this.setAttachment()
 	}
 
 	setAttachment() {
 		// TODO when need only update position
 
-		let options = _.pick(this.props, 'attachment', 'viewportPadding', 'mirrorAttachment',
-			'onChangeAttachment')
+		let options = _.pick(this.props, 'attachment', 'viewportPadding', 'constrain',
+			'mirrorAttachment', 'onChangeAttachment')
 		Object.assign(options, {
 			element: ReactDOM.findDOMNode(this.elementRef),
 			target: ReactDOM.findDOMNode(this.targetRef)

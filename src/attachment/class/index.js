@@ -41,11 +41,12 @@ let SUPPORTS_TRANSFORM = 'transform' in document.body.style
 export default class Attachment {
 	constructor(options) {
 		this.options = {}
-		options = Object.assign({
+		this.updateOptions({
 			mirrorAttachment: 'none',
-			viewportPadding: 0
-		}, options)
-		this.updateOptions(options)
+			viewportPadding: 0,
+			constrain: false,
+			...options
+		})
 
 		Attachment.addInstance(this)
 	}
@@ -89,12 +90,13 @@ export default class Attachment {
 	}
 
 	updatePosition() {
-		//if (!this.options.element.is(':visible') || !this.options.target.is(':visible')) return
+		// if (!this.options.element.is(':visible') || !this.options.target.is(':visible')) return
 		let measurements = readMeasurements(this.options.element, this.options.target)
-		let [index, position] = getAttachPosition(measurements, this.options.parsedAttachments)
+		let [index, position] = getAttachPosition(measurements, this.options.parsedAttachments,
+			this.options.constrain, this.options.viewportPadding)
 		this.setPosition(position)
 		if (this.prevAttachmentIndex !== index) {
-			this.options.onChangeAttachment && this.options.onChangeAttachment(index)
+			if (this.options.onChangeAttachment) this.options.onChangeAttachment(index)
 			this.prevAttachmentIndex = index
 		}
 	}
@@ -110,7 +112,14 @@ export default class Attachment {
 		//	this.cachedCss = css
 		//this.options.element.css(css)
 		//}
-		this.options.element.css(position)
+
+		// TODO transform conflicts with animations
+		//let css = {
+			//transform: `translate(${position.left}px, ${position.top}px)`,
+			//top: 0, left: 0
+		//}
+		let css = position
+		this.options.element.css(css)
 	}
 
 	static updatePosition() {

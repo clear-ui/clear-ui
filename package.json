@@ -13,7 +13,7 @@
   "scripts": {
     "test": "karma start",
     "start": "webpack-dev-server",
-    "build": "webpack",
+    "build": "webpack --display-error-details --display-modules",
     "build-lib": "gulp build-lib"
   },
   "author": {
@@ -27,6 +27,7 @@
     "inline-style-prefixer": "^0.5.4",
     "react-addons-update": "^0.14.0",
     "react-motion": "^0.3.1",
+    "shallowequal": "^0.2.2",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
@@ -44,7 +45,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.2.5",
     "react-addons-test-utils": "^0.14.0-beta3",
-    "webpack": "^1.10.1"
+    "webpack": "^1.12.2"
   },
   "peerDependencies": {
     "react": "^0.14.0",

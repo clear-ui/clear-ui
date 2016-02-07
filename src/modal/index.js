@@ -197,13 +197,7 @@ class Modal extends React.Component {
 		let width = modal.outerWidth()
 		position.left = Math.round((windowWidth - width) / 2)
 
-		modal.css(
-			//SUPPORTS_TRANSFORM ?
-			//{
-				//transform: `translate(${position.left}px, ${position.top}px)`,
-				//top: 0, left: 0
-			//} :
-			position)
+		modal.css(position)
 	}
 }
 

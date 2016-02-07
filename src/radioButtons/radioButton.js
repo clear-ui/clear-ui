@@ -17,7 +17,7 @@ class RadioButton extends React.Component {
 	render() {
 		return React.cloneElement(this.getChildComponent('switch'), {
 			...this.props,
-			isSwitched: this.isSelected,
+			isSwitched: this.props.selected,
 			onSwitch: this.props.onSelect
 		}, this.props.children)
 	}

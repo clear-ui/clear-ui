@@ -1,16 +1,74 @@
 import React from 'react'
+import shallowEqual from 'shallowequal'
 
+import BoundFunction from '../utils/boundFunction'
 import Tappable from '../tappable'
 import FocusableTappable from '../focusableTappable'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
-import ManagedStateMixin from '../utils/managedStateMixin'
+import ManagedStateMixin, {ManagedStateMixinPropTypes} from '../utils/managedStateMixin'
 
 @mixinDecorator(StylesMixin, ManagedStateMixin)
 class MenuItem extends React.Component {
+	static displayName = 'MenuItem'
+
+	static propTypes = {
+		...ManagedStateMixinPropTypes,
+
+		onTap: React.PropTypes.oneOfType(
+			React.PropTypes.func,
+			React.PropTypes.instanceOf(BoundFunction)
+		)
+
+		// TODO
+		// other props
+	}
+
 	constructor(props) {
 		super(props)
 		this.state = {rightIconState: 'initial'}
+	}
+
+	/**
+	 * Menu stores currently hovered element in its state, so every time hover is moved,
+	 * menu runs rerender, that causes rerender of all items. That's why items need
+	 * shouldComponentUpdate.
+	 * Items can not use simple PureRenderMixin, because it can not compare nested
+	 * properties (ManagedStateMixin props - 'state' and 'onChangeState'), and
+	 * function-properties created using 'Function.bind()', because it returns new
+	 * function every time.
+	 * This function compares nested properties separately, and uses class 'BoundFunction'
+	 * instead of 'Function.bind()', that supports comparing with method
+	 * 'BoundFunction.compare(a, b)'.
+	 */
+	shouldComponentUpdate(nextProps, nextState) {
+		function compareFunctionProp(a, b) {
+			if (a instanceof BoundFunction && b instanceof BoundFunction) {
+				return BoundFunction.compare(a, b)
+			} else {
+				return a === b
+			}
+		}
+
+		return !(
+			shallowEqual(this.props, nextProps, (a, b, key) => {
+				// undefined key mean comparing the objects themselves
+				if (key === undefined) return undefined
+
+				if (key === 'state') return shallowEqual(a, b)
+				if (key === 'onChangeState') {
+					return shallowEqual(a, b, (_a, _b, _key) => {
+						if (_key === undefined) return undefined
+						return compareFunctionProp(_a, _b)
+					})
+				}
+
+				if (key === 'onTap') return compareFunctionProp(a, b)
+
+				return a === b
+			}) &&
+			shallowEqual(this.state, nextState)
+		)
 	}
 
 	renderLabel() {
@@ -62,7 +120,11 @@ class MenuItem extends React.Component {
 	}
 
 	onTap() {
-		if (this.state.rightIconState === 'initial' && this.props.onTap) this.props.onTap()
+		if (this.state.rightIconState === 'initial' && this.props.onTap) {
+			let handler = this.props.onTap
+			if (handler instanceof BoundFunction) handler.call()
+			else if (typeof handler === 'function') handler()
+		}
 	}
 }
 

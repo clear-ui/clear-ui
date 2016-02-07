@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 
+import BoundFunction from '../utils/boundFunction'
 import keyCodes from '../utils/keyCodes'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
@@ -18,28 +19,41 @@ class Menu extends React.Component {
 	componentDidUpdate() { this.setActive() }
 	componentWillUnmount() { this.deactivate() }
 
-	render() {
-		let content = React.Children.map(this.props.children, function(elem) {
+	processItems() {
+		return React.Children.map(this.props.children, function(elem) {
 			if (elem.type === this.props.itemType && !elem.props.disabled) {
-				return React.cloneElement(elem, {
-					selected: this.props.value !== undefined &&
-						elem.props.value === this.props.value,
-					onTap: this.select.bind(this, elem),
+				let isHovered = this.state.hoveredItem === elem
+				let isSelected = this.props.value !== undefined &&
+					elem.props.value === this.props.value
+				let props = {
+					selected: isSelected,
+					onTap: new BoundFunction(this.select, this, elem),
 					state: {
-						itemState: (this.state.hoveredItem === elem) ?
+						itemState: isHovered ?
 							(this.state.hoveredItemActive ? 'active' : 'hovered') :
 							'initial'
 					},
 					onChangeState: {
-						itemState: (state) => { this.onChangeItemState(elem, state) }
+						itemState: new BoundFunction(this.onChangeItemState, this, elem)
 					}
-				})
+				}
+				if (isHovered || isSelected) {
+					props.ref = (ref) => {
+						if (isHovered) this.hoveredItem = ref
+						if (isSelected) this.selectedItem = ref
+					}
+				}
+				return React.cloneElement(elem, props)
 			} else {
 				return elem
 			}
 		}.bind(this))
+	}
 
-		return React.DOM.div({style: this.styles.root}, content)
+	render() {
+		return React.DOM.div({style: this.styles.root},
+			this.processItems(this.props.children)
+		)
 	}
 
 	select(item) {
@@ -92,9 +106,16 @@ class Menu extends React.Component {
 		if (this.activated) return
 		this.activated = true
 		$(document.activeElement).blur()
-		this.setState({
-			hoveredItem: this.getEnabledItems()[0] // TODO hover selected item
-		})
+
+		let enabledItems = this.getEnabledItems()
+		let selectedItem
+		if (this.props.value !== undefined) {
+			selectedItem = enabledItems.find((item) => {
+				return item.props.value === this.props.value
+			})
+		}
+		this.setState({hoveredItem: selectedItem || enabledItems[0]})
+
 		this.bindKeyboardEvents()
 	}
 

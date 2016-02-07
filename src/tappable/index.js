@@ -78,6 +78,7 @@ class Tappable extends React.Component {
 
 	mouseUp(event) {
 		this.active = false
+		// TODO check isMounted
 		let isOnButton = $(event.target).closest(ReactDOM.findDOMNode(this)).length
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
 		if (isOnButton) {

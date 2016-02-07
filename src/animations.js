@@ -4,15 +4,16 @@ export default class Animation extends React.Component {
 	static propTypes = {
 		progress: React.PropTypes.number.isRequired,
 		fn: React.PropTypes.func.isRequired,
-		params: React.PropTypes.object
+		params: React.PropTypes.object,
+		children: React.PropTypes.element
 	}
 
 	render() {
 		let elem = this.props.children
 		let style = this.props.fn({
 			originalStyle: elem.props.style,
-			...this.props.params,
-			progress: this.props.progress
+			progress: this.props.progress,
+			...this.props.params
 		})
 		return React.cloneElement(elem, {style})
 	}
@@ -29,10 +30,10 @@ export function slide({originalStyle, side = 'top', distance = 10, progress}) {
 	if (originalStyle && originalStyle.transform) transform += originalStyle.transform + ' '
 	let translate = Math.round(distance * (1 - progress))
 	switch (side) {
-		case 'top': transform += `translateY(${translate}px)`; break
-		case 'bottom': transform += `translateY(${-translate}px)`; break
-		case 'left': transform += `translateX(${translate}px)`; break
-		case 'right': transform += `translateX(${-translate}px)`; break
+	case 'top': transform += `translateY(${translate}px)`; break
+	case 'bottom': transform += `translateY(${-translate}px)`; break
+	case 'left': transform += `translateX(${translate}px)`; break
+	case 'right': transform += `translateX(${-translate}px)`; break
 	}
 	return {...originalStyle, transform}
 }

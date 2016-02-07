@@ -1,3 +1,17 @@
+import React from 'react'
+
+import BoundFunction from '../boundFunction'
+
+export let ManagedStateMixinPropTypes = {
+	state: React.PropTypes.object,
+	onChangeState: React.PropTypes.objectOf(
+		React.PropTypes.oneOfType(
+			React.PropTypes.func,
+			React.PropTypes.instanceOf(BoundFunction)
+		)
+	)
+}
+
 export default {
 	componentWillMount() {
 		this.state = {...this.state, ...this.props.defaultState, ...this.props.state}
@@ -25,9 +39,11 @@ export default {
 			for (let key in state) {
 				let value = state[key]
 				let handler = this.props.onChangeState[key]
-				if (handler) handler(value)
+				if (handler) {
+					if (handler instanceof BoundFunction) handler.call(value)
+					else if (typeof handler === 'function') handler(value)
+				}
 			}
 		}
 	}
 }
-
