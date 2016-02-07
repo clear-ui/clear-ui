@@ -13,6 +13,10 @@ import Ripples from '../ripples'
  */
 @mixinDecorator(ThemeMixin, ChildComponentsMixin)
 class MaterialSwitch extends BaseSwitch {
+	static contextTypes = {
+		clearUiMaterialTheme: React.PropTypes.object
+	}
+
 	static styles = (props, state) => {
 		let root = {
 			height: 24,

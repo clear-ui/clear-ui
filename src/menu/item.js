@@ -5,7 +5,6 @@ import composeChildComponents from
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import mixin from 'clear-ui-base/lib/utils/mixin'
 import ThemeMixin from '../themeMixin'
-import COLORS from '../styles/colors'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import RippleItem from './rippleItem'
 
@@ -18,7 +17,6 @@ function getStyles(props, state) {
 
 	let root = {
 		cursor: 'pointer',
-		transition: 'background 0.25s',
 		WebkitTapHighlightColor: 'rgba(0,0,0,0)',
 		position: 'relative',
 		outline: 'none',
@@ -56,7 +54,7 @@ function getStyles(props, state) {
 		root.cursor = 'default'
 		label.color = state.theme.disabled
 	} else if (props.selected) {
-		label.color = state.theme.accent
+		label.color = state.theme.primary
 	}
 
 	let leftIcon, rightIcon
@@ -66,7 +64,6 @@ function getStyles(props, state) {
 			lineHeight: '1rem',
 			color: state.theme.secondary,
 			fill: state.theme.secondary,
-			transition: 'all 0.15s',
 			top: '50%',
 			transform: 'translateY(-50%)',
 			width: ICON_SIZE,

@@ -1,9 +1,9 @@
-import Color from 'color'
+import color from 'color'
 
 import COLORS from './colors'
 
 export default {
-	primary: COLORS.blue500,
+	primary: COLORS.blue700,
 	accent: COLORS.pinkA200,
 
 	text: COLORS.darkBlack,
@@ -14,9 +14,9 @@ export default {
 	dividers: COLORS.faintBlack,
 	background: COLORS.white,
 
-	hovered: Color('#999').alpha(0.2).rgbaString(), // deprecated
-	pressed: Color('#999').alpha(0.4).rgbaString(), // deprecated
+	hovered: color('#999').alpha(0.2).rgbaString(), // deprecated
+	pressed: color('#999').alpha(0.4).rgbaString(), // deprecated
 
-	hoveredBackground: Color('#999').alpha(0.2).rgbaString(),
-	pressedBackground: Color('#999').alpha(0.4).rgbaString()
+	hoveredBackground: color('#999').alpha(0.2).rgbaString(),
+	pressedBackground: color('#999').alpha(0.4).rgbaString()
 }

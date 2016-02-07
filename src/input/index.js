@@ -84,6 +84,7 @@ function getStyles(props, state) {
 		right: 0,
 		transition: `all .4s ${TRANSITIONS.strongEaseOut}`
 	}
+
 	if (props.disabled) {
 		underline.borderBottom = `2px dotted ${state.theme.dividers}`
 	} else {

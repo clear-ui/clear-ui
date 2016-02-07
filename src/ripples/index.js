@@ -43,12 +43,14 @@ class Ripples extends React.Component {
 	}
 
 	render() {
-		let rippleGroup = React.createElement(ReactTransitionGroup, {
-			component: 'div',
-			style: this.styles.root
-		}, this.state.ripples)
-
-		return rippleGroup
+		if (this.state.render) {
+			return React.createElement(ReactTransitionGroup, {
+				component: 'div',
+				style: this.styles.root
+			}, this.state.ripples)
+		} else {
+			return React.DOM.div({style: this.styles.root})
+		}
 	}
 
 	start(e) {

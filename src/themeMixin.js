@@ -15,11 +15,13 @@ export default {
 
 	componentWillReceiveProps(nextProps, nextContext) {
 		this.__super(...arguments)
-		let theme = {
-			...lightTheme,
-			...this.context.clearUiMaterialTheme
+		if (this.context.clearUiMaterialTheme !== nextContext.clearUiMaterialTheme) {
+			this.setState({
+				theme: {
+					...lightTheme,
+					...nextContext.clearUiMaterialTheme
+				}
+			})
 		}
-		if (theme) this.setState({theme})
 	}
 }
-

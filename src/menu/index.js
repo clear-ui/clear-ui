@@ -1,9 +1,10 @@
 import React from 'react'
 
 import BaseMenu from 'clear-ui-base/lib/menu'
+import BaseScrollMenu from 'clear-ui-base/lib/menu/scrollMenu'
 import MenuItem from './item'
 
-class Menu extends BaseMenu {
+class Menu extends BaseScrollMenu {
 	static defaultProps = {
 		itemType: MenuItem
 	}
@@ -16,19 +17,20 @@ class Menu extends BaseMenu {
 		}
 	}
 
-	render() {
-		let container = super.render()
-
-		let content = React.Children.map(container.props.children, (elem) => {
+	processItems() {
+		let items = super.processItems()
+		return React.Children.map(items, (elem) => {
 			if (elem.type === MenuItem) {
-				return React.cloneElement(elem, {desktop: this.props.desktop})
+				if (this.props.desktop) {
+					return React.cloneElement(elem, {desktop: this.props.desktop})
+				} else {
+					return elem
+				}
 				//TODO transferProps
 			} else {
 				return elem
 			}
 		})
-
-		return React.cloneElement(container, null, content)
 	}
 }
 

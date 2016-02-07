@@ -17,14 +17,13 @@ class Paper extends React.Component {
 	}
 
 	static styles = (props, state) => {
-		return {
-			root: {
-				//padding: 16,
-				background: state.theme.background,
-				boxShadow: SHADOWS[props.elevation],
-				borderRadius: 2
-			}
+		let root = {
+			background: state.theme.background,
+			boxShadow: SHADOWS[props.elevation],
+			borderRadius: 2
 		}
+		if (props.padding) root.padding = 16
+		return {root}
 	}
 
 	render() {
