@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import {Router} from 'react-router'
 import createHistory from 'history/lib/createHashHistory'
+import useScrollToTop from 'scroll-behavior/lib/useScrollToTop'
 
 import routes from './routes'
 
-let history = createHistory({queryKey: false})
+let history = useScrollToTop(createHistory)({queryKey: false})
 
 $(() => {
 	ReactDOM.render(

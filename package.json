@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress",
-    "build": "webpack --progress"
+    "prod": "webpack-dev-server -p --progress",
+    "build": "webpack --progress",
+    "build-prod": "webpack -p --progress"
   },
   "author": "sunflowerdeath",
   "license": "public domain",
@@ -19,6 +21,7 @@
     "react-markdown-it": "^1.0.1",
     "react-remarkable": "^1.1.1",
     "react-router": "^1.0.0-rc3",
+    "scroll-behavior": "^0.3.3",
     "strip-indent": "^1.0.1",
     "webpack": "^1.12.2"
   },

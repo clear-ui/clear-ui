@@ -17,6 +17,11 @@ config.devServer = {
 	contentBase: DIST
 }
 
+config.watchOptions = {
+    aggregateTimeout: 250,
+    poll: 50
+}
+
 config.plugins.push(new HtmlWebpackPlugin({
 	title: 'Clear UI',
 	template: 'src/index.html',

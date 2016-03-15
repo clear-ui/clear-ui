@@ -1,6 +1,7 @@
 import React from 'react'
 import Markdown from 'react-markdown-it'
 
+import ArrowIcon from './arrowIcon.js'
 import css from './index.scss'
 
 class DocPage extends React.Component {
@@ -16,7 +17,7 @@ class DocPage extends React.Component {
 		return React.DOM.div({
 			className: css.docPage,
 			style: {
-				fontFamily: 'Roboto', padding: '2rem',
+				padding: '2rem',
 				margin: 'auto', width: '800px'
 			}
 		},
@@ -24,5 +25,7 @@ class DocPage extends React.Component {
 		)
 	}
 }
+
+DocPage.ArrowIcon = ArrowIcon
 
 export default DocPage

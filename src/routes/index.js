@@ -5,14 +5,17 @@ import React from 'react'
 
 import ZContext from 'clear-ui-base/lib/zContext'
 import Page from '../page'
-import Header from '../header'
+import Header, {HeaderItem} from '../header'
 
 class App extends React.Component {
 	render() {
 		return (
 			<Page>
 				<ZContext>
-					<Header title='Clear UI Material' color='rgb(66, 133, 244)'/>
+					<Header title='Clear UI' color='rgb(30, 136, 229)'>
+						<HeaderItem link='/docs/'>Docs</HeaderItem>
+						<HeaderItem link='/github/'>Github</HeaderItem>
+					</Header>
 					<div>
 						{this.props.children}
 					</div>
@@ -24,21 +27,32 @@ class App extends React.Component {
 
 //import Main from './pages/main'
 //import Usage from './pages/usage'
-import Components from '../pages/components'
+
+import Index from '../pages/index'
+import Docs from '../pages/docs'
+import GetStarted from '../pages/docs/getStarted'
+import Customization from '../pages/docs/customization'
 import BaseComponentsRoutes from './baseComponents'
 import WebComponentsRoutes from './webComponents'
 import MaterialComponentsRoutes from './materialComponents'
 
-import Customization from '../pages/customization'
-
 export default {
 	path: '/',
 	component: App,
+	indexRoute: {component: Index},
 	childRoutes: [
 		{
-			path: 'components',
-			component: Components,
+			path: 'docs',
+			component: Docs,
 			childRoutes: [
+				{
+					path: 'get-started',
+					component: GetStarted
+				},
+				{
+					path: 'customization',
+					component: Customization
+				},
 				{
 					path: 'base',
 					childRoutes: BaseComponentsRoutes
@@ -50,12 +64,8 @@ export default {
 				{
 					path: 'web',
 					childRoutes: WebComponentsRoutes
-				},
-				{
-					path: 'customization',
-					component: Customization
 				}
-			],
+			]
 		}
 	]
 }
