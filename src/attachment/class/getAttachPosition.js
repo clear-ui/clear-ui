@@ -1,37 +1,19 @@
-/**
- * @typedef {Object} Position
- * @property {number} left
- * @property {number} top
- */
+// @flow
 
-/**
- * Finds attachment that can fit element in the viewport and
- * returns position of attached element.
- * @param {object} measurements
- * @param {array.<Attachment>} attachments
- * @return {[number, Position]} Array with 2 elements.
- *     First is index of chosen attachment, second is position object.
- */
-export default function getAttachPosition(measurements, attachments, constrain, padding) {
-	let pos, i
-	for (i in attachments) {
-		let att = attachments[i]
-		pos = calcPosition(measurements, att)
-		if (checkFitViewport(pos, measurements, padding)) break
-	}
-	if (constrain) {
-		pos = constrainPosition(pos, measurements, constrain, padding)
-	}
-	return [i, pos]
-}
+import type {
+	Measurements, ParsedAttachmentConfig, AttachmentConstrain, AttachmentConstrainSide,
+	CssPosition, PointValue
+} from './types.js'
 
-function calcCoord(value, size) {
+function calcCoord(value: PointValue, size: number): number {
 	let coord = (value.unit === '%') ? (size * value.value / 100) : value.value
 	if (value.mirrored) coord = size - coord
 	return coord
 }
 
-function calcPosition(measurements, attachment) {
+function calcPosition(
+	measurements: Measurements, attachment: ParsedAttachmentConfig
+): CssPosition {
 	let elem = measurements.element
 	let target = measurements.target
 
@@ -50,7 +32,7 @@ function calcPosition(measurements, attachment) {
 	return {left: Math.round(hCoord), top: Math.round(vCoord)}
 }
 
-function checkFitViewport(pos, m/* measurements */, padding) {
+function checkFitViewport(pos: CssPosition, m: Measurements, padding: number): boolean {
 	return (
 		(pos.left >= m.bounds.left + padding) &&
 		(pos.left + m.element.width <= m.bounds.right - padding) &&
@@ -59,29 +41,50 @@ function checkFitViewport(pos, m/* measurements */, padding) {
 	)
 }
 
-function constrainPosition(pos, m /* measurements */, constrain, padding) {
-	let sides = {}
-	if (constrain === true) {
-		sides = {left: true, right: true, top: true, bottom: true}
-	} else {
-		for (let i in constrain) sides[constrain[i]] = true
-	}
-
-	if (sides.left) {
+function constrainPosition(
+	pos: CssPosition,
+	m: Measurements,
+	constrain: AttachmentConstrain,
+	padding: number
+): CssPosition {
+	if (constrain.left) {
 		if (pos.left < m.bounds.left + padding) pos.left = m.bounds.left + padding
 	}
-	if (sides.top) {
+	if (constrain.top) {
 		if (pos.top < m.bounds.top + padding) pos.top = m.bounds.top + padding
 	}
-	if (sides.right) {
-		if (pos.right + m.element.width > m.bounds.right - padding) {
-			pos.right = m.bounds.right - m.element.width - padding
+	if (constrain.right) {
+		if (pos.left + m.element.width > m.bounds.right - padding) {
+			pos.left = m.bounds.right - m.element.width - padding
 		}
 	}
-	if (sides.bottom) {
+	if (constrain.bottom) {
 		if (pos.top + m.element.height > m.bounds.bottom - padding) {
 			pos.top = m.bounds.bottom - m.element.height - padding
 		}
 	}
 	return pos
+}
+/**
+ * Finds attachment that can fit element in the viewport and
+ * returns position of attached element.
+ * @return {[number, Position]} Array with 2 elements.
+ *     First is index of chosen attachment, second is position object.
+ */
+export default function getAttachPosition(
+	measurements: Measurements,
+	attachments: Array<ParsedAttachmentConfig>,
+	constrain: AttachmentConstrain,
+	padding: number
+): [number, CssPosition | null] {
+	let pos = null, i = -1
+	for (i = 0; i < attachments.length; i++) {
+		let att = attachments[i]
+		pos = calcPosition(measurements, att)
+		if (checkFitViewport(pos, measurements, padding)) break
+	}
+	if (constrain && pos) {
+		pos = constrainPosition(pos, measurements, constrain, padding)
+	}
+	return [i, pos]
 }

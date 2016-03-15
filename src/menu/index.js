@@ -28,14 +28,10 @@ class Menu extends React.Component {
 				let props = {
 					selected: isSelected,
 					onTap: new BoundFunction(this.select, this, elem),
-					state: {
-						itemState: isHovered ?
-							(this.state.hoveredItemActive ? 'active' : 'hovered') :
-							'initial'
-					},
-					onChangeState: {
-						itemState: new BoundFunction(this.onChangeItemState, this, elem)
-					}
+					tapState: isHovered ?
+						(this.state.hoveredItemActive ? 'active' : 'hovered') :
+						'initial',
+					onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem)
 				}
 				if (isHovered || isSelected) {
 					props.ref = (ref) => {
@@ -60,7 +56,7 @@ class Menu extends React.Component {
 		if (this.props.onSelect) this.props.onSelect(item)
 	}
 
-	onChangeItemState(item, state) {
+	onChangeItemTapState(item, state) {
 		if (state === 'hovered' || state === 'active') {
 			this.setState({
 				hoveredItem: item,

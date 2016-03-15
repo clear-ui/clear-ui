@@ -33,7 +33,15 @@ export default class FocusableTappable extends React.Component {
 				})
 			}
 			return React.createElement(Tappable, {
-				onChangeState: this.onChangeState.bind(this),
+				onChangeTapState: ({hovered, pressed}) => {
+					this.hovered = hovered
+					this.pressed = pressed
+					this.onChangeTapState()
+					if (this.props.preventFocusOnTap && this.pressed) {
+						this.preventFocus = true
+						setTimeout(() => { this.preventFocus = false })
+					}
+				},
 				onTap: this.props.onTap,
 				onTapStart: this.props.onTapStart,
 				onTapEnd: this.props.onTapEnd
@@ -57,23 +65,23 @@ export default class FocusableTappable extends React.Component {
 
 	onKeyDown(event) {
 		if (this.isFocused && event.keyCode === keyCodes.ENTER) {
-			if (this.props.onChangeState) this.props.onChangeState('active')
+			this.pressed = true
+			this.onChangeTapState()
 			if (this.props.onTapStart) this.props.onTapStart()
 
 			if (this.props.onTap) this.props.onTap()
 
 			setTimeout(() => {
-				if (this.props.onChangeState) this.props.onChangeState('initial')
+				this.pressed = false
+				this.onChangeTapState()
 				if (this.props.onTapEnd) this.props.onTapEnd()
 			}, 150)
 		}
 	}
 
-	onChangeState(state) {
-		if (this.props.preventFocusOnTap && state === 'active') {
-			this.preventFocus = true
-			setTimeout(() => { this.preventFocus = false })
+	onChangeTapState() {
+		if (this.props.onChangeTapState) {
+			this.props.onChangeTapState({pressed: this.pressed, hovered: this.hovered})
 		}
-		if (this.props.onChangeState) this.props.onChangeState(state)
 	}
 }

@@ -59,7 +59,7 @@ class TreeMenu extends React.Component {
 			selected: hasSelected,
 			autoOpen: this.props.autoOpen
 		}
-		if (this.props.autoOpen) props.state = {open: hasSelected}
+		if (this.props.autoOpen) props.open = hasSelected
 		return [hasSelected, React.cloneElement(group, props)]
 	}
 
@@ -84,7 +84,7 @@ class TreeMenuItem extends React.Component {
 		}
 		if (this.props.opener) {
 			props.rightIcon = this.getChildComponent('openerIcon')
-			if (!this.props.autoOpen) props.onRightIconClick = this.onOpenerTap.bind(this)
+			if (!this.props.autoOpen) props.onRightIconTap = this.onOpenerTap.bind(this)
 		}
 		let indent = React.DOM.div({style: this.styles.indent}, this.props.children)
 		return React.cloneElement(this.getChildComponent('menuItem'), props, indent)
@@ -97,6 +97,11 @@ class TreeMenuItem extends React.Component {
 
 @mixinDecorator(ManagedStateMixin)
 class TreeMenuGroup extends React.Component {
+	constructor() {
+		super()
+		this.initManagedState(['open'])
+	}
+
 	render() {
 		let children = React.Children.map(this.props.children, (elem) => {
 			if (isSameOrInheritedType(elem.type, TreeMenuItem)) {

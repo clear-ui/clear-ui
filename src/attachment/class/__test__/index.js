@@ -9,10 +9,10 @@ describe('attachment/class', function() {
 
 	// Set html height to x2 of window height,
 	// Scroll down by window height.
-	let winHeight = $(window).height()
+	const winHeight = $(window).height()
 
 	// Place target at the top of viewport
-	let TARGET_STYLE = {
+	const TARGET_STYLE = {
 		position: 'absolute',
 		width: 100,
 		height: 50,
@@ -21,15 +21,15 @@ describe('attachment/class', function() {
 		background: '#ccc'
 	}
 
-	let ELEMENT_STYLE = {
+	const ELEMENT_STYLE = {
 		position: 'absolute',
 		width: 100,
 		height: 200,
 		background: '#ddd'
 	}
 
-	let TARGET = $('<div>', {css: TARGET_STYLE})
-	let ELEMENT = $('<div>', {css: ELEMENT_STYLE})
+	const TARGET = $('<div>', {css: TARGET_STYLE})
+	const ELEMENT = $('<div>', {css: ELEMENT_STYLE})
 
 	beforeEach(function() {
 		$('html').height(winHeight * 2)
@@ -48,13 +48,13 @@ describe('attachment/class', function() {
 	})
 
 	// Does not fit
-	let TOP_ATTACHMENT = {
+	const TOP_ATTACHMENT = {
 		target: 'center top',
 		element: 'center bottom'
 	}
 
 	// Fits
-	let BOTTOM_ATTACHMENT = {
+	const BOTTOM_ATTACHMENT = {
 		target: 'center bottom',
 		element: 'center top'
 	}
@@ -69,6 +69,33 @@ describe('attachment/class', function() {
 		let elemOffset = ELEMENT.offset()
 		assert.equal(elemOffset.top, TARGET_STYLE.top + TARGET_STYLE.height)
 		assert.equal(elemOffset.left, 0)
+	})
+
+	it('mirrors attachment when it does not fits', function() {
+		attachment = new Attachment({
+			element: ELEMENT,
+			target: TARGET,
+			attachment: TOP_ATTACHMENT,
+			mirror: 'vert'
+		})
+
+		let elemOffset = ELEMENT.offset()
+		assert.equal(elemOffset.top, TARGET_STYLE.top + TARGET_STYLE.height)
+	})
+
+	it('constrains element when it does not fits viewport', function() {
+		const VIEWPORT_PADDING = 20
+
+		attachment = new Attachment({
+			element: ELEMENT,
+			target: TARGET,
+			attachment: TOP_ATTACHMENT,
+			constrain: true,
+			viewportPadding: VIEWPORT_PADDING
+		})
+
+		let elemOffset = ELEMENT.offset()
+		assert.equal(elemOffset.top, VIEWPORT_PADDING)
 	})
 
 	//TODO mirror?

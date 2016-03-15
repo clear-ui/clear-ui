@@ -7,17 +7,15 @@ import BindMethodsMixin from '../utils/bindMethodsMixin'
 
 let blockMouseEvents
 
-let STATE_INITIAL = 'initial'
-let STATE_ACTIVE = 'active'
-let STATE_HOVERED = 'hovered'
-
 /**
  * Helper for handling touch and mouse events for button-like components.
  * @param {function} [props.onTap] Tap event handler.
- * @param {function} [props.onTapStart] (event: object)
- * @param {function} [props.onTapEnd] (event: object)
- * @param {function} [props.onChangeState] (state: string) Handler of state changes.
- *     State can be one of the following: 'initial', 'hovered', or 'active'.
+ * @param {function(event: object)} [props.onTapStart]
+ * @param {function(event: object)} [props.onTapEnd]
+ * @param {function} [props.onHoverStart] TODO
+ * @param {function} [props.onHoverEnd] TODO
+ * @param {function} [props.onChangeTapState] ({hovered: boolean, pressed: boolean)
+ *     Handler of hovered and pressed states changes.
  */
 @mixinDecorator(BindMethodsMixin)
 class Tappable extends React.Component {
@@ -54,12 +52,14 @@ class Tappable extends React.Component {
 
 	mouseEnter() {
 		if (blockMouseEvents) return
-		this.changeState(this.active ? STATE_ACTIVE : STATE_HOVERED)
+		this.hovered = true
+		this.onChangeTapState()
 	}
 
 	mouseLeave() {
 		if (blockMouseEvents) return
-		this.changeState(this.active ? STATE_HOVERED : STATE_INITIAL)
+		this.hovered = false
+		this.onChangeTapState()
 	}
 
 	mouseDown(event) {
@@ -70,9 +70,9 @@ class Tappable extends React.Component {
 
 		if (event.button !== 0) return
 
-		this.active = true
-		this.changeState(STATE_ACTIVE)
 		$(document).one('mouseup', this.mouseUp)
+		this.pressed = true
+		this.onChangeTapState()
 		if (this.props.onTapStart) this.props.onTapStart(event)
 	}
 
@@ -82,19 +82,22 @@ class Tappable extends React.Component {
 		let isOnButton = $(event.target).closest(ReactDOM.findDOMNode(this)).length
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
 		if (isOnButton) {
-			this.changeState(STATE_HOVERED)
 			this.onTap(event)
 		} else {
-			this.changeState(STATE_INITIAL)
+			this.hovered = false
 		}
+		this.pressed = false
+		this.onChangeTapState()
 	}
 
 	touchStart(event) {
 		blockMouseEvents = true
 		if (event.touches.length === 1) {
-			this.touch = true
-			this.changeState(STATE_ACTIVE)
+			this.touch = true // flag that we already handle the touch and ignore all new
 			this.initScrollDetection()
+			this.hovered = true
+			this.pressed = true
+			this.onChangeTapState()
 			if (this.props.onTapStart) this.props.onTapStart(event.touches[1])
 		}
 	}
@@ -104,14 +107,16 @@ class Tappable extends React.Component {
 	}
 
 	touchEnd(event) {
-		if (!this.touch) return
+		if (!this.touch) return // when this happens? never?
 		event.preventDefault()
-		this.endTouch(true, event)
+		this.endTouch(true, event) // when to end? only when we have only one touch?
 	}
 
 	endTouch(tap, event) {
 		this.touch = false
-		this.changeState(STATE_INITIAL)
+		this.hovered = true
+		this.pressed = true
+		this.onChangeTapState()
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
 		if (tap) this.props.onTap(event)
 	}
@@ -140,8 +145,10 @@ class Tappable extends React.Component {
 			currentScrollPos.left !== this.scrollPos.left
 	}
 
-	changeState(state) {
-		if (this.props.onChangeState) this.props.onChangeState(state)
+	onChangeTapState() {
+		if (this.props.onChangeTapState) {
+			this.props.onChangeTapState({pressed: this.pressed, hovered: this.hovered})
+		}
 	}
 
 	onTap(e) {

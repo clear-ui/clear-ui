@@ -6,6 +6,8 @@ import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import FocusableTappable from '../focusableTappable'
 
+const tapStateType = React.PropTypes.oneOf('initial', 'hovered', 'pressed')
+
 /**
  * Base button component.
  *
@@ -30,13 +32,28 @@ class Button extends React.Component {
 
 		/**
 		 * If true, button will became focused when you navigate to it
-		 * using Tab key, but not when click or touch.
+		 * using Tab key, but not on click or touch.
 		 **/
-		preventFocusOnTap: React.PropTypes.bool
+		preventFocusOnTap: React.PropTypes.bool,
+
+		/**
+		 * Properties that allow you to control button's tap state from the outside.
+		 * If they are not present, button will manage tap state inside its
+		 * internal state.
+		 */
+		initialTapState: tapStateType,
+		tapState: tapStateType,
+		onChangeTapState: React.PropTypes.func
 	}
 
 	static defaultProps = {
 		preventFocusOnTap: true
+	}
+
+	constructor() {
+		super()
+		this.initManagedState(['tapState'])
+		this.state = {tapState: 'initial'}
 	}
 
 	renderContainer() {
@@ -58,7 +75,11 @@ class Button extends React.Component {
 			tabIndex: this.props.tabIndex,
 			onTap: this.props.onTap,
 			preventFocusOnTap: true,
-			onChangeState: (state) => { this.setManagedState({state}) },
+			onChangeTapState: ({hovered, pressed}) => {
+				this.setManagedState({
+					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
+				})
+			},
 			onFocus: () => { this.setManagedState({focused: true}) },
 			onBlur: () => { this.setManagedState({focused: false}) }
 		}, this.renderContainer())

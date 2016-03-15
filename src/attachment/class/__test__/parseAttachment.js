@@ -1,9 +1,9 @@
 import assert from 'assert'
 
-import parseAttachment from '../parseAttachment'
+import parseAttachment from '../parseAttachmentConfig'
 
-describe('attachment/class/parseAttachments', function() {
-	it('parses attachment', function() {
+describe('attachment/class/parseAttachmentConfig', function() {
+	it('parses attachment config', function() {
 		let att = {
 			element: '10px 20%',
 			target: 'right top '

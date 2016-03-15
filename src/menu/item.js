@@ -6,19 +6,19 @@ import Tappable from '../tappable'
 import FocusableTappable from '../focusableTappable'
 import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
-import ManagedStateMixin, {ManagedStateMixinPropTypes} from '../utils/managedStateMixin'
+import ManagedStateMixin from '../utils/managedStateMixin'
+
+const funcOrBoundFuncType = React.PropTypes.oneOfType(
+	React.PropTypes.func,
+	React.PropTypes.instanceOf(BoundFunction)
+)
 
 @mixinDecorator(StylesMixin, ManagedStateMixin)
 class MenuItem extends React.Component {
 	static displayName = 'MenuItem'
 
 	static propTypes = {
-		...ManagedStateMixinPropTypes,
-
-		onTap: React.PropTypes.oneOfType(
-			React.PropTypes.func,
-			React.PropTypes.instanceOf(BoundFunction)
-		)
+		onTap: funcOrBoundFuncType
 
 		// TODO
 		// other props
@@ -26,18 +26,18 @@ class MenuItem extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.state = {rightIconState: 'initial'}
+		this.state = {rightIconTapState: 'initial', tapState: 'initial'}
+		this.initManagedState(['tapState'])
 	}
 
 	/**
 	 * Menu stores currently hovered element in its state, so every time hover is moved,
 	 * menu runs rerender, that causes rerender of all items. That's why items need
 	 * shouldComponentUpdate.
-	 * Items can not use simple PureRenderMixin, because it can not compare nested
-	 * properties (ManagedStateMixin props - 'state' and 'onChangeState'), and
-	 * function-properties created using 'Function.bind()', because it returns new
+	 * Items can not use simple PureRenderMixin, because it can not compare
+	 * function props created using 'Function.bind()', because it returns new
 	 * function every time.
-	 * This function compares nested properties separately, and uses class 'BoundFunction'
+	 * This function can compare function props correctly when they use class 'BoundFunction'
 	 * instead of 'Function.bind()', that supports comparing with method
 	 * 'BoundFunction.compare(a, b)'.
 	 */
@@ -50,22 +50,15 @@ class MenuItem extends React.Component {
 			}
 		}
 
+		const functionProps = ['onTap', 'onChangeTapState']
+
 		return !(
 			shallowEqual(this.props, nextProps, (a, b, key) => {
-				// undefined key mean comparing the objects themselves
+				// undefined key means comparing the objects themselves
 				if (key === undefined) return undefined
 
-				if (key === 'state') return shallowEqual(a, b)
-				if (key === 'onChangeState') {
-					return shallowEqual(a, b, (_a, _b, _key) => {
-						if (_key === undefined) return undefined
-						return compareFunctionProp(_a, _b)
-					})
-				}
-
-				if (key === 'onTap') return compareFunctionProp(a, b)
-
-				return a === b
+				if (functionProps.indexOf(key) !== -1) return compareFunctionProp(a, b)
+				else return a === b
 			}) &&
 			shallowEqual(this.state, nextState)
 		)
@@ -93,11 +86,16 @@ class MenuItem extends React.Component {
 				key: 'rightIcon',
 				style: this.styles.rightIcon
 			}, this.props.rightIcon)
-			if (this.props.onRightIconClick && !this.props.disabled) {
+			if (this.props.onRightIconTap && !this.props.disabled) {
 				rightIcon = React.createElement(Tappable, {
 					key: 'rightIcon',
-					onTap: this.props.onRightIconClick,
-					onChangeState: (state) => { this.setState({rightIconState: state}) }
+					onTap: this.props.onRightIconTap,
+					onChangeTapState: ({hovered, pressed}) => {
+						this.setState({
+							rightIconTapState: pressed ? 'active' :
+								(hovered ? 'hovered' : 'initial')
+						})
+					}
 				}, rightIcon)
 			}
 		}
@@ -112,7 +110,11 @@ class MenuItem extends React.Component {
 			tabIndex: this.props.tabIndex,
 			disabled: this.props.disabled,
 			onTap: this.onTap.bind(this),
-			onChangeState: (state) => { this.setManagedState({itemState: state}) },
+			onChangeTapState: ({hovered, pressed}) => {
+				this.setManagedState({
+					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
+				})
+			},
 			preventFocusOnTap: true,
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
@@ -120,7 +122,7 @@ class MenuItem extends React.Component {
 	}
 
 	onTap() {
-		if (this.state.rightIconState === 'initial' && this.props.onTap) {
+		if (this.props.onTap && this.state.rightIconTapState === 'initial') {
 			let handler = this.props.onTap
 			if (handler instanceof BoundFunction) handler.call()
 			else if (typeof handler === 'function') handler()

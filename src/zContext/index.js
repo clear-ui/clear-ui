@@ -14,6 +14,42 @@ import Layer from './layer'
  */
 import LAYER_TYPES from './layerTypes'
 
+@mixinDecorator(StylesMixin)
+class LayerContainer extends React.Component {
+	static styles = (props) => {
+		let root = {
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			zIndex: props.index
+		}
+
+		if (props.type === 'initial') {
+			root.position = 'relative'
+			root.height = '100%'
+		}
+
+		return {root}
+	}
+
+
+	render() {
+		return React.DOM.div({
+			style: this.styles.root,
+			'data-key': this.props.layerKey,
+			className: 'zContext__layer'
+		}, this.props.children)
+	}
+
+	shouldComponentUpdate(nextProps) {
+		// This prevents cyclic updates, when something in the layer
+		// updates ZContext on its 'didUpdate', f.e. add new layer.
+		let equal = (this.props.children === nextProps.children) &&
+			_.isEqual(_.omit(this.props, 'children'), _.omit(nextProps, 'children'))
+		return !equal
+	}
+}
+
 /**
  * Manager of vertical context layers. It helps to avoid conflicts of z-indexes.
  * It must be rendered on the page only once at the top context.
@@ -21,6 +57,8 @@ import LAYER_TYPES from './layerTypes'
  */
 @mixinDecorator(StylesMixin)
 class ZContext extends React.Component {
+	static displayName = 'ZContext'
+
 	static styles = {
 		root: {
 			height: '100%'
@@ -67,7 +105,7 @@ class ZContext extends React.Component {
 
 	render() {
 		let layers = this.state.layers.map(function(layer, index) {
-			return React.createElement(ZContext.LayerContainer, {
+			return React.createElement(LayerContainer, {
 				index,
 				type: layer.type,
 				ref: layer.key,
@@ -146,7 +184,7 @@ class ZContext extends React.Component {
 	removeLayer(key) {
 		this._setState({
 			layers: this._state.layers.filter((layer) => {
-				return layer.key != key
+				return layer.key !== key
 			})
 		})
 	}
@@ -172,42 +210,6 @@ class ZContext extends React.Component {
 		for (let i = 0; i < layers.length; i++) {
 			if (layers[i].key === key) return i
 		}
-	}
-}
-
-@mixinDecorator(StylesMixin)
-class LayerContainer extends React.Component {
-	static styles = (props) => {
-		let root = {
-			position: 'absolute',
-			top: 0,
-			left: 0,
-			zIndex: props.index
-		}
-
-		if (props.type === 'initial') {
-			root.position = 'relative'
-			root.height = '100%'
-		}
-
-		return {root}
-	}
-
-
-	render() {
-		return React.DOM.div({
-			style: this.styles.root,
-			'data-key': this.props.layerKey,
-			className: 'zContext__layer'
-		}, this.props.children)
-	}
-
-	shouldComponentUpdate(nextProps) {
-		// This prevents cyclic updates, when something in the layer
-		// updates ZContext on its 'didUpdate', f.e. add new layer.
-		var equal = (this.props.children === nextProps.children) &&
-			_.isEqual(_.omit(this.props, 'children'), _.omit(nextProps, 'children'))
-		return !equal
 	}
 }
 

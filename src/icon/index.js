@@ -20,26 +20,43 @@ const ICONS = {
 
 class Icon extends React.Component {
 	static propTypes = {
-		icon: propTypes.string.isRequired
+		icon: propTypes.string.isRequired,
+		inline: React.PropTypes.bool,
+		/** Css size for inline icon. */
+		size: React.PropTypes.string | React.PropTypes.number
+	}
+
+	static defaultProps = {
+		size: '1rem'
 	}
 
 	static ICONS = ICONS
 
-	static styles = {
-		root: {
-			//display: 'inline-block',
-			//height: '1rem',
-			//width: '1rem',
-			display: 'block',
-			height: '100%',
-			width: '100%',
-			lineHeight: '1rem'
-		},
-		svg: {
+	static styles = (props) => {
+		let root
+		if (props.inline) {
+			root = {
+				display: 'inline-block',
+				verticalAlign: 'middle',
+				height: props.size,
+				width: props.size
+			}
+		} else {
+			root = {
+				display: 'block',
+				height: '100%',
+				width: '100%',
+				lineHeight: '1rem'
+			}
+		}
+
+		let svg = {
 			verticalAlign: 'top',
 			height: '100%',
 			width: '100%'
 		}
+
+		return {root, svg}
 	}
 
 	render() {

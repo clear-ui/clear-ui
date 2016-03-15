@@ -16,6 +16,12 @@ class Switch extends React.Component {
 		preventFocusOnTap: true
 	}
 
+	constructor(props) {
+		super(props)
+		this.state = {tapState: 'initial'}
+		//this.initManagedState(['tapState'])
+	}
+
 	render() {
 		let {disabled, tabIndex, preventFocusOnTap} = this.props
 		return React.createElement(FocusableTappable, {
@@ -23,7 +29,11 @@ class Switch extends React.Component {
 			tabIndex,
 			preventFocusOnTap,
 			onTap: this.props.onSwitch,
-			onChangeState: (state) => { this.setState({state}) },
+			onChangeTapState: ({hovered, pressed}) => {
+				this.setState({
+					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
+				})
+			},
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
 		}, this.renderContainer())
