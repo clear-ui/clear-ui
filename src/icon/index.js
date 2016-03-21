@@ -3,8 +3,6 @@ import React from 'react'
 import mixin from '../utils/mixin'
 import StylesMixin from '../utils/stylesMixin'
 
-let propTypes = React.PropTypes
-
 // let allIcons = require.context('./icons').keys()
 // TODO use allIcons
 
@@ -20,10 +18,10 @@ const ICONS = {
 
 class Icon extends React.Component {
 	static propTypes = {
-		icon: propTypes.string.isRequired,
+		icon: React.PropTypes.string.isRequired,
 		inline: React.PropTypes.bool,
 		/** Css size for inline icon. */
-		size: React.PropTypes.string | React.PropTypes.number
+		size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
 	}
 
 	static defaultProps = {

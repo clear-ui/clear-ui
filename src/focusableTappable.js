@@ -11,7 +11,7 @@ export default class FocusableTappable extends React.Component {
 		...Tappable.propTypes,
 		onFocus: React.PropTypes.func,
 		onBlur: React.PropTypes.func,
-		tabIndex: React.PropTypes.number,
+		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
 		preventFocusOnTap: React.PropTypes.bool
 	}
 

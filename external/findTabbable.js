@@ -29,13 +29,30 @@ function focusable(element, tabIndexIsNaN) {
 	return result && $(element).is(':visible')
 }
 
+function getTabIndex(element) {
+	return parseInt(element.getAttribute('tabindex'), 10)
+}
+
 function tabbable(element) {
-	let tabIndex = element.getAttribute('tabindex')
-	let tabIndexIsNaN = (tabIndex === null) || isNaN(tabIndex)
-	return (tabIndexIsNaN || tabIndex >= 0) && focusable(element, tabIndexIsNaN)
+	let tabIndex = getTabIndex(element)
+	let tabIndexIsNaN = Number.isNaN(tabIndex)
+	return focusable(element, tabIndexIsNaN) && tabIndex !== -1
+}
+
+function sortTabIndex(a, b) {
+	let aTabIndex = getTabIndex(a)
+	let bTabIndex = getTabIndex(b)
+	let aIsSortable = !Number.isNaN(aTabIndex) && aTabIndex !== 0
+	let bIsSortable = !Number.isNaN(bTabIndex) && bTabIndex !== 0
+
+	if (aIsSortable && bIsSortable) return aTabIndex - bTabIndex
+	else if (!aIsSortable && !bIsSortable) return 0
+	else if (aIsSortable) return -1
+	else if (bIsSortable) return 1
 }
 
 export default function findTabbable(element) {
 	return Array.from(element.querySelectorAll('*'))
-		.filter((elem) => tabbable(elem))
+		.filter((elem) => { return tabbable(elem) })
+		.sort(sortTabIndex)
 }

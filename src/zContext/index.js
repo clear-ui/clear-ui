@@ -43,7 +43,7 @@ class LayerContainer extends React.Component {
 
 	shouldComponentUpdate(nextProps) {
 		// This prevents cyclic updates, when something in the layer
-		// updates ZContext on its 'didUpdate', f.e. add new layer.
+		// updates ZContext on its 'didUpdate', e.g. adds new layer.
 		let equal = (this.props.children === nextProps.children) &&
 			_.isEqual(_.omit(this.props, 'children'), _.omit(nextProps, 'children'))
 		return !equal

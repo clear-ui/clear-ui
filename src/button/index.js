@@ -28,7 +28,7 @@ class Button extends React.Component {
 		disabled: React.PropTypes.bool,
 
 		/** HTML tabIndex attribute. */
-		tabIndex: React.PropTypes.any,
+		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
 
 		/**
 		 * If true, button will became focused when you navigate to it
@@ -47,7 +47,8 @@ class Button extends React.Component {
 	}
 
 	static defaultProps = {
-		preventFocusOnTap: true
+		preventFocusOnTap: true,
+		tabIndex: 0
 	}
 
 	constructor() {
@@ -62,7 +63,8 @@ class Button extends React.Component {
 			style: this.styles.label
 		}, this.props.children)
 
-		let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
+		//let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
+		let elemType = 'div'
 		return React.DOM[elemType]({
 			style: this.styles.root,
 			disabled: this.props.disabled

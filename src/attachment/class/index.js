@@ -11,7 +11,7 @@ import type {
 	CssPosition, AttachmentMirrorAxis, AttachmentConstrain
 } from './types.js'
 
-let SUPPORTS_TRANSFORM = 'transform' in document.body.style
+// let SUPPORTS_TRANSFORM = 'transform' in document.body.style
 
 type AttachmentOptions = {
 	/** Attached element */
@@ -40,7 +40,7 @@ type AttachmentOptions = {
 	constrain?: boolean | AttachmentConstrain;
 
 	/** TODO */
-	onChangeAttachment: (index: number) => void;
+	onChangeAttachment?: (index: number) => void;
 }
 
 type ProcessedOptions = {
@@ -152,22 +152,22 @@ class Attachment {
 	}
 
 	setPosition(position: CssPosition) {
-		//let css = SUPPORTS_TRANSFORM ?
-			//{
-				//transform: `translate(${position.left}px, ${position.top}px)`,
-				//top: 0, left: 0
-			//} :
-			//position
-		//if (!_.isEqual(css, this.cachedCss)) {
-		//	this.cachedCss = css
-		//this.options.element.css(css)
-		//}
+		// let css = SUPPORTS_TRANSFORM ?
+			// {
+				// transform: `translate(${position.left}px, ${position.top}px)`,
+				// top: 0, left: 0
+			// } :
+			// position
+		// if (!_.isEqual(css, this.cachedCss)) {
+			// this.cachedCss = css
+		// this.options.element.css(css)
+		// }
 
 		// TODO transform conflicts with animations
-		//let css = {
-			//transform: `translate(${position.left}px, ${position.top}px)`,
-			//top: 0, left: 0
-		//}
+		// let css = {
+			// transform: `translate(${position.left}px, ${position.top}px)`,
+			// top: 0, left: 0
+		// }
 		let css = position
 		this.options.element.css(css)
 	}
@@ -179,10 +179,10 @@ class Attachment {
 
 	/** @public TODO */
 	static updatePosition() {
-		//TODO batch recalc/reflow
-		//this.updatedInstances.forEach(function(item) {
+		// TODO batch recalc/reflow
+		// this.updatedInstances.forEach(function(item) {
 		//	item.readMeasurements()
-		//})
+		// })
 		this.updatedInstances.forEach(function(item) {
 			item.updatePosition()
 		})

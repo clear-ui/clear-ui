@@ -10,22 +10,30 @@ import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Animation, {slide, scale, fade} from '../animations'
 
-const SUPPORTS_TRANSFORM = 'transform' in document.body.style
+// const SUPPORTS_TRANSFORM = 'transform' in document.body.style
 const scrollbarWidth = getScrollbarWidth()
 
-/*
- * @param {number|string} [props.width] - Width of the modal (value of the CSS-property width).
- * @param {boolean} props.alignTop // TODO
- * @param {boolean} [props.closeOnClickOutside=true]
- * @param {boolean} [props.closeOnClick=false]
- * @param {boolean} [props.closeOnEsc=true]
- * @param {'fade'|'scale'|'slideDown'} [props.animation='fade']
- */
+
 @mixinDecorator(StylesMixin, ChildComponentsMixin)
 class Modal extends React.Component {
+	static propTypes = {
+		/** Width of the modal (value of the CSS-property width). */
+
+		/** TODO */
+		alignTop: React.PropTypes.bool,
+
+		/** Default: true */
+		closeOnClickOutside: React.PropTypes.bool,
+
+		/** Default: true */
+		closeOnClick: React.PropTypes.bool,
+
+		/** Default: 'fade' */
+		animation: React.PropTypes.oneOf('fade', 'scale', 'slideDown')
+	}
+
 	static defaultProps = {
 		closeOnClickOutside: true,
-		closeOnClick: false,
 		closeOnEsc: true,
 		animation: 'fade'
 	}
@@ -155,7 +163,7 @@ class Modal extends React.Component {
 		if (this.props.onClose) this.props.onClose()
 	}
 
-	doesPageHasScroll() {
+	doesPageHasScroll() : boolean {
 		return document.body.clientWidth < window.innerWidth
 	}
 
