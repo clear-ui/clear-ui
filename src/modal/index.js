@@ -105,7 +105,7 @@ class Modal extends React.Component {
 		if (this.props.animation) {
 			return React.createElement(Motion, {
 				defaultStyle: {progress: 0},
-				style: {progress: spring(this.props.open ? 1 : 0, [320, 30])}
+				style: {progress: spring(this.props.open ? 1 : 0, {stiffness: 320, damping: 30})}
 			}, (value) => {
 				let isClosing = !this.props.open && value.progress !== 0
 

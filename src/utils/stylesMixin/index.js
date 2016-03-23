@@ -14,13 +14,12 @@ function postprocessStyle(style) {
 		let value = style[i]
 		if (value && value.rgbaString) style[i] = value.rgbaString()
 	}
-	style = getPrefixer().prefix(style)
-	return style
+	return getPrefixer().prefix(style)
 }
 
 export default {
 	getStyles(props, state, context) {
-		let stylesFn = composeStyles(this.constructor.styles, props.styles)
+		let stylesFn = composeStyles(this.constructor.styles, props.styles, {root: props.style})
 		let styles = stylesFn(props, state, context)
 		for (let elem in styles) {
 			styles[elem] = postprocessStyle(styles[elem])

@@ -62,9 +62,6 @@ class Attachment {
 	prevAttachmentIndex: number;
 
 	constructor(options: AttachmentOptions) {
-		if (typeof options.constrain === 'undefined') options.constrain = false
-		if (typeof options.mirrorAttachment === 'undefined') options.mirrorAttachment = 'none'
-		if (typeof options.viewportPadding === 'undefined') options.viewportPadding = 0
 		this.updateOptions(options)
 
 		Attachment.addInstance(this)
@@ -76,6 +73,12 @@ class Attachment {
 	}
 
 	processOptions(options: AttachmentOptions): ProcessedOptions {
+		let DEFAULT_OPTIONS = {
+			constrain: false,
+			mirrorAttachment: 'none',
+			viewportPadding: 0
+		}
+
 		let {element, target, constrain, attachment, mirrorAttachment, ...rest} = options
 
 		if (typeof constrain === 'boolean' || typeof constrain === 'undefined') {
@@ -95,6 +98,7 @@ class Attachment {
 		}
 
 		let res = {
+			...DEFAULT_OPTIONS,
 			element: element instanceof $ ? element : $(element),
 			target: target instanceof $ ? target : $(target),
 			parsedAttachments,

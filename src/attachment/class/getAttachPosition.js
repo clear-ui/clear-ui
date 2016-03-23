@@ -65,6 +65,7 @@ function constrainPosition(
 	}
 	return pos
 }
+
 /**
  * Finds attachment that can fit element in the viewport and
  * returns position of attached element.

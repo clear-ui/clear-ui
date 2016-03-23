@@ -26,7 +26,7 @@
     "color": "^0.10.1",
     "inline-style-prefixer": "^0.5.4",
     "react-addons-update": "^0.14.0",
-    "react-motion": "^0.3.1",
+    "react-motion": "^0.4.2",
     "shallowequal": "^0.2.2",
     "underscore": "^1.8.3"
   },

@@ -25,15 +25,15 @@ export function fade({originalStyle, progress}) {
 	return {...originalStyle, opacity}
 }
 
-export function slide({originalStyle, side = 'top', distance = 10, progress}) {
+export function slide({originalStyle, side = 'top', distance = 10, unit = 'px', progress}) {
 	let transform = ''
 	if (originalStyle && originalStyle.transform) transform += originalStyle.transform + ' '
 	let translate = Math.round(distance * (1 - progress))
 	switch (side) {
-	case 'top': transform += `translateY(${translate}px)`; break
-	case 'bottom': transform += `translateY(${-translate}px)`; break
-	case 'left': transform += `translateX(${translate}px)`; break
-	case 'right': transform += `translateX(${-translate}px)`; break
+	case 'top': transform += `translateY(${translate}${unit})`; break
+	case 'bottom': transform += `translateY(${-translate}${unit})`; break
+	case 'left': transform += `translateX(${translate}${unit})`; break
+	case 'right': transform += `translateX(${-translate}${unit})`; break
 	}
 	return {...originalStyle, transform}
 }

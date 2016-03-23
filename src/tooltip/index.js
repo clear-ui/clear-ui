@@ -112,7 +112,6 @@ class Tooltip extends React.Component {
 		}
 	}
 
-
 	//componentWillReceiveProps(props) {
 		//let side = props.sides[0]
 		//this.updateSide(side)
@@ -140,9 +139,9 @@ class Tooltip extends React.Component {
 				//props.onTap = () => { this.setManagedState({open: !this.state.open}) }
 			//} else
 			if (this.props.showOnHover) {
-				props.onChangeState = (state) => {
+				props.onChangeTapState = ({hovered}) => {
 					clearTimeout(this.timer)
-					if (state !== 'initial') {
+					if (hovered) {
 						if (!this.state.open) {
 							this.timer = setTimeout(() => {
 								this.setManagedState({open: true})
@@ -161,9 +160,8 @@ class Tooltip extends React.Component {
 		}
 
 		let attachment = React.createElement(Attachment, {
-			onSetMod: { // FIXME
-				open: (val) => { this.setManagedState({open: val}) }
-			},
+			open: this.state.open,
+			onClose: () => { this.setManagedState({open: false}) },
 			onChangeAttachment: (id) => {
 				this.updateSide(this.props.sides[id])
 			},
@@ -173,7 +171,6 @@ class Tooltip extends React.Component {
 			//layerProps: {
 				//closeOnEsc: true when open with click but not hover
 			//},
-			open: this.state.open
 		}, target)
 
 		let tooltip = this.renderTooltip()
@@ -181,7 +178,7 @@ class Tooltip extends React.Component {
 		if (this.props.animation) {
 			return React.createElement(Motion, {
 				defaultStyle: {progress: 0},
-				style: {progress: spring(this.state.open ? 1 : 0, [320, 30])}
+				style: {progress: spring(this.state.open ? 1 : 0, {stiffness: 320, damping: 30})}
 			}, (value) => {
 				let tooltipAnimation = React.cloneElement(
 					this.getChildComponent('animation'),
@@ -195,7 +192,6 @@ class Tooltip extends React.Component {
 			})
 		} else {
 			return React.cloneElement(attachment, {
-				state: {open: this.state.open},
 				element: tooltip
 			})
 		}
