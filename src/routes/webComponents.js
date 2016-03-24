@@ -4,6 +4,7 @@ import Checkbox from '../pages/docs/web/checkbox'
 import Input from '../pages/docs/web/input'
 import Menu from '../pages/docs/web/menu'
 import Modal from '../pages/docs/web/modal'
+import Notifications from '../pages/docs/web/notifications'
 import RadioButtons from '../pages/docs/web/radioButtons'
 import Select from '../pages/docs/web/select'
 import Tooltip from '../pages/docs/web/tooltip'
@@ -19,5 +20,6 @@ export default [
 	{path: 'select', component: Select},
 	{path: 'tooltip', component: Tooltip},
 	{path: 'radio-buttons', component: RadioButtons},
-	{path: 'modal', component: Modal}
+	{path: 'modal', component: Modal},
+	{path: 'notifications', component: Notifications}
 ]

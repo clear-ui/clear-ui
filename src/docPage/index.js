@@ -5,6 +5,10 @@ import ArrowIcon from './arrowIcon.js'
 import css from './index.scss'
 
 class DocPage extends React.Component {
+	static defaultProps = {
+		width: 800
+	}
+
 	render() {
 		let [firstChild, ...restChildren] = this.props.children
 		if (firstChild.type === 'h1') {
@@ -18,7 +22,8 @@ class DocPage extends React.Component {
 			className: css.docPage,
 			style: {
 				padding: '2rem',
-				margin: 'auto', width: '800px'
+				margin: 'auto',
+				width: this.props.width
 			}
 		},
 			React.createElement(Markdown, {options: {html: true}}, children)

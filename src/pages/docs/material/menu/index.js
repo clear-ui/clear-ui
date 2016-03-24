@@ -97,11 +97,7 @@ export default class MenuDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > Menu props</a>
+					<a href='#/docs/base/menu'>Base > Menu props</a>
 				</ApiDoc.Row>
 
 				<ApiDoc.Row name='desktop' type='boolean'>
@@ -112,11 +108,7 @@ export default class MenuDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > Menu > MenuItem props</a>
+					<a href='#/docs/base/menu'>Base > Menu > MenuItem props</a>
 				</ApiDoc.Row>
 			</ApiDoc>
 		</DocPage>

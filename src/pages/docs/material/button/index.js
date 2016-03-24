@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 import RaisedButton from 'clear-ui-material/lib/button/raisedButton'
 import FlatButton from 'clear-ui-material/lib/button/flatButton'
@@ -63,7 +64,7 @@ export default class ButtonDoc extends React.Component {
 					{' '}
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
-					<RaisedButton disabled={true}>Raised button</Button>
+					<RaisedButton disabled={true}>Raised button</RaisedButton>
 					<FlatButton disabled={true}>Flat button<FlatButton>
 				`}</Example.Code>
 			</Example>
@@ -151,11 +152,7 @@ export default class ButtonDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/button' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>BaseButton props...</a>
+					<Link to='/docs/base/button'>Base > Button Props</Link>
 				</ApiDoc.Row>
 
 				<ApiDoc.Row name='dense' type='boolean'>{`

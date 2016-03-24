@@ -2,20 +2,26 @@ import React from 'react'
 
 import Modal from 'clear-ui-simple/lib/modal'
 import Button from 'clear-ui-simple/lib/button/raisedButton'
-/*import Input from 'clear-ui/lib/input'*/
+import Input from 'clear-ui-simple/lib/input'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 
 class ModalDemo extends React.Component {
+	static defaultProps = {
+		buttonText: 'Open modal'
+	}
+
 	constructor(props) {
 		super(props)
 		this.state = {}
 	}
 
 	render() {
-		return <div>
-			<Button onTap={() => { this.setState({open: true}) }}>Open modal</Button>
+		return <span>
+			<Button onTap={() => { this.setState({open: true}) }}>
+				{this.props.buttonText}
+			</Button>
 			<Modal
 				{...this.props}
 				open={this.state.open}
@@ -23,65 +29,53 @@ class ModalDemo extends React.Component {
 			>
 				{this.props.children}
 			</Modal>
-		</div>
+		</span>
 	}
 }
 
 export default class ModalDoc extends React.Component {
 	render() {
+		let content = <div>
+			<h3>Modal</h3>
+			Content of the modal
+			<br/>
+			<br/>
+			1 <Input/>
+			<br/>
+			<br/>
+			2 <Input/>
+		</div>
 
 		return <DocPage>
 			<h1>Web<DocPage.ArrowIcon/>Modal</h1>
 
 			{`
 			Modal displays content in the window above the page.
-
-			On open modal sets focus on the first focusable element inside.
-			Also it restricts moving focus outside of the modal, e.g. with \`tab\` key.
-			On close it returns focus to the element that was focused before.
 			`}
 
 			<h2>Example</h2>
 
 			<Example>
 				<Example.Demo>
-					<ModalDemo>
-						<h3>Modal</h3>
-						<p>
-							First input: {/*<Input/>*/}
-						</p>
-						<p>
-							Second input: {/*<Input/>*/}
-						</p>
-					</ModalDemo>
+					<ModalDemo>{content}</ModalDemo>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Button onClick={() => { this.setState({modalIsOpen: true}) }}>
 						Open modal
 					</Button>
 
-					<Modal mods={{open: this.state.modalIsOpen}}
-						onSetMod={{open: (value) => { this.setState({modalIsOpen: value}) }}}>
+					<Modal open={this.state.modalIsOpen}
+						onClose={() => { this.setState({modalIsOpen: value}) }}}>
 						{/* content */}
 					</Modal>
 				`}</Example.Code>
 			</Example>
 
 			{`
-			## ....
-			`}
-
-			<Example>
-				<Example.Demo>
-					<ModalDemo>
-						modal
-					</ModalDemo>
-				</Example.Demo>
-			</Example>
-
-
-			{`
 			## Long content
+
+			When modal is bigger than screen's height,
+			scroll appears on the right side of the screen.
 			`}
 
 			<Example>
@@ -121,6 +115,27 @@ export default class ModalDoc extends React.Component {
 					</ModalDemo>
 				</Example.Demo>
 			</Example>
+
+			<h2>Animations</h2>
+
+			<Example>
+				<Example.Demo>
+					<ModalDemo buttonText={'Fade (default)'} animation='fade'>{content}</ModalDemo>
+					{' '}
+					<ModalDemo buttonText='Scale' animation='scale'>{content}</ModalDemo>
+					{' '}
+					<ModalDemo buttonText='SlideDown' animation='slideDown'>{content}</ModalDemo>
+					{' '}
+					<ModalDemo buttonText='No animation' animation={false}>{content}</ModalDemo>
+				</Example.Demo>
+				<Example.Code lang='xml'>{`
+					<Modal animation='fade'>...<Modal>
+					<Modal animation='scale'>...<Modal>
+					<Modal animation='slideDown'>...<Modal>
+					<Modal animation={false}>...<Modal>
+				`}</Example.Code>
+			</Example>
+
 
 			<h2>API</h2>
 

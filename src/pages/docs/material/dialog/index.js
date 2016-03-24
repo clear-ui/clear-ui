@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router'
 
 import Dialog from 'clear-ui-material/lib/dialog'
 import FlatButton from 'clear-ui-material/lib/button/flatButton'
@@ -9,22 +10,41 @@ import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
 
 class DialogDemo extends React.Component {
+	static defaultProps = {
+		buttonText: 'Open dialog'
+	}
+
 	constructor(props) {
 		super(props)
 		this.state = {}
 	}
 
 	render() {
-		return <div>
-			<RaisedButton onTap={() => { this.setState({open: true}) }}>Open dialog</RaisedButton>
+		let header = 'Dialog header'
+		let content = 'Dialog content'
+		let actions = [
+			<FlatButton primary={true} onTap={() => { this.setState({dialogOpen: false}) }}>
+				Cancel
+			</FlatButton>,
+			<FlatButton accent={true} onTap={() => { this.setState({dialogOpen: false}) }}>
+				OK
+			</FlatButton>
+		]
+
+		return <span>
+			<FlatButton onTap={() => { this.setState({dialogOpen: true}) }}>
+				{this.props.buttonText}
+			</FlatButton>
 			<Dialog
 				{...this.props}
-				open={this.state.open}
-				onClose={(value) => { this.setState({open: false}) }}
+				header={header}
+				actions={actions}
+				open={this.state.dialogOpen}
+				onClose={(value) => { this.setState({dialogOpen: false}) }}
 			>
-				{this.props.children}
+				{content}
 			</Dialog>
-		</div>
+		</span>
 	}
 }
 
@@ -34,49 +54,69 @@ export default class ModalDoc extends React.Component {
 		return <DocPage>
 			<h1>Material<DocPage.ArrowIcon/>Dialog</h1>
 
+			{`
+			Dialogs contain text and UI controls focused on a specific task.
+			They inform users about critical information, require users to make decisions,
+			or involve multiple tasks.
+			`}
+
+			<a
+				href='https://www.google.com/design/spec/components/dialogs.html'
+				target='blank'
+			>
+				Dialogs specification
+			</a>
+
 			<h2>Example</h2>
 
 			<Example>
 				<Example.Demo>
-					<DialogDemo
-						animation='scale'
+					<DialogDemo/>
+				</Example.Demo>
+				<Example.Code>{`
+					<FlatButton onTap={() => { this.setState({dialogOpen: true}) }}>
+						Open dialog
+					</FlatButton>
+
+					<Dialog
+						open={this.state.dialogOpen}
+						onClose={() => { this.setState({dialogOpen: false}) }}
 						header='Dialog header'
 						actions={[
-							<FlatButton primary={true}>Cancel</FlatButton>,
-							<FlatButton accent={true}>Submit</FlatButton>
+							<FlatButton primary={true}
+								onTap={() => { this.setState({dialogOpen: false}) }}>
+								Cancel
+							</FlatButton>,
+							<FlatButton accent={true}
+								onTap={() => { this.setState({dialogOpen: false}) }}>
+								OK
+							</FlatButton>
 						]}
 					>
 						Dialog content
-					</DialogDemo>
-
-					<DialogDemo
-						animation='fade'
-						header='Dialog header'
-						actions={
-							'actions'
-						}
-					>
-						Dialog content
-					</DialogDemo>
-
-					<DialogDemo
-						animation='slideDown'
-						header='Dialog header'
-						actions={
-							'actions'
-						}
-					>
-						Dialog content
-					</DialogDemo>
-
-				</Example.Demo>
-				<Example.Code lang='xml'>{`
+					</Dialog>
 				`}</Example.Code>
 			</Example>
 
-			<h2>Focus management/handling</h2>
-
 			<h2>Animations</h2>
+
+			<Example>
+				<Example.Demo>
+					<DialogDemo buttonText='Fade (default)' animation='fade'/>
+					{' '}
+					<DialogDemo buttonText='Scale' animation='scale'/>
+					{' '}
+					<DialogDemo buttonText='SlideDown' animation='slideDown'/>
+					{' '}
+					<DialogDemo buttonText='No animation' animation={false}/>
+				</Example.Demo>
+				<Example.Code lang='xml'>{`
+					<Dialog animation='fade'>...</Dialog>
+					<Dialog animation='scale'>...</Dialog>
+					<Dialog animation='slideDown'>...</Dialog>
+					<Dialog animation={false}>...</Dialog>
+				`}</Example.Code>
+			</Example>
 
 			<h2>Width?</h2>
 
@@ -85,34 +125,16 @@ export default class ModalDoc extends React.Component {
 			<h3>Props</h3>
 
 			<ApiDoc>
-				<ApiDoc.Row label='width'>{`
-					Type: \`number|string\`
+				<ApiDoc.Row>
+					<Link to='/docs/base/modal'>Base > Modal Props</Link>
+				</ApiDoc.Row>
 
-					Width of the modal (value of the CSS width property).
+				<ApiDoc.Row name='header' type='node'>{`
+					The title of the dialog.
 				`}</ApiDoc.Row>
 
-				<ApiDoc.Row label='closeOnClickOutside'>{`
-					Type: \`boolean\`
-					<br/>
-					Default: \`true\`
-
-					Close on click outside of the dialog window.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='closeOnClick'>{`
-					Type: \`boolean\`
-					<br/>
-					Default: \`false\`
-
-					Close on click in the dialog window.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='closeOnEsc'>{`
-					Type: \`boolean\`
-					<br/>
-					Default: \`true\`
-
-					Close on pressing \`Esc\` key.
+				<ApiDoc.Row name='actions' type='node'>{`
+					Actions to render in the dialog.
 				`}</ApiDoc.Row>
 			</ApiDoc>
 

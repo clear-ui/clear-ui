@@ -122,7 +122,7 @@ export default class MenuDoc extends React.Component {
 			{`
 			Item can have icons at the right and left sides.
 
-			Right icon can be clickable, when you provide \`onRightIconClick\` callback.
+			Right icon can be clickable, when you provide \`onRightIconTap\` callback.
 
 			If you want to align text of all items to the same position,
 			you can use mod \`indent: true\` on items without icons, and labels.
@@ -176,7 +176,7 @@ export default class MenuDoc extends React.Component {
 							Item with icons
 						</MenuItem>
 						<MenuItem leftIcon={starIcon} rightIcon={kebabIcon}
-							onRightIconClick={() => { console.log('click') }}
+							onRightIconTap={() => { console.log('click') }}
 						>
 							Item with clickable right icon
 						</MenuItem>

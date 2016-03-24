@@ -15,35 +15,45 @@ export default class CustomizationDocs extends React.Component {
 				textAlign: 'center'
 			}}>
 				<div style={logoStyle}>Clear UI</div>
-				<div style={captionStyle}>UI components library for React.</div>
+				<div style={captionStyle}>UI components library for React</div>
 			</div>
 
-			<DocPage>
-				<h2>Features</h2>
+			<DocPage width={640}>
+				<h2>About Clear UI</h2>
 
 				{`
-				- Clear UI includes several sets of components with different designs:
+				Goal of Clear UI is to provide simple and powerful abstractions of
+				UI components behaviour, and not to make one set of complete components.
 
-					- \`clear-ui-material\` - Components following Google Material Desigh guidelines.
-					- \`clear-ui-ios\` - Apple iOS
-					- \`clear-ui-web\` - Generic components for web design with most common features.
+				Different web apps on different platforms require different styles of
+				appearance, and you can not have one set of components that will fit in
+				all situations.
+				Instead of it Clear UI allows to completely customize 
+				visual appearance of all components.
 
-				- Extensibility
+				## What
 
-					You can completely change visual appearance
-					and a lot of parameters of components.
-					Read more on the [Customization](#customization) page.
+				Clear UI includes several ready-to-use sets of components:
 
-				- Cross-platform and cross-browser support
+				- [Clear UI Web](a) – Generic components for web design with most common features.
+				- [Clear UI Material](a) – Components following Google Material Design guidelines.
+				- [Clear UI iOS](a) – Apple iOS
 
-					Supports last versions of all popular browser and IE 9+,
-					and also mobile browsers on Android and mobile Safari.
+				Or you can make your own set of components with custom appearance
+				using components from [Clear UI Base](/qwe).
 
-				- Modular
+				## Features
 
-					Clear UI can be used with different module loaders such as webpack or browserify,
-					so only used components will be included in the bundle.
-					Also, precompiled versions are available.
+				### Cross-platform and cross-browser
+
+				Supports last versions of all popular browser and IE 9+,
+				and also mobile browsers on Android and mobile Safari.
+
+				### Modular
+
+				Clear UI can be used with different module loaders such as webpack or browserify,
+				so only used components will be included in the bundle.
+				Also, precompiled versions are available.
 
 				`}
 			</DocPage>

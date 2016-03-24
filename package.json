@@ -12,7 +12,7 @@
   "author": "sunflowerdeath",
   "license": "public domain",
   "dependencies": {
-    "highlight.js": "^9.0.0",
+    "highlight.js": "^9.2.0",
     "history": "^1.10.2",
     "html-webpack-plugin": "^1.6.2",
     "jquery": "^2.1.4",

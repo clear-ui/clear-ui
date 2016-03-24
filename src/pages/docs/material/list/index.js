@@ -73,7 +73,7 @@ export default class ListDoc extends React.Component {
 						<ListItem leftIcon={starIcon}>Item with left icon</ListItem>
 						<ListItem leftAvatar={avatar}>Item with left avatar</ListItem>
 						<ListItem indent={true}>Indented item</ListItem>
-						<hr/>
+						<ListDivider/>
 						<ListItem rightIcon={starIcon}>Item with right icon</ListItem>
 						<ListItem rightAvatar={avatar}>Item with right avatar</ListItem>
 					</div>
@@ -82,7 +82,7 @@ export default class ListDoc extends React.Component {
 					<ListItem leftIcon={starIcon}>Item with left icon</ListItem>
 					<ListItem leftAvatar={avatar}>Item with left avatar</ListItem>
 					<ListItem indent={true}>Indented item</ListItem>
-					<hr/>
+					<ListDivider/>
 					<ListItem rightIcon={starIcon}>Item with right icon</ListItem>
 					<ListItem rightAvatar={avatar}>Item with right avatar</ListItem>
 				`}</Example.Code>
@@ -95,7 +95,7 @@ export default class ListDoc extends React.Component {
 					<div style={{width: 300}}>
 						<ListItem
 							rightIcon={starIcon}
-							onRightIconClick={() => { console.log('click') }}
+							onRightIconTap={() => { console.log('click') }}
 						>
 							Item with clickable right icon
 						</ListItem>
@@ -168,11 +168,7 @@ export default class ListDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > Menu props...</a>
+					<a href='#/docs/base/menu'>Base > Menu props</a>
 				</ApiDoc.Row>
 			</ApiDoc>
 
@@ -180,11 +176,7 @@ export default class ListDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > Menu > MenuItem props...</a>
+					<a href='#/docs/base/menu'>Base > Menu > MenuItem props</a>
 				</ApiDoc.Row>
 
 				<ApiDoc.Row

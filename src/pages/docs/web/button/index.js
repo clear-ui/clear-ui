@@ -17,7 +17,7 @@ export default class ButtonDoc extends React.Component {
 		let triangleIcon = <Icon icon={Icon.ICONS.triangleDown}/>
 
 		return <DocPage>
-			<h1>Web > Button</h1>
+			<h1>Web<DocPage.ArrowIcon/>Button</h1>
 
 			<h2>Example</h2>
 

@@ -59,7 +59,7 @@ export default class CustomizationDocs extends React.Component {
 					<RaisedButton styles={(props, state) => {
 						let root = {background: 'blue'}
 						let label = {color: 'aqua', fontFamily: 'cursive'}
-						if (state.state === 'hovered' || state.state === 'active') {
+						if (state.tapState === 'hovered' || state.tapState === 'active') {
 							root.background = 'indigo'
 						}
 						return {root, label}
@@ -71,7 +71,7 @@ export default class CustomizationDocs extends React.Component {
 					<RaisedButton styles={(props, state) => {
 						let root = {background: 'blue'}
 						let label = {color: 'aqua', fontFamily: 'cursive'}
-						if (state.state === 'hovered' || state.state === 'active') {
+						if (state.tapState === 'hovered' || state.tapState === 'active') {
 							root.background = 'indigo'
 						}
 						return {root, label}
