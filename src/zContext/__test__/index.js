@@ -1,11 +1,10 @@
 import assert from 'assert'
-import React from 'react/addons'
+import React from 'react'
 import _ from 'underscore'
 import $ from 'jquery'
+import testUtils from 'react-addons-test-utils'
 
 import ZContext from '../index'
-
-let testUtils = React.addons.TestUtils
 
 describe('zContext', function() {
 	let container

@@ -6,7 +6,6 @@ import assert from 'assert'
 import testUtils from 'react-addons-test-utils'
 
 import ZContext from '../index'
-import css from '../index.scss'
 
 describe('zContext/layer', function() {
 	let container
@@ -123,7 +122,7 @@ describe('zContext/layer', function() {
 		assert.equal(layers.length, 3) // initial + overlay + popup
 
 		let overlay = testUtils.findRenderedDOMComponentWithClass(
-			ZContext.instance, css['zContext__overlay'])
+			ZContext.instance, 'zContext__overlay') // FIXME
 		testUtils.Simulate.click(overlay)
 
 		layers = testUtils.scryRenderedComponentsWithType(

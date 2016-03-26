@@ -30,7 +30,7 @@ export default class StackingNotificationContext extends AbstractNotificationsCo
 			let notifications = _.flatten(
 				interpolatedStyles.map(this.renderNotification.bind(this))
 			)
-			return <div key='hz'>{notifications}</div>
+			return <div>{notifications}</div>
 		})
 	}
 
@@ -53,6 +53,8 @@ export default class StackingNotificationContext extends AbstractNotificationsCo
 	}
 
 	remove(key) {
+		if (!this.mounted) return
+
 		let searchFn = (item) => { return item.key !== key }
 		this.setState({notifications: this.state.notifications.filter(searchFn)})
 	}

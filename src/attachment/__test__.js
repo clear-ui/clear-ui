@@ -9,7 +9,7 @@ import ZContext from '../zContext'
 import Attachment from './index'
 
 describe('attachment', function() {
-	var container
+	let container
 
 	beforeEach(function() {
 		container = $('<div>').prependTo('body').css({
@@ -18,39 +18,42 @@ describe('attachment', function() {
 	})
 
 	afterEach(function() {
-		React.unmountComponentAtNode(container[0])
+		ReactDOM.unmountComponentAtNode(container[0])
 		container.remove()
 	})
+
+	const winHeight = $(window).height()
+
+	const TOP = Math.round(winHeight * 0.1)
+	const HEIGHT = Math.round(winHeight * 0.2)
 
 	let target = React.DOM.div({
 		style: {
 			background: '#eee',
 			width: 100,
-			height: 50,
+			height: HEIGHT,
 			position: 'absolute',
-			top: 100,
+			top: TOP,
 			left: 100
 		}
 	}, 'target')
 
 	let element = React.DOM.div({
 		className: 'element',
-		style: {width: 100, height: 200, background: '#ccc'}
+		style: {width: 100, height: winHeight * 0.5, background: '#ccc'}
 	}, 'element')
 
 	it('renders element in Layer and attaches it to target', function() {
 		let attachment = React.createElement(Attachment, {
-			options: {
-				attachment: {
-					target: 'center bottom',
-					element: 'center top'
-				}
+			attachment: {
+				target: 'center bottom',
+				element: 'center top'
 			},
-			mods: {open: true},
+			open: true,
 			element
 		}, target)
 		let page = React.createElement(ZContext, null, attachment)
-		React.render(page, container[0])
+		ReactDOM.render(page, container[0])
 
 		let layers = testUtils.scryRenderedComponentsWithType(
 			ZContext.instance, ZContext.LayerContainer)
@@ -60,7 +63,7 @@ describe('attachment', function() {
 		let elem = $(ReactDOM.findDOMNode(layer)).find('.element')
 		assert.equal(elem.length, 1)
 		assert.equal(elem.text(), 'element')
-		assert.equal(elem.offset().top, 150)
+		assert.equal(elem.css('top'), TOP + HEIGHT + 'px')
 	})
 
 	xit('passes popupOptions to Popup', function() {

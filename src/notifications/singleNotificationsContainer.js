@@ -80,7 +80,9 @@ export default class SingleNotificationsContainer extends AbstractNotificationsC
 	}
 
 	remove(key) {
-		if (this.state.currentNotification.key === key) {
+		if (!this.mounted) return
+
+		if (this.state.currentNotification && this.state.currentNotification.key === key) {
 			this.setState({currentNotificationIsOpen: false})
 		} else {
 			this.setState({

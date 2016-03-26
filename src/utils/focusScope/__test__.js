@@ -5,7 +5,7 @@ import $ from 'jquery'
 
 import FocusScope from './index'
 
-describe.only('focusScope', function() {
+describe('focusScope', function() {
 	let container, scope
 
 	beforeEach(function() {

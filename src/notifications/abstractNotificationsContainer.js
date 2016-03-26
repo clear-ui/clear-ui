@@ -11,6 +11,7 @@ export default class AbstractNotificationsContainer extends React.Component {
 	static propTypes = {
 		vertPos: React.PropTypes.oneOf(['top', 'bottom']),
 		horizPos: React.PropTypes.oneOf(['left', 'right', 'center']),
+		animation: React.PropTypes.string, // TODO
 		isDefault: React.PropTypes.bool
 	}
 
@@ -74,10 +75,12 @@ export default class AbstractNotificationsContainer extends React.Component {
 	}
 
 	componentDidMount() {
+		this.mounted = true
 		if (this.props.isDefault) AbstractNotificationsContainer.defaultInstance = this
 	}
 
 	componentWillUnmount() {
+		this.mounted = false
 		if (this.props.isDefault) AbstractNotificationsContainer.defaultInstance = undefined
 	}
 

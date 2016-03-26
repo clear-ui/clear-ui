@@ -15,7 +15,7 @@ describe('attachment/class', function() {
 	const TARGET_STYLE = {
 		position: 'absolute',
 		width: 100,
-		height: 50,
+		height: Math.round(winHeight * 0.2),
 		left: 0,
 		top: winHeight,
 		background: '#ccc'
@@ -24,7 +24,7 @@ describe('attachment/class', function() {
 	const ELEMENT_STYLE = {
 		position: 'absolute',
 		width: 100,
-		height: 200,
+		height: Math.round(winHeight * 0.5),
 		background: '#ddd'
 	}
 
@@ -76,7 +76,7 @@ describe('attachment/class', function() {
 			element: ELEMENT,
 			target: TARGET,
 			attachment: TOP_ATTACHMENT,
-			mirror: 'vert'
+			mirrorAttachment: 'vert'
 		})
 
 		let elemOffset = ELEMENT.offset()
@@ -95,10 +95,8 @@ describe('attachment/class', function() {
 		})
 
 		let elemOffset = ELEMENT.offset()
-		assert.equal(elemOffset.top, VIEWPORT_PADDING)
+		assert.equal(elemOffset.top, $(window).scrollTop() + VIEWPORT_PADDING)
 	})
-
-	//TODO mirror?
 
 	it('updates with updatePosition', function() {
 		attachment = new Attachment({

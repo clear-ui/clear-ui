@@ -16,6 +16,8 @@ import LAYER_TYPES from './layerTypes'
 
 @mixinDecorator(StylesMixin)
 class LayerContainer extends React.Component {
+	static displayName = 'ZContextLayerContainer'
+
 	static styles = (props) => {
 		let root = {
 			position: 'absolute',

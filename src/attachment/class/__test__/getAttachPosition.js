@@ -1,7 +1,7 @@
 import assert from 'assert'
 
 import getAttachPosition from '../getAttachPosition'
-import mirrorAttachment from '../mirrorAttachment'
+import mirrorAttachmentConfig from '../mirrorAttachmentConfig'
 
 // element can fit at bottom side but not at top
 var MEASUREMENTS = {
@@ -59,7 +59,7 @@ var BOTTOM_POS = {
 		MEASUREMENTS.element.width / 2
 }
 
-var MIRROR_ATTACHMENT = mirrorAttachment({
+var MIRROR_ATTACHMENT = mirrorAttachmentConfig({
 	target: {
 		horiz: {value: 50, unit: '%'},
 		vert: {value: 30, unit: '%'} // height - 30% = 70%
@@ -70,7 +70,7 @@ var MIRROR_ATTACHMENT = mirrorAttachment({
 	}
 }, 'vert')
 
-var MIRROR_POS = {
+let MIRROR_POS = {
 	top: MEASUREMENTS.target.offset.top + MEASUREMENTS.target.height * 0.7 -
 		(MEASUREMENTS.element.height - 30),
 	left: MEASUREMENTS.target.offset.left + MEASUREMENTS.target.width / 2 -
@@ -79,17 +79,17 @@ var MIRROR_POS = {
 
 describe('attachment/class/getAttachPosition', function() {
 	it('calculates attach position', function() {
-		var position = getAttachPosition(MEASUREMENTS, [BOTTOM_ATTACHMENT])
-		assert.deepEqual(position, BOTTOM_POS)
+		let res = getAttachPosition(MEASUREMENTS, [BOTTOM_ATTACHMENT])
+		assert.deepEqual(res[1], BOTTOM_POS)
 	})
 
 	it('chooses attach position that fits', function() {
-		var position = getAttachPosition(MEASUREMENTS, [TOP_ATTACHMENT, BOTTOM_ATTACHMENT])
-		assert.deepEqual(position, BOTTOM_POS)
+		let res = getAttachPosition(MEASUREMENTS, [TOP_ATTACHMENT, BOTTOM_ATTACHMENT])
+		assert.deepEqual(res[1], BOTTOM_POS)
 	})
 
 	it('calculates mirrored attach position', function() {
-		var position = getAttachPosition(MEASUREMENTS, [MIRROR_ATTACHMENT])
-		assert.deepEqual(position, MIRROR_POS)
+		let res = getAttachPosition(MEASUREMENTS, [MIRROR_ATTACHMENT])
+		assert.deepEqual(res[1], MIRROR_POS)
 	})
 })

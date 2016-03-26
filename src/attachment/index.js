@@ -38,13 +38,17 @@ class Attachment extends React.Component {
 	render() {
 		let element = this.props.element
 		let target = this.props.children
-		target = cloneReferencedElement(target, {ref: (ref) => { this.targetRef = ref }})
+		target = cloneReferencedElement(target, {
+			key: 'target',
+			ref: (ref) => { this.targetRef = ref }
+		})
 
 		let layer
 		if (this.props.open) {
 			element = cloneReferencedElement(element, {ref: (ref) => { this.elementRef = ref }})
 			let layerProps = {
 				...this.props.layerProps,
+				key: 'layer',
 				onClose: this.props.onClose,
 				onRender: this.onRender.bind(this),
 				open: this.props.open

@@ -7,13 +7,13 @@ module.exports = function(config) {
 
 
 		files: [
-			//'test_index.js'
-			'./src/utils/boundFunction/__test__.js'
+			'test_index.js'
+			//'./src/utils/boundFunction/__test__.js'
 		],
 
 		preprocessors: {
-			//'test_index.js': ['webpack', 'sourcemap']
-			'./src/utils/boundFunction/__test__.js': ['webpack', 'sourcemap']
+			'test_index.js': ['webpack', 'sourcemap']
+			//'./src/utils/boundFunction/__test__.js': ['webpack', 'sourcemap']
 		},
 
 		webpack: webpackConfig,

@@ -20,6 +20,8 @@ import LAYER_TYPES from './layerTypes'
  */
 @mixinDecorator(StylesMixin, ManagedStateMixin)
 class ZContextLayer extends React.Component {
+	static displayName = 'ZContextLayer'
+
 	static propTypes = {
 		open: React.PropTypes.bool,
 		onClose: React.PropTypes.func,
@@ -28,7 +30,7 @@ class ZContextLayer extends React.Component {
 		closeOnEsc: React.PropTypes.bool,
 		overlay: React.PropTypes.bool,
 		closeOnOverlayClick: React.PropTypes.bool,
-		onRender: React.PropTypes.func,
+		onRender: React.PropTypes.func
 	}
 
 	static defaultProps = {

@@ -1,7 +1,7 @@
 // @flow
 
 import type {
-	Measurements, ParsedAttachmentConfig, AttachmentConstrain, AttachmentConstrainSide,
+	Measurements, ParsedAttachmentConfig, AttachmentConstrain,
 	CssPosition, PointValue
 } from './types.js'
 
@@ -78,7 +78,8 @@ export default function getAttachPosition(
 	constrain: AttachmentConstrain,
 	padding: number
 ): [number, CssPosition | null] {
-	let pos = null, i = -1
+	let pos = null
+	let i = -1
 	for (i = 0; i < attachments.length; i++) {
 		let att = attachments[i]
 		pos = calcPosition(measurements, att)
