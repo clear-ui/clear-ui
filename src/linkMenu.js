@@ -58,9 +58,8 @@ class LinkMenuItem extends MenuItem {
 			let label = {
 				paddingLeft: '2rem',
 				paddingRight: '2rem',
-				paddingTop: 0,
-				paddingBottom: 0,
-				fontSize: '0.94rem'
+				paddingTop: '0.1rem',
+				paddingBottom: '0.1rem'
 			}
 
 			if (state.tapState === 'hovered') root.background = '#e6e6e6'
@@ -83,7 +82,7 @@ class LinkMenuLabel extends MenuLabel {
 			label: {
 				paddingLeft: '2rem',
 				paddingRight: '2rem',
-				fontSize: '0.94rem'
+				//fontSize: '0.94rem'
 			}
 		}
 	)

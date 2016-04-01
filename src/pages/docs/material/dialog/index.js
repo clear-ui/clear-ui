@@ -64,7 +64,7 @@ export default class ModalDoc extends React.Component {
 				href='https://www.google.com/design/spec/components/dialogs.html'
 				target='blank'
 			>
-				Dialogs specification
+				Dialog specification
 			</a>
 
 			<h2>Example</h2>

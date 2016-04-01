@@ -142,11 +142,11 @@ export default class TooltipDoc extends React.Component {
 					</Tooltip>
 					{' '}
 					<Tooltip tooltip={tooltip} animation='slide'>
-						<div style={style}>Slide (default)</div>
+						<div style={style}>Slide</div>
 					</Tooltip>
 					{' '}
 					<Tooltip tooltip={tooltip} animation='fade'>
-						<div style={style}>Fade</div>
+						<div style={style}>Fade (default)</div>
 					</Tooltip>
 					{' '}
 					<Tooltip tooltip={tooltip} animation='scale'>

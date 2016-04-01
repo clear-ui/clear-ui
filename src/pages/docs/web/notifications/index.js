@@ -63,8 +63,11 @@ export default class NotificationsDoc extends React.Component {
 				<Example.Demo>
 					<NotificationsDemo/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<NotificationsContainer isDefault={true}/>
+				<Example.Code lang='js'>{`
+					import {Notification, StackingNotificationsContainer}
+						from 'clear-ui-web/lib/notifications'
+
+					<StackingNotificationsContainer isDefault={true}/>
 
 					<Button onTap={() => { this.setState({open: true}) }}>
 						Show notification
@@ -84,79 +87,46 @@ export default class NotificationsDoc extends React.Component {
 			<h2>Containers</h2>
 
 			{`
-			Для того чтобы показать уведомление, сперва нужно создать контейнер для
-			уведомлений.
-			Одновременно может существовать несколько контейнеров.
-			Они могут различаться поведением, расположением и анимацией уведомлений.
+			To create notification, first you need to create container.
+			You can read more about containers on the page
+			[Base > Notifications](#/docs/base/notifications).
 
-			There are three possible ways how you can specify in which container
-			notification should be placed:
-
-			1. Default container
-
-			Можно создать дефолтный контейнер, и тогда все уведомления без
-			указания контейнера будут отображаться в нём.
+			Here are some variations of notifications containers.
 			`}
 
-			<Example.Code>{`
-				<NotificationsContainer isDefault={true}/>
-				<Notification/>
-			`}</Example.Code>
+			<h3>Stacking and single containers</h3>
 
 			{`
-			2. Context container
-
-			Уведомления помещённые внутрь контейнера автоматически используют его.
-			`}
-
-			<Example.Code>{`
-				<NotificationsContainer>
-					<Notification/>
-				</NotificationsContainer>
-			`}</Example.Code>
-
-			{`
-			3. Deferred ref to the container
-
-			Можно передать отложенный ref на контейнер.
-			`}
-
-			<Example.Code>{`
-				let deferred = $.Deferred()
-
-				<NotificationsContainer ref={(ref) => { deferred.resolve(ref) }}>
-				<Notification container={deferred}/>
-			`}</Example.Code>
-
-			<h3>Types of containers</h3>
-
-			{`
-			There are two types of containers: \`StackingNotificationsContainer\` and
-			\`SingleNotificationsContainer\`.
-
-			\`StackingNotificationsContainer\` может отображать несколько уведомлений
-			одно под другим.
-
-			\`SingleNotificationsContainer\` может отображать только одно уведомление
-			в один момент времени.
-			Если новое уведомление появится когда контейнер уже содержит уведомление,
-			старое уведомление закроется и после этого отобразится новое.
+			\`StackingNotificationsContainer\` can display several notifications,
+			one below the other.
+			\`SingleNotificationsContainer\` can display only one notification
+			in one moment of time.
 			`}
 
 			<Example>
 				<Example.Demo>
+					Stacking container: 
+					{' '}
+					<NotificationsDemo buttonText='First'/>
+					{' '}
+					<NotificationsDemo buttonText='Second'/>
+					<br/>
+					<br/>
+					Single container:
+					{' '}
 					<NotificationsDemo container={singleContainer} buttonText='First'/>
 					{' '}
 					<NotificationsDemo container={singleContainer} buttonText='Second'/>
-					{' '}
-					<NotificationsDemo container={singleContainer} buttonText='Third'/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
-					let singleContainer = $.Deferred()
+					let stackingContainer = $.Deferred()
+					<StackingNotificationsContainer ref={(ref) => { stackingContainer.resolve(ref) }}/>
 
+					<Notification container={stackingContainer}>...</Notification>
+
+					let singleContainer = $.Deferred()
 					<SingleNotificationsContainer ref={(ref) => { singleContainer.resolve(ref) }}/>
-					<Notification container={singleContainer}>...</Notification>
-					<Notification container={singleContainer}>...</Notification>
+
 					<Notification container={singleContainer}>...</Notification>
 				`}</Example.Code>
 			</Example>
@@ -219,28 +189,19 @@ export default class NotificationsDoc extends React.Component {
 			<h2>Container Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row name='isDefault' type='boolean'>{`
-					Makes container default.
-					Notifications without specified container will be placed inside
-					default container.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='horizPos' type='string' defaultValue={`'top'`}>{`
-					Horizontal position of the container.
-					Possible values are \`'top'\` and \`'bottom'\`.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='vertPos' type='string' defaultValue={`'left'`}>{`
-					Vertical position of the container.
-					Possible values are \`'left'\`, \`'right'\` and \`'center'\`.
-				`}</ApiDoc.Row>
+				<ApiDoc.Row>
+					<a href='#/docs/base/notifications'>Base > Notifications > Container props</a>
+				</ApiDoc.Row>
 			</ApiDoc>
 
 			<h2>Notification Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row name='autoHideTimeout' type='number'>{`
-				`}</ApiDoc.Row>
+				<ApiDoc.Row>
+					<a href='#/docs/base/notifications'>
+						Base > Notifications > Notification props
+					</a>
+				</ApiDoc.Row>
 
 				<ApiDoc.Row name='actions' type='node'>{`
 				`}</ApiDoc.Row>

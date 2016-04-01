@@ -166,11 +166,7 @@ export default class ButtonDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/button' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > Button props...</a>
+					<a href='#/docs/base/button'>Base > Button props</a>
 				</ApiDoc.Row>
 
 				<ApiDoc.Row
