@@ -212,7 +212,7 @@ export default class SnackbarDoc extends React.Component {
 				</ApiDoc.Row>
 
 				<ApiDoc.Row name='action' type='node'>{`
-					The label for the action on the snackbar.
+					The label for the action in the snackbar.
 				`}</ApiDoc.Row>
 
 				<ApiDoc.Row name='onActionTap' type='function'>{`
@@ -243,7 +243,7 @@ export default class SnackbarDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/notifications'>
+					<a href='#/docs/material/snackbar'>
 						Material > Toast props
 					</a>
 				</ApiDoc.Row>

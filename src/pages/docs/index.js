@@ -87,8 +87,7 @@ class DocsPage extends React.Component {
 						<LinkMenuLabel>Base</LinkMenuLabel>
 
 						<LinkMenuItem value='zcontext'>ZContext</LinkMenuItem>
-						<LinkMenuItem disabled={true}>Popup</LinkMenuItem>
-						<LinkMenuItem disabled={true}>Attachment</LinkMenuItem>
+						<LinkMenuItem value='attachment'>Attachment</LinkMenuItem>
 						<LinkMenuItem disabled={true}>StylesMixin</LinkMenuItem>
 						<LinkMenuItem disabled={true}>ChildComponentsMixin</LinkMenuItem>
 						<LinkMenuItem disabled={true}>ManagedStateMixin</LinkMenuItem>

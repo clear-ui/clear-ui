@@ -1,3 +1,4 @@
+import Attachment from '../pages/docs/base/attachment'
 import Button from '../pages/docs/base/button'
 import DropdownMenu from '../pages/docs/base/dropdownMenu'
 import Input from '../pages/docs/base/input'
@@ -10,6 +11,7 @@ import Tooltip from '../pages/docs/base/tooltip'
 import ZContext from '../pages/docs/base/zContext'
 
 export default [
+	{path: 'attachment', component: Attachment},
 	{path: 'button', component: Button},
 	{path: 'dropdown-menu', component: DropdownMenu},
 	{path: 'input', component: Input},

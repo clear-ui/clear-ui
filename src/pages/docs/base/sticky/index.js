@@ -6,8 +6,10 @@ import $ from 'jquery'
 import Sticky from 'clear-ui-base/lib/sticky'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
+import PropsDoc from '../../../../propsDoc'
+import baseDocs from '../../../../../docgen/base.json'
+let stickyPropsDoc = baseDocs['sticky/index.js'].props
 
 let containerStyle = {
 	height: 200,
@@ -139,31 +141,7 @@ export default class StickyDoc {
 
 			<h2>Props</h2>
 
-			<ApiDoc>
-				<ApiDoc.Row
-					name='side'
-					type={`'top'|'bottom'`}
-					defaultValue='top'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='offset'
-					type='number'
-					defaultValue='0'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='container'
-					type='DOMElement|ReactElement|deferred'
-				>{`
-					Container element that restricts position of sticky element.
-					It can be DOM-element or React element or deferred that resolves to
-					one of it.
-				`}</ApiDoc.Row>
-			</ApiDoc>
-
+			<PropsDoc doc={stickyPropsDoc}/>
 		</DocPage>
 	}
 }

@@ -11,7 +11,7 @@ class ApiDoc extends React.Component {
 	render() {
 		let [first, ...rest] = React.Children.toArray(this.props.children)
 		let children = [
-			React.cloneElement(first, {first: true}),
+			first && React.cloneElement(first, {first: true}),
 			...rest
 		]
 		return React.DOM.div({style: {fontSize: '95%'}}, children)
@@ -46,3 +46,4 @@ class ApiDocRow extends React.Component {
 
 ApiDoc.Row = ApiDocRow
 export default ApiDoc
+export {ApiDocRow}

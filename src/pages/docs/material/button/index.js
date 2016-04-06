@@ -11,6 +11,16 @@ import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
 
+import PropsDoc from '../../../../propsDoc'
+import propsInfo from '../../../../../proptypes.json'
+
+let buttonPropsInfo = {
+	props: {
+		...propsInfo['test/materialButton.js'].props,
+		...propsInfo['test/rippleButton.js'].props
+	}
+}
+
 export default class ButtonDoc extends React.Component {
 	render() {
 		let starIcon = <Icon icon={Icon.ICONS.star}/>
@@ -149,6 +159,15 @@ export default class ButtonDoc extends React.Component {
 			</Example>
 
 			<h2>Props</h2>
+
+			<PropsDoc
+				doc={buttonPropsInfo}
+				base={{name: 'Base > Button > IconButton', url: '#/docs/base/button'}}
+			/>
+
+			<br/>
+			<br/>
+			<br/>
 
 			<ApiDoc>
 				<ApiDoc.Row>

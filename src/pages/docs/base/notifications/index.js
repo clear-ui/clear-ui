@@ -98,7 +98,7 @@ export default class NotificationsDoc extends React.Component {
 				<ApiDoc.Row name='isDefault' type='boolean'>{`
 					Makes container default.
 					Notifications without specified container will be placed inside
-					default container.
+					the default container.
 				`}</ApiDoc.Row>
 
 				<ApiDoc.Row name='horizPos' type='string' defaultValue={`'top'`}>{`
@@ -115,13 +115,26 @@ export default class NotificationsDoc extends React.Component {
 			<h2>Notification Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row name='autoHideTimeout' type='number'>{`
+				<ApiDoc.Row name='open' type='bool' required={true}>{`
+				Controls whether the notification is open or not.
 				`}</ApiDoc.Row>
 
-				<ApiDoc.Row name='actions' type='node'>{`
+				<ApiDoc.Row name='onClose' type='function' required={true}>{`
+				Function that is called when notification requests to be closed.
 				`}</ApiDoc.Row>
 
-				<ApiDoc.Row name='showCloseButton' type='boolean'>{`
+				<ApiDoc.Row name='container' type='Deferred'>{`
+				Deferred ref to the notification container where notification should be rendered.
+				<br/>
+				Other options how to specify in which container notification should be placed are
+				to place notification inside the container, or to make container default
+				by setting prop \`isDefault={true}\`, and then all notifications without
+				specified container will use it.
+				`}</ApiDoc.Row>
+
+				<ApiDoc.Row name='autoHideTimeout' type='number|false' defaultValue={3000}>{`
+				Time in milliseconds before notification will automatically request closing.<br/>
+				When it is \`false\`, notification will not close automatically.
 				`}</ApiDoc.Row>
 			</ApiDoc>
 		</DocPage>
