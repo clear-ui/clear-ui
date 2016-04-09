@@ -2,8 +2,6 @@ import React from 'react'
 import Color from 'color'
 
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
-import composeChildComponents from
-	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
 import RippleItem from '../menu/rippleItem'
 import COLORS from '../styles/colors'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
@@ -13,10 +11,10 @@ const ICON_SIZE = 24
 const AVATAR_SIZE = 38
 
 function getStyles(props, state) {
-	let itemState = state.rightIconState === 'initial' ? state.itemState : 'initial'
+	const itemTapState = state.rightIconTapState === 'initial' ? state.tapState : 'initial'
 
 	let paddingLeft = (props.leftIcon || props.leftAvatar || props.indent) ? 72 : 16
-	let paddingRight = (props.rightIcon || props.rightAvatar)  ? 72 : 16
+	let paddingRight = (props.rightIcon || props.rightAvatar) ? 72 : 16
 
 	let linesNumber = props.secondaryText ?
 		(props.secondaryTextLines === 2 ? 3 : 2) :
@@ -32,10 +30,10 @@ function getStyles(props, state) {
 			paddingBottom = 16
 		}
 	} else if (linesNumber === 2) {
-		paddingTop = 20 
+		paddingTop = 20
 		paddingBottom = 16
 	} else if (linesNumber === 3) {
-		paddingTop = 16 
+		paddingTop = 16
 		paddingBottom = 16
 	}
 
@@ -50,7 +48,7 @@ function getStyles(props, state) {
 		transition
 	}
 
-	if (itemState === 'hovered' || itemState === 'active' || state.focused) {
+	if (itemTapState === 'hovered' || itemTapState === 'active' || state.focused) {
 		root.background = theme.hovered
 	}
 
@@ -92,7 +90,7 @@ function getStyles(props, state) {
 		iconOrAvatar.top = paddingTop
 	} else {
 		iconOrAvatar.top = '50%'
-		iconOrAvatar.transform= 'translateY(-50%)'
+		iconOrAvatar.transform = 'translateY(-50%)'
 	}
 
 	let leftIcon, rightIcon
@@ -117,7 +115,7 @@ function getStyles(props, state) {
 		if (props.rightIcon) {
 			rightIcon = {...icon, right: 16}
 
-			if (props.onRightIconClick) {
+			if (props.onRightIconTap) {
 				Object.assign(rightIcon, {
 					padding: 12,
 					marginRight: -12,

@@ -8,14 +8,21 @@ import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 
 // Button with basic material styles.
 @mixinDecorator(ThemeMixin)
-class MaterialButton extends RippleButton {
+export default class MaterialButton extends RippleButton {
+	static propTypes = {
+		...RippleButton.propTypes,
+
+		/** Dense button */
+		dense: React.PropTypes.bool
+	}
+
 	static contextTypes = {
 		clearUiMaterialTheme: React.PropTypes.object
 	}
 
 	static styles = composeStyles(
 		RippleButton.styles,
-		(props, state) => {
+		(props) => {
 			let root = {
 				display: 'inline-block',
 				fontSize: 14,
@@ -49,6 +56,6 @@ class MaterialButton extends RippleButton {
 			return {root}
 		}
 	)
-}
 
-export default MaterialButton
+	render() { return super.render() } // for react-docgen
+}

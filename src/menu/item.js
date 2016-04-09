@@ -11,7 +11,7 @@ import RippleItem from './rippleItem'
 const ICON_SIZE = 24
 
 function getStyles(props, state) {
-	let itemState = state.rightIconState === 'initial' ? state.itemState : 'initial'
+	const itemTapState = state.rightIconTapState === 'initial' ? state.tapState : 'initial'
 
 	let transition = `all .4s ${TRANSITIONS.strongEaseOut}`
 
@@ -20,6 +20,7 @@ function getStyles(props, state) {
 		WebkitTapHighlightColor: 'rgba(0,0,0,0)',
 		position: 'relative',
 		outline: 'none',
+		userSelect: 'none',
 		transition
 	}
 
@@ -46,7 +47,7 @@ function getStyles(props, state) {
 	label.paddingLeft = props.leftIcon ? iconPadding : padding
 	label.paddingRight = props.righttIcon ? iconPadding : padding
 
-	if (itemState === 'hovered' || itemState === 'active' || state.focused) {
+	if (itemTapState === 'hovered' || itemTapState === 'active' || state.focused) {
 		root.background = state.theme.hovered
 	}
 

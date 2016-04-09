@@ -5,13 +5,16 @@ import Ripples from '../ripples'
 
 // Button that shows ripples effect on press.
 export default class RippleButton extends BaseButton {
+	static propTypes = {
+		...BaseButton.propTypes,
+
+		/** Ripples */
+		ripples: React.PropTypes.bool
+	}
+
 	static defaultProps = {
 		...BaseButton.defaultProps,
 		ripples: true
-	}
-
-	static propTypes = {
-		ripples: React.PropTypes.bool
 	}
 
 	static styles = {
@@ -36,7 +39,10 @@ export default class RippleButton extends BaseButton {
 		} else {
 			let ripples
 			if (this.props.ripples && !this.props.disabled) {
-				ripples = React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})
+				ripples = React.cloneElement(this.getChildComponent('ripples'), {
+					key: 'ripples',
+					ref: 'ripples'
+				})
 			}
 
 			return React.cloneElement(container, null, [this.props.children, ripples])
@@ -48,12 +54,10 @@ export default class RippleButton extends BaseButton {
 		if (this.props.ripples) {
 			return React.cloneElement(tappable, {
 				onTapStart: (e) => { this.refs.ripples.start(e) },
-				onTapEnd: (e) => { this.refs.ripples.end(e) },
+				onTapEnd: (e) => { this.refs.ripples.end(e) }
 			})
 		} else {
 			return tappable
 		}
 	}
 }
-
-

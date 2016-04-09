@@ -43,14 +43,15 @@ class Ripples extends React.Component {
 	}
 
 	render() {
-		if (this.state.render) {
+		//FIXME it breaks touchend event
+		//if (this.state.render) {
 			return React.createElement(ReactTransitionGroup, {
 				component: 'div',
 				style: this.styles.root
 			}, this.state.ripples)
-		} else {
-			return React.DOM.div({style: this.styles.root})
-		}
+		//} else {
+			//return React.DOM.div({style: this.styles.root})
+		//}
 	}
 
 	start(e) {

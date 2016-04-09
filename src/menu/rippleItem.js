@@ -30,7 +30,7 @@ export default class RippleItem extends BaseItem {
 		let ripples
 		if (this.props.ripples &&
 			!this.props.disabled &&
-			this.state.rightIconState === 'initial'
+			this.state.rightIconTapState === 'initial'
 		) {
 			ripples = React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})
 		}
@@ -42,13 +42,11 @@ export default class RippleItem extends BaseItem {
 		let tappable = super.render()
 		if (this.props.ripples) {
 			return React.cloneElement(tappable, {
-				onTapStart: (e) => { this.refs.ripples.start(e) },
-				onTapEnd: (e) => { this.refs.ripples.end(e) },
+				onTapStart: (e) => { if (this.refs.ripples) this.refs.ripples.start(e) },
+				onTapEnd: (e) => { if (this.refs.ripples) this.refs.ripples.end(e) }
 			})
 		} else {
 			return tappable
 		}
 	}
 }
-
-
