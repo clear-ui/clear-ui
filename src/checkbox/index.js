@@ -5,7 +5,7 @@ import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 
 @mixinDecorator(StylesMixin, ChildComponentsMixin)
-class Checkbox extends React.Component {
+export default class Checkbox extends React.Component {
 	static childComponents = {
 		'switch': null
 	}
@@ -24,5 +24,3 @@ class Checkbox extends React.Component {
 		if (this.props.onChange) this.props.onChange(!this.props.value)
 	}
 }
-
-export default Checkbox

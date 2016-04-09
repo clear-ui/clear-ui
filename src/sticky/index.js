@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import _ from 'underscore'
 
-import cloneReferencedElement from '../utils/cloneReferencedElement'
 import ZContext from '../zContext'
 
-/**
- * @param {number} [props.offset]
- * @param {'top'|'bottom'} [props.side='top']
- * @param {object} [props.container] -
- *     Container element that restricts position of sticky element.
- *     It can be DOM-element or React element or deferred that resolves to
- *     one of it.
- */
 export default class Sticky extends React.Component {
 	static propTypes = {
-		offset: React.PropTypes.number,
+		/** Side of the screen to which element sticks. */
 		side: React.PropTypes.oneOf(['top', 'bottom']),
+
+		/** Distance from the edge of the screen. */
+		offset: React.PropTypes.number,
+
+		/**
+		 * Container element that restricts position of sticky element.
+		 * It can be DOM-element or React element or deferred that resolves to
+		 * one of it.
+		 */
 		container: React.PropTypes.object
 	}
 
@@ -41,9 +41,9 @@ export default class Sticky extends React.Component {
 	componentWillUnmount() { this.unbindEvents() }
 
 	render() {
-		let elem = React.DOM.div({ref: (ref) => {
-			if (ref !== null) this.elemRef = ref // FIXME
-		}}, this.props.children)
+		let elem = React.DOM.div({
+			ref: (ref) => { if (ref !== null) this.elemRef = ref /* FIXME */ }
+		}, this.props.children)
 
 		if (this.state.position.fixed) {
 			let placeholder = React.DOM.div({ref: 'placeholder', key: 'placeholder'})
@@ -98,9 +98,9 @@ export default class Sticky extends React.Component {
 		let scrollPos = scrollTop
 
 		if (this.props.side === 'bottom') {
-			let pageHeight = $(html).height()
+			let pageHeight = $('html').height()
 			elemPos = pageHeight - elemPos - elemHeight
-			scrollPos = pageHeight - scrolled - windowHeight()
+			scrollPos = pageHeight - scrollPos - windowHeight()
 		}
 
 		let fixed = scrollPos > elemPos - this.props.offset
@@ -109,7 +109,7 @@ export default class Sticky extends React.Component {
 		if (fixed && container) {
 			// Distance from top edge of window to bottom edge of container and to fixed elem
 			let containerBottom = container.offset().top + container.outerHeight() - scrollTop
-			let fixedElemBottom =  (this.props.side === 'top') ?
+			let fixedElemBottom = (this.props.side === 'top') ?
 				(this.props.offset + elemHeight) :
 				(windowHeight - this.props.offset)
 			// Container's bottom edge should push element

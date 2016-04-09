@@ -46,5 +46,6 @@ export default class IconButton extends Button {
 			rightIcon
 		])
 	}
-}
 
+	render() { return super.render() } // for react-docgen
+}

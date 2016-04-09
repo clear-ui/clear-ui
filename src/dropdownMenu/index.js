@@ -11,17 +11,41 @@ import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import Attachment from '../attachment'
 
-/**
- * @param [offset] TODO
- * @param {string} [width] - Width of the list, number with 'px' or '%' (of trigger width).
- * @param {'left'|'right'} [side='left']
- * @param {'top'|'bottom'} [vertSide='bottom']
- * @param {function(value)} [onSelect]
- * @param {element} props.trigger - Dropdown trigger.
- * @param {node} props.children - Dropdown content.
- */
 @mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
 class DropdownMenu extends React.Component {
+	static propTypes = {
+		/** Trigger element of the dropdown */
+		trigger: React.PropTypes.node,
+
+		/** Value of the currently selected item. */
+		value: React.PropTypes.string,
+
+		/**
+		 * function(item: ?) => void
+		 * <br/>
+		 * Handler of the selecting item from the dropdown menu.
+		 */
+		onSelect: React.PropTypes.func,
+
+		/** Width of the dropdown list, in px or % of trigger's width. */
+		width: React.PropTypes.string,
+
+		/** Horizontal side where the list expands when it is wider than the trigger element. */
+		expandSide: React.PropTypes.oneOf(['left', 'right']),
+
+		/** Vertical side where the list shows if there is enough space. */
+		vertSide: React.PropTypes.oneOf(['top', 'bottom']),
+
+		/** TODO */
+		animation: React.PropTypes.oneOf(['slide', 'fade']),
+
+		/** Maximum height of the list. */
+		maxHeight: React.PropTypes.number,
+
+		/** Distance between the trigger element and the list. */
+		listOffset: React.PropTypes.number
+	}
+
 	static defaultProps = {
 		expandSide: 'right',
 		vertSide: 'bottom',
@@ -139,7 +163,7 @@ class DropdownMenu extends React.Component {
 		let widthDiff = listElem.outerWidth() - listElem.width()
 
 		let triggerWidth = triggerElem.outerWidth()
-		// TODO add scrollbar with if list has scroll
+		// TODO add scrollbar width if list has scroll
 		let minWidth = triggerWidth - widthDiff
 		let width
 		if (this.props.width) {

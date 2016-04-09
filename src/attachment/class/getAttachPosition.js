@@ -1,9 +1,6 @@
 // @flow
 
-import type {
-	Measurements, ParsedAttachmentConfig, AttachmentConstrain,
-	CssPosition, PointValue
-} from './types.js'
+import type {Measurements, ParsedAttachmentConfig, CssPosition, PointValue} from './types.js'
 
 function calcCoord(value: PointValue, size: number): number {
 	let coord = (value.unit === '%') ? (size * value.value / 100) : value.value
@@ -44,24 +41,15 @@ function checkFitViewport(pos: CssPosition, m: Measurements, padding: number): b
 function constrainPosition(
 	pos: CssPosition,
 	m: Measurements,
-	constrain: AttachmentConstrain,
 	padding: number
 ): CssPosition {
-	if (constrain.left) {
-		if (pos.left < m.bounds.left + padding) pos.left = m.bounds.left + padding
+	if (pos.left < m.bounds.left + padding) pos.left = m.bounds.left + padding
+	if (pos.top < m.bounds.top + padding) pos.top = m.bounds.top + padding
+	if (pos.left + m.element.width > m.bounds.right - padding) {
+		pos.left = m.bounds.right - m.element.width - padding
 	}
-	if (constrain.top) {
-		if (pos.top < m.bounds.top + padding) pos.top = m.bounds.top + padding
-	}
-	if (constrain.right) {
-		if (pos.left + m.element.width > m.bounds.right - padding) {
-			pos.left = m.bounds.right - m.element.width - padding
-		}
-	}
-	if (constrain.bottom) {
-		if (pos.top + m.element.height > m.bounds.bottom - padding) {
-			pos.top = m.bounds.bottom - m.element.height - padding
-		}
+	if (pos.top + m.element.height > m.bounds.bottom - padding) {
+		pos.top = m.bounds.bottom - m.element.height - padding
 	}
 	return pos
 }
@@ -75,7 +63,7 @@ function constrainPosition(
 export default function getAttachPosition(
 	measurements: Measurements,
 	attachments: Array<ParsedAttachmentConfig>,
-	constrain: AttachmentConstrain,
+	constrain: boolean,
 	padding: number
 ): [number, CssPosition | null] {
 	let pos = null
@@ -86,7 +74,7 @@ export default function getAttachPosition(
 		if (checkFitViewport(pos, measurements, padding)) break
 	}
 	if (constrain && pos) {
-		pos = constrainPosition(pos, measurements, constrain, padding)
+		pos = constrainPosition(pos, measurements, padding)
 	}
 	return [i, pos]
 }

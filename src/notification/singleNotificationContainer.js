@@ -1,7 +1,7 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
 
-import AbstractNotificationsContainer from './abstractNotificationsContainer.js'
+import AbstractNotificationContainer from './abstractNotificationContainer.js'
 
 const fastSpringPreset = {stiffness: 320, damping: 30}
 
@@ -11,7 +11,7 @@ const fastSpringPreset = {stiffness: 320, damping: 30}
  * it is added to the pending notifications, and is rendered only after current
  * notification closes.
  */
-export default class SingleNotificationsContainer extends AbstractNotificationsContainer {
+export default class SingleNotificationsContainer extends AbstractNotificationContainer {
 	constructor() {
 		super()
 		this.state = {...this.state, pendingNotifications: []}
@@ -32,7 +32,11 @@ export default class SingleNotificationsContainer extends AbstractNotificationsC
 
 	renderNotification(style) {
 		let currentNotification = this.state.currentNotification
-		let elem = React.cloneElement(currentNotification.elem, {key: currentNotification.key})
+		let elem = React.cloneElement(currentNotification.elem, {
+			key: currentNotification.key,
+			containerVertPos: this.props.vertPos,
+			containerHorizPos: this.props.horizPos
+		})
 		return React.cloneElement(
 			this.getChildComponent('animation'),
 			{progress: style.progress},

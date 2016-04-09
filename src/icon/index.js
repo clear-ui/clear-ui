@@ -31,13 +31,18 @@ class Icon extends React.Component {
 	static ICONS = ICONS
 
 	static styles = (props) => {
-		let root
+		let root, svg
+
 		if (props.inline) {
 			root = {
 				display: 'inline-block',
-				verticalAlign: 'middle',
+				lineHeight: `${props.size}px`
+			}
+
+			svg = {
 				height: props.size,
-				width: props.size
+				width: props.size,
+				verticalAlign: 'top'
 			}
 		} else {
 			root = {
@@ -46,19 +51,21 @@ class Icon extends React.Component {
 				width: '100%',
 				lineHeight: '1rem'
 			}
+
+			svg = {
+				verticalAlign: 'top',
+				height: '100%',
+				width: '100%'
+			}
 		}
 
-		let svg = {
-			verticalAlign: 'top',
-			height: '100%',
-			width: '100%'
-		}
 
 		return {root, svg}
 	}
 
 	render() {
 		let xlink = `<use xlink:href="${this.props.icon}"></use>`
+
 		return (
 			<span style={this.styles.root}>
 				<svg dangerouslySetInnerHTML={{__html: xlink}} style={this.styles.svg}/>

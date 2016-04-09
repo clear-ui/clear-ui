@@ -3,11 +3,11 @@ import $ from 'jquery'
 
 import Menu from './index.js'
 
-class ScrollMenu extends Menu {
+export default class ScrollMenu extends Menu {
 	componentDidMount() {
 		super.componentDidMount()
 
-		setTimeout(() => { // TODO timeout looks like hack
+		setTimeout(() => { // TODO why timeout
 			if (this.hoveredItem) {
 				let item = $(ReactDOM.findDOMNode(this.hoveredItem))
 				let container = item.parent()
@@ -40,5 +40,3 @@ class ScrollMenu extends Menu {
 		}
 	}
 }
-
-export default ScrollMenu

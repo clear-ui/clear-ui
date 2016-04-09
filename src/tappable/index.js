@@ -18,11 +18,12 @@ let blockMouseEvents
  *     Handler of hovered and pressed states changes.
  */
 @mixinDecorator(BindMethodsMixin)
-class Tappable extends React.Component {
+export default class Tappable extends React.Component {
 	static propTypes = {
 		onChangeState: React.PropTypes.func,
 		onTap: React.PropTypes.func,
-		children: React.PropTypes.element.isRequired
+		children: React.PropTypes.element.isRequired,
+		style: React.PropTypes.object
 	}
 
 	constructor(props) {
@@ -46,7 +47,11 @@ class Tappable extends React.Component {
 			onTouchStart: this.touchStart,
 			onTouchMove: this.touchMove,
 			onTouchEnd: this.touchEnd,
-			onClick: (event) => { event.stopPropagation() }
+			onClick: (event) => { event.stopPropagation() },
+			style: {
+				...this.props.children.props.style,
+				...this.props.style
+			}
 		})
 	}
 
@@ -92,33 +97,34 @@ class Tappable extends React.Component {
 
 	touchStart(event) {
 		blockMouseEvents = true
-		if (event.touches.length === 1) {
+		if (event.touches.length === 1) { // process only first touch
 			this.touch = true // flag that we already handle the touch and ignore all new
 			this.initScrollDetection()
 			this.hovered = true
 			this.pressed = true
 			this.onChangeTapState()
-			if (this.props.onTapStart) this.props.onTapStart(event.touches[1])
+			if (this.props.onTapStart) this.props.onTapStart(event.touches[0])
 		}
 	}
 
 	touchMove() {
+		if (!this.touch) return
 		if (this.detectScroll()) this.endTouch(false)
 	}
 
 	touchEnd(event) {
-		if (!this.touch) return // when this happens? never?
+		if (!this.touch) return
 		event.preventDefault()
 		this.endTouch(true, event) // when to end? only when we have only one touch?
 	}
 
 	endTouch(tap, event) {
 		this.touch = false
-		this.hovered = true
-		this.pressed = true
+		this.hovered = false
+		this.pressed = false
 		this.onChangeTapState()
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
-		if (tap) this.props.onTap(event)
+		if (tap) this.onTap(event)
 	}
 
 	initScrollDetection() {
@@ -155,5 +161,3 @@ class Tappable extends React.Component {
 		if (this.props.onTap) this.props.onTap(e)
 	}
 }
-
-export default Tappable

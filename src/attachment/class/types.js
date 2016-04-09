@@ -1,17 +1,13 @@
 // @flow
-
-export type AttachmentConstrainSide = 'left' | 'right' | 'top' | 'bottom'
-export type AttachmentConstrain = {[key: AttachmentConstrainSide]: boolean}
-
 export type AttachmentMirrorAxis = 'all' | 'vert' | 'horiz' | 'none'
 
-/** 
+/**
  * Description of how the attached element should be positioned relatively
  * to the target element. It has two points, one on the attached element and
  * second on the target element, that will be connected together, and an offset.
  */
 export type AttachmentConfig = {
-	/** 
+	/**
 	 * Attachment point of the element.
 	 * String of the form of 'vert-attachment horiz-attachment'.
 	 * Attachment value is a number with 'px' or '%'.

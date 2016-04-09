@@ -6,8 +6,6 @@ import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import FocusableTappable from '../focusableTappable'
 
-const tapStateType = React.PropTypes.oneOf('initial', 'hovered', 'pressed')
-
 /**
  * Base button component.
  *
@@ -20,7 +18,7 @@ class Button extends React.Component {
 		/**
 		 * Handler of the tap event.
 		 * It can be triggered with either mouse, touch,
-		 * or with pressing Enter key on the focused button.
+		 * or with pressing `Enter` key on the focused button.
 		 */
 		onTap: React.PropTypes.func,
 
@@ -32,17 +30,25 @@ class Button extends React.Component {
 
 		/**
 		 * If true, button will became focused when you navigate to it
-		 * using Tab key, but not on click or touch.
+		 * using `Tab` key, but not on click or touch.
 		 **/
 		preventFocusOnTap: React.PropTypes.bool,
+
+		initialTapState: React.PropTypes.oneOf(['initial', 'hovered', 'pressed']),
 
 		/**
 		 * Properties that allow you to control button's tap state from the outside.
 		 * If they are not present, button will manage tap state inside its
 		 * internal state.
 		 */
-		initialTapState: tapStateType,
-		tapState: tapStateType,
+		tapState: React.PropTypes.oneOf(['initial', 'hovered', 'pressed']),
+
+		/**
+		 * Function that is called on change button's tap state, when it is
+		 * controlled, i.e. prop `tapState` is defined.
+		 *
+		 * (tapState: string) => void
+		 */
 		onChangeTapState: React.PropTypes.func
 	}
 
@@ -63,7 +69,7 @@ class Button extends React.Component {
 			style: this.styles.label
 		}, this.props.children)
 
-		//let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
+		// let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
 		let elemType = 'div'
 		return React.DOM[elemType]({
 			style: this.styles.root,

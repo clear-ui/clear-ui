@@ -8,11 +8,28 @@ import Animation, {fade, fadeAndSlide} from '../animations'
 
 @mixin(StylesMixin, ChildComponentsMixin)
 export default class AbstractNotificationsContainer extends React.Component {
+	static childContextTypes = {
+		notificationContainer: React.PropTypes.object
+	}
+
+	getChildContext() {
+		return {notificationContainer: this}
+	}
+
 	static propTypes = {
+		/**
+		 * Makes container default. Notifications without specified container will be
+		 * placed inside the default container.
+		 */
+		isDefault: React.PropTypes.bool,
+
+		/** Horizontal position of the container. */
 		vertPos: React.PropTypes.oneOf(['top', 'bottom']),
+
+		/** Vertical position of the container. */
 		horizPos: React.PropTypes.oneOf(['left', 'right', 'center']),
-		animation: React.PropTypes.string, // TODO
-		isDefault: React.PropTypes.bool
+
+		animation: React.PropTypes.string // TODO
 	}
 
 	static defaultProps = {
@@ -53,20 +70,12 @@ export default class AbstractNotificationsContainer extends React.Component {
 					fn: fadeAndSlide,
 					params: {
 						side: props.vertPos === 'top' ? 'bottom' : 'top',
-						distance: 30,
+						distance: 50,
 						unit: '%'
 					}
 				})
 			}
 		}
-	}
-
-	static childContextTypes = {
-		container: React.PropTypes.object
-	}
-
-	getChildContext() {
-		return {container: this}
 	}
 
 	constructor() {
@@ -90,11 +99,14 @@ export default class AbstractNotificationsContainer extends React.Component {
 
 	render() {
 		return (
-			<ZContext.Layer type='notify' open={true}>
-				<div style={this.styles.root}>
-					{this.renderNotifications()}
-				</div>
-			</ZContext.Layer>
+			<span>
+				<ZContext.Layer type='notify' open={true}>
+					<div style={this.styles.root}>
+						{this.renderNotifications()}
+					</div>
+				</ZContext.Layer>
+				{this.props.children}
+			</span>
 		)
 	}
 

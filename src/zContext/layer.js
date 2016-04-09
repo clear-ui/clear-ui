@@ -23,13 +23,33 @@ class ZContextLayer extends React.Component {
 	static displayName = 'ZContextLayer'
 
 	static propTypes = {
+		/** Controls the visibility of the layer. */
 		open: React.PropTypes.bool,
-		onClose: React.PropTypes.func,
+
+		/**
+		 * Layer type. It affects order of layers.
+		 *
+		 * Possible layer types in order of their priority:
+		 * `'initial'`, `'popup'`, `'fixed'`, `'modal'`, `'notify'`.
+		 */
 		type: React.PropTypes.oneOf(LAYER_TYPES),
+
+		/** When `true`, the layer is rendered as if it is not nested in any other layers. */
 		global: React.PropTypes.bool,
+
+		/** Function that is called when the layer requests close. */
+		onClose: React.PropTypes.func,
+
+		/** When `true`, the layer will request close on pressing the `Esc` key. */
 		closeOnEsc: React.PropTypes.bool,
+
+		/** When `true`, when displaying the layer page is overlapped by transparent overlay */
 		overlay: React.PropTypes.bool,
+
+		/** When `true`, the layer will request close on clicking the overlay. */
 		closeOnOverlayClick: React.PropTypes.bool,
+
+		/** Function that is called when content is rendered in the layer. */
 		onRender: React.PropTypes.func
 	}
 

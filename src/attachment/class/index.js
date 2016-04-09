@@ -8,7 +8,7 @@ import getAttachPosition from './getAttachPosition'
 
 import type {
 	AttachmentConfig, ParsedAttachmentConfig,
-	CssPosition, AttachmentMirrorAxis, AttachmentConstrain
+	CssPosition, AttachmentMirrorAxis
 } from './types.js'
 
 // let SUPPORTS_TRANSFORM = 'transform' in document.body.style
@@ -37,7 +37,7 @@ type AttachmentOptions = {
 	viewportPadding?: number;
 
 	/** TODO */
-	constrain?: boolean | AttachmentConstrain;
+	constrain?: boolean;
 
 	/** TODO */
 	onChangeAttachment?: (index: number) => void;
@@ -48,7 +48,7 @@ type ProcessedOptions = {
 	target: $;
 	parsedAttachments: Array<ParsedAttachmentConfig>;
 	viewportPadding: number;
-	constrain: AttachmentConstrain;
+	constrain: boolean;
 	onChangeAttachment?: (index: number) => void;
 }
 
@@ -79,13 +79,7 @@ class Attachment {
 			viewportPadding: 0
 		}
 
-		let {element, target, constrain, attachment, mirrorAttachment, ...rest} = options
-
-		if (typeof constrain === 'boolean' || typeof constrain === 'undefined') {
-			constrain = constrain ?
-				{left: true, right: true, top: true, bottom: true} :
-				{}
-		}
+		let {element, target, attachment, mirrorAttachment, ...rest} = options
 
 		let parsedAttachments
 		if (attachment) {
@@ -102,7 +96,6 @@ class Attachment {
 			element: element instanceof $ ? element : $(element),
 			target: target instanceof $ ? target : $(target),
 			parsedAttachments,
-			constrain,
 			...rest
 		}
 

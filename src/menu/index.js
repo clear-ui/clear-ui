@@ -8,13 +8,25 @@ import StylesMixin from '../utils/stylesMixin'
 
 import MenuItem from './item'
 
-/**
- * @param {boolean} [props.active=true] - Is keyboard navigation active.
- * @param {function(item: React.Element)} [props.onSelect]
- * @param [props.value]
- */
 @mixinDecorator(StylesMixin)
 class Menu extends React.Component {
+	static propTypes = {
+		/** Value of the currently selected item */
+		value: React.PropTypes.string,
+
+		/**
+		 * (item: element) => void<br/>
+		 * Handler of the selecting item from the menu.
+		 */
+		onSelect: React.PropTypes.func,
+
+		/**
+		 * When `true`, menu activates keyboard navigation and allows
+		 * to use arrows to navigate and `Enter` to select items.
+		 */
+		active: React.PropTypes.bool
+	}
+
 	componentDidMount() { this.setActive() }
 	componentDidUpdate() { this.setActive() }
 	componentWillUnmount() { this.deactivate() }

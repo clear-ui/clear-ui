@@ -13,23 +13,34 @@ import Animation, {slide, scale, fade} from '../animations'
 // const SUPPORTS_TRANSFORM = 'transform' in document.body.style
 const scrollbarWidth = getScrollbarWidth()
 
-
 @mixinDecorator(StylesMixin, ChildComponentsMixin)
-class Modal extends React.Component {
+export default class Modal extends React.Component {
+	static displayName = 'Modal'
+
 	static propTypes = {
-		/** Width of the modal (value of the CSS-property width). */
+		/** Controls whether modal is opened or not. */
+		open: React.PropTypes.bool,
 
-		/** TODO */
-		alignTop: React.PropTypes.bool,
+		/**
+		 * Function that is called when modal requests close after clicking outside
+		 * or pressing `Esc` key.
+		 */
+		onClose: React.PropTypes.bool,
 
-		/** Default: true */
+		closeOnEsc: React.PropTypes.bool,
+
 		closeOnClickOutside: React.PropTypes.bool,
 
-		/** Default: true */
 		closeOnClick: React.PropTypes.bool,
 
-		/** Default: 'fade' */
-		animation: React.PropTypes.oneOf('fade', 'scale', 'slideDown')
+		/** Width of the modal (value of the CSS-property width). */
+		width: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
+
+		/**
+		 * Type of opening and closing animation.
+		 * Possible values: 'fade', 'scale', 'slideDown', or false for no animation.
+		 */
+		animation: React.PropTypes.oneOf(['fade', 'scale', 'slideDown'])
 	}
 
 	static defaultProps = {
@@ -208,5 +219,3 @@ class Modal extends React.Component {
 		modal.css(position)
 	}
 }
-
-export default Modal

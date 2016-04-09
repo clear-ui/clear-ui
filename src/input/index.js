@@ -3,18 +3,44 @@ import React from 'react'
 import StylesMixin from '../utils/stylesMixin'
 import mixinDecorator from '../utils/mixin/decorator'
 
-/**
- * @prop {string} [value]
- * @prop {function(value:string)} [onChange]
- * @prop {function()} [onFocus]
- * @prop {function()} [onBlur]
- * @prop {boolean} [disabled]
- * @prop {boolean} [multiline]
- * @prop {number} [rows=1]
- * @prop {number} [maxRows]
- */
 @mixinDecorator(StylesMixin)
-class Input extends React.Component {
+export default class Input extends React.Component {
+	static displayName = 'Input'
+
+	static propTypes = {
+		/** Value of the input. */
+		value: React.PropTypes.string,
+
+		/**
+		 * (string) => void
+		 *
+		 * Handler of input's focus event.
+		 */
+		onChange: React.PropTypes.func,
+
+		/** Handler of input's focus event. */
+		onFocus: React.PropTypes.func,
+
+		/** Handler of input's blur event. */
+		onBlur: React.PropTypes.func,
+
+		/** Disabled state of the input. */
+		disabled: React.PropTypes.bool,
+
+		/**
+		 * If `true`, the input will be rendered using `textarea` tag.
+		 * Also, it will automatically grow according to the specified number
+		 * of maximum rows.
+		 */
+		multiline: React.PropTypes.bool,
+
+		/** Number of rows of multiline input. */
+		rows: React.PropTypes.number,
+
+		/** Maximum number of rows of multiline input. */
+		maxRows: React.PropTypes.number
+	}
+
 	static defaultProps = {
 		rows: 1,
 		value: ''
@@ -87,5 +113,3 @@ class Input extends React.Component {
 		if (this.refs.input) this.refs.input.focus()
 	}
 }
-
-export default Input

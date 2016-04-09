@@ -68,15 +68,34 @@ function createAttachmentPoint(side, align, offset) {
 @mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
 class Tooltip extends React.Component {
 	static propTypes = {
+		/** Element to which the tooltip is attached */
 		children: React.PropTypes.element.isRequired,
+
+		/** Content of the tooltip. */
 		tooltip: React.PropTypes.node.isRequired,
+
 		showOnHover: React.PropTypes.bool,
 		showOnClick: React.PropTypes.bool,
+
+		/** List of sides where tooltip can be shown in the order of priority. */
 		sides: React.PropTypes.arrayOf(
 			React.PropTypes.oneOf(['top', 'bottom', 'right', 'left'])
 		),
+
+		/** Alignment of the tooltip relative to the element's side. */
 		align: React.PropTypes.oneOf(['begin', 'center', 'end']),
-		offset: React.PropTypes.number
+
+		/** Distance between the tooltip and the element, in px. */
+		offset: React.PropTypes.number,
+
+		/** Style of the showing and hiding animations of the tooltip. */
+		animation: React.PropTypes.oneOf(['slide', 'scale', 'fade', false]),
+
+		/** Number before the tooltip starts opening after hovering the element, in ms. */
+		openTimeout: React.PropTypes.number,
+
+		/** Number before the tooltip starts closing after the element loses hover, in ms. */
+		closeTimeout: React.PropTypes.number
 	}
 
 	static defaultProps = {
@@ -139,22 +158,7 @@ class Tooltip extends React.Component {
 				//props.onTap = () => { this.setManagedState({open: !this.state.open}) }
 			//} else
 			if (this.props.showOnHover) {
-				props.onChangeTapState = ({hovered}) => {
-					clearTimeout(this.timer)
-					if (hovered) {
-						if (!this.state.open) {
-							this.timer = setTimeout(() => {
-								this.setManagedState({open: true})
-							}, this.props.openTimeout)
-						}
-					} else {
-						if (this.state.open) {
-							this.timer = setTimeout(() => {
-								this.setManagedState({open: false})
-							}, this.props.closeTimeout)
-						}
-					}
-				}
+				props.onChangeTapState = ({hovered}) => { this.onChangeHovered(hovered) }
 			}
 			target = React.createElement(Tappable, props, target)
 		}
@@ -167,19 +171,19 @@ class Tooltip extends React.Component {
 			},
 			attachment: this.props.sides.map((side) => {
 				return createAttachmentPoint(side, this.props.align, this.getOffset())
-			}),
+			})
 			//layerProps: {
 				//closeOnEsc: true when open with click but not hover
 			//},
 		}, target)
-
-		let tooltip = this.renderTooltip()
 
 		if (this.props.animation) {
 			return React.createElement(Motion, {
 				defaultStyle: {progress: 0},
 				style: {progress: spring(this.state.open ? 1 : 0, {stiffness: 320, damping: 30})}
 			}, (value) => {
+				let tooltip = this.renderTooltip()
+
 				let tooltipAnimation = React.cloneElement(
 					this.getChildComponent('animation'),
 					{progress: value.progress},
@@ -191,16 +195,41 @@ class Tooltip extends React.Component {
 				})
 			})
 		} else {
+			let tooltip = this.renderTooltip()
 			return React.cloneElement(attachment, {
 				element: tooltip
 			})
 		}
 	}
 
+	onChangeHovered(hovered, canOnlyClose) {
+		clearTimeout(this.timer)
+		if (hovered) {
+			if (!canOnlyClose && !this.state.open) {
+				this.timer = setTimeout(() => {
+					this.setManagedState({open: true})
+				}, this.props.openTimeout)
+			}
+		} else {
+			if (this.state.open) {
+				this.timer = setTimeout(() => {
+					this.setManagedState({open: false})
+				}, this.props.closeTimeout)
+			}
+		}
+	}
+
 	renderTooltip() {
-		return React.DOM.div({style: this.styles.root}, [
-			this.props.tooltip, this.props.arrow && this.renderArrow()
-		])
+		return (
+			<Tappable
+				onChangeTapState={({hovered}) => { this.onChangeHovered(hovered, true) }}
+			>
+				<div style={this.styles.root}>
+					{this.props.tooltip}
+					{this.props.arrow && this.renderArrow()}
+				</div>
+			</Tappable>
+		)
 	}
 
 	renderArrow() {

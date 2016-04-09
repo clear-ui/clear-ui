@@ -8,20 +8,40 @@ import mixinDecorator from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 
-const funcOrBoundFuncType = React.PropTypes.oneOfType(
+const funcOrBoundFuncType = React.PropTypes.oneOfType([
 	React.PropTypes.func,
 	React.PropTypes.instanceOf(BoundFunction)
-)
+])
 
 @mixinDecorator(StylesMixin, ManagedStateMixin)
 class MenuItem extends React.Component {
 	static displayName = 'MenuItem'
 
 	static propTypes = {
-		onTap: funcOrBoundFuncType
+		/** Value of the item. */
+		value: React.PropTypes.string,
 
-		// TODO
-		// other props
+		/** Disabled state of the item. */
+		disabled: React.PropTypes.bool,
+
+		/**
+		 * Icon element that appears at the left side of the item.
+		 * It can be SVG-icon, font-icon or any arbitrary element.
+		 */
+		leftIcon: React.PropTypes.element,
+
+		/** Icon element that appears at the right side of the item. */
+		rightIcon: React.PropTypes.element,
+
+		/** Handler of the tap event on the right icon. */
+		onRightIconTap: React.PropTypes.func,
+
+		/**
+		 * Handler of the tap event on the item.
+		 * This property is set automatically,
+		 * instead you should use `onSelect` prop of the `Menu`.
+		 */
+		onTap: funcOrBoundFuncType
 	}
 
 	constructor(props) {

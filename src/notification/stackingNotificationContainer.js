@@ -2,11 +2,11 @@ import _ from 'underscore'
 import React from 'react'
 import {TransitionMotion, spring} from 'react-motion'
 
-import AbstractNotificationsContainer from './abstractNotificationsContainer.js'
+import AbstractNotificationContainer from './abstractNotificationContainer.js'
 
 const fastSpringPreset = {stiffness: 320, damping: 30}
 
-export default class StackingNotificationContext extends AbstractNotificationsContainer {
+export default class StackingNotificationContainer extends AbstractNotificationContainer {
 	constructor() {
 		super()
 		this.state = {...this.state, notifications: []}
@@ -39,7 +39,10 @@ export default class StackingNotificationContext extends AbstractNotificationsCo
 			React.cloneElement(
 				this.getChildComponent('animation'),
 				{progress: config.style.progress, key: config.key},
-				React.cloneElement(config.data.elem)
+				React.cloneElement(config.data.elem, {
+					containerVertPos: this.props.vertPos,
+					containerHorizPos: this.props.horizPos
+				})
 			),
 			<br/>
 		]

@@ -9,22 +9,68 @@ import AttachmentClass from './class'
 /**
  * Attaches element to target.
  * It uses ZContext to create separate layer and AttachmentClass for attaching.
- * @param {object} props.attachment - AttachmentClass option.
- * @param {number} [props.viewportPadding] - AttachmentClass option.
- * @param {string} [props.mirrorAttachment] - AttachmentClass option.
- * @param {function} [props.onChangeAttachment] - AttachmentClass option.
- * @param {object} [props.layerProps] - ZContext.Layer props.
- * @param {React.Element} props.element - Attached element.
- * @param {React.Element} props.children - Attachment target.
  */
-class Attachment extends React.Component {
+export default class Attachment extends React.Component {
 	static propTypes = {
+		/** Attachment target. */
+		children: React.PropTypes.element.isRequired,
+
+		/** Attached element. */
+		element: React.PropTypes.element.isRequired,
+
+		/** Controls the visibility of the attached element. */
+		open: React.PropTypes.bool,
+
+		/** Props passed to `ZContextLayer`. */
+		layerProps: React.PropTypes.object,
+
+		/**
+		 * Configuration of attachment points or a list of possible configs.
+		 * Component will choose an attachment that allows element to fit to the viewport.
+		 *
+		 * Format of the config object is following:
+		 *
+		 * - **element** `string` – Attachment point of the element.
+		 * String of the form of `vert-attachment horiz-attachment`.
+		 * Attachment value is a number with `px` or `%`.
+		 * Also it supports special values, `vert-attachment` can be
+		 * `'top'`, `'middle'`, `'bottom'`, and `horiz-attachment` can be
+		 * `'left'`, `'right'` and `'center'`.
+		 *
+		 * - **target** `string` – Attachment point of the target element.
+		 *   Format is same as for element.
+		 *
+		 * - **offset** `string` _optional_ – Offset of the element.
+		 *   Format is same as for element and target, but without special values.
+		 */
 		attachment: React.PropTypes.oneOfType([
 			React.PropTypes.array, React.PropTypes.object
 		]).isRequired,
-		onChangeAttachment: React.PropTypes.func,
-		element: React.PropTypes.element.isRequired,
-		children: React.PropTypes.element.isRequired
+
+		/**
+		 * Axis of attachment that can be mirrored to fit element to the viewport.
+		 * It is used when single attachment used.
+		 * Default is `'none'`.
+		 */
+		mirrorAttachment: React.PropTypes.oneOf(['all', 'vert', 'horiz', 'none']),
+
+		/** Minimal distance from element to the viewport bound. Default is 0. */
+		viewportPadding: React.PropTypes.number,
+
+		/**
+		 * When none of attachments allows element to fully fit on the screen,
+		 * element is fixed near the edge of the screen.
+		 */
+		constrain: React.PropTypes.bool,
+
+		/**
+		 * Function that is called when component chooses another attachment to
+		 * fit attached element on the screen.
+		 *
+		 * (index: number) => void
+		 * - **index** – Index of the chosen attachment config.
+		 */
+		onChangeAttachment: React.PropTypes.func
 	}
 
 	componentDidUpdate() {
@@ -89,5 +135,3 @@ class Attachment extends React.Component {
 		}
 	}
 }
-
-export default Attachment
