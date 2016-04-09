@@ -74,7 +74,7 @@ class DocsPage extends React.Component {
 
 						<LinkMenuItem value='modal'>Modal</LinkMenuItem>
 						<LinkMenuItem value='tooltip'>Tooltip</LinkMenuItem>
-						<LinkMenuItem value='notifications'>Notifications</LinkMenuItem>
+						<LinkMenuItem value='notification'>Notification</LinkMenuItem>
 
 						<LinkMenuItem value='input'>Input</LinkMenuItem>
 						<LinkMenuItem value='checkbox'>Checkbox</LinkMenuItem>
@@ -102,7 +102,7 @@ class DocsPage extends React.Component {
 						
 						<LinkMenuItem value='modal'>Modal</LinkMenuItem>
 						<LinkMenuItem value='tooltip'>Tooltip</LinkMenuItem>
-						<LinkMenuItem value='notifications'>Notifications</LinkMenuItem>
+						<LinkMenuItem value='notification'>Notification</LinkMenuItem>
 
 						<LinkMenuItem value='input'>Input</LinkMenuItem>
 					</LinkMenu>

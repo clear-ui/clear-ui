@@ -69,7 +69,6 @@ class Code extends React.Component {
 
 		pre: {
 			overflow: 'auto',
-			fontSize: '14px',
 			margin: 0
 		},
 

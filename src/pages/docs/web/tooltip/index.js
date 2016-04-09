@@ -5,6 +5,13 @@ import Tooltip from 'clear-ui-simple/lib/tooltip'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import TooltipExample from './example.js'
+import tooltipExampleCode from '!raw!./example.js'
+
+import webDocs from '../../../../../docgen/web.json'
+let tooltipPropsDoc = webDocs['tooltip/index.js'].props
 
 export default class TooltipDoc extends React.Component {
 	render() {
@@ -26,25 +33,11 @@ export default class TooltipDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<Tooltip tooltip={tooltip}>
-						<div style={style}>Show tooltip on hover</div>
-					</Tooltip>
-					{' '}
-					<Tooltip tooltip={tooltip} showOnClick={true}>
-						<div style={style}>Show/hide tooltip on click</div>
-					</Tooltip>
+					<TooltipExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					let tooltip = 'Content of the tooltip!'
-
-					<Tooltip tooltip={tooltip}>
-						<div style={style}>Show tooltip on hover</div>
-					</Tooltip>
-
-					<Tooltip tooltip={tooltip} showOnClick={true}>
-						<div style={style}>Show tooltip on click</div>
-					</Tooltip>
-				`}</Example.Code>
+				<Example.Code>
+					{tooltipExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -133,6 +126,34 @@ export default class TooltipDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
+			<h3>Close timeout</h3>
+
+			{`
+			Tooltip can start closing not immediately after the element loses hover,
+			but after some timeout, and when hovering the tooltip, closing timer is
+			disabled.
+			It can be useful in situations when needed interaction with the tooltip,
+			for example to copy the text or click the link inside.
+			`}
+
+			<Example>
+				<Example.Demo>
+					<Tooltip
+						closeTimeout={500}
+						tooltip={<span>
+							Tooltip text.
+							{' '}
+							<a href='http://google.com' target='blank'>Some link</a>
+						</span>}
+					>
+						<div style={style}>Show tooltip</div>
+					</Tooltip>
+				</Example.Demo>
+				<Example.Code lang='xml'>{`
+					<Tooltip closeTimeout={500} tooltip={tooltip}>...</Tooltip>
+				`}</Example.Code>
+			</Example>
+
 			<h3>Animations</h3>
 
 			<Example>
@@ -153,6 +174,12 @@ export default class TooltipDoc extends React.Component {
 						<div style={style}>Scale</div>
 					</Tooltip>
 				</Example.Demo>
+				<Example.Code>{`
+					<Tooltip tooltip={...} animation={false}>...</Tooltip>
+					<Tooltip tooltip={...} animation='slide'>...</Tooltip>
+					<Tooltip tooltip={...} animation='fade'>...</Tooltip>
+					<Tooltip tooltip={...} animation='scale'>...</Tooltip>
+				`}</Example.Code>
 			</Example>
 
 
@@ -160,57 +187,13 @@ export default class TooltipDoc extends React.Component {
 
 			<h3>Props</h3>
 
-			<ApiDoc>
-				<ApiDoc.Row label='size'>{`
-					Type: \`string\`
-
-					Size of the tooltip.
-					Possible values: \`small\`, \`default\`, \`big\`.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='dark'>{`
-					Type: \`boolean\`
-
-					Dark style of the tooltip.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='showOnHover'>{`
-					Type: \`boolean\`
-					<br/>
-					Default: \`true\`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='showOnClick'>{`
-					Type: \`boolean\`
-					<br/>
-					Default: \`false\`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='sides'>{`
-					Type: \`array\`
-					<br/>
-					Default: \`['top', 'right', 'bottom', 'left']\`
-
-					List of sides where tooltip can be shown in the order of priority.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row label='align'>{`
-					Type: \`'begin'|'center'|'end'\`
-					<br/>
-					Default: \`'center'\`
-
-					Align of the tooltip on the side of the element.
-				`}</ApiDoc.Row>
-
-			</ApiDoc>
-
-			{`
-			showTimeout
-			hideTimeout
-			animation?
-			closeButton?
-			`}
-
+			<PropsDoc
+				doc={tooltipPropsDoc}
+				base={{
+					name: 'Base > Tooltip Props',
+					url: '#/docs/base/tooltip'
+				}}
+			/>
 		</DocPage>
 	}
 }

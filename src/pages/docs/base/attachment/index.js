@@ -10,6 +10,9 @@ import PropsDoc from '../../../../propsDoc'
 import baseDocs from '../../../../../docgen/base.json'
 let attachmentPropsDoc = baseDocs['attachment/index.js'].props
 
+import AttachmentDemo from './demo.js'
+import attachmentDemoCode from '!raw!./demo.js'
+
 export default class BaseAttachmentDoc extends React.Component {
 	render() {
 		let element = (
@@ -32,7 +35,7 @@ export default class BaseAttachmentDoc extends React.Component {
 			{`
 			Attachment is a component that makes element stay next to another element,
 			connecting two attachment points on the elements. 
-			It renders attached element in separate \`ZContext.Layer\`.
+			It renders attached element in the separate \`ZContext.Layer\`.
 			`}
 
 			<h2>Example</h2>
@@ -44,43 +47,11 @@ export default class BaseAttachmentDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<Attachment
-						open={true}
-						element={element}
-						attachment={{
-							target: 'right top',
-							element: 'left top',
-							offset: '5px 0'
-						}}>
-						<RaisedButton>Target</RaisedButton>
-					</Attachment>
+					<AttachmentDemo/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					let element = (
-						<div style={{
-							position: 'absolute',
-							width: 100,
-							height: 50,
-							lineHeight: '50px',
-							textAlign: 'center',
-							border: '1px solid rgb(204, 204, 204)',
-							background: 'white'
-						}}>
-							Element
-						</div>
-					)
-
-					<Attachment
-						open={true}
-						element={element}
-						attachment={{
-							target: 'right top',
-							element: 'left top',
-							offset: '5px 0'
-						}}>
-						<RaisedButton>Target</RaisedButton>
-					</Attachment>
-				`}</Example.Code>
+				<Example.Code lang='xml'>
+					{attachmentDemoCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Props</h2>

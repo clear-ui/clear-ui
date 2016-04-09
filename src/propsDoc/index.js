@@ -33,7 +33,11 @@ function generatePropType(type) {
 	To: 'a' | 'b'
 	*/
 	if (type.name === 'enum') {
-		return type.value.map(val => val.value).join(' | ')
+		if (Array.isArray(type.value)) {
+			return type.value.map(val => val.value).join(' | ')
+		} else {
+			return type.value
+		}
 	}
 
 	return type.name

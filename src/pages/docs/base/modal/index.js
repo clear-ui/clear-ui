@@ -2,6 +2,10 @@ import React from 'react'
 
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import baseDocs from '../../../../../docgen/base.json'
+let modalPropsDoc = baseDocs['modal/index.js'].props
 
 export default class BaseModalDoc extends React.Component {
 	render() {
@@ -22,54 +26,7 @@ export default class BaseModalDoc extends React.Component {
 
 			<h2>Props</h2>
 
-			<ApiDoc>
-				<ApiDoc.Row
-					name='open'
-					type='boolean'
-				>{`
-					Controls whether modal is opened or not.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='onClose'
-					type='function'
-				>{`
-					Function that is called when modal requests close after
-					clicking outside or pressing \`Esc\` key.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='width'
-					type='string | number'
-				>{`
-					Width of the modal (value of the CSS-property width).
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='closeOnClickOutside'
-					type='boolean'
-					defaultValue='true'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='closeOnEsc'
-					type='boolean'
-					defaultValue='true'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='animation'
-					type='string'
-					defaultValue={`'fade'`}
-				>{`
-					Type of opening and closing animation.
-					<br/>
-					Possible values: \`'fade', 'scale', 'slideDown'\`,
-					or \`false\` for no animation.
-				`}</ApiDoc.Row>
-			</ApiDoc>
+			<PropsDoc doc={modalPropsDoc}/>
 		</DocPage>
 	}
 }

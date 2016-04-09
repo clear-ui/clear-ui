@@ -81,8 +81,7 @@ class LinkMenuLabel extends MenuLabel {
 		{
 			label: {
 				paddingLeft: '2rem',
-				paddingRight: '2rem',
-				//fontSize: '0.94rem'
+				paddingRight: '2rem'
 			}
 		}
 	)

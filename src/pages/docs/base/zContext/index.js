@@ -1,10 +1,13 @@
 import React from 'react'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
+import PropsDoc from '../../../../propsDoc'
 
-export default class ZContextDoc {
+import baseDocs from '../../../../../docgen/base.json'
+let zContextLayerPropsDoc = baseDocs['zContext/layer.js'].props
+
+export default class ZContextDoc extends React.Component {
 	render() {
 		return <DocPage>
 			<h1>Base<DocPage.ArrowIcon/>ZContext</h1>
@@ -89,65 +92,7 @@ export default class ZContextDoc {
 
 			<h2>ZContextLayer props</h2>
 
-			<ApiDoc>
-				<ApiDoc.Row
-					name='open'
-				>{`
-				`}
-				</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='onClose'
-					type='function'
-				>{`
-					Function that is called when layer requests close.
-				`}
-				</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='type'
-					type='string'
-					defaultValue='popup'
-				>{`
-					Layer type. It affects order of layers.
-
-					Possible layer types in order of their priority:
-					initial, popup, fixed, modal, notify.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='global'
-					type='bolean'
-				>{`
-					When \`true\`, layer is rendered in the top context.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='onRender'
-					type='function'
-				>{`
-					Function that is called when content is rendered in the layer.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='closeOnEsc'
-					type='boolean'
-					default='true'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='overlay'
-					type='boolean'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='closeOnOverlayClick'
-					type='boolean'
-				>{`
-				`}</ApiDoc.Row>
-			</ApiDoc>
+			<PropsDoc doc={zContextLayerPropsDoc}/>
 		</DocPage>
 	}
 }

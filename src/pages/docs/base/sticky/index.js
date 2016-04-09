@@ -95,7 +95,7 @@ export default class StickyDoc {
 			Sticky is a component that fixes content when it leaves viewport while scrolling.
 
 			When content becomes fixed, component inserts placeholder
-			with height of the content.
+			with height equal to the height of the content.
 			`}
 
 			<h2>Example</h2>

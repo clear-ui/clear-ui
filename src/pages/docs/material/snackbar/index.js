@@ -233,8 +233,8 @@ export default class SnackbarDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/notifications'>
-						Base > Notifications > SingleNotificationContainer props
+					<a href='#/docs/base/notification'>
+						Base > Notification > SingleNotificationContainer props
 					</a>
 				</ApiDoc.Row>
 			</ApiDoc>
@@ -258,8 +258,8 @@ export default class SnackbarDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/docs/base/notifications'>
-						Base > Notifications > SingleNotificationContainer props
+					<a href='#/docs/base/notification'>
+						Base > Notification > SingleNotificationContainer props
 					</a>
 				</ApiDoc.Row>
 			</ApiDoc>

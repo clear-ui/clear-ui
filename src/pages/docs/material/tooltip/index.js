@@ -14,7 +14,8 @@ export default class TooltipDoc extends React.Component {
 			background: '#eee',
 			cursor: 'default',
 			userSelect: 'none',
-			webkitTapHighlightColor: 'rgba(0,0,0,0)'
+			WebkitUserSelect: 'none',
+			WebkitTapHighlightColor: 'rgba(0,0,0,0)'
 		}
 
 		let tooltip = 'Content of the tooltip!'
