@@ -58,8 +58,9 @@ class LinkMenuItem extends MenuItem {
 			let label = {
 				paddingLeft: '2rem',
 				paddingRight: '2rem',
-				paddingTop: '0.1rem',
-				paddingBottom: '0.1rem'
+				paddingTop: '0.25rem',
+				paddingBottom: '0.25rem',
+				fontSize: 15
 			}
 
 			if (state.tapState === 'hovered') root.background = '#e6e6e6'
@@ -67,7 +68,7 @@ class LinkMenuItem extends MenuItem {
 
 			if (props.selected) {
 				label.fontWeight = 'normal'
-				label.color = 'rgb(30, 136, 229)'			
+				label.color = 'rgb(30, 136, 229)'
 			}
 
 			return {root, label}
@@ -81,7 +82,8 @@ class LinkMenuLabel extends MenuLabel {
 		{
 			label: {
 				paddingLeft: '2rem',
-				paddingRight: '2rem'
+				paddingRight: '2rem',
+				fontSize: 15
 			}
 		}
 	)

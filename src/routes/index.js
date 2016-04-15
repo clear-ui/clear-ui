@@ -9,15 +9,28 @@ import Header, {HeaderItem} from '../header'
 
 class App extends React.Component {
 	render() {
+		let flex = {
+			display: 'flex',
+			flexDirection: 'column',
+			minHeight: '100%'
+		}
+
+		let content = {
+			flexGrow: 1,
+			position: 'relative'
+		}
+
 		return (
 			<Page>
 				<ZContext>
-					<Header title='Clear UI' color='rgb(30, 136, 229)'>
-						<HeaderItem link='/docs/'>Docs</HeaderItem>
-						<HeaderItem link='/github/'>Github</HeaderItem>
-					</Header>
-					<div>
-						{this.props.children}
+					<div style={flex}>
+						<Header title='Clear UI' color='rgb(30, 136, 229)'>
+							<HeaderItem link='/docs/'>Docs</HeaderItem>
+							<HeaderItem link='/github/'>Github</HeaderItem>
+						</Header>
+						<div style={content}>
+							{this.props.children}
+						</div>
 					</div>
 				</ZContext>
 			</Page>

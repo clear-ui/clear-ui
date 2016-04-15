@@ -2,22 +2,27 @@ import React from 'react'
 import {Link} from 'react-router'
 
 import ZContext from 'clear-ui-base/lib/zContext'
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 import COLORS from 'clear-ui-simple/lib/styles/colors'
 
-import LinkMenu, {LinkMenuItem, LinkMenuLabel} from '../../linkMenu'
+import NavMenu, {NavMenuGroup, NavMenuSubMenu, NavMenuItem, NavMenuHeader} from '../../navMenu'
 
-@mixinDecorator(StylesMixin)
-class DocsPage extends React.Component {
+@mixin(StylesMixin)
+export default class DocsPage extends React.Component {
+	static displayName = 'DocsPage'
+
 	static styles = {
 		root: {
 			display: 'flex',
-			minHeight: '100%'
+			minHeight: '100%',
+			// hack to stetch child of flex container to 100% of parent
+			position: 'absolute',
+			width: '100%'
 		},
 		nav: {
-			paddingTop: '1rem',
-			paddingBottom: '1rem',
+			paddingTop: '2rem',
+			paddingBottom: '2rem',
 			background: COLORS.black5,
 			width: '15rem',
 			flex: '0 0 15rem'
@@ -26,7 +31,9 @@ class DocsPage extends React.Component {
 			background: 'white',
 			position: 'relative',
 			flex: '1 0 auto',
-			maxWidth: '90rem'
+			width: 0,
+			maxWidth: '50rem',
+			padding: '0 5rem'
 		}
 	}
 
@@ -34,78 +41,101 @@ class DocsPage extends React.Component {
 		return (
 			<div style={this.styles.root}>
 				<div style={this.styles.nav}>
-					<LinkMenu prefix='docs/'>
-						<LinkMenuLabel>Guides</LinkMenuLabel>
-						<LinkMenuItem value='get-started'>- Get Started</LinkMenuItem>
-						<LinkMenuItem value='customization'>+/- Customization</LinkMenuItem>
-						<LinkMenuItem value='server-rendering' disabled={true}>Server Rendering</LinkMenuItem>
-					</LinkMenu>
 
-					<LinkMenu prefix='docs/material/'>
-						<LinkMenuLabel>Material</LinkMenuLabel>
-						<LinkMenuItem value='about-material'>- About</LinkMenuItem>
-						<LinkMenuItem value='themes'>+/- Themes</LinkMenuItem>
+					<NavMenu prefix='docs/'>
+						<NavMenuGroup>
+							<NavMenuHeader>Guides</NavMenuHeader>
+							<NavMenuSubMenu>
+								<NavMenuItem value='get-started'>- Get Started</NavMenuItem>
+								<NavMenuItem value='customization'>+/- Customization</NavMenuItem>
+								<NavMenuItem value='server-rendering' disabled={true}>
+									Server Rendering</NavMenuItem>
+							</NavMenuSubMenu>
+						</NavMenuGroup>
+					</NavMenu>
 
-						<LinkMenuItem value='dropdown'>-- Dropdown</LinkMenuItem>
+					<NavMenu prefix='docs/base/'>
+						<NavMenuGroup>
+							<NavMenuHeader>Base</NavMenuHeader>
 
-						<LinkMenuItem value='button'>Button</LinkMenuItem>
+							<NavMenuSubMenu>
+								<NavMenuItem value='about-base'>About</NavMenuItem>
 
-						<LinkMenuItem value='menu'>Menu</LinkMenuItem>
-						<LinkMenuItem value='list'>List</LinkMenuItem>
+								<NavMenuItem value='zcontext'>ZContext</NavMenuItem>
+								<NavMenuItem value='attachment'>Attachment</NavMenuItem>
+								<NavMenuItem disabled={true}>StylesMixin</NavMenuItem>
+								<NavMenuItem disabled={true}>ChildComponentsMixin</NavMenuItem>
+								<NavMenuItem disabled={true}>ManagedStateMixin</NavMenuItem>
 
-						<LinkMenuItem value='dialog'>Dialog</LinkMenuItem>
-						<LinkMenuItem value='tooltip'>Tooltip</LinkMenuItem>
-						<LinkMenuItem value='snackbar'>Snackbar & Toast</LinkMenuItem>
+								<NavMenuItem value='button'>Button</NavMenuItem>
 
-						<LinkMenuItem value='input'>Input</LinkMenuItem>
-						<LinkMenuItem value='checkbox'>Checkbox</LinkMenuItem>
-						<LinkMenuItem value='radio-buttons'>Radio Buttons</LinkMenuItem>
-						<LinkMenuItem value='select'>Select</LinkMenuItem>
-						<LinkMenuItem disabled={true}>Slider</LinkMenuItem>
-					</LinkMenu>
+								<NavMenuItem value='input'>Input</NavMenuItem>
+								<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>
+								<NavMenuItem value='radio-button'>Radio Button</NavMenuItem>
 
-					<LinkMenu prefix='docs/web/'>
-						<LinkMenuLabel>Web</LinkMenuLabel>
-						<LinkMenuItem value='button'>Button</LinkMenuItem>
+								<NavMenuItem value='sticky'>Sticky</NavMenuItem>
+								<NavMenuItem value='scrollspy'>Scrollspy</NavMenuItem>
 
-						<LinkMenuItem value='menu'>Menu</LinkMenuItem>
-						<LinkMenuItem value='tree-menu'>Tree Menu</LinkMenuItem>
-						<LinkMenuItem value='dropdown-menu'>Dropdown Menu</LinkMenuItem>
+								<NavMenuItem value='menu'>Menu</NavMenuItem>
+								<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>
 
-						<LinkMenuItem value='modal'>Modal</LinkMenuItem>
-						<LinkMenuItem value='tooltip'>Tooltip</LinkMenuItem>
-						<LinkMenuItem value='notification'>Notification</LinkMenuItem>
+								<NavMenuItem value='modal'>Modal</NavMenuItem>
+								<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
+								<NavMenuItem value='notification'>Notification</NavMenuItem>
+							</NavMenuSubMenu>
+						</NavMenuGroup>
+					</NavMenu>
 
-						<LinkMenuItem value='input'>Input</LinkMenuItem>
-						<LinkMenuItem value='checkbox'>Checkbox</LinkMenuItem>
-						<LinkMenuItem value='radio-buttons'>Radio Buttons</LinkMenuItem>
-						<LinkMenuItem value='select'>Select</LinkMenuItem>
-						<LinkMenuItem disabled={true}>Slider</LinkMenuItem>
-					</LinkMenu>
+					<NavMenu prefix='docs/material/'>
+						<NavMenuGroup>
+							<NavMenuHeader>Material</NavMenuHeader>
+							<NavMenuSubMenu>
+								<NavMenuItem value='about-material'>About</NavMenuItem>
+								<NavMenuItem value='themes'>+/- Themes</NavMenuItem>
 
-					<LinkMenu prefix='docs/base/'>
-						<LinkMenuLabel>Base</LinkMenuLabel>
+								<NavMenuItem value='dropdown'>-- Dropdown</NavMenuItem>
 
-						<LinkMenuItem value='zcontext'>ZContext</LinkMenuItem>
-						<LinkMenuItem value='attachment'>Attachment</LinkMenuItem>
-						<LinkMenuItem disabled={true}>StylesMixin</LinkMenuItem>
-						<LinkMenuItem disabled={true}>ChildComponentsMixin</LinkMenuItem>
-						<LinkMenuItem disabled={true}>ManagedStateMixin</LinkMenuItem>
+								<NavMenuItem value='button'>Button</NavMenuItem>
 
-						<LinkMenuItem value='button'>Button</LinkMenuItem>
+								<NavMenuItem value='menu'>Menu</NavMenuItem>
+								<NavMenuItem value='list'>List</NavMenuItem>
 
-						<LinkMenuItem value='sticky'>Sticky</LinkMenuItem>
-						<LinkMenuItem value='scrollspy'>Scrollspy</LinkMenuItem>
+								<NavMenuItem value='dialog'>Dialog</NavMenuItem>
+								<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
+								<NavMenuItem value='snackbar'>Snackbar & Toast</NavMenuItem>
 
-						<LinkMenuItem value='menu'>Menu</LinkMenuItem>
-						<LinkMenuItem value='dropdown-menu'>Dropdown Menu</LinkMenuItem>
-						
-						<LinkMenuItem value='modal'>Modal</LinkMenuItem>
-						<LinkMenuItem value='tooltip'>Tooltip</LinkMenuItem>
-						<LinkMenuItem value='notification'>Notification</LinkMenuItem>
+								<NavMenuItem value='input'>Input</NavMenuItem>
+								<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>
+								<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>
+								<NavMenuItem value='select'>Select</NavMenuItem>
+								<NavMenuItem disabled={true}>Slider</NavMenuItem>
+							</NavMenuSubMenu>
+						</NavMenuGroup>
+					</NavMenu>
 
-						<LinkMenuItem value='input'>Input</LinkMenuItem>
-					</LinkMenu>
+					<NavMenu prefix='docs/web/'>
+						<NavMenuGroup>
+							<NavMenuHeader>Web</NavMenuHeader>
+							<NavMenuSubMenu>
+								<NavMenuItem value='button'>Button</NavMenuItem>
+
+								<NavMenuItem value='menu'>Menu</NavMenuItem>
+								<NavMenuItem value='tree-menu'>Tree Menu</NavMenuItem>
+								<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>
+
+								<NavMenuItem value='modal'>Modal</NavMenuItem>
+								<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
+								<NavMenuItem value='notification'>Notification</NavMenuItem>
+
+								<NavMenuItem value='input'>Input</NavMenuItem>
+								<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>
+								<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>
+								<NavMenuItem value='select'>Select</NavMenuItem>
+								<NavMenuItem disabled={true}>Slider</NavMenuItem>
+							</NavMenuSubMenu>
+						</NavMenuGroup>
+					</NavMenu>
+
 				</div>
 				<div style={this.styles.content}>
 					{this.props.children}
@@ -114,5 +144,3 @@ class DocsPage extends React.Component {
 		)
 	}
 }
-
-export default DocsPage

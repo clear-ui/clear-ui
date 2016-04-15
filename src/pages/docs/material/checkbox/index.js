@@ -6,46 +6,30 @@ import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
-class CheckboxDemo extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {value: this.props.value}
-	}
-
-	render() {
-		return (
-			<Checkbox
-				{...this.props}
-				value={this.state.value}
-				onChange={(value) => { this.setState({value}) }}
-			>
-				{this.props.children}
-			</Checkbox>
-		)
-	}
-}
+import CheckboxExample from './example.js'
+import checkboxExampleCode from '!raw!./example.js'
 
 export default class CheckboxDoc extends React.Component {
 	render() {
 		return <DocPage>
 			<h1>Material<DocPage.ArrowIcon/>Checkbox</h1>
 
+			{`
+			Checkbox is a component that allows the user to toggle
+			checked/unchecked state of a single option.
+
+			[Checkbox specification](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-checkbox)
+			`}
+
 			<h2>Example</h2>
 
 			<Example>
 				<Example.Demo>
-					<CheckboxDemo>Checkbox</CheckboxDemo>
-					<CheckboxDemo value={true}>Checked checkbox</CheckboxDemo>
-					<CheckboxDemo disabled={true}>Disabled checkbox</CheckboxDemo>
-					<CheckboxDemo value={true} disabled={true}>
-						Checked disabled checkbox
-					</CheckboxDemo>
+					<CheckboxExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Checkbox>Checkbox</Checkbox>
-					<Checkbox value={true}>Checked checkbox</Checkbox>
-					<Checkbox disabled={true}>Disabled checkbox</Checkbox>
-				`}</Example.Code>
+				<Example.Code lang='js'>
+					{checkboxExampleCode}
+				</Example.Code>
 			</Example>
 
 		</DocPage>

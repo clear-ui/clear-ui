@@ -32,6 +32,12 @@ export default class RadioButtonsDoc extends React.Component {
 		return <DocPage>
 			<h1>Material<DocPage.ArrowIcon/>Radio Buttons</h1>
 
+			{`
+			Radio buttons allow the user to select one option from a set.
+
+			[Radio buttons specification](https://www.google.com/design/spec/components/selection-controls.html#selection-controls-radio-button)
+			`}
+
 			<h2>Example</h2>
 
 			<Example>

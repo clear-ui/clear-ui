@@ -1,3 +1,4 @@
+import AboutMaterial from '../pages/docs/material/aboutMaterial'
 import Button from '../pages/docs/material/button'
 import Checkbox from '../pages/docs/material/checkbox'
 import Dropdown from '../pages/docs/material/dropdown'
@@ -12,6 +13,7 @@ import Themes from '../pages/docs/material/themes'
 import Tooltip from '../pages/docs/material/tooltip'
 
 export default [
+	{path: 'about-material', component: AboutMaterial},
 	{path: 'button', component: Button},
 	{path: 'checkbox', component: Checkbox},
 	{path: 'dropdown', component: Dropdown},

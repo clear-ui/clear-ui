@@ -85,7 +85,7 @@ class Demo extends React.Component {
 	//}
 //}
 
-export default class StickyDoc {
+export default class StickyDoc extends React.Component {
 	render() {
 
 		return <DocPage>
