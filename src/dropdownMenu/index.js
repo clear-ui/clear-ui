@@ -5,14 +5,16 @@ import {Motion, spring} from 'react-motion'
 
 import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
 import Animation, {fadeAndSlide, fadeAndScale, fade} from '../animations'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import Attachment from '../attachment'
 
-@mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
-class DropdownMenu extends React.Component {
+@mixin(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
+export default class DropdownMenu extends React.Component {
+	static displayName = 'DropdownMenu'
+
 	static propTypes = {
 		/** Trigger element of the dropdown */
 		trigger: React.PropTypes.node,
@@ -22,7 +24,7 @@ class DropdownMenu extends React.Component {
 
 		/**
 		 * function(item: ?) => void
-		 * <br/>
+		 *
 		 * Handler of the selecting item from the dropdown menu.
 		 */
 		onSelect: React.PropTypes.func,
@@ -51,7 +53,7 @@ class DropdownMenu extends React.Component {
 		vertSide: 'bottom',
 		animation: 'fade',
 		maxHeight: Infinity,
-		listOffset: 10
+		listOffset: 0
 	}
 
 	static styles = {
@@ -63,6 +65,8 @@ class DropdownMenu extends React.Component {
 		animation: (props) => {
 			if (props.animation === 'fade') {
 				return React.createElement(Animation, {fn: fade})
+			} else if (props.animation === 'slide') {
+				// TODO need side, but with mirror
 			}
 		},
 
@@ -132,10 +136,10 @@ class DropdownMenu extends React.Component {
 		return {
 			attachment: {
 				target: `${oppositeSide} ${this.props.vertSide}`,
-				element: `${oppositeSide} ${oppositeVertSide}`
-				// offset: '0 -1px' // TODO offset
+				element: `${oppositeSide} ${oppositeVertSide}`,
+				offset: `0 ${this.props.listOffset}px`
 			},
-			mirrorAttachment: true
+			mirrorAttachment: 'all'
 		}
 	}
 
@@ -195,5 +199,3 @@ class DropdownMenu extends React.Component {
 		this.setMenuHeight()
 	}
 }
-
-export default DropdownMenu

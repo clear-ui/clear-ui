@@ -1,13 +1,15 @@
 import React from 'react'
 
 import FocusableTappable from '../focusableTappable'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
-@mixinDecorator(StylesMixin)
-class Switch extends React.Component {
+@mixin(StylesMixin)
+export default class Switch extends React.Component {
 	static propTypes = {
-		...FocusableTappable.propTypes, // TODO no
+		disabled: React.PropTypes.bool,
+		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+		preventFocusOnTap: React.PropTypes.bool,
 		isSwitched: React.PropTypes.bool,
 		onSwitch: React.PropTypes.func
 	}
@@ -19,7 +21,6 @@ class Switch extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {tapState: 'initial'}
-		//this.initManagedState(['tapState'])
 	}
 
 	render() {
@@ -48,5 +49,3 @@ class Switch extends React.Component {
 		throw new Error('Not implemented')
 	}
 }
-
-export default Switch

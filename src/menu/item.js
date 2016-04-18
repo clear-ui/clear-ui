@@ -4,7 +4,7 @@ import shallowEqual from 'shallowequal'
 import BoundFunction from '../utils/boundFunction'
 import Tappable from '../tappable'
 import FocusableTappable from '../focusableTappable'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 
@@ -13,8 +13,8 @@ const funcOrBoundFuncType = React.PropTypes.oneOfType([
 	React.PropTypes.instanceOf(BoundFunction)
 ])
 
-@mixinDecorator(StylesMixin, ManagedStateMixin)
-class MenuItem extends React.Component {
+@mixin(StylesMixin, ManagedStateMixin)
+export default class MenuItem extends React.Component {
 	static displayName = 'MenuItem'
 
 	static propTypes = {
@@ -149,5 +149,3 @@ class MenuItem extends React.Component {
 		}
 	}
 }
-
-export default MenuItem

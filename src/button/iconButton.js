@@ -2,13 +2,7 @@ import React from 'react'
 
 import Button from './index.js'
 
-/**
- * Button than can have icons at the left and right side.
- *
- * Additional styleable elements:
- * - leftIcon - container of the left icon.
- * - rightIcon - container of the right icon.
- */
+/** Button than can have icons at the left and right side. */
 export default class IconButton extends Button {
 	static propTypes = {
 		...Button.propTypes,
@@ -20,7 +14,14 @@ export default class IconButton extends Button {
 		leftIcon: React.PropTypes.node,
 
 		/** Icon element that appears at the right side of the button. */
-		rightIcon: React.PropTypes.node
+		rightIcon: React.PropTypes.node,
+
+		/**
+		 * Additional styleable elements:
+		 * - leftIcon - container of the left icon.
+		 * - rightIcon - container of the right icon.
+		 */
+		//styles: React.PropTypes.object
 	}
 
 	renderContainer() {

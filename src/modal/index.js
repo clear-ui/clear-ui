@@ -5,7 +5,7 @@ import {Motion, spring} from 'react-motion'
 import ZContext from '../zContext'
 import getScrollbarWidth from '../utils/getScrollbarWidth'
 import FocusScope from '../utils/focusScope'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Animation, {slide, scale, fade} from '../animations'
@@ -13,7 +13,7 @@ import Animation, {slide, scale, fade} from '../animations'
 // const SUPPORTS_TRANSFORM = 'transform' in document.body.style
 const scrollbarWidth = getScrollbarWidth()
 
-@mixinDecorator(StylesMixin, ChildComponentsMixin)
+@mixin(StylesMixin, ChildComponentsMixin)
 export default class Modal extends React.Component {
 	static displayName = 'Modal'
 
@@ -86,8 +86,12 @@ export default class Modal extends React.Component {
 		}
 	}
 
-	componentDidUpdate() {
-		if (!this.state.open) this.close()
+	componentWillReceiveProps(nextProps) {
+		if (!this.props.open && nextProps.open) this.open()
+	}
+
+	componentDidUpdate(prevProps) {
+		if (prevProps.open && !this.props.open) this.close()
 	}
 
 	componentWillUnmount() {
@@ -102,7 +106,7 @@ export default class Modal extends React.Component {
 		let root = React.DOM.div({
 			onClick: this.onClick.bind(this),
 			style: this.styles.root,
-			ref: (ref) => { this.elemRef = ref }
+			ref: (ref) => { this.rootElemRef = ref }
 		}, modal)
 
 		let layer = React.createElement(ZContext.Layer, {
@@ -114,9 +118,15 @@ export default class Modal extends React.Component {
 		}, root)
 
 		if (this.props.animation) {
-			return React.createElement(Motion, {
+			let motion = React.createElement(Motion, {
 				defaultStyle: {progress: 0},
-				style: {progress: spring(this.props.open ? 1 : 0, {stiffness: 320, damping: 30})}
+				style: {
+					progress: spring(this.props.open ? 1 : 0, {stiffness: 320, damping: 30})
+				},
+				onRest: () => {
+					// end close animation
+					if (!this.props.open) this.setState({showLayer: false})
+				}
 			}, (value) => {
 				let isClosing = !this.props.open && value.progress !== 0
 
@@ -136,7 +146,7 @@ export default class Modal extends React.Component {
 						animatedModal
 					)
 
-				let rootAnimation = React.createElement(
+				return React.createElement(
 					Animation,
 					{fn: fade, progress: value.progress},
 					React.cloneElement(root, {
@@ -146,11 +156,11 @@ export default class Modal extends React.Component {
 						}
 					}, modalAnimation)
 				)
-
-				return React.cloneElement(layer, {
-					open: this.state.open || value.progress !== 0
-				}, rootAnimation)
 			})
+
+			return React.cloneElement(layer, {
+				open: this.state.showLayer
+			}, motion)
 		} else {
 			return layer
 		}
@@ -162,7 +172,7 @@ export default class Modal extends React.Component {
 
 	onClick(event) {
 		if (this.props.closeOnClickOutside) {
-			if (event.target === this.elemRef) this.onClose()
+			if (event.target === this.rootElemRef) this.onClose()
 		} else if (this.props.closeOnClick) {
 			if ($(event.target).closest(this.modalRef).length) {
 				this.onClose()
@@ -174,32 +184,37 @@ export default class Modal extends React.Component {
 		if (this.props.onClose) this.props.onClose()
 	}
 
-	doesPageHasScroll() : boolean {
+	doesPageHasScroll() {
 		return document.body.clientWidth < window.innerWidth
 	}
 
 	onRender() {
-		if (this.props.open && !this.opened) {
-			this.opened = true
-			$('body').css({
-				overflow: 'hidden',
-				paddingRight: this.doesPageHasScroll() ? scrollbarWidth : ''
-			})
-			this.resizeListener = this.setSize.bind(this)
-			$(window).bind('resize scroll', this.resizeListener)
+		this.setPosition()
+		if (this.props.open && !this.focusScope) {
 			this.focusScope = new FocusScope(this.modalRef)
 		}
-		this.setSize()
+	}
+
+	open() {
+		this.setState({showLayer: true})
+		$('body').css({
+			overflow: 'hidden',
+			paddingRight: this.doesPageHasScroll() ? scrollbarWidth : ''
+		})
+		this.resizeListener = this.setPosition.bind(this)
+		$(window).bind('resize scroll', this.resizeListener)
 	}
 
 	close() {
-		this.opened = false
 		$('body').css({overflow: '', paddingRight: ''})
 		if (this.resizeListener) $(window).unbind('resize scroll', this.resizeListener)
-		if (this.focusScope) this.focusScope.destroy()
+		if (this.focusScope) {
+			this.focusScope.destroy()
+			this.focusScope = undefined
+		}
 	}
 
-	setSize() {
+	setPosition() {
 		let modal = $(this.modalRef)
 		let position = {}
 

@@ -3,19 +3,20 @@ import $ from 'jquery'
 
 import BoundFunction from '../utils/boundFunction'
 import keyCodes from '../utils/keyCodes'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
 import MenuItem from './item'
 
-@mixinDecorator(StylesMixin)
-class Menu extends React.Component {
+@mixin(StylesMixin)
+export default class Menu extends React.Component {
 	static propTypes = {
 		/** Value of the currently selected item */
 		value: React.PropTypes.string,
 
 		/**
-		 * (item: element) => void<br/>
+		 * (item: element) => void
+		 *
 		 * Handler of the selecting item from the menu.
 		 */
 		onSelect: React.PropTypes.func,
@@ -155,5 +156,4 @@ class Menu extends React.Component {
 	}
 }
 
-export default Menu
 export {MenuItem}

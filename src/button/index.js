@@ -1,8 +1,7 @@
 import React from 'react'
 
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
-import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import FocusableTappable from '../focusableTappable'
 
@@ -12,8 +11,8 @@ import FocusableTappable from '../focusableTappable'
  * It allows to handle taps and display button states
  * consistently across different input methods - touch, mouse or keyboard.
  */
-@mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
-class Button extends React.Component {
+@mixin(StylesMixin, ManagedStateMixin)
+export default class Button extends React.Component {
 	static propTypes = {
 		/**
 		 * Handler of the tap event.
@@ -93,5 +92,3 @@ class Button extends React.Component {
 		}, this.renderContainer())
 	}
 }
-
-export default Button

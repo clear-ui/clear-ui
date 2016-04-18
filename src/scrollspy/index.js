@@ -2,28 +2,36 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 
-//import singleChildFixMap from '../utils/singleChildFixMap'
-
 /**
  * Component for automatically updating value based on scroll position.
- *
- * @param {number} [props.offset=10] - Offset from top when calculating scroll position.
- * @param {number} [props.threshold=100] - Distance from top to activate anchor.
- * @param {Element|ReactElement|Deferred} [props.container=document.body] -
- *    Scrollable element to spy on.
- *    It can be DOM-element or React element or deferred resolved to one of it.
  */
 class Scrollspy extends React.Component {
 	static propTypes = {
+		/** Offset from top when scrolling to anchor, in px */
 		offset: React.PropTypes.number,
+
+		/** Distance from top at which anchor elements become active, in px. */
 		threshold: React.PropTypes.number,
+
+		/**
+		 * Scrollable element to spy on.
+		 * It can be DOM-element or React element or deferred resolved to one of it.
+		 * When you use element other than `document.body`, be sure to set
+		 * `overflow-y: scroll` and `height` to the element.
+		 */
 		container: React.PropTypes.object
 	}
 
 	static defaultProps = {
 		offset: 10,
-		threshold: 100,
+		threshold: 50,
 		container: document.body
+	}
+
+	anchors = []
+
+	componentWillMount() {
+		this.childrenWithAnchorsRefs = this.setChildrenAnchorsRefs(this.props.children)
 	}
 
 	componentDidMount() {
@@ -32,6 +40,12 @@ class Scrollspy extends React.Component {
 			this.props.container.then(this.init.bind(this))
 		} else {
 			this.init(this.props.container)
+		}
+	}
+
+	componentWillUpdate(nextProps) {
+		if (this.props.children !== nextProps.children) {
+			this.childrenWithAnchorsRefs = this.setChildrenAnchorsRefs(nextProps.children)
 		}
 	}
 
@@ -45,23 +59,21 @@ class Scrollspy extends React.Component {
 		this.update()
 	}
 
-	componentWillUpdate(nextProps) {
-		if (this.props.children !== nextProps.children) {
-			this.childrenWithAnchorsRefs = undefined
-		}
-	}
+	setChildrenAnchorsRefs(children) {
+		let _this = this
 
-	setChildrenAnchorsRefs() {
 		function setAnchorRef(elem) {
 			if (elem === null) return elem
 
 			if (elem.type === ScrollspyAnchor) {
-				return React.cloneElement(elem, {ref: elem.props.id})
+				return React.cloneElement(elem, {
+					ref: (ref) => { _this.anchors[elem.props.id] = ref }
+				})
 			}
 
 			if (elem.props && elem.props.children) {
 				return React.cloneElement(elem, {
-					//children: singleChildFixMap(elem.props.children, setAnchorRef)
+					// children: singleChildFixMap(elem.props.children, setAnchorRef)
 					children: React.Children.map(elem.props.children, setAnchorRef)
 				})
 			}
@@ -69,7 +81,7 @@ class Scrollspy extends React.Component {
 			return elem
 		}
 
-		this.childrenWithAnchorsRefs = React.Children.map(this.props.children, setAnchorRef)
+		return React.Children.map(children, setAnchorRef)
 	}
 
 	componentWillUnmmount() {
@@ -88,10 +100,10 @@ class Scrollspy extends React.Component {
 	}
 
 	getActiveAnchor() {
-		let activeId = Object.keys(this.refs)[0]
+		let activeId = Object.keys(this.anchors)[0]
 		let containerTop = this.container.offset().top
-		for (let id in this.refs) {
-			let elem = $(ReactDOM.findDOMNode(this.refs[id]))
+		for (let id in this.anchors) {
+			let elem = $(ReactDOM.findDOMNode(this.anchors[id]))
 			let distanceToEdge = elem.offset().top - containerTop
 			if (this.container[0] === document.body) {
 				distanceToEdge -= this.container.scrollTop()
@@ -104,7 +116,7 @@ class Scrollspy extends React.Component {
 	}
 
 	scrollToAnchor(id) {
-		let elem = ReactDOM.findDOMNode(this.refs[id])
+		let elem = ReactDOM.findDOMNode(this.anchors[id])
 		let topInContainer = $(elem).offset().top - this.container.offset().top
 		if (this.container[0] !== document.body) {
 			// elem.offset().top already contains body's scrollTop
@@ -114,10 +126,6 @@ class Scrollspy extends React.Component {
 	}
 
 	render() {
-		// Can set refs only inside render
-		if (!this.childrenWithAnchorsRefs) this.setChildrenAnchorsRefs()
-		//return React.DOM.div({className: this.buildOwnClassName('scrollspy')},
-			//this.childrenWithAnchorsRefs)
 		return React.DOM.div(null, this.childrenWithAnchorsRefs)
 	}
 }
@@ -131,4 +139,3 @@ class ScrollspyAnchor extends React.Component {
 Scrollspy.Anchor = ScrollspyAnchor
 
 export default Scrollspy
-

@@ -11,7 +11,7 @@ export default function composeChildComponents(...childComponentsList) {
 			if (typeof newComponent === 'function') {
 				composed[name] = (props, state, defaultComponent) => {
 					let oldComponentResult = (typeof oldComponent === 'function') ?
-						oldComponent(props, styles, defaultComponent) :
+						oldComponent(props, state, defaultComponent) :
 						oldComponent
 					return newComponent(props, state, oldComponentResult)
 				}

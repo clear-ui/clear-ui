@@ -1,6 +1,6 @@
 import React from 'react'
 
-import mixin from '../utils/mixin'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
 // let allIcons = require.context('./icons').keys()
@@ -16,16 +16,23 @@ const ICONS = {
 	triangleUp: require('./icons/triangleUp.icon.svg')
 }
 
-class Icon extends React.Component {
+@mixin(StylesMixin)
+export default class Icon extends React.Component {
 	static propTypes = {
+		/** Name of the SVG-symbol of the icon. */
 		icon: React.PropTypes.string.isRequired,
+
+		/**
+		 * Inline style of the icon that sets specified sizes and aligns itself with the text.
+		 */
 		inline: React.PropTypes.bool,
-		/** Css size for inline icon. */
+
+		/** Css size of the inline icon. */
 		size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
 	}
 
 	static defaultProps = {
-		size: '1rem'
+		size: '1.5rem'
 	}
 
 	static ICONS = ICONS
@@ -36,7 +43,7 @@ class Icon extends React.Component {
 		if (props.inline) {
 			root = {
 				display: 'inline-block',
-				lineHeight: `${props.size}px`
+				lineHeight: typeof props.size === 'number' ? `${props.size}px` : props.size
 			}
 
 			svg = {
@@ -48,8 +55,7 @@ class Icon extends React.Component {
 			root = {
 				display: 'block',
 				height: '100%',
-				width: '100%',
-				lineHeight: '1rem'
+				width: '100%'
 			}
 
 			svg = {
@@ -59,19 +65,19 @@ class Icon extends React.Component {
 			}
 		}
 
-
 		return {root, svg}
 	}
 
 	render() {
-		let xlink = `<use xlink:href="${this.props.icon}"></use>`
+		// let xlink = `<use xlink:href="${this.props.icon}"></use>`
+		// <svg dangerouslySetInnerHTML={{__html: xlink}} style={this.styles.svg}/>
 
 		return (
 			<span style={this.styles.root}>
-				<svg dangerouslySetInnerHTML={{__html: xlink}} style={this.styles.svg}/>
+				<svg style={this.styles.svg}>
+					<use xlinkHref={this.props.icon}/>
+				</svg>
 			</span>
 		)
 	}
 }
-
-export default mixin(Icon, StylesMixin)

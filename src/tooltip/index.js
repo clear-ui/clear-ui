@@ -1,7 +1,7 @@
 import React from 'react'
 import {Motion, spring} from 'react-motion'
 
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
@@ -22,8 +22,7 @@ const POSITION_POINTS = {
 	end: {horiz: 'right', vert: 'bottom'}
 }
 
-// Creates attachment point for the tooltip
-function createAttachmentPoint(side, align, offset) {
+function createAttachmentConfig(side, align, offset) {
 	/*
 	1. point on main axis is defined by side
 		point on the element - side
@@ -57,18 +56,12 @@ function createAttachmentPoint(side, align, offset) {
 	return attachment
 }
 
-/*
- * @param [props.closeButton=false] {Boolean} Показывать кнопку закрытия, ms.
- * @param [props.hideOnOutsideClick=false] {Boolean} Закрывать по клику.
- * @param [props.hideDelay=500] {Number} Задержка перед скрытием, ms.
- * @param [props.hideOnMouseOut=true] {Boolean} Скрывать, если убрать курсор с элемента.
- * @param [props.hideAnimationTime=0] {Number} Длительность анимации скрывания, ms.
- * @param [props.arrow]
- */
-@mixinDecorator(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
-class Tooltip extends React.Component {
+@mixin(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
+export default class Tooltip extends React.Component {
+	static displayName = 'Tooltip'
+
 	static propTypes = {
-		/** Element to which the tooltip is attached */
+		/** Element to which the tooltip is attached. */
 		children: React.PropTypes.element.isRequired,
 
 		/** Content of the tooltip. */
@@ -91,10 +84,10 @@ class Tooltip extends React.Component {
 		/** Style of the showing and hiding animations of the tooltip. */
 		animation: React.PropTypes.oneOf(['slide', 'scale', 'fade', false]),
 
-		/** Number before the tooltip starts opening after hovering the element, in ms. */
+		/** Time before the tooltip starts opening after hovering the element, in ms. */
 		openTimeout: React.PropTypes.number,
 
-		/** Number before the tooltip starts closing after the element loses hover, in ms. */
+		/** Time before the tooltip starts closing after the element loses hover, in ms. */
 		closeTimeout: React.PropTypes.number
 	}
 
@@ -131,11 +124,6 @@ class Tooltip extends React.Component {
 		}
 	}
 
-	//componentWillReceiveProps(props) {
-		//let side = props.sides[0]
-		//this.updateSide(side)
-	//}
-
 	updateSide(side) {
 		if (this.state.side !== side) this.setState({side})
 	}
@@ -166,12 +154,12 @@ class Tooltip extends React.Component {
 		let attachment = React.createElement(Attachment, {
 			open: this.state.open,
 			onClose: () => { this.setManagedState({open: false}) },
+			attachment: this.props.sides.map((side) => {
+				return createAttachmentConfig(side, this.props.align, this.getOffset())
+			}),
 			onChangeAttachment: (id) => {
 				this.updateSide(this.props.sides[id])
-			},
-			attachment: this.props.sides.map((side) => {
-				return createAttachmentPoint(side, this.props.align, this.getOffset())
-			})
+			}
 			//layerProps: {
 				//closeOnEsc: true when open with click but not hover
 			//},
@@ -194,6 +182,12 @@ class Tooltip extends React.Component {
 					element: tooltipAnimation
 				})
 			})
+			// TODO
+			// move out attachment from motion
+			// to prevent coninious reattaching during animation
+			// open: state.layerIsOpen
+			// set to true when open
+			// set to false in `onRest`
 		} else {
 			let tooltip = this.renderTooltip()
 			return React.cloneElement(attachment, {
@@ -236,5 +230,3 @@ class Tooltip extends React.Component {
 		return React.DOM.div({style: this.styles.arrow})
 	}
 }
-
-export default Tooltip

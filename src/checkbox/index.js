@@ -1,13 +1,29 @@
 import React from 'react'
 
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
-import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
-import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
+import mixin from '../utils/mixin/decorator'
+import ChildComponentsMixin from '../utils/childComponentsMixin'
+import StylesMixin from '../utils/stylesMixin'
 
-@mixinDecorator(StylesMixin, ChildComponentsMixin)
+@mixin(StylesMixin, ChildComponentsMixin)
 export default class Checkbox extends React.Component {
+	static propTypes = {
+		/** Value of the checkbox. */
+		value: React.PropTypes.bool,
+
+		/** Handler of the toggling checkbox state. */
+		onChange: React.PropTypes.func,
+
+		/** Disabled state of the checkbox. */
+		disabled: React.PropTypes.bool,
+
+		/** HTML tabIndex attribute. */
+		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+
+		preventFocusOnTap: React.PropTypes.bool
+	}
+
 	static childComponents = {
-		'switch': null
+		switch: null
 	}
 
 	render() {

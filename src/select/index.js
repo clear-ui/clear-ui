@@ -2,12 +2,12 @@ import React from 'react'
 
 import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 import {MenuItem} from 'clear-ui-base/lib/menu'
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 
-@mixinDecorator(StylesMixin, ChildComponentsMixin)
-class Select extends React.Component {
+@mixin(StylesMixin, ChildComponentsMixin)
+export default class Select extends React.Component {
 	static propTypes = {
 		/** Value of the select. */
 		value: React.PropTypes.string,
@@ -65,5 +65,3 @@ class Select extends React.Component {
 		throw new Error('Not implemented')
 	}
 }
-
-export default Select

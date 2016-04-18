@@ -20,9 +20,27 @@ let blockMouseEvents
 @mixinDecorator(BindMethodsMixin)
 export default class Tappable extends React.Component {
 	static propTypes = {
-		onChangeState: React.PropTypes.func,
-		onTap: React.PropTypes.func,
+		/** Single DOM-element */
 		children: React.PropTypes.element.isRequired,
+
+		onTap: React.PropTypes.func,
+
+		/**
+		 * ({hovered: boolean, pressed: boolean}) => void
+		 */
+		onChangeState: React.PropTypes.func,
+
+		/**
+		 * (touch) => void
+		 */
+		onTapStart: React.PropTypes.func,
+
+		/**
+		 * (touch) => void
+		 */
+		onTapEnd: React.PropTypes.func,
+
+		/** Style passed down to the child element. */
 		style: React.PropTypes.object
 	}
 
@@ -98,7 +116,7 @@ export default class Tappable extends React.Component {
 	touchStart(event) {
 		blockMouseEvents = true
 		if (event.touches.length === 1) { // process only first touch
-			this.touch = true // flag that we already handle the touch and ignore all new
+			this.touch = true
 			this.initScrollDetection()
 			this.hovered = true
 			this.pressed = true

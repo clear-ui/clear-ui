@@ -2,14 +2,27 @@ import React from 'react'
 
 import isSameOrInheritedType from '../utils/isSameOrInheritedType'
 import RadioButton from './radioButton'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
-@mixinDecorator(StylesMixin)
-class RadioGroup extends React.Component {
+@mixin(StylesMixin)
+export default class RadioGroup extends React.Component {
+	static propTypes = {
+		/** Value of the currently selected radio button. */
+		value: React.PropTypes.string,
+
+		/**
+		 * Handler of the selecting new value.
+		 *
+		 * (value: string) => void
+		 */
+		onChange: React.PropTypes.func,
+
+		/** Makes all buttons in the radio group disabled. */
+		disabled: React.PropTypes.bool
+	}
+
 	render() {
-		//let childrenArray = React.Children.toArray(this.props.children)
-		//let children = childrenArray.map((elem, index) => {
 		let children = React.Children.map(this.props.children, (elem) => {
 			if (isSameOrInheritedType(elem.type, RadioButton)) {
 				let selected = (this.props.value !== undefined) &&
@@ -18,9 +31,6 @@ class RadioGroup extends React.Component {
 					onSelect: this.onSelect.bind(this, elem),
 					selected,
 					disabled: elem.props.disabled || this.props.disabled
-					//,
-					//first: index === 0,
-					//last: index === childrenArray.length - 1
 				})
 			} else {
 				return elem
@@ -34,5 +44,3 @@ class RadioGroup extends React.Component {
 		if (this.props.onChange) this.props.onChange(elem.props.value)
 	}
 }
-
-export default RadioGroup

@@ -1,9 +1,9 @@
 import React from 'react'
 
 import StylesMixin from '../utils/stylesMixin'
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 
-@mixinDecorator(StylesMixin)
+@mixin(StylesMixin)
 export default class Input extends React.Component {
 	static displayName = 'Input'
 
