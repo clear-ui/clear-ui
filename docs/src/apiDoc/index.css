@@ -1,0 +1,27 @@
+.row {
+	padding: 1rem;
+	padding-bottom: 0.1px; /* disable margin collapsing on the row */
+}
+
+/* container to collapse bottom padding with bottom margin of last paragraph */
+.container {
+	margin-bottom: 1rem;
+}
+
+.row:nth-child(even) {
+	background: rgba(242, 242, 242, .5)
+}
+
+.row:nth-child(odd) {
+	background: rgba(242, 242, 242, 1)
+}
+
+.header {
+	margin-bottom: 1rem
+}
+
+.name {
+	font-weight: bold
+}
+
+

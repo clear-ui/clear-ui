@@ -1,0 +1,16 @@
+docgen/
+
+lib
+dist
+
+lib-cov
+coverage
+node_modules
+npm-debug.log
+
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~

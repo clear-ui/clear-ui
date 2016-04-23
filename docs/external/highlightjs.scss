@@ -1,0 +1,85 @@
+/*
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+Edited by sunflowerdeath
+*/
+
+$default-color: black;
+$keyword-color: #9D1DB3;
+$string-color: #F50057;
+$comment-color: grey;
+$number-color: #00AD40;
+$meta-color: #03A9F4;
+$variable-color: #2196F3;
+
+:global {
+	.hljs,
+	.hljs-subst {
+		color: $default-color;
+	}
+
+	.hljs-keyword,
+	.hljs-attribute,
+	.hljs-selector-tag,
+	.hljs-meta-keyword,
+	.hljs-doctag,
+	.hljs-name {
+		/*font-weight: bold;*/
+		color: $keyword-color;
+	}
+
+	.hljs-built_in,
+	.hljs-literal,
+	.hljs-bullet,
+	.hljs-code,
+	.hljs-addition {
+		color: $keyword-color;
+	}
+
+	.hljs-regexp,
+	.hljs-symbol,
+	.hljs-variable,
+	.hljs-template-variable,
+	.hljs-link,
+	.hljs-selector-attr,
+	.hljs-selector-pseudo {
+		color: $variable-color;
+	}
+
+	.hljs-type,
+	.hljs-string,
+	.hljs-selector-id,
+	.hljs-selector-class,
+	.hljs-quote,
+	.hljs-template-tag,
+	.hljs-deletion {
+		color: $string-color;
+	}
+
+	.hljs-number {
+		color: $number-color;
+	}
+
+	/*
+	.hljs-title,
+	.hljs-section {
+		color: #880000;
+		font-weight: bold;
+	}
+	*/
+
+	.hljs-comment {
+		color: $comment-color;
+	}
+
+	.hljs-meta {
+		color: $meta-color;
+	}
+
+	.hljs-emphasis {
+		font-style: italic;
+	}
+
+	.hljs-strong {
+		font-weight: bold;
+	}
+}
