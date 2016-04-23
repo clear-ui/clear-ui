@@ -1,10 +1,12 @@
 import React from 'react'
-import Color from 'color'
 
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
+import composeChildComponents from
+	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
 import RippleItem from '../menu/rippleItem'
 import COLORS from '../styles/colors'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
+import Icon from 'clear-ui-base/lib/icon'
 import theme from '../styles/lightTheme'
 
 const ICON_SIZE = 24
@@ -13,12 +15,14 @@ const AVATAR_SIZE = 38
 function getStyles(props, state) {
 	const itemTapState = state.rightIconTapState === 'initial' ? state.tapState : 'initial'
 
-	let paddingLeft = (props.leftIcon || props.leftAvatar || props.indent) ? 72 : 16
-	let paddingRight = (props.rightIcon || props.rightAvatar) ? 72 : 16
+	const paddingLeft = (props.leftIcon || props.leftAvatar || props.indent) ? 72 : 16
+	const paddingRight = (props.rightIcon || props.rightAvatar) ? 72 : 16
 
-	let linesNumber = props.secondaryText ?
+	const linesNumber = props.secondaryText ?
 		(props.secondaryTextLines === 2 ? 3 : 2) :
 		1
+
+	const nestingIndent = 36 * props.nestingLevel
 
 	let paddingTop, paddingBottom
 	if (linesNumber === 1) {
@@ -56,7 +60,7 @@ function getStyles(props, state) {
 		color: theme.text,
 		overflowX: 'hidden',
 		lineHeight: '16px',
-		paddingLeft: paddingLeft,
+		paddingLeft: paddingLeft + nestingIndent,
 		paddingRight: paddingRight,
 		paddingTop,
 		paddingBottom,
@@ -71,7 +75,7 @@ function getStyles(props, state) {
 	}
 
 	if (props.disabled) {
-		label.cursor = 'default'
+		root.cursor = 'default'
 		label.color = theme.disabled
 		secondaryText.color = theme.disabled
 	} else if (props.selected) {
@@ -93,8 +97,11 @@ function getStyles(props, state) {
 		iconOrAvatar.transform = 'translateY(-50%)'
 	}
 
+	let opener = props.nestedItems
+	let openerTogglesNestedItems = opener && !props.tapTogglesNestedItems
+
 	let leftIcon, rightIcon
-	if (props.leftIcon || props.rightIcon) {
+	if (props.leftIcon || props.rightIcon || opener) {
 		let icon = {
 			...iconOrAvatar,
 			width: ICON_SIZE,
@@ -110,12 +117,12 @@ function getStyles(props, state) {
 			icon.fill = color
 		}
 
-		if (props.leftIcon) leftIcon = {...icon, left: 16}
+		if (props.leftIcon) leftIcon = {...icon, left: 16 + nestingIndent}
 
-		if (props.rightIcon) {
+		if (props.rightIcon || opener) {
 			rightIcon = {...icon, right: 16}
 
-			if (props.onRightIconTap) {
+			if (props.onRightIconTap || openerTogglesNestedItems) {
 				Object.assign(rightIcon, {
 					padding: 12,
 					marginRight: -12,
@@ -140,7 +147,7 @@ function getStyles(props, state) {
 			height: AVATAR_SIZE
 		}
 
-		if (props.leftAvatar) leftAvatar = {...avatar, left: 16}
+		if (props.leftAvatar) leftAvatar = {...avatar, left: 16 + nestingIndent}
 		if (props.rightAvatar) rightAvatar = {...avatar, right: 16}
 	}
 
@@ -150,20 +157,59 @@ function getStyles(props, state) {
 export default class ListItem extends RippleItem {
 	static styles = composeStyles(RippleItem.styles, getStyles)
 
-	renderLabel() {
-		let label = super.renderLabel()
-		return React.cloneElement(label, null, [
-			label.props.children,
-			this.props.secondaryText &&
-				React.DOM.div({
-					key: 'secondaryText',
-					style: this.styles.secondaryText
-				}, this.props.secondaryText)
-		])
+	static childComponents = composeChildComponents(
+		RippleItem.childComponents,
+		{
+			openerIcon: (props, state) => {
+				let icon = state.showNestedItems ?
+					Icon.ICONS.triangleUp : Icon.ICONS.triangleDown
+				return <Icon icon={icon}/>
+			}
+		}
+	)
+
+	// Adds ripples to the right icon when is has handler, or it is tappable opener icon.
+	renderRightIcon() {
+		let openerTapTogglesNestedItems = this.props.nestedItems &&
+			!this.props.tapTogglesNestedItems
+		if (!this.props.disabled && (this.props.onRightIconTap || openerTapTogglesNestedItems)) {
+			let tappable = super.renderRightIcon()
+			let icon = tappable.props.children
+			let iconRipple = React.cloneElement(this.getChildComponent('ripples'), {
+				ref: 'iconRipple',
+				style: {
+					borderRadius: '50%',
+					transform: 'translate3d(0,0,0)'
+				}
+			})
+			icon = React.cloneElement(icon, null, [icon.props.children, iconRipple])
+			return React.cloneElement(tappable, {
+				onTapStart: () => { if (this.refs.iconRipple) this.refs.iconRipple.start() },
+				onTapEnd: () => { if (this.refs.iconRipple) this.refs.iconRipple.end() }
+			}, icon)
+		} else {
+			return super.renderRightIcon()
+		}
 	}
 
-	renderContainer() {
-		let container = super.renderContainer()
+	// Adds secondary text to the label element.
+	renderLabel() {
+		let label = super.renderLabel()
+
+		if (this.props.secondaryText) {
+			let secondaryText = React.DOM.div({
+				key: 'secondaryText',
+				style: this.styles.secondaryText
+			}, this.props.secondaryText)
+			return React.cloneElement(label, null, [label.props.children, secondaryText])
+		} else {
+			return label
+		}
+	}
+
+	// Adds left and right avatar to the item container element.
+	renderItem() {
+		let item = super.renderItem()
 
 		let rightAvatar
 		if (this.props.rightAvatar) {
@@ -181,8 +227,8 @@ export default class ListItem extends RippleItem {
 			}, this.props.leftAvatar)
 		}
 
-		return React.cloneElement(container, null, [
-			leftAvatar, rightAvatar, container.props.children
+		return React.cloneElement(item, null, [
+			leftAvatar, rightAvatar, item.props.children
 		])
 	}
 }

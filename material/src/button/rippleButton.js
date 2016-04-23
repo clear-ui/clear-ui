@@ -1,9 +1,12 @@
 import React from 'react'
 
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
+import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import BaseButton from 'clear-ui-base/lib/button'
 import Ripples from '../ripples'
 
 // Button that shows ripples effect on press.
+@mixin(ChildComponentsMixin)
 export default class RippleButton extends BaseButton {
 	static propTypes = {
 		...BaseButton.propTypes,

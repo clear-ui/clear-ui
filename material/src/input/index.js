@@ -129,16 +129,37 @@ function getStyles(props, state) {
 	return {root, input, label, icon, underline, underlineFill}
 }
 
-/**
- * @param [props.dense] {boolean}
- * @param [props.icon] {}
- * @param [props.label] {}
- * @param [props.labelIsFloating=true] {boolean}
- * @param [props.error] {} TODO
- * @param [props.underlineAnimation=true] {boolean} TODO
- */
 @mixinDecorator(ThemeMixin)
 export default class Input extends BaseInput {
+	static propTypes = {
+		...BaseInput.propTypes,
+
+		/** Smaller size of the input. */
+		dense: React.PropTypes.bool,
+
+		/** Label of the input. */
+		label: React.PropTypes.node,
+
+		/**
+		 * Type of the label.
+		 * - `floating` - The label always floats above the input.
+		 * - `inline` - The label is displayed in the place of the input's value.
+		 * - `auto` - Type of the label is chosen automatically.
+		 *     When the input is empty, label is inline, and
+		 *     when input is focused or has value, label becomes floating.
+		 */
+		labelType: React.PropTypes.oneOf(['floating', 'inline', 'auto']),
+
+		/** Icon on the left side of the input. */
+		icon: React.PropTypes.node,
+
+		/** TODO */
+		error: React.PropTypes.node,
+
+		/** TODO */
+		underlineAnimation: React.PropTypes.bool
+	}
+
 	static defaultProps = {
 		...BaseInput.defaultProps,
 		labelType: 'auto'
@@ -163,5 +184,3 @@ export default class Input extends BaseInput {
 		])
 	}
 }
-
-export default Input

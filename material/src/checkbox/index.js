@@ -55,10 +55,8 @@ class CheckboxSwitch extends MaterialSwitch {
 	}
 }
 
-class Checkbox extends BaseCheckbox {
+export default class Checkbox extends BaseCheckbox {
 	static childComponents = {
 		'switch': <CheckboxSwitch/>
 	}
 }
-
-export default Checkbox

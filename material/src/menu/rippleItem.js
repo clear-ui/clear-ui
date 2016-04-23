@@ -1,12 +1,12 @@
 import React from 'react'
 
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import BaseItem from 'clear-ui-base/lib/menu/item'
 import Ripples from '../ripples'
 
 // Item that contains inside Ripples component
-@mixinDecorator(ChildComponentsMixin)
+@mixin(ChildComponentsMixin)
 export default class RippleItem extends BaseItem {
 	static defaultProps = {
 		...BaseItem.defaultProps,
@@ -24,8 +24,8 @@ export default class RippleItem extends BaseItem {
 		}
 	}
 
-	renderContainer() {
-		let container = super.renderContainer()
+	renderItem() {
+		let item = super.renderItem()
 
 		let ripples
 		if (this.props.ripples &&
@@ -35,11 +35,11 @@ export default class RippleItem extends BaseItem {
 			ripples = React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})
 		}
 
-		return React.cloneElement(container, null, [container.props.children, ripples])
+		return React.cloneElement(item, null, [item.props.children, ripples])
 	}
 
-	render() {
-		let tappable = super.render()
+	renderTappable() {
+		let tappable = super.renderTappable()
 		if (this.props.ripples) {
 			return React.cloneElement(tappable, {
 				onTapStart: (e) => { if (this.refs.ripples) this.refs.ripples.start(e) },

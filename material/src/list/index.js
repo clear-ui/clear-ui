@@ -3,14 +3,18 @@ import React from 'react'
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 import ThemeMixin from '../themeMixin'
+import BaseMenu from 'clear-ui-base/lib/menu'
 
-class List extends React.Component {
-	render() {
-		let firstChildren = React.Children.toArray(this.props.children)[0]
-		return React.DOM.div({style: {
-			paddingTop: (firstChildren && firstChildren.type === ListSubheader) ? 0 : 8,
-			paddingBottom: 8
-		}}, this.props.children)
+class List extends BaseMenu {
+	static styles = (props) => {
+		let firstChildren = React.Children.toArray(props.children)[0]
+		let paddingTop = (firstChildren && firstChildren.type === ListSubheader) ? 0 : 8
+		return {
+			root: {
+				paddingTop,
+				paddingBottom: 8
+			}
+		}
 	}
 }
 

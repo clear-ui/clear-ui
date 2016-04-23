@@ -3,7 +3,7 @@ import React from 'react'
 import composeChildComponents from
 	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
-import mixin from 'clear-ui-base/lib/utils/mixin'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ThemeMixin from '../themeMixin'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import RippleItem from './rippleItem'
@@ -81,13 +81,14 @@ function getStyles(props, state) {
 			icon.fill = color
 		}
 		if (props.leftIcon) leftIcon = {...icon, left: padding}
-		if (props.rightIcon) rightIcon = {...icon, right: padding}
+		if (props.rightIcon || props.openerIcon) rightIcon = {...icon, right: padding}
 	}
 
 	return {root, label, leftIcon, rightIcon}
 }
 
-class MenuItem extends RippleItem {
+@mixin(ThemeMixin)
+export default class MenuItem extends RippleItem {
 	static contextTypes = {
 		clearUiMaterialTheme: React.PropTypes.object
 	}
@@ -103,5 +104,3 @@ class MenuItem extends RippleItem {
 		}
 	)
 }
-
-export default mixin(MenuItem, ThemeMixin)

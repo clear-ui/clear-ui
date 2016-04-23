@@ -1,7 +1,9 @@
 import React from 'react'
 
-import BaseMenu from 'clear-ui-base/lib/menu'
 import BaseScrollMenu from 'clear-ui-base/lib/menu/scrollMenu'
+import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
+import transferProps from 'clear-ui-base/lib/utils/transferProps'
+
 import MenuItem from './item'
 
 class Menu extends BaseScrollMenu {
@@ -17,16 +19,11 @@ class Menu extends BaseScrollMenu {
 		}
 	}
 
-	processItems() {
-		let items = super.processItems()
-		return React.Children.map(items, (elem) => {
-			if (elem.type === MenuItem) {
-				if (this.props.desktop) {
-					return React.cloneElement(elem, {desktop: this.props.desktop})
-				} else {
-					return elem
-				}
-				//TODO transferProps
+	processItems(items, level) {
+		let processedItems = super.processItems(items, level)
+		return React.Children.map(processedItems, (elem) => {
+			if (isSameOrInheritedType(elem.type, MenuItem)) {
+				return transferProps(this, elem, ['desktop'])
 			} else {
 				return elem
 			}
