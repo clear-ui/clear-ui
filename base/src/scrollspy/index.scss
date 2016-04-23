@@ -1,0 +1,8 @@
+.scrollspy__anchor {
+	&:after, &:before { //uncollapse margin
+		content: "\00a0"; /* No-break space character */
+		display: block;
+		overflow: hidden;
+		height: 0;
+	}
+}
