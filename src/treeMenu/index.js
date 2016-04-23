@@ -9,7 +9,9 @@ import ManagedStateMixin from '../utils/managedStateMixin'
 @mixin(StylesMixin, ChildComponentsMixin)
 class TreeMenuItem extends React.Component {
 	static childComponents = {
+		/** @type MenuItem */
 		menuItem: null,
+		/** @type Element */
 		openerIcon: null
 	}
 
@@ -70,6 +72,17 @@ class TreeMenuGroup extends React.Component {
 }
 
 class TreeMenu extends React.Component {
+	static propTypes = {
+		/** Value of the menu. */
+		value: React.PropTypes.string,
+
+		/**
+		 * When \`true\`, submenus are opened automatically on selecting
+		 * header item, and not by clicking opener icon.
+		 */
+		autoOpen: React.PropTypes.bool
+	}
+
 	static defaultProps = {
 		autoOpen: false
 	}

@@ -121,39 +121,6 @@ export default class Sticky extends React.Component {
 		return {fixed, position}
 	}
 
-	/*
-	saveScrollDirection() {
-		let scrollDelta = scrollTop - this.prevScrollTop
-		this.prevScrollTop = scrollTop
-		this.prevScrollDirection = this.scrollDirection
-		this.scrollDirection = (scrollDelta > 0) ? 'up' : 'down'
-	}
-   */
-
-	/*
-	makeOversizedPosition() {
-		let prevPosition = this.state.style.position
-		if (prevPosition === 'fixed') {
-			if (this.scrollDirection !== this.prevScrollDirection) {
-				return makeAbsolutePosition()
-			}
-		} else if (prevPosition === 'absolute') {
-			// if we scrolled to end we return fixed position
-		}
-	}
-
-	isOversized() {
-		return elemHeight > windowHeight
-	}
-
-	makeAbsolutePosition() {
-		let style = this.state.style
-		return style.top ?
-			(scrollTop + style.top) :
-			(scrollTop + windowHeight - style.bottom)
-	}
-	*/
-
 	setPlaceholderSize() {
 		let elem = $(this.elemRef)
 		let placeholder = $(this.refs.placeholder)

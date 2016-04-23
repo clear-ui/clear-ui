@@ -13,6 +13,15 @@ const funcOrBoundFuncType = React.PropTypes.oneOfType([
 	React.PropTypes.instanceOf(BoundFunction)
 ])
 
+/**
+ * Styleable elements:
+ * - root
+ * - label
+ * - nestingIndent
+ * - rightIcon
+ * - leftIcon
+ * - subMenu
+ */
 @mixin(StylesMixin, ManagedStateMixin)
 export default class MenuItem extends React.Component {
 	static displayName = 'MenuItem'
@@ -41,7 +50,22 @@ export default class MenuItem extends React.Component {
 		 * This property is set automatically,
 		 * instead you should use `onSelect` prop of the `Menu`.
 		 */
-		onTap: funcOrBoundFuncType
+		onTap: funcOrBoundFuncType,
+
+		/** TODO */
+		nestedItems: React.PropTypes.node,
+		tapTogglesNestedItems: React.PropTypes.bool,
+		openerIcon: React.PropTypes.bool,
+		nestingLevel: React.PropTypes.number
+	}
+
+	static defaultProps = {
+		nestingLevel: 0
+	}
+
+	static childComponents = {
+		/** Right icon when item has nested items. */
+		openerIcon: undefined
 	}
 
 	constructor(props) {
@@ -84,48 +108,79 @@ export default class MenuItem extends React.Component {
 		)
 	}
 
-	renderLabel() {
-		return React.DOM.div({
-			key: 'label',
-			style: this.styles.label
-		}, this.props.children)
+	render() {
+		let item = this.renderTappable()
+		if (this.props.nestedItems) {
+			let subMenu
+			if (this.state.showNestedItems) {
+				subMenu = (
+					<div key='subMenu' style={this.styles.subMenu}>
+						{this.props.nestedItems}
+					</div>
+				)
+			}
+
+			return <div>{item}{subMenu}</div>
+		} else {
+			return item
+		}
 	}
 
-	renderContainer() {
-		let leftIcon, rightIcon
+	renderLabel() {
+		return <div style={this.styles.label} key='label'>{this.props.children}</div>
+	}
 
+	renderLeftIcon() {
 		if (this.props.leftIcon) {
-			leftIcon = React.DOM.div({
-				key: 'leftIcon',
-				style: this.styles.leftIcon
-			}, this.props.leftIcon)
+			return (
+				<div key='leftIcon' style={this.styles.leftIcon}>
+					{this.props.leftIcon}
+				</div>
+			)
 		}
+	}
 
-		if (this.props.rightIcon) {
-			rightIcon = React.DOM.div({
-				key: 'rightIcon',
-				style: this.styles.rightIcon
-			}, this.props.rightIcon)
-			if (this.props.onRightIconTap && !this.props.disabled) {
-				rightIcon = React.createElement(Tappable, {
+	renderRightIcon() {
+		if (this.props.rightIcon || this.props.nestedItems) {
+			let content, handler
+			if (this.props.nestedItems) {
+				content = this.getChildComponent('openerIcon')
+				if (!this.props.tapTogglesNestedItems) handler = this.toggleNestedItems.bind(this)
+			} else {
+				content = this.props.rightIcon
+				handler = this.props.onRightIconTap
+			}
+
+			let icon = <div key='rightIcon' style={this.styles.rightIcon}>{content}</div>
+
+			if (handler && !this.props.disabled) {
+				icon = React.createElement(Tappable, {
 					key: 'rightIcon',
-					onTap: this.props.onRightIconTap,
+					onTap: handler,
 					onChangeTapState: ({hovered, pressed}) => {
 						this.setState({
 							rightIconTapState: pressed ? 'active' :
 								(hovered ? 'hovered' : 'initial')
 						})
 					}
-				}, rightIcon)
+				}, icon)
 			}
-		}
 
-		return React.DOM.div({style: this.styles.root}, [
-			leftIcon, this.renderLabel(), rightIcon
-		])
+			return icon
+		}
 	}
 
-	render() {
+	renderItem() {
+		return (
+			<div style={this.styles.root}>
+				{this.renderLeftIcon()}
+				{this.renderLabel()}
+				{this.renderRightIcon()}
+			</div>
+		)
+	}
+
+	renderTappable() {
 		return React.createElement(FocusableTappable, {
 			tabIndex: this.props.tabIndex,
 			disabled: this.props.disabled,
@@ -138,11 +193,17 @@ export default class MenuItem extends React.Component {
 			preventFocusOnTap: true,
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
-		}, this.renderContainer())
+		}, this.renderItem())
+	}
+
+	toggleNestedItems() {
+		this.setState({showNestedItems: !this.state.showNestedItems})
 	}
 
 	onTap() {
-		if (this.props.onTap && this.state.rightIconTapState === 'initial') {
+		if (this.props.tapTogglesNestedItems) {
+			this.toggleNestedItems()
+		} else if (this.props.onTap && this.state.rightIconTapState === 'initial') {
 			let handler = this.props.onTap
 			if (handler instanceof BoundFunction) handler.call()
 			else if (typeof handler === 'function') handler()

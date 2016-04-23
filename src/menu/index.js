@@ -5,6 +5,7 @@ import BoundFunction from '../utils/boundFunction'
 import keyCodes from '../utils/keyCodes'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
+import isSameOrInheritedType from '../utils/isSameOrInheritedType.js'
 
 import MenuItem from './item'
 
@@ -32,26 +33,37 @@ export default class Menu extends React.Component {
 	componentDidUpdate() { this.setActive() }
 	componentWillUnmount() { this.deactivate() }
 
-	processItems() {
-		return React.Children.map(this.props.children, function(elem) {
-			if (elem.type === this.props.itemType && !elem.props.disabled) {
-				let isHovered = this.state.hoveredItem === elem
-				let isSelected = this.props.value !== undefined &&
-					elem.props.value === this.props.value
+	processItems(items, level = 0) {
+		return React.Children.map(items, function(elem) {
+			if (isSameOrInheritedType(elem.type, MenuItem)) {
 				let props = {
-					selected: isSelected,
-					onTap: new BoundFunction(this.select, this, elem),
-					tapState: isHovered ?
-						(this.state.hoveredItemActive ? 'active' : 'hovered') :
-						'initial',
-					onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem)
+					nestingLevel: level
 				}
-				if (isHovered || isSelected) {
-					props.ref = (ref) => {
-						if (isHovered) this.hoveredItem = ref
-						if (isSelected) this.selectedItem = ref
+
+				if (!elem.props.disabled) {
+					let isHovered = this.state.hoveredItem === elem
+					let isSelected = this.props.value !== undefined &&
+						elem.props.value === this.props.value
+					Object.assign(props, {
+						selected: isSelected,
+						onTap: new BoundFunction(this.select, this, elem),
+						tapState: isHovered ?
+							(this.state.hoveredItemActive ? 'active' : 'hovered') :
+							'initial',
+						onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem)
+					})
+					if (isHovered || isSelected) {
+						props.ref = (ref) => {
+							if (isHovered) this.hoveredItem = ref
+							if (isSelected) this.selectedItem = ref
+						}
 					}
 				}
+
+				if (elem.props.nestedItems) {
+					props.nestedItems = this.processItems(elem.props.nestedItems, level + 1)
+				}
+
 				return React.cloneElement(elem, props)
 			} else {
 				return elem
@@ -60,8 +72,10 @@ export default class Menu extends React.Component {
 	}
 
 	render() {
-		return React.DOM.div({style: this.styles.root},
-			this.processItems(this.props.children)
+		return (
+			<div style={this.styles.root}>
+				{this.processItems(this.props.children)}
+			</div>
 		)
 	}
 
@@ -82,6 +96,7 @@ export default class Menu extends React.Component {
 	}
 
 	getEnabledItems() {
+		// TODO nested items
 		let enabledItems = []
 		React.Children.forEach(this.props.children, (elem) => {
 			if (!elem.props.disabled && elem.type === this.props.itemType) {
@@ -155,5 +170,3 @@ export default class Menu extends React.Component {
 		if (this.listener) $(document).unbind('keydown', this.listener)
 	}
 }
-
-export {MenuItem}
