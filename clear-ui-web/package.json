@@ -1,0 +1,49 @@
+{
+  "name": "clear-ui-web",
+  "version": "0.0.1",
+  "description": "UI components for React",
+  "keywords": [
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clear-ui/clear-ui.git"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "karma start",
+    "start": "webpack-dev-server",
+    "build": "webpack",
+    "build-lib": "gulp build-lib"
+  },
+  "author": {
+    "name": "sunflowerdeath",
+    "email": "sunflowerdeath@gmail.com"
+  },
+  "license": "Unlicence",
+  "dependencies": {
+    "classnames": "^2.1.3",
+    "color": "^0.10.1",
+    "react-addons-update": "^15.0.0",
+    "react-motion": "^0.4.2",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-runtime": "^5.8.25",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "karma": "^0.13.9",
+    "karma-mocha": "^0.2.0",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.2.5",
+    "react-addons-test-utils": "^15.0.0",
+    "webpack": "^1.10.1"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "jquery": "^2.1.4"
+  }
+}
