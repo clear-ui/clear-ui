@@ -1,0 +1,40 @@
+{
+  "name": "clear-ui-material",
+  "version": "0.0.1",
+  "description": "UI components for React",
+  "keywords": [
+    "react"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clear-ui/clear-ui.git"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "karma start",
+    "start": "webpack-dev-server",
+    "build": "webpack",
+    "build-lib": "gulp build-lib"
+  },
+  "author": {
+    "name": "sunflowerdeath",
+    "email": "sunflowerdeath@gmail.com"
+  },
+  "license": "Unlicence",
+  "dependencies": {
+    "color": "^0.10.1",
+    "react-addons-transition-group": "^0.14.2",
+    "react-motion": "^0.3.1"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "jquery": "^2.1.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.6",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^1.0.2",
+    "eslint-plugin-react": "^3.11.2"
+  }
+}
