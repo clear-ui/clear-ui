@@ -22,7 +22,8 @@ export default class Item extends BaseItem {
 		(props, state) => {
 			let {root, label, leftIcon, rightIcon} = getIconElementStyle(props)
 
-			const itemState = state.rightIconState === 'initial' ? state.itemState : 'initial'
+			const itemTapState = state.rightIconTapState === 'initial' ?
+				state.tapState : 'initial'
 			const height = SIZES[props.height].height
 			const transition =
 				`background-color .4s ${TRANSITIONS.strongEaseOut},` +
@@ -38,11 +39,11 @@ export default class Item extends BaseItem {
 
 			if (props.selected) root.fontWeight = 'bold'
 
-			if (itemState === 'hovered' || state.focused) {
+			if (itemTapState === 'hovered' || state.focused) {
 				root.background = COLORS.black5
 			}
 
-			if (itemState === 'active') {
+			if (itemTapState === 'active') {
 				root.background = Color(COLORS.black5).clone().mix(Color('black'), 0.95)
 			}
 
@@ -50,11 +51,13 @@ export default class Item extends BaseItem {
 				leftIcon.color = COLORS.black2
 				leftIcon.fill = COLORS.black2
 				leftIcon.transition = transition
-			} else if (props.rightIcon) {
+			}
+
+			if (props.rightIcon) {
 				rightIcon.color = COLORS.black2
 				rightIcon.fill = COLORS.black2
 				rightIcon.transition = transition
-				if (props.onRightIconClick) {
+				if (props.onRightIconTap) {
 					let rightIconPadding = (height - ICON_SIZE) / 2
 					rightIcon = {
 						...rightIcon,
@@ -63,9 +66,9 @@ export default class Item extends BaseItem {
 						marginTop: -rightIconPadding + 'rem',
 						marginRight: -rightIconPadding + 'rem'
 					}
-					if (state.rightIconState === 'hovered') {
+					if (state.rightIconTapState === 'hovered') {
 						rightIcon.background = COLORS.black5
-					} else if (state.rightIconState === 'active') {
+					} else if (state.rightIconTapState === 'active') {
 						rightIcon.background = COLORS.black4
 					}
 				}
@@ -75,10 +78,11 @@ export default class Item extends BaseItem {
 				root.color = COLORS.black3
 				root.cursor = 'default'
 				if (props.leftIcon) {
-					leftIcon.color = COLORS.black3,
+					leftIcon.color = COLORS.black3
 					leftIcon.fill = COLORS.black3
-				} else if (props.rightIcon) {
-					rightIcon.color = COLORS.black3,
+				}
+				if (props.rightIcon) {
+					rightIcon.color = COLORS.black3
 					rightIcon.fill = COLORS.black3
 				}
 			}

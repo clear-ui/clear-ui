@@ -17,8 +17,6 @@ function getStyles(props, state) {
 	let innerOutline = {}
 	let outerOutline = {}
 
-	let stateMod = state.state || 'initial'
-
 	function getBorderOutlineStyle(color) {
 		return {
 			position: 'absolute',
@@ -41,13 +39,13 @@ function getStyles(props, state) {
 	} else {
 		let colorMod = props.color || 'grey'
 		if (colorMod === 'grey') {
-			if (stateMod === 'initial') {
+			if (state.tapState === 'initial') {
 				root.color = COLORS.black2
 				root.fill = COLORS.black2
 				innerOutline = getBorderOutlineStyle(COLORS.black3)
 			}
 
-			if (state.focused || stateMod === 'hovered') {
+			if (state.focused || state.tapState === 'hovered') {
 				root.color = COLORS.black1
 				root.fill = COLORS.black1
 				let backgroundColor = Color(COLORS.black4).clone().mix(Color(COLORS.black3), 0.66)
@@ -55,7 +53,7 @@ function getStyles(props, state) {
 				innerOutline = getBorderOutlineStyle(backgroundColor.rgbaString())
 			}
 
-			if (stateMod === 'active') {
+			if (state.tapState === 'active') {
 				root.color = COLORS.black1
 				root.fill = COLORS.black1
 				root.background = COLORS.black3
@@ -64,20 +62,20 @@ function getStyles(props, state) {
 			if (state.focused) innerOutline = {}
 		} else {
 			let color = COLORS[colorMod]
-			if (stateMod === 'initial') {
+			if (state.tapState === 'initial') {
 				root.color = color
 				root.fill = color
 				innerOutline = getBorderOutlineStyle(color)
 			}
 
-			if (state.focused || stateMod === 'hovered') {
+			if (state.focused || state.tapState === 'hovered') {
 				root.color = 'white'
 				root.fill = 'white'
 				root.background = color
 				innerOutline = getBorderOutlineStyle(color)
 			}
 
-			if (stateMod === 'active') {
+			if (state.tapState === 'active') {
 				root.color = 'white'
 				root.fill = 'white'
 				root.background = Color(color).clone().mix(Color('black'), 0.85)

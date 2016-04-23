@@ -1,5 +1,9 @@
 import React from 'react'
 
+import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
+import COLORS from '../styles/colors'
+
 import BaseMenu from 'clear-ui-base/lib/menu'
 import transferProps from 'clear-ui-base/lib/utils/transferProps'
 import MenuItem from './item'
@@ -27,9 +31,16 @@ class Menu extends BaseMenu {
 	}
 }
 
+@mixinDecorator(StylesMixin)
 class MenuDivider extends React.Component {
+	static styles = {
+		root: {
+			borderTop: `1px solid ${COLORS.black4}`
+		}
+	}
+
 	render() {
-		return <div/>
+		return <div style={this.styles.root}/>
 	}
 }
 

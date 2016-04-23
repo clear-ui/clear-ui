@@ -2,7 +2,6 @@ import React from 'react'
 
 import BaseTooltip from 'clear-ui-base/lib/tooltip'
 import getArrowStyle from 'clear-ui-base/lib/tooltip/getArrowStyle'
-import Animation, {fade} from 'clear-ui-base/lib/animations'
 import COLORS from '../styles/colors'
 import SIZES from '../styles/sizes'
 import SHADOWS from '../styles/shadows'
@@ -13,8 +12,9 @@ import arrowIcon from './arrow.icon.svg'
 const PADDINGS = {
 	small: {horiz: 0.5, vert: 0.375},
 	default: {horiz: 0.75, vert: 0.5},
-	big: {horiz: 1, vert: 0.75},
+	big: {horiz: 1, vert: 0.75}
 }
+
 const ARROW_WIDTH = 1
 const ARROW_HEIGHT = 0.5
 const ARROW_MARGINS = {
@@ -24,11 +24,23 @@ const ARROW_MARGINS = {
 }
 
 export default class Tooltip extends BaseTooltip {
+	static propTypes = {
+		/** Size of the tooltip. */
+		size: React.PropTypes.oneOf(['small', 'default', 'big']),
+
+		/** Dark style of the tooltip. */
+		dark: React.PropTypes.bool,
+
+		arrow: React.PropTypes.bool,
+		offset: React.PropTypes.bool,
+		animation: React.PropTypes.bool
+	}
+
 	static defaultProps = {
 		...BaseTooltip.defaultProps,
 		size: 'default',
 		arrow: true,
-		animation: true,
+		animation: 'fade',
 		offset: 15
 	}
 
@@ -48,17 +60,20 @@ export default class Tooltip extends BaseTooltip {
 			padding: `${vertPadding}rem ${horizPadding}rem`
 		}
 
-		let arrow = {
-			position: 'absolute',
-			overflow: 'hidden',
-			...getArrowStyle({
-				side: state.side,
-				align: props.align,
-				height: ARROW_HEIGHT,
-				width: ARROW_WIDTH,
-				margin: ARROW_MARGINS[props.size],
-				unit: 'rem'
-			})
+		let arrow
+		if (props.arrow) {
+			arrow = {
+				position: 'absolute',
+				overflow: 'hidden',
+				...getArrowStyle({
+					side: state.side,
+					align: props.align,
+					height: ARROW_HEIGHT,
+					width: ARROW_WIDTH,
+					margin: ARROW_MARGINS[props.size],
+					unit: 'rem'
+				})
+			}
 		}
 
 		if (props.dark) {
@@ -67,10 +82,6 @@ export default class Tooltip extends BaseTooltip {
 		}
 
 		return {root, arrow}
-	}
-
-	static childComponents = {
-		animation: React.createElement(Animation, {fn: fade})
 	}
 
 	renderArrow() {
@@ -101,12 +112,5 @@ export default class Tooltip extends BaseTooltip {
 		])
 	}
 
-	//renderTooltip(progress) {
-		//let tooltip = super.renderTooltip(progress)
-		//let style = {
-			//...tooltip.props.style,
-			//opacity: (tooltip.props.style.opacity || 1) * progress
-		//}
-		//return React.cloneElement(tooltip, {style})
-	//}
+	render() { return super.render() } // for react-docgen
 }

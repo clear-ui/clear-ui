@@ -99,7 +99,7 @@ function getStyles(props, state) {
  */
 export default class Button extends BaseIconButton {
 	static propTypes = {
-		...BaseIconButton.defaultProps,
+		...BaseIconButton.propTypes,
 
 		/**
 		 * Height of the button.

@@ -23,8 +23,6 @@ function getStyles(props, state) {
 	let innerOutline = {}
 	let outerOutline = {}
 
-	let stateMod = state.state || 'initial'
-
 	if (props.disabled) {
 		Object.assign(root, {
 			background: COLORS.black5,
@@ -35,7 +33,7 @@ function getStyles(props, state) {
 			borderBottomColor: 'rgba(0,0,0,.15)'
 		})
 	} else {
-		if (stateMod === 'active') {
+		if (state.tapState === 'active') {
 			Object.assign(root, {
 				boxShadow: 'inset 0 3px 5px rgba(0,0,0,.125)',
 				borderColor: 'rgba(0,0,0,.15)',
@@ -54,22 +52,22 @@ function getStyles(props, state) {
 		if (colorMod === 'grey') {
 			root.color = COLORS.black1
 			root.fill = COLORS.black1
-			if (stateMod === 'initial') {
+			if (state.tapState === 'initial') {
 				root.background = COLORS.black5
-			} else if (stateMod === 'hovered') {
+			} else if (state.tapState === 'hovered') {
 				root.background = Color(COLORS.black4).clone().mix(Color(COLORS.black5), 0.66)
-			} else if (stateMod === 'active') {
+			} else if (state.tapState === 'active') {
 				root.background = COLORS.black4
 			}
 		} else {
 			let color = COLORS[colorMod]
 			root.color = 'white'
 			root.fill = 'white'
-			if (stateMod === 'initial') {
+			if (state.tapState === 'initial') {
 				root.background = color
-			} else if (stateMod === 'hovered') {
+			} else if (state.tapState === 'hovered') {
 				root.background = Color(color).clone().mix(Color('black'), 0.90)
-			} else if (stateMod === 'active') {
+			} else if (state.tapState === 'active') {
 				root.background = Color(color).clone().mix(Color('black'), 0.85)
 			}
 			if (state.focused || props.invalid) {
@@ -92,15 +90,5 @@ function getStyles(props, state) {
 }
 
 export default class RaisedButton extends Button {
-	static defaultProps = {
-		...Button.defaultProps,
-		color: 'grey'
-	}
-
-	static propTypes = {
-		...Button.propTypes,
-		color: React.PropTypes.string
-	}
-
 	static styles = composeStyles(Button.styles, getStyles)
 }

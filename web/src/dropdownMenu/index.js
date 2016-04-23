@@ -1,13 +1,13 @@
 import React from 'react'
 
-import BaseDropdown from 'clear-ui-base/lib/dropdown'
+import BaseDropdownMenu from 'clear-ui-base/lib/dropdownMenu'
 import Menu from '../menu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import SHADOWS from '../styles/shadows'
 
-class Dropdown extends BaseDropdown {
+class DropdownMenu extends BaseDropdownMenu {
 	static styles = composeStyles(
-		BaseDropdown.styles,
+		BaseDropdownMenu.styles,
 		{
 			list: {
 				padding: '0.5rem 0',
@@ -17,9 +17,10 @@ class Dropdown extends BaseDropdown {
 		}
 	)
 
-	getMenu() {
-		return <Menu/>
+	static childComponents = {
+		...BaseDropdownMenu.childComponents,
+		menu: <Menu/>
 	}
 }
 
-export default Dropdown
+export default DropdownMenu
