@@ -3,7 +3,7 @@ import React from 'react'
 import DropdownMenu from './index'
 import Icon from 'clear-ui-base/lib/icon'
 
-class ButtonDropdownMenu extends DropdownMenu {
+export default class ButtonDropdownMenu extends DropdownMenu {
 	static propTypes = {
 		/** Button element */
 		trigger: React.PropTypes.element
@@ -23,5 +23,3 @@ class ButtonDropdownMenu extends DropdownMenu {
 		})
 	}
 }
-
-export default ButtonDropdownMenu

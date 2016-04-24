@@ -28,7 +28,7 @@ export default class MenuItem extends React.Component {
 
 	static propTypes = {
 		/** Value of the item. */
-		value: React.PropTypes.string,
+		value: React.PropTypes.any,
 
 		/** Disabled state of the item. */
 		disabled: React.PropTypes.bool,

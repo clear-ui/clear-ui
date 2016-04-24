@@ -8,7 +8,7 @@ import SIZES from '../styles/sizes'
 let ICON_SIZE = 1.5
 let PADDING = 1
 
-function getStyles(props, state) {
+function getStyles(props) {
 	let root = {
 		position: 'relative',
 		display: 'inline-block',
@@ -17,7 +17,6 @@ function getStyles(props, state) {
 		fontFamily: 'inherit',
 		backgroundClip: 'padding-box',
 		border: 'none',
-		boxSizing: 'border-box',
 		padding: `0 ${PADDING}rem`,
 		borderRadius: 2,
 		outline: 'none',
@@ -102,18 +101,19 @@ export default class Button extends BaseIconButton {
 		...BaseIconButton.propTypes,
 
 		/**
-		 * Height of the button.
-		 * Possible values are: 'small', 'default', 'big'.
+		 * Invalid state of the button.
+		 * It appears as red outline around the buttons.
+		 * It is not supported for `OutlineButton`.
 		 */
-		height: React.PropTypes.oneOf(Object.keys(SIZES)),
+		invalid: React.PropTypes.bool,
 
-		/**
-		 * Background color of the button.
-		 * Possible values are: \`'grey'\`, \`'red'\`, \`'green'\` or \`'blue'\`.
-		 */
-		color: React.PropTypes.string,
+		/** Height of the button. */
+		height: React.PropTypes.oneOf(['small', 'default', 'big']),
 
-		/** If true, field stretches to 100% width. */
+		/** Background color of the button. */
+		color: React.PropTypes.oneOf(['grey', 'red', 'green', 'blue']),
+
+		/** If true, button stretches to 100% width. */
 		fullWidth: React.PropTypes.bool
 	}
 
@@ -125,12 +125,14 @@ export default class Button extends BaseIconButton {
 
 	static styles = composeStyles(BaseIconButton.styles, getStyles)
 
-	renderContainer() {
-		let container = super.renderContainer()
-		return React.cloneElement(container, null, [
-			container.props.children,
+	renderRoot() {
+		let root = super.renderRoot()
+		return React.cloneElement(root, null, [
+			root.props.children,
 			React.DOM.div({key: 'innerOutline', style: this.styles.innerOutline}),
 			React.DOM.div({key: 'outerOutline', style: this.styles.outerOutline})
 		])
 	}
+
+	render() { return super.render() } // for react-docgen
 }

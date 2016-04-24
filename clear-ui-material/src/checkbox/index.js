@@ -43,7 +43,7 @@ function getCheckboxSwitchStyles(props, state) {
 class CheckboxSwitch extends MaterialSwitch {
 	static styles = composeStyles(MaterialSwitch.styles, getCheckboxSwitchStyles)
 
-	renderSwitchElement() {
+	renderSwitcher() {
 		return [
 			<div style={this.styles.outline}>
 				<Icon icon={checkboxOutlineIcon}/>

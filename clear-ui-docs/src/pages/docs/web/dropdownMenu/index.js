@@ -12,6 +12,9 @@ import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
+import DropdownMenuExample from './example.js'
+import dropdownMenuExampleCode from '!raw!./example.js'
+
 export default class DropdownMenuDoc extends React.Component {
 	render() {
 		let triangleIcon = <Icon icon={Icon.ICONS.triangleDown}/>
@@ -23,26 +26,22 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<h2>Example</h2>
 
+			{`
+			There are two types of dropdown components:
+			- \`DropdownMenu\` can use any element as trigger.
+			- \`ButtonDropdownMenu\` uses button component as trigger.
+				It adds triangle icon to the buttons.
+				It makes button stay  pressed, while dropdown is open,
+				and it prevents opening when button is disabled.
+			`}
+
 			<Example>
 				<Example.Demo>
-					<DropdownMenu trigger={<Link>Open dropdown</Link>}>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
-					{' '}
-					<ButtonDropdownMenu trigger={<Button>DropdownMenu</Button>}>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</ButtonDropdownMenu>
+					<DropdownMenuExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					let trigger = <Button rightIcon={triangleIcon}>DropdownMenu</Button>
-
-					<DropdownMenu trigger={trigger}>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
-				`}</Example.Code>
+				<Example.Code>
+					{dropdownMenuExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -67,7 +66,7 @@ export default class DropdownMenuDoc extends React.Component {
 					{' '}
 					<DropdownMenu
 						trigger={<Button rightIcon={triangleIcon}>Width in px</Button>}
-						width='150px'
+						width='200px'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
@@ -76,7 +75,7 @@ export default class DropdownMenuDoc extends React.Component {
 				<Example.Code lang='xml'>{`
 					<DropdownMenu trigger={trigger} width='150%'>...</DropdownMenu>
 
-					<DropdownMenu trigger={trigger} width='150px'>...</DropdownMenu>
+					<DropdownMenu trigger={trigger} width='200px'>...</DropdownMenu>
 				`}</Example.Code>
 			</Example>
 
@@ -104,7 +103,7 @@ export default class DropdownMenuDoc extends React.Component {
 						expandSide='left'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
+						<MenuItem value='2'>Second menu item with long text</MenuItem>
 					</DropdownMenu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
@@ -120,11 +119,7 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/components/base/dropdown-menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > DropdownMenu props...</a>
+					<a href='#/components/base/dropdown-menu'>Base > DropdownMenu props</a>
 				</ApiDoc.Row>
 			</ApiDoc>
 		</DocPage>

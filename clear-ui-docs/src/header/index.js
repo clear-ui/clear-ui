@@ -3,6 +3,7 @@ import {Link} from 'react-router'
 
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
+import Icon from 'clear-ui-base/lib/icon'
 
 @mixinDecorator(StylesMixin)
 class Header extends React.Component {

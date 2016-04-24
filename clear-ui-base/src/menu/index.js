@@ -170,3 +170,5 @@ export default class Menu extends React.Component {
 		if (this.listener) $(document).unbind('keydown', this.listener)
 	}
 }
+
+export {MenuItem}

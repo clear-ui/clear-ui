@@ -4,7 +4,7 @@ import $ from 'jquery'
 import {Motion, spring} from 'react-motion'
 
 import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
-import Animation, {fadeAndSlide, fadeAndScale, fade} from '../animations'
+import Animation, {fade} from '../animations'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
@@ -98,7 +98,7 @@ export default class DropdownMenu extends React.Component {
 		let attachment = React.createElement(Attachment, {
 			element: list,
 			open: this.state.open,
-			onClose: () => { this.setManagedState({open: false}) },
+			onClose: this.close.bind(this),
 			layerProps: {
 				onRender: this.setSizes.bind(this),
 				overlay: true,
@@ -155,12 +155,17 @@ export default class DropdownMenu extends React.Component {
 		}
 	}
 
-	onItemSelect(item) {
-		if (this.props.onSelect) this.props.onSelect(item.props.value, item)
+	close() {
 		this.setManagedState({open: false})
+		this.triggerRef.focus()
 	}
 
-	calcListWidth() {
+	onItemSelect(item) {
+		if (this.props.onSelect) this.props.onSelect(item.props.value, item)
+		this.close()
+	}
+
+	getListWidth() {
 		let triggerElem = $(ReactDOM.findDOMNode(this.triggerRef))
 		let listElem = $(ReactDOM.findDOMNode(this.listRef))
 
@@ -181,7 +186,7 @@ export default class DropdownMenu extends React.Component {
 
 	setListWidth() {
 		let listElem = $(ReactDOM.findDOMNode(this.listRef))
-		listElem.css(this.calcListWidth())
+		listElem.css(this.getListWidth())
 	}
 
 	setMenuHeight() {

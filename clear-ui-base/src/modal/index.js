@@ -57,12 +57,14 @@ export default class Modal extends React.Component {
 			width: '100%',
 			height: '100%',
 			overflow: 'auto',
-			WebkitOverflowScrolling: 'touch'
+			WebkitOverflowScrolling: 'touch',
+			willChange: 'opacity'
 		}
 
 		let modal = {
 			position: 'absolute',
-			userSelect: 'text'
+			userSelect: 'text',
+			willChange: 'left, top, transform'
 		}
 		if (props.width) modal.width = props.width
 

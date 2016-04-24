@@ -1,10 +1,6 @@
-docgen/
-
-lib
+docgen
 dist
 
-lib-cov
-coverage
 node_modules
 npm-debug.log
 

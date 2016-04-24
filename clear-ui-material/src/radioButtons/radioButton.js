@@ -40,7 +40,7 @@ function getRadioSwitchStyles(props, state) {
 class RadioSwitch extends MaterialSwitch {
 	static styles = composeStyles(MaterialSwitch.styles, getRadioSwitchStyles)
 
-	renderSwitchElement() {
+	renderSwitcher() {
 		return [
 			React.DOM.div({style: this.styles.outline},
 				React.createElement(Icon, {icon: outlineIcon})),
@@ -51,10 +51,8 @@ class RadioSwitch extends MaterialSwitch {
 	}
 }
 
-class RadioButton extends BaseRadioButton {
+export default class RadioButton extends BaseRadioButton {
 	static childComponents = {
 		'switch': <RadioSwitch/>
 	}
 }
-
-export default RadioButton

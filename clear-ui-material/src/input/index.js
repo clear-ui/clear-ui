@@ -2,7 +2,7 @@ import React from 'react'
 
 import BaseInput from 'clear-ui-base/lib/input'
 import ThemeMixin from '../themeMixin'
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 
 function getStyles(props, state) {
@@ -129,7 +129,7 @@ function getStyles(props, state) {
 	return {root, input, label, icon, underline, underlineFill}
 }
 
-@mixinDecorator(ThemeMixin)
+@mixin(ThemeMixin)
 export default class Input extends BaseInput {
 	static propTypes = {
 		...BaseInput.propTypes,

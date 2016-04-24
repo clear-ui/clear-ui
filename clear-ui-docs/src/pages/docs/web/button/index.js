@@ -9,6 +9,10 @@ import Icon from 'clear-ui-base/lib/icon'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import webDocs from '../../../../../docgen/web.json'
+let buttonPropsDoc = webDocs['button/index.js'].props
 
 export default class ButtonDoc extends React.Component {
 	render() {
@@ -164,53 +168,10 @@ export default class ButtonDoc extends React.Component {
 
 			<h2>Props</h2>
 
-			<ApiDoc>
-				<ApiDoc.Row>
-					<a href='#/docs/base/button'>Base > Button props</a>
-				</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='invalid'
-					type='boolean'
-				>{`
-					Invalid state of the button.
-					It appears as red outline around the buttons.
-					It is not supported for \`OutlineButton\`.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='leftIcon'
-					type='node'
-				>{`
-					Icon element that appears at the left side of the button.
-					It can be SVG-icon, font-icon or any arbitrary element.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='rightIcon'
-					type='node'
-				>{`
-					Icon element that appears at the right side of the button.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='height'
-					type='string'
-					defaultValue={`'default'`}
-				>{`
-					Height of the button.
-					Possible values are: \`'small', 'default', 'big'\`.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='color'
-					type='string'
-					defaultValue={`'grey'`}
-				>{`
-					Background color of the button.
-					Possible values are: \`'grey'\`, \`'red'\`, \`'green'\` or \`'blue'\`.
-				`}</ApiDoc.Row>
-			</ApiDoc>
+			<PropsDoc
+				doc={buttonPropsDoc}
+				base={{name: 'Base > Button > IconButton', url: '#/docs/base/button'}}
+			/>
 		</DocPage>
 	}
 }

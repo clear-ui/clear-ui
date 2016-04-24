@@ -6,6 +6,7 @@ import Input from 'clear-ui-web/lib/input'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
+import ApiDoc from '../../../../apiDoc'
 
 class ModalDemo extends React.Component {
 	static defaultProps = {
@@ -136,51 +137,14 @@ export default class ModalDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
+			<h2>Props</h2>
 
-			<h2>API</h2>
+			<ApiDoc>
+				<ApiDoc.Row>
+					<a href='#/docs/base/modal'>Base > Modal props</a>
+				</ApiDoc.Row>
+			</ApiDoc>
 
-			<h3>Mods</h3>
-
-			{`
-			### width
-
-			**TODO**
-
-			### alignTop
-
-			**TODO**
-			`}
-
-			<h3>Props</h3>
-
-			{`
-			### showCloseButton
-
-			Type: \`boolean\`<br/>
-			Default: \`true\`
-
-			**TODO**
-
-			### showOverlay
-
-			Type: \`boolean\`<br/>
-			Default: \`true\`
-
-			### closeOnOverlayClick
-
-			Type: \`boolean\`<br/>
-			Default: \`true\`
-
-			### closeOnEsc
-
-			Type: \`boolean\`<br/>
-			Default: \`true\`
-
-			### closeOnClick
-
-			Type: \`boolean\`<br/>
-			Default: \`false\`
-			`}
 		</DocPage>
 	}
 }

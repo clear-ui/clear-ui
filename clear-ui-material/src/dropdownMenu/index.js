@@ -1,14 +1,14 @@
 import React from 'react'
 
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import BaseDropdownMenu from 'clear-ui-base/lib/dropdownMenu'
-import Menu from '../menu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
+import Menu from '../menu'
 import SHADOWS from '../styles/shadows'
 import ThemeMixin from '../themeMixin'
 
-@mixinDecorator(ThemeMixin)
-class DropdownMenu extends BaseDropdownMenu {
+@mixin(ThemeMixin)
+export default class DropdownMenu extends BaseDropdownMenu {
 	static defaultProps = {
 		...BaseDropdownMenu.defaultProps,
 		listOffset: 16
@@ -50,13 +50,11 @@ class DropdownMenu extends BaseDropdownMenu {
 		}
 	}
 
-	calcListWidth() {
-		const padding = this.props.desktop ? 24 : 16
-		let {width, minWidth} = super.calcListWidth()
-		if (width) width += padding * 2
-		minWidth += padding * 2
+	getListWidth() {
+		const hOffset = this.props.desktop ? 24 : 16
+		let {width, minWidth} = super.getListWidth()
+		if (width) width += hOffset * 2
+		minWidth += hOffset * 2
 		return {width, minWidth}
 	}
 }
-
-export default DropdownMenu

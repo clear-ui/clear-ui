@@ -34,11 +34,11 @@ export default class RippleButton extends BaseButton {
 		ripples: React.createElement(Ripples, {key: 'ripples'})
 	}
 
-	renderContainer() {
-		let container = super.renderContainer()
+	renderRoot() {
+		let root = super.renderRoot()
 
 		if (this.props.disabled) {
-			return container
+			return root
 		} else {
 			let ripples
 			if (this.props.ripples && !this.props.disabled) {
@@ -48,7 +48,7 @@ export default class RippleButton extends BaseButton {
 				})
 			}
 
-			return React.cloneElement(container, null, [this.props.children, ripples])
+			return React.cloneElement(root, null, [this.props.children, ripples])
 		}
 	}
 

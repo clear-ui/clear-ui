@@ -3,15 +3,19 @@ import React from 'react'
 import BaseModal from 'clear-ui-base/lib/modal'
 import SHADOWS from '../styles/shadows'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ThemeMixin from '../themeMixin'
 
-/**
- * @param {node} [props.actions] - Actions of the dialog.
- * @param {node} [props.header] - Header of the dialog.
- */
-@mixinDecorator(ThemeMixin)
-class Dialog extends BaseModal {
+@mixin(ThemeMixin)
+export default class Dialog extends BaseModal {
+	static propTypes = {
+		/** Actions of the dialog. */
+		actions: React.PropTypes.node,
+
+		/** Header of the dialog. */
+		header: React.PropTypes.node
+	}
+
 	static styles = composeStyles(
 		BaseModal.styles,
 		(props, state) => {
@@ -56,5 +60,3 @@ class Dialog extends BaseModal {
 		])
 	}
 }
-
-export default Dialog

@@ -5,7 +5,7 @@ import Menu from '../menu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import SHADOWS from '../styles/shadows'
 
-class DropdownMenu extends BaseDropdownMenu {
+export default class DropdownMenu extends BaseDropdownMenu {
 	static styles = composeStyles(
 		BaseDropdownMenu.styles,
 		{
@@ -22,5 +22,3 @@ class DropdownMenu extends BaseDropdownMenu {
 		menu: <Menu/>
 	}
 }
-
-export default DropdownMenu

@@ -9,7 +9,7 @@ import DropdownMenu from '../dropdownMenu'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 
 @mixinDecorator(ThemeMixin)
-class Select extends BaseSelect {
+export default class Select extends BaseSelect {
 	static propTypes = {
 		...BaseSelect.propTypes,
 
@@ -68,8 +68,8 @@ class Select extends BaseSelect {
 	static childComponents = {
 		dropdownMenu: (props) => {
 			return <DropdownMenu
-				maxHeight={props.maxHeight}
 				tappable={true}
+				maxHeight={props.maxHeight}
 				desktop={props.desktop}
 			/>
 		}
@@ -84,14 +84,11 @@ class Select extends BaseSelect {
 			)
 		])
 
-		let {disabled} = this.props
 		return React.createElement(FocusableTappable, {
 			preventFocusOnTap: true,
-			disabled,
+			disabled: this.props.disabled,
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
 		}, trigger)
 	}
 }
-
-export default Select

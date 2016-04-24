@@ -2,6 +2,7 @@ import React from 'react'
 
 import Tappable from './tappable'
 import keyCodes from './utils/keyCodes'
+import cloneReferencedElement from './utils/cloneReferencedElement.js'
 
 /**
  * Tappable that supports focusing and pressing with Enter button.
@@ -25,11 +26,12 @@ export default class FocusableTappable extends React.Component {
 		} else {
 			let elem = this.props.children
 			if (this.props.tabIndex !== undefined) {
-				elem = React.cloneElement(elem, {
+				elem = cloneReferencedElement(elem, {
 					tabIndex: this.props.tabIndex,
 					onFocus: this.onFocus.bind(this),
 					onBlur: this.onBlur.bind(this),
-					onKeyDown: this.onKeyDown.bind(this)
+					onKeyDown: this.onKeyDown.bind(this),
+					ref: (ref) => { this.elemRef = ref }
 				})
 			}
 			return React.createElement(Tappable, {
@@ -83,5 +85,9 @@ export default class FocusableTappable extends React.Component {
 		if (this.props.onChangeTapState) {
 			this.props.onChangeTapState({pressed: this.pressed, hovered: this.hovered})
 		}
+	}
+
+	focus() {
+		this.elemRef.focus()
 	}
 }

@@ -62,7 +62,7 @@ export default class Button extends React.Component {
 		this.state = {tapState: 'initial'}
 	}
 
-	renderContainer() {
+	renderRoot() {
 		let label = React.DOM.div({
 			key: 'label',
 			style: this.styles.label
@@ -72,7 +72,8 @@ export default class Button extends React.Component {
 		let elemType = 'div'
 		return React.DOM[elemType]({
 			style: this.styles.root,
-			disabled: this.props.disabled
+			disabled: this.props.disabled,
+			ref: (ref) => { this.rootRef = ref }
 		}, label)
 	}
 
@@ -89,6 +90,10 @@ export default class Button extends React.Component {
 			},
 			onFocus: () => { this.setManagedState({focused: true}) },
 			onBlur: () => { this.setManagedState({focused: false}) }
-		}, this.renderContainer())
+		}, this.renderRoot())
+	}
+
+	focus() {
+		this.rootRef.focus()
 	}
 }

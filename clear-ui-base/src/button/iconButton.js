@@ -17,8 +17,8 @@ export default class IconButton extends Button {
 		rightIcon: React.PropTypes.node
 	}
 
-	renderContainer() {
-		let container = super.renderContainer()
+	renderRoot() {
+		let root = super.renderRoot()
 
 		let leftIcon, rightIcon
 		if (this.props.leftIcon) {
@@ -34,9 +34,9 @@ export default class IconButton extends Button {
 			}, this.props.rightIcon)
 		}
 
-		return React.cloneElement(container, null, [
+		return React.cloneElement(root, null, [
 			leftIcon,
-			container.props.children,
+			root.props.children,
 			rightIcon
 		])
 	}

@@ -2,17 +2,17 @@ import React from 'react'
 import color from 'color'
 
 import BaseSwitch from 'clear-ui-base/lib/switch'
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import ThemeMixin from '../themeMixin'
 import Ripples from '../ripples'
 
 /**
- * Switch that shows ripples around switchElement
+ * Switch that shows ripples around switcher.
  */
-@mixinDecorator(ThemeMixin, ChildComponentsMixin)
-class MaterialSwitch extends BaseSwitch {
+@mixin(ThemeMixin, ChildComponentsMixin)
+export default class MaterialSwitch extends BaseSwitch {
 	static contextTypes = {
 		clearUiMaterialTheme: React.PropTypes.object
 	}
@@ -103,7 +103,7 @@ class MaterialSwitch extends BaseSwitch {
 						{React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})}
 					</div>
 					<div style={this.styles.focusRipple}/>
-					{this.renderSwitchElement()}
+					{this.renderSwitcher()}
 				</div>
 				{
 					this.props.children &&
@@ -114,13 +114,12 @@ class MaterialSwitch extends BaseSwitch {
 	}
 
 	/**
+	 * Renders switched state depending of component's type.
 	 * @method
 	 * @abstract
-	 * @returns {node} Display of the switch state depending of its type.
+	 * @returns {node}
 	 */
-	renderSwitchElement() {
+	renderSwitcher() {
 		throw new Error('Not implemented')
 	}
 }
-
-export default MaterialSwitch

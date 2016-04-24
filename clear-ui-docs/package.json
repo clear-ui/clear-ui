@@ -7,7 +7,7 @@
     "docgen": "gulp docgen",
     "docgen-watch": "gulp docgen-watch",
     "start": "webpack-dev-server --progress --host=0.0.0.0",
-    "prod": "webpack-dev-server -p --progress",
+    "start-prod": "webpack-dev-server -p --progress",
     "build": "webpack --progress",
     "build-prod": "webpack -p --progress"
   },
