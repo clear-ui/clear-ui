@@ -8,9 +8,7 @@ import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import ThemeMixin from '../themeMixin'
 import Ripples from '../ripples'
 
-/**
- * Switch that shows ripples around switcher.
- */
+/** Switch that shows ripples around the switch element. */
 @mixin(ThemeMixin, ChildComponentsMixin)
 export default class MaterialSwitch extends BaseSwitch {
 	static contextTypes = {
@@ -24,7 +22,7 @@ export default class MaterialSwitch extends BaseSwitch {
 			outline: 'none'
 		}
 
-		let switcher = {
+		let switchElement = {
 			float: 'left',
 			width: 24,
 			height: 24,
@@ -72,7 +70,7 @@ export default class MaterialSwitch extends BaseSwitch {
 			label.color = state.theme.disabled
 		}
 
-		return {root, switcher, label, ripples, focusRipple}
+		return {root, switchElement, label, ripples, focusRipple}
 	}
 
 	static childComponents = {
@@ -95,31 +93,14 @@ export default class MaterialSwitch extends BaseSwitch {
 		})
 	}
 
-	renderContainer() {
-		return (
-			<div style={this.styles.root}>
-				<div style={this.styles.switcher}>
-					<div style={this.styles.ripples}>
-						{React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})}
-					</div>
-					<div style={this.styles.focusRipple}/>
-					{this.renderSwitcher()}
-				</div>
-				{
-					this.props.children &&
-					<div style={this.styles.label}>{this.props.children}</div>
-				}
-			</div>
-		)
-	}
-
-	/**
-	 * Renders switched state depending of component's type.
-	 * @method
-	 * @abstract
-	 * @returns {node}
-	 */
-	renderSwitcher() {
-		throw new Error('Not implemented')
+	renderSwitchElement() {
+		let switchElement = super.renderSwitchElement()
+		return React.cloneElement(switchElement, null, [
+			switchElement.props.children,
+			<div style={this.styles.ripples}>
+				{React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})}
+			</div>,
+			<div style={this.styles.focusRipple}/>
+		])
 	}
 }

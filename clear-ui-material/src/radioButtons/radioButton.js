@@ -40,14 +40,16 @@ function getRadioSwitchStyles(props, state) {
 class RadioSwitch extends MaterialSwitch {
 	static styles = composeStyles(MaterialSwitch.styles, getRadioSwitchStyles)
 
-	renderSwitcher() {
-		return [
+	renderSwitchElement() {
+		let switchElement = super.renderSwitchElement()
+		return React.cloneElement(switchElement, null, [
+			switchElement.props.children,
 			React.DOM.div({style: this.styles.outline},
 				React.createElement(Icon, {icon: outlineIcon})),
 			React.DOM.div({style: this.styles.dot},
 				React.createElement(Icon, {icon: dotIcon})
 			)
-		]
+		])
 	}
 }
 

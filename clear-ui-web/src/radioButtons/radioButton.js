@@ -53,16 +53,18 @@ class RadioSwitch extends Switch {
 	static styles = composeStyles(Switch.styles, getRadioSwitchStyles)
 
 	renderSwitchElement() {
-		return [
-			React.DOM.div({style: this.styles.circle}),
-			React.DOM.div({style: this.styles.dot},
-				React.createElement(Icon, {icon: dotIcon})
-			)
-		]
+		return (
+			<div style={this.styles.switchElement}>
+				<div style={this.styles.circle}/>
+				<div style={this.styles.dot}>
+					<Icon icon={dotIcon}/>
+				</div>
+			</div>
+		)
 	}
 }
 
-class RadioButton extends BaseRadioButton {
+export default class RadioButton extends BaseRadioButton {
 	static defaultProps = {
 		...BaseRadioButton.defaultProps,
 		height: 'default',
@@ -73,5 +75,3 @@ class RadioButton extends BaseRadioButton {
 		'switch': <RadioSwitch/>
 	}
 }
-
-export default RadioButton

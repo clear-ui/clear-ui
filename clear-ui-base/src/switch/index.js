@@ -4,6 +4,7 @@ import FocusableTappable from '../focusableTappable'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
+/** Base component that can display switched state and change it to opposite on tap. */
 @mixin(StylesMixin)
 export default class Switch extends React.Component {
 	static propTypes = {
@@ -37,15 +38,24 @@ export default class Switch extends React.Component {
 			},
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
-		}, this.renderContainer())
+		}, this.renderRoot())
 	}
 
-	/**
-	 * @method
-	 * @abstract
-	 * @return {element} Root element of the switch.
-	 */
-	renderContainer() {
-		throw new Error('Not implemented')
+	renderRoot() {
+		let label
+		if (this.props.children) {
+			label = <div style={this.styles.label}>{this.props.children}</div>
+		}
+
+		return (
+			<div style={this.styles.root}>
+				{this.renderSwitchElement()}
+				{label}
+			</div>
+		)
+	}
+
+	renderSwitchElement() {
+		return <div style={this.styles.switchElement}/>
 	}
 }

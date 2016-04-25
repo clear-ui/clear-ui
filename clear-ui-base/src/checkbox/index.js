@@ -2,9 +2,8 @@ import React from 'react'
 
 import mixin from '../utils/mixin/decorator'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
-import StylesMixin from '../utils/stylesMixin'
 
-@mixin(StylesMixin, ChildComponentsMixin)
+@mixin(ChildComponentsMixin)
 export default class Checkbox extends React.Component {
 	static propTypes = {
 		/** Value of the checkbox. */
@@ -27,13 +26,11 @@ export default class Checkbox extends React.Component {
 	}
 
 	render() {
-		return React.DOM.div({style: this.styles.root},
-			React.cloneElement(this.getChildComponent('switch'), {
-				...this.props,
-				isSwitched: this.props.value,
-				onSwitch: this.onChange.bind(this)
-			}, this.props.children)
-		)
+		return React.cloneElement(this.getChildComponent('switch'), {
+			...this.props,
+			isSwitched: this.props.value,
+			onSwitch: this.onChange.bind(this)
+		}, this.props.children)
 	}
 
 	onChange() {

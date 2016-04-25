@@ -55,12 +55,14 @@ class CheckboxSwitch extends Switch {
 	static styles = composeStyles(Switch.styles, getCheckboxSwitchStyles)
 
 	renderSwitchElement() {
-		return [
-			React.DOM.div({style: this.styles.outline}),
-			React.DOM.div({style: this.styles.checkmark},
-				React.createElement(Icon, {icon: checkmarkIcon})
-			)
-		]
+		return (
+			<div style={this.styles.switchElement}>
+				<div style={this.styles.outline}/>
+				<div style={this.styles.checkmark}>
+					<Icon icon={checkmarkIcon}/>
+				</div>
+			</div>
+		)
 	}
 }
 
