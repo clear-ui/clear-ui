@@ -1,26 +1,36 @@
-// @flow
-
-import type {
-	AttachmentConfig, ParsedAttachmentConfig,
-	PointValue, Unit, Point,
-	VertSpecialValue, HorizSpecialValue, SpecialValuesMap
-} from './types.js'
-
-const HORIZ_SPECIAL_VALUES: SpecialValuesMap<HorizSpecialValue> = {
+const HORIZ_SPECIAL_VALUES = {
 	left: {value: 0, unit: '%'},
 	center: {value: 50, unit: '%'},
 	right: {value: 100, unit: '%'}
 }
 
-const VERT_SPECIAL_VALUES: SpecialValuesMap<VertSpecialValue> = {
+const VERT_SPECIAL_VALUES = {
 	top: {value: 0, unit: '%'},
 	middle: {value: 50, unit: '%'},
 	bottom: {value: 100, unit: '%'}
 }
 
-function parseValue(value: string, pointStr: string, specialValues?: SpecialValuesMap):
-	PointValue {
-	let parsed = parseInt(value)
+/**
+ * @typedef ParsedAttachment
+ * @property {Point} target - Parsed target attachment point.
+ * @property {Point} element - Parsed element attachment point.
+ * @property {Point} [offset] - Parsed offset.
+ */
+
+/**
+ * @typedef Point
+ * @property {Value} horiz
+ * @property {Value} vert
+ */
+
+/**
+ * @typedef Value
+ * @property {number|string} value - Number or special value.
+ * @property {'px'|'%'} [unit='px']
+ */
+
+function parseValue(value, pointStr, specialValues) {
+	let parsed = parseInt(value, 10)
 	if (Number.isNaN(parsed)) {
 		// test that value is Vert or Horiz point value
 		if (!specialValues) {
@@ -32,13 +42,9 @@ function parseValue(value: string, pointStr: string, specialValues?: SpecialValu
 			return specialValues[value]
 		}
 	} else {
-		let unitStr = value.slice(parsed.toString().length)
-		let unit: Unit
-		if (!unitStr.length) {
-			unit = 'px'
-		} else if (unitStr === 'px' || unitStr === '%') {
-			unit = unitStr
-		} else {
+		let unit = value.slice(parsed.toString().length)
+		if (!unit.length) unit = 'px'
+		if (unit !== 'px' && unit !== '%') {
 			throw new Error(`"${unit}" is not valid unit ` +
 				`in the attachment point "${pointStr}"`)
 		}
@@ -46,7 +52,11 @@ function parseValue(value: string, pointStr: string, specialValues?: SpecialValu
 	}
 }
 
-function parsePoint(pointStr: string, useSpecialValues: boolean = true): Point {
+/**
+ * @param pointStr {string}
+ * @param {string} [useSpecialValues=true]
+ */
+function parsePoint(pointStr, useSpecialValues = true) {
 	let [horiz, vert] = pointStr.split(' ')
 	return {
 		horiz: parseValue(horiz, pointStr, useSpecialValues ? HORIZ_SPECIAL_VALUES : undefined),
@@ -54,10 +64,13 @@ function parsePoint(pointStr: string, useSpecialValues: boolean = true): Point {
 	}
 }
 
-/** Parses string attachment config from options. */
-export default function parseAttachmentConfig(config: AttachmentConfig):
-	ParsedAttachmentConfig {
-	let parsed: ParsedAttachmentConfig = {
+/**
+ * Parses string attachment config from options.
+ * @param {AttachmentConfig} config
+ * @return {ParsedAttachment}
+ */
+export default function parseAttachmentConfig(config) {
+	let parsed = {
 		element: parsePoint(config.element, true),
 		target: parsePoint(config.target, true)
 	}

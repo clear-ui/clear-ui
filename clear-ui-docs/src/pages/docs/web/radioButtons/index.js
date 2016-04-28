@@ -28,6 +28,31 @@ class RadioButtonsDemo extends React.Component {
 	}
 }
 
+import {SegmentedControl, SegmentedControlSegment} from 'clear-ui-ios/lib/segmentedControl'
+
+class SegmentedControlExample extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {value: this.props.value}
+	}
+
+	render() {
+		return (
+			<SegmentedControl
+				{...this.props}
+				value={this.state.value}
+				onChange={(value) => { this.setState({value}) }}
+			>
+				<SegmentedControlSegment value='1'>First option</SegmentedControlSegment>
+				<SegmentedControlSegment value='2'>Second option</SegmentedControlSegment>
+				<SegmentedControlSegment disabled={true} value='3'>
+					Disabled option
+				</SegmentedControlSegment>
+			</SegmentedControl>
+		)
+	}
+}
+
 export default class RadioButtonsDoc extends React.Component {
 	render() {
 		return <DocPage>
@@ -37,6 +62,7 @@ export default class RadioButtonsDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
+					<SegmentedControlExample value='1'/>
 					<RadioButtonsDemo value='1'/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`

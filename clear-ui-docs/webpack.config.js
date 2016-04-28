@@ -33,6 +33,7 @@ config.plugins.push(new HtmlWebpackPlugin({
 config.resolve.alias['clear-ui-base/lib'] = path.join(__dirname, '../clear-ui-base/src')
 config.resolve.alias['clear-ui-material/lib'] = path.join(__dirname, '../clear-ui-material/src')
 config.resolve.alias['clear-ui-web/lib'] = path.join(__dirname, '../clear-ui-web/src')
+config.resolve.alias['clear-ui-ios/lib'] = path.join(__dirname, '../clear-ui-ios/src')
 
 // Enable preprocessing of clear-ui source with babel
 config.module.loaders[0].exclude = []
@@ -42,6 +43,7 @@ config.module.loaders[0].include = [
 	path.resolve(__dirname, '..', 'clear-ui-base', 'src'),
 	path.resolve(__dirname, '..', 'clear-ui-material', 'src'),
 	path.resolve(__dirname, '..', 'clear-ui-web', 'src'),
+	path.resolve(__dirname, '..', 'clear-ui-ios', 'src')
 ]
 
 // add style loaders

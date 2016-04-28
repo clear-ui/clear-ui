@@ -1,14 +1,8 @@
-// @flow
-
 import $ from 'jquery'
-
-import type {
-	ElementMeasurements, ViewportMeasurements, ViewportBounds, Measurements
-} from './types.js'
 
 let $window = $(window)
 
-function readElemMeasurements(elem: $): ElementMeasurements {
+function readElemMeasurements(elem) {
 	return {
 		offset: elem.offset(),
 		width: elem.outerWidth(),
@@ -16,7 +10,7 @@ function readElemMeasurements(elem: $): ElementMeasurements {
 	}
 }
 
-function readViewportMeasurements(): ViewportMeasurements {
+function readViewportMeasurements() {
 	return {
 		scrollTop: $window.scrollTop(),
 		scrollLeft: $window.scrollLeft(),
@@ -25,7 +19,7 @@ function readViewportMeasurements(): ViewportMeasurements {
 	}
 }
 
-function getViewportBounds(viewport: ViewportMeasurements): ViewportBounds {
+function getViewportBounds(viewport) {
 	return {
 		left: viewport.scrollLeft,
 		right: viewport.scrollLeft + viewport.width,
@@ -34,7 +28,7 @@ function getViewportBounds(viewport: ViewportMeasurements): ViewportBounds {
 	}
 }
 
-export default function readMeasurements(element: $, target: $): Measurements {
+export default function readMeasurements(element, target) {
 	let viewport = readViewportMeasurements()
 	let bounds = getViewportBounds(viewport)
 	let measurements = {

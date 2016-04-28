@@ -10,7 +10,7 @@ let radioGroupPropsDoc = baseDocs['radioButtons/radioGroup.js'].props
 export default class BaseRadioButtonsDoc extends React.Component {
 	render() {
 		return <DocPage>
-			<h1>Base<DocPage.ArrowIcon/>Radio Button</h1>
+			<h1>Base<DocPage.ArrowIcon/>Radio Buttons</h1>
 
 			{`
 			RadioButton and RadioGroup are components that allow the user to choose one of

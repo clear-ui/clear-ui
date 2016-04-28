@@ -1,69 +1,48 @@
-// @flow
 import $ from 'jquery'
 
 import parseAttachmentConfig from './parseAttachmentConfig'
-import mirrorAttachmentConfig from './mirrorAttachmentConfig'
 import readMeasurements from './readMeasurements'
 import getAttachPosition from './getAttachPosition'
 
-import type {
-	AttachmentConfig, ParsedAttachmentConfig,
-	CssPosition, AttachmentMirrorAxis
-} from './types.js'
+/**
+ * @type AttachmentConfig
+ * Description of how the attached element should be positioned relatively
+ * to the target element. It has two points, one on the attached element and
+ * second on the target element, that will be connected together, and an offset.
+ * @param {string} element - Attachment point of the element.
+ *     String of the form of 'vert-attachment horiz-attachment'.
+ *     Attachment value is a number with 'px' or '%'.
+ *     Also, 'vert-attachment' can be: 'top', 'middle' and 'bottom',
+ *     and 'horiz-attachment' can be 'left', 'right' and 'center'.
+ * @param {string} target - Attachment point of the target element.
+ *     Format is same as for 'element'.
+ * @param {string} [offset] - Offset of the element. Format is same as for
+ *     'element' and 'target', but without special values.
+ */
 
-// let SUPPORTS_TRANSFORM = 'transform' in document.body.style
-
-type AttachmentOptions = {
-	/** Attached element */
-	element: Element | $;
-
-	/** Attachment target */
-	target: Element | $;
-
-	/**
-	 * Configuration of attachment points or a list of possible configs.
-	 * Component will choose an attachment that allows element to fit to the viewport.
-	 */
-	attachment: AttachmentConfig | Array<AttachmentConfig>;
-
-	/**
-	 * Axis of attachment that can be mirrored to fit element to the viewport.
-	 * It is used when single attachment used. FIXME why not always?
-	 * Default is 'none'.
-	 */
-	mirrorAttachment?: AttachmentMirrorAxis;
-
-	/** Minimal distance from element to the viewport bound. Default is 0. */
-	viewportPadding?: number;
-
-	/** TODO */
-	constrain?: boolean;
-
-	/** TODO */
-	onChangeAttachment?: (index: number) => void;
-}
-
-type ProcessedOptions = {
-	element: $;
-	target: $;
-	parsedAttachments: Array<ParsedAttachmentConfig>;
-	viewportPadding: number;
-	constrain: boolean;
-	onChangeAttachment?: (index: number) => void;
-}
+/**
+ * @type AttachmentOptions
+ * @param {Element|$} element - Attached element
+ * @param {Element|$} target - Attachment target
+ * @param {AttachmentConfig|Array<AttachmentConfig>} attachment -
+ *     Configuration of attachment points or a list of possible configs.
+ *     Component will choose an attachment that allows element to fit to the viewport.
+ * @param {'all'|'vert'|'horiz'|'none'} [mirrorAttachment='none'] -
+ *     Axis of attachment that can be mirrored to fit element to the viewport.
+ *     It is used when single attachment used. FIXME why not always?
+ * @param {number} [viewportPadding=0] - Minimal distance from element to the viewport bound.
+ * @param {boolean} [constrain] - TODO
+ * @param {function(index: number, mirror: AttachmentMirrorAxis)} [onChangeAttachment] - TODO
+ */
 
 /**
  * It makes element stay next to another element, connecting two attachment
  * points on the elements.
+ * @param options {AttachmentOptions}
  */
 class Attachment {
-	options: ProcessedOptions;
-
-	prevAttachmentIndex: number;
-
-	constructor(options: AttachmentOptions) {
+	constructor(options) {
 		this.updateOptions(options)
-
 		Attachment.addInstance(this)
 	}
 
@@ -72,107 +51,71 @@ class Attachment {
 		Attachment.removeInstance(this)
 	}
 
-	processOptions(options: AttachmentOptions): ProcessedOptions {
+	processOptions(options) {
 		let DEFAULT_OPTIONS = {
 			constrain: false,
 			mirrorAttachment: 'none',
 			viewportPadding: 0
 		}
 
-		let {element, target, attachment, mirrorAttachment, ...rest} = options
+		let {element, target, attachment, ...rest} = options
 
 		let parsedAttachments
 		if (attachment) {
 			if (Array.isArray(attachment) && !attachment.length) {
 				throw new Error('"options.attachment" must not be empty')
 			}
-			parsedAttachments = this.parseAttachments(attachment, mirrorAttachment)
+			parsedAttachments = this.parseAttachments(attachment)
 		} else {
 			throw new Error('"options.attachment" is required')
 		}
 
-		let res = {
+		return {
 			...DEFAULT_OPTIONS,
 			element: element instanceof $ ? element : $(element),
 			target: target instanceof $ ? target : $(target),
 			parsedAttachments,
 			...rest
 		}
-
-		return res
 	}
 
 	/** TODO */
-	updateOptions(options: AttachmentOptions) {
+	updateOptions(options) {
 		this.options = this.processOptions(options)
 		this.updatePosition()
 	}
 
-	parseAttachments(
-		attachment: AttachmentConfig | Array<AttachmentConfig>,
-		mirrorAttachment: AttachmentMirrorAxis | void
-	): Array<ParsedAttachmentConfig> {
+	parseAttachments(attachment) {
 		if (Array.isArray(attachment)) {
 			return attachment.map((att) => { return parseAttachmentConfig(att) })
 		} else {
-			let parsedAttachment = parseAttachmentConfig(attachment)
-			let parsedAttachments = [parsedAttachment]
-			switch (mirrorAttachment) {
-			case 'horiz':
-				parsedAttachments.push(mirrorAttachmentConfig(parsedAttachment, 'horiz'))
-				break
-			case 'vert':
-				parsedAttachments.push(mirrorAttachmentConfig(parsedAttachment, 'vert'))
-				break
-			case 'all':
-				parsedAttachments.push(mirrorAttachmentConfig(parsedAttachment, 'vert'))
-				parsedAttachments.push(mirrorAttachmentConfig(parsedAttachment, 'horiz'))
-				parsedAttachments.push(mirrorAttachmentConfig(parsedAttachment))
-				break
-			}
-			return parsedAttachments
+			return [parseAttachmentConfig(attachment)]
 		}
 	}
 
 	/** @public TODO */
 	updatePosition() {
+		let {parsedAttachments, constrain, viewportPadding, mirrorAttachment} = this.options
 		// if (!this.options.element.is(':visible') || !this.options.target.is(':visible')) return
 		let measurements = readMeasurements(this.options.element, this.options.target)
-		let [index, position] = getAttachPosition(measurements, this.options.parsedAttachments,
-			this.options.constrain, this.options.viewportPadding)
+		let [position, index, mirror] = getAttachPosition(
+			measurements, parsedAttachments, constrain, viewportPadding, mirrorAttachment
+		)
 		if (position) this.setPosition(position)
-		if (this.prevAttachmentIndex !== index) {
-			// TODO handle mirroring
-			if (this.options.onChangeAttachment) this.options.onChangeAttachment(index)
+		if (this.prevAttachmentIndex !== index || this.prevMirror !== mirror) {
+			if (this.options.onChangeAttachment) {
+				this.options.onChangeAttachment(index, mirror)
+			}
 			this.prevAttachmentIndex = index
+			this.prevAttachmentIndex = mirror
 		}
 	}
 
-	setPosition(position: CssPosition) {
-		// let css = SUPPORTS_TRANSFORM ?
-			// {
-				// transform: `translate(${position.left}px, ${position.top}px)`,
-				// top: 0, left: 0
-			// } :
-			// position
-		// if (!_.isEqual(css, this.cachedCss)) {
-			// this.cachedCss = css
-		// this.options.element.css(css)
-		// }
-
-		// TODO transform conflicts with animations
-		// let css = {
-			// transform: `translate(${position.left}px, ${position.top}px)`,
-			// top: 0, left: 0
-		// }
-		let css = position
-		this.options.element.css(css)
+	setPosition(position) {
+		this.options.element.css(position)
 	}
 
-	// TODO rename
-	static listener: () => void;
-
-	static updatedInstances: Set = new Set();
+	static updatedInstances = new Set();
 
 	/** @public TODO */
 	static updatePosition() {
