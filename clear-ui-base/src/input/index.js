@@ -12,9 +12,9 @@ export default class Input extends React.Component {
 		value: React.PropTypes.string,
 
 		/**
-		 * (string) => void
-		 *
 		 * Handler of input's focus event.
+		 *
+		 * (value: string) => void
 		 */
 		onChange: React.PropTypes.func,
 

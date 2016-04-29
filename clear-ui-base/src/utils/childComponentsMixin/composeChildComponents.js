@@ -1,6 +1,8 @@
-// Composes `childBlocks` props.
-// If children uses functions, they are combined to single one, that calls all
-// functions in turn and passes result of each function to the next one.
+/**
+ * Composes `childComponents` props.
+ * If children use functions, they are combined into single one that calls all
+ * functions in turn and passes result of each function to the next one.
+ */
 export default function composeChildComponents(...childComponentsList) {
 	let composed = {}
 	for (let i in childComponentsList) {

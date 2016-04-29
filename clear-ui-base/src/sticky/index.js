@@ -15,7 +15,7 @@ export default class Sticky extends React.Component {
 
 		/**
 		 * Container element that restricts position of sticky element.
-		 * It can be DOM-element or React element or deferred that resolves to
+		 * It can be DOM-element or React component or deferred that resolves to
 		 * one of it.
 		 */
 		container: React.PropTypes.object

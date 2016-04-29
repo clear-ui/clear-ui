@@ -4,12 +4,21 @@ import $ from 'jquery'
 import {Motion, spring} from 'react-motion'
 
 import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
-import Animation, {fade} from '../animations'
+import Animation, {fade, fadeAndSlide, fadeAndScale} from '../animations'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import Attachment from '../attachment'
+
+import {veryFastAndHardSpring, fastAndHardSpring} from '../animation/springPresets.js'
+
+const OPPOSITE_SIDES = {
+	top: 'bottom',
+	bottom: 'top',
+	left: 'right',
+	right: 'left'
+}
 
 @mixin(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
 export default class DropdownMenu extends React.Component {
@@ -62,15 +71,55 @@ export default class DropdownMenu extends React.Component {
 	}
 
 	static childComponents = {
-		animation: (props) => {
+		animation: (props, state) => {
 			if (props.animation === 'fade') {
 				return React.createElement(Animation, {fn: fade})
-			} else if (props.animation === 'slide') {
-				// TODO need side, but with mirror
+			}
+
+			if (props.animation === 'slide') {
+				return React.createElement(Animation, {
+					fn: fadeAndSlide,
+					params: {side: state.side}
+				})
+			}
+
+			if (props.animation === 'scale' || props.animation === 'scaleVert') {
+				return React.createElement(Animation, {
+					fn: fadeAndScale,
+					params: {
+						origin: `${state.vertSide} ${state.horizSide}`,
+						axis: props.animation === 'scale' ? 'scale' : 'scaleY'
+					}
+				})
 			}
 		},
 
 		menu: null
+	}
+
+	constructor() {
+		super()
+		this.initManagedState(['open'])
+		if (!this.state) this.state = {}
+		this.state.rest = true
+	}
+
+	componentWillReceiveProps(nextProps) {
+		// Every time opened state is changed with props it should reset value of 'rest',
+		// as in open() and close() methods.
+		if ('open' in nextProps && nextProps.open !== this.state.open) {
+			this.setState({rest: false})
+		}
+	}
+
+	updateSides(mirror) {
+		let vertSide = mirror.vert ?
+			this.props.vertSide : OPPOSITE_SIDES[this.props.vertSide]
+		let horizSide = mirror.horiz ?
+			this.props.expandSide : OPPOSITE_SIDES[this.props.expandSide]
+		if ((this.state.horizSide !== horizSide) || (this.state.vertSide !== vertSide)) {
+			this.setState({horizSide, vertSide})
+		}
 	}
 
 	render() {
@@ -105,34 +154,41 @@ export default class DropdownMenu extends React.Component {
 				closeOnOverlayClick: true,
 				closeOnEsc: true
 			},
+			onChangeAttachment: (index, mirror) => { this.updateSides(mirror) },
 			...this.getAttachmentConfig()
 		}, trigger)
 
 		if (this.props.animation) {
-			let attachmentAnimation = React.createElement(Motion, {
+			let preset = (this.props.animation === 'fade') ?
+				fastAndHardSpring : veryFastAndHardSpring
+			let motion = React.createElement(Motion, {
 				defaultStyle: {progress: 0},
-				style: {progress: spring(this.state.open ? 1 : 0, [320, 30])}
+				style: {progress: spring(this.state.open ? 1 : 0, preset)},
+				onRest: () => { this.setState({rest: true}) }
 			}, (value) => {
-				let listAnimation = React.cloneElement(
+				return React.cloneElement(
 					this.getChildComponent('animation'),
 					{progress: value.progress},
 					list
 				)
-				return React.cloneElement(attachment, {
-					open: this.state.open || value.progress !== 0,
-					element: listAnimation
-				})
 			})
-			return React.DOM.div({style: this.styles.root}, attachmentAnimation)
+
+			return (
+				<div style={this.styles.root}>
+					{React.cloneElement(attachment, {
+						open: this.state.open || !this.state.rest,
+						element: motion
+					})}
+				</div>
+			)
 		} else {
-			return React.DOM.div({style: this.styles.root}, attachment)
+			return <div style={this.styles.root}>{attachment}</div>
 		}
 	}
 
 	getAttachmentConfig() {
-		let oppositeSide = (this.props.expandSide === 'left') ? 'right' : 'left'
-		let oppositeVertSide = (this.props.vertSide === 'bottom') ? 'top' : 'bottom'
-
+		let oppositeSide = OPPOSITE_SIDES[this.props.expandSide]
+		let oppositeVertSide = OPPOSITE_SIDES[this.props.vertSide]
 		return {
 			attachment: {
 				target: `${oppositeSide} ${this.props.vertSide}`,
@@ -146,17 +202,21 @@ export default class DropdownMenu extends React.Component {
 	renderTrigger() {
 		if (this.props.tappable) {
 			return React.cloneElement(this.props.trigger, {
-				onTap: () => { this.setManagedState({open: true}) }
+				onTap: this.open.bind(this)
 			})
 		} else {
 			return React.createElement(FocusableTappable, {
-				onTap: () => { this.setManagedState({open: true}) }
+				onTap: this.open.bind(this)
 			}, React.DOM.div({style: this.styles.trigger}, this.props.trigger))
 		}
 	}
 
+	open() {
+		this.setManagedState({open: true, rest: false})
+	}
+
 	close() {
-		this.setManagedState({open: false})
+		this.setManagedState({open: false, rest: false})
 		this.triggerRef.focus()
 	}
 

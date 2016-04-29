@@ -11,7 +11,8 @@ export default class ButtonDropdownMenu extends DropdownMenu {
 
 	constructor() {
 		super()
-		this.state = {buttonState: 'initial'}
+		if (!this.state) this.state = {}
+		this.state.buttonState = 'initial'
 	}
 
 	renderTrigger() {

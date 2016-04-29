@@ -11,7 +11,8 @@ import ThemeMixin from '../themeMixin'
 export default class DropdownMenu extends BaseDropdownMenu {
 	static defaultProps = {
 		...BaseDropdownMenu.defaultProps,
-		listOffset: 16
+		listOffset: 16,
+		animation: 'scale'
 	}
 
 	static styles = composeStyles(

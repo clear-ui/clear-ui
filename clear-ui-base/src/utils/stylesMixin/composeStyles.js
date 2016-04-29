@@ -1,6 +1,8 @@
-// Composes `styles` props for each element.
-// If styles uses functions, they are combined
-// to single function that returns merged results.
+/**
+ * Composes `styles` props for each element.
+ * If styles uses functions, they are combined
+ * to single function that returns merged results.
+ */
 export default function composeStyles(...stylesList) {
 	return function(props, state) {
 		let composed = {}
@@ -15,4 +17,3 @@ export default function composeStyles(...stylesList) {
 		return composed
 	}
 }
-

@@ -1,9 +1,6 @@
 import React from 'react'
 
-/**
- * It sets element's props that does not have values
- * to values from another element.
- */
+/** Fills element's props that are not defined with values from another element. */
 export default function transferProps(from, to, propNames) {
 	let props = {}
 	for (let propName of propNames) {
@@ -13,4 +10,3 @@ export default function transferProps(from, to, propNames) {
 	}
 	return React.cloneElement(to, props)
 }
-

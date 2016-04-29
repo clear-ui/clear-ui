@@ -10,7 +10,6 @@ import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Animation, {slide, scale, fade} from '../animations'
 
-// const SUPPORTS_TRANSFORM = 'transform' in document.body.style
 const scrollbarWidth = getScrollbarWidth()
 
 @mixin(StylesMixin, ChildComponentsMixin)
@@ -87,6 +86,8 @@ export default class Modal extends React.Component {
 			}
 		}
 	}
+
+	// TODO component did mount
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.props.open && nextProps.open) this.open()
@@ -168,6 +169,7 @@ export default class Modal extends React.Component {
 		}
 	}
 
+	// TODO rename (render window?)
 	renderModal() {
 		return React.DOM.div({style: this.styles.modal}, this.props.children)
 	}

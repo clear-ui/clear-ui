@@ -23,13 +23,13 @@ const POSITION_POINTS = {
 }
 
 function createAttachmentConfig(side, align, offset) {
-	/*
-	1. point on main axis is defined by side
-		point on the element - side
-		point on the tooltip - opposite of the side
-	2. point on second axis is defined by position of arrow
-		begin / center / end of the axis on both element's and target's points
-	*/
+	/**
+	 * 1. point on main axis is defined by side
+	 *     point on the element - side
+	 *     point on the tooltip - opposite of the side
+	 * 2. point on second axis is defined by position of arrow
+	 *     begin / center / end of the axis on both element's and target's points
+	 */
 	let mainAxis = (side === 'top' || side === 'bottom') ? 'vert' : 'horiz'
 	let secondAxis = (mainAxis === 'vert') ? 'horiz' : 'vert'
 
@@ -123,6 +123,8 @@ export default class Tooltip extends React.Component {
 			}
 		}
 	}
+
+	// TODO constructor() { this.initManagedState(['open']) }
 
 	updateSide(side) {
 		if (this.state.side !== side) this.setState({side})

@@ -5,8 +5,9 @@ import keyCodes from '../keyCodes'
 
 /**
  * It restricts focus inside element.
+ * On create is sets focus to first focusable element.
  * On destroy it returns focus to the element that was focused before.
- * @param element {DOMElement}
+ * @param element {element}
  */
 export default class FocusScope {
 	constructor(element) {

@@ -2,9 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 
-/**
- * Component for automatically updating value based on scroll position.
- */
+/** Component for automatically updating value based on scroll position. */
 class Scrollspy extends React.Component {
 	static propTypes = {
 		/** Offset from top when scrolling to anchor, in px */
@@ -73,6 +71,7 @@ class Scrollspy extends React.Component {
 
 			if (elem.props && elem.props.children) {
 				return React.cloneElement(elem, {
+					// TODO why?
 					// children: singleChildFixMap(elem.props.children, setAnchorRef)
 					children: React.Children.map(elem.props.children, setAnchorRef)
 				})

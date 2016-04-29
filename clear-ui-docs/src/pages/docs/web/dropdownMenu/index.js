@@ -22,7 +22,10 @@ export default class DropdownMenuDoc extends React.Component {
 		return <DocPage>
 			<h1>Web<DocPage.ArrowIcon/>Dropdown Menu</h1>
 
-			Dropdown menu is a component that shows menu under the trigger element.
+			{`
+			Dropdown menu is a component that opens menu under the trigger element
+			and allows to select from it.
+			`}
 
 			<h2>Example</h2>
 
@@ -113,13 +116,38 @@ export default class DropdownMenuDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
+			<h3>Animation</h3>
+
+			<Example>
+				<Example.Demo>
+					<DropdownMenu
+						trigger={<Button rightIcon={triangleIcon}>Top</Button>}
+						vertSide='top'
+						animation='scale'
+					>
+						<MenuItem value='1'>First menu item</MenuItem>
+						<MenuItem value='2'>Second menu item</MenuItem>
+					</DropdownMenu>
+					{' '}
+					<DropdownMenu
+						trigger={<Button rightIcon={triangleIcon}>Bottom</Button>}
+						animation='scale'
+					>
+						<MenuItem value='1'>First menu item</MenuItem>
+						<MenuItem value='2'>Second menu item</MenuItem>
+					</DropdownMenu>
+				</Example.Demo>
+				<Example.Code lang='xml'>{`
+				`}</Example.Code>
+			</Example>
+
 			<h2>API</h2>
 
 			<h3>Props</h3>
 
 			<ApiDoc>
 				<ApiDoc.Row>
-					<a href='#/components/base/dropdown-menu'>Base > DropdownMenu props</a>
+					<a href='#/docs/base/dropdown-menu'>Base > DropdownMenu props</a>
 				</ApiDoc.Row>
 			</ApiDoc>
 		</DocPage>

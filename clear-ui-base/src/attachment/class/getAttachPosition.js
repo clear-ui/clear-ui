@@ -8,20 +8,18 @@ function calcPosition(measurements, attachment, mirror) {
 	let elem = measurements.element
 	let target = measurements.target
 
-	let mirrorHoriz = mirror === 'horiz' || mirror === 'all'
-	let hElemCoord = calcCoord(attachment.element.horiz, elem.width, mirrorHoriz)
-	let hTargetCoord = calcCoord(attachment.target.horiz, target.width, mirrorHoriz)
+	let hElemCoord = calcCoord(attachment.element.horiz, elem.width, mirror.horiz)
+	let hTargetCoord = calcCoord(attachment.target.horiz, target.width, mirror.horiz)
 	let hOffsetCoord = attachment.offset ?
 		calcCoord(attachment.offset.horiz, elem.width) : 0
-	if (mirrorHoriz) hOffsetCoord = -hOffsetCoord
+	if (mirror.horiz) hOffsetCoord = -hOffsetCoord
 	let hCoord = target.offset.left + hTargetCoord + hOffsetCoord - hElemCoord
 
-	let mirrorVert = mirror === 'vert' || mirror === 'all'
-	let vElemCoord = calcCoord(attachment.element.vert, elem.height, mirrorVert)
-	let vTargetCoord = calcCoord(attachment.target.vert, target.height, mirrorVert)
+	let vElemCoord = calcCoord(attachment.element.vert, elem.height, mirror.vert)
+	let vTargetCoord = calcCoord(attachment.target.vert, target.height, mirror.vert)
 	let vOffsetCoord = attachment.offset ?
 		calcCoord(attachment.offset.vert, elem.height) : 0
-	if (mirrorVert) vOffsetCoord = -vOffsetCoord
+	if (mirror.vert) vOffsetCoord = -vOffsetCoord
 	let vCoord = target.offset.top + vTargetCoord + vOffsetCoord - vElemCoord
 
 	return {left: Math.round(hCoord), top: Math.round(vCoord)}
@@ -49,24 +47,25 @@ function constrainPosition(pos, m /* measurements */, padding) {
 }
 
 function getMirrorsList(mirror) {
-	let mirrors = ['none']
-	if (mirror === 'vert' || mirror === 'all') mirrors.push('vert')
-	if (mirror === 'horiz' || mirror === 'all') mirrors.push('horiz')
-	if (mirror === 'all') mirrors.push('all')
+	let mirrors = [{vert: false, horiz: false}]
+	if (mirror === 'vert' || mirror === 'all') mirrors.push({vert: true, horiz: false})
+	if (mirror === 'horiz' || mirror === 'all') mirrors.push({vert: false, horiz: true})
+	if (mirror === 'all') mirrors.push({vert: true, horiz: true})
 	return mirrors
 }
 
 /**
  * Finds attachment that can fit element in the viewport and
  * returns position of attached element.
- * @return {[number, Position]} Array with 2 elements.
- *     First is index of chosen attachment, second is position object.
+ * @return {[Position, number, {horiz: boolean, vert: boolean}]}
+ *     Array with 3 elements.
+ *     First is position object, second is index of the chosen attachment config,
+ *     third is mirrored state of the attachment.
  */
 export default function getAttachPosition(
 	measurements, attachments, constrain, padding, mirrorOption
 ) {
 	let mirrorsList = getMirrorsList(mirrorOption)
-	console.log('MIRRORLIST', mirrorOption, mirrorsList)
 	let pos, index, mirror
 	outer: for (index in attachments) {
 		let att = attachments[index]
@@ -81,4 +80,3 @@ export default function getAttachPosition(
 	}
 	return [pos, index, mirror]
 }
-

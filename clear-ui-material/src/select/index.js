@@ -71,6 +71,7 @@ export default class Select extends BaseSelect {
 				tappable={true}
 				maxHeight={props.maxHeight}
 				desktop={props.desktop}
+				animation="scaleVert"
 			/>
 		}
 	}

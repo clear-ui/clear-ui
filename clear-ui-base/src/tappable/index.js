@@ -12,8 +12,8 @@ let blockMouseEvents
  * @param {function} [props.onTap] Tap event handler.
  * @param {function(event: object)} [props.onTapStart]
  * @param {function(event: object)} [props.onTapEnd]
- * @param {function} [props.onHoverStart] TODO
- * @param {function} [props.onHoverEnd] TODO
+ * @param {function} [props.onHoverStart] TODO & why
+ * @param {function} [props.onHoverEnd] TODO & why
  * @param {function} [props.onChangeTapState] ({hovered: boolean, pressed: boolean)
  *     Handler of hovered and pressed states changes.
  */

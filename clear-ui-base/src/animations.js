@@ -45,19 +45,25 @@ export function fadeAndSlide({originalStyle, side, distance, progress}) {
 	})
 }
 
-export function scale({originalStyle, origin, initialScale = 0.5, progress}) {
+export function scale({
+	originalStyle,
+	origin,
+	axis = 'scale',
+	initialScale = 0.5,
+	progress
+}) {
 	let transform = ''
 	if (originalStyle && originalStyle.transform) transform += originalStyle.transform + ' '
 	let scale = initialScale + progress * (1 - initialScale)
-	transform += `scale(${scale})`
+	transform += `${axis}(${scale})`
 	let style = {...originalStyle, transform}
 	if (origin) style.transformOrigin = origin
 	return style
 }
 
-export function fadeAndScale({originalStyle, origin, initialScale, progress}) {
+export function fadeAndScale({originalStyle, origin, axis, initialScale, progress}) {
 	return scale({
 		originalStyle: fade({originalStyle, progress}),
-		origin, initialScale, progress
+		origin, initialScale, progress, axis
 	})
 }
