@@ -78,6 +78,9 @@ export default class Tooltip extends React.Component {
 		/** Alignment of the tooltip relative to the element's side. */
 		align: React.PropTypes.oneOf(['begin', 'center', 'end']),
 
+		/** TODO */
+		arrow: React.PropTypes.bool,
+
 		/** Distance between the tooltip and the element, in px. */
 		offset: React.PropTypes.number,
 
@@ -126,21 +129,13 @@ export default class Tooltip extends React.Component {
 
 	// TODO constructor() { this.initManagedState(['open']) }
 
-	updateSide(side) {
-		if (this.state.side !== side) this.setState({side})
-	}
-
-	getOffset() {
-		return this.props.offset
-	}
-
 	render() {
 		let target = this.props.children
 
 		if (this.props.showOnHover || this.props.showOnClick) {
 			if (typeof target.type !== 'string') {
-				throw new Error(`When Tooltip has 'showOnHover: true' or ` +
-					`'showOnClick: true' its children must be single DOM-component.`)
+				throw new Error("When Tooltip has 'showOnHover: true' or " +
+					"'showOnClick: true' its children must be single DOM-component.")
 			}
 
 			let props = {}
@@ -196,6 +191,14 @@ export default class Tooltip extends React.Component {
 				element: tooltip
 			})
 		}
+	}
+
+	updateSide(side) {
+		if (this.state.side !== side) this.setState({side})
+	}
+
+	getOffset() {
+		return this.props.offset
 	}
 
 	onChangeHovered(hovered, canOnlyClose) {

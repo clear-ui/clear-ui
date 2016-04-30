@@ -10,6 +10,17 @@ import AbstractNotificationContainer from './abstractNotificationContainer.js'
 /** Component that renders notification inside container. */
 @mixin(StylesMixin)
 class NotificationView extends React.Component {
+	static propTypes = {
+		/** TODO */
+		actions: React.PropTypes.node,
+
+		/** TODO */
+		autoHideTimeout: React.PropTypes.number,
+
+		/** TODO */
+		onClose: React.PropTypes.func
+	}
+
 	static displayName = 'NotificationView'
 
 	static styles = {
@@ -30,6 +41,26 @@ class NotificationView extends React.Component {
 	componentDidMount() { this.setAutoHideTimeout() }
 	componentWillUnmount() { this.clearAutoHideTimeout() }
 
+	render() {
+		let actions
+		if (this.props.actions) {
+			actions = <div style={this.styles.actions}>{this.props.actions}</div>
+		}
+
+		return (
+			<div
+				style={this.styles.root}
+				onMouseEnter={this.clearAutoHideTimeout.bind(this)}
+				onMouseLeave={this.setAutoHideTimeout.bind(this)}
+			>
+				<div style={this.styles.content}>
+					{this.props.children}
+				</div>
+				{actions}
+			</div>
+		)
+	}
+
 	setAutoHideTimeout() {
 		if (this.props.autoHideTimeout && !this.hideTimer) {
 			this.hideTimer = setTimeout(this.onClose.bind(this), this.props.autoHideTimeout)
@@ -41,24 +72,6 @@ class NotificationView extends React.Component {
 		this.hideTimer = undefined
 	}
 
-	render() {
-		let actions
-		if (this.props.actions) {
-			actions = <div style={this.styles.actions}>{this.props.actions}</div>
-		}
-
-		return (
-			<div style={this.styles.root}
-				onMouseEnter={this.clearAutoHideTimeout.bind(this)}
-				onMouseLeave={this.setAutoHideTimeout.bind(this)}
-			>
-				<div style={this.styles.content}>
-					{this.props.children}
-				</div>
-				{actions}
-			</div>
-		)
-	}
 
 	onClose() {
 		if (this.props.onClose) this.props.onClose()
@@ -114,6 +127,10 @@ export default class Notification extends React.Component {
 
 	componentWillUnmount() { this.remove() }
 
+	render() {
+		return null
+	}
+
 	getContainer(callback) {
 		let defaultContainer = AbstractNotificationContainer.defaultInstance
 		let ctxContainer = this.context.notificationContainer
@@ -158,9 +175,5 @@ export default class Notification extends React.Component {
 	remove() {
 		if (this.container) this.container.remove(this.key)
 		this.key = undefined
-	}
-
-	render() {
-		return null
 	}
 }

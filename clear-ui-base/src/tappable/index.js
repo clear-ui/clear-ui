@@ -28,7 +28,7 @@ export default class Tappable extends React.Component {
 		/**
 		 * ({hovered: boolean, pressed: boolean}) => void
 		 */
-		onChangeState: React.PropTypes.func,
+		onChangeTapState: React.PropTypes.func,
 
 		/**
 		 * (touch) => void

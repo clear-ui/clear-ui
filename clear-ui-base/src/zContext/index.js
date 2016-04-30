@@ -79,13 +79,6 @@ class ZContext extends React.Component {
 		this._state = this.state
 	}
 
-	// It correctly handles multiple sequential updates.
-	// Code should read from 'this._state' instead of 'this.state'.
-	_setState(newState, callback) {
-		_.extend(this._state, newState)
-		this.setState(this._state, callback)
-	}
-
 	componentWillMount() {
 		if (ZContext.instance) throw new Error('Page can have only one "ZContext"')
 		ZContext.instance = this
@@ -115,6 +108,13 @@ class ZContext extends React.Component {
 			}, layer.content)
 		})
 		return React.DOM.div({style: this.styles.root}, layers)
+	}
+
+	// It correctly handles multiple sequential updates.
+	// Code should read from 'this._state' instead of 'this.state'.
+	_setState(newState, callback) {
+		_.extend(this._state, newState)
+		this.setState(this._state, callback)
 	}
 
 	addLayerToIndex(index, type, content, onRender) {
@@ -224,12 +224,12 @@ let methods = [
 ]
 
 methods.forEach(function(name) {
-	ZContext[name] = function() {
+	ZContext[name] = function(...args) {
 		let instance = ZContext.instance
 		if (!instance) {
 			throw new Error('You can\'t use methods without "ZContext" on page')
 		}
-		return instance[name].apply(instance, arguments)
+		return instance[name](...args)
 	}
 })
 

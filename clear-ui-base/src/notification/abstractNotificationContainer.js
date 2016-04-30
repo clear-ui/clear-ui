@@ -93,10 +93,6 @@ export default class AbstractNotificationsContainer extends React.Component {
 		if (this.props.isDefault) AbstractNotificationsContainer.defaultInstance = undefined
 	}
 
-	getNextKey() {
-		return this.nextKey++
-	}
-
 	render() {
 		return (
 			<span>
@@ -108,6 +104,10 @@ export default class AbstractNotificationsContainer extends React.Component {
 				{this.props.children}
 			</span>
 		)
+	}
+
+	getNextKey() {
+		return this.nextKey++
 	}
 
 	renderNotifications() { throw new Error('Not implemented') }

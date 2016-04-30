@@ -19,7 +19,7 @@ import LAYER_TYPES from './layerTypes'
  * @param {function} [props.onClose]
  */
 @mixinDecorator(StylesMixin, ManagedStateMixin)
-class ZContextLayer extends React.Component {
+export default class ZContextLayer extends React.Component {
 	static displayName = 'ZContextLayer'
 
 	static propTypes = {
@@ -71,6 +71,10 @@ class ZContextLayer extends React.Component {
 	componentDidUpdate() { this.setLayer() }
 	componentWillUnmount() { this.close() }
 
+	render() {
+		return React.DOM.noscript({ref: 'placeholder'})
+	}
+
 	setLayer() {
 		if (this.props.open) {
 			if (!this.layerKey) this.open()
@@ -80,17 +84,13 @@ class ZContextLayer extends React.Component {
 		}
 	}
 
-	render() {
-		return React.DOM.noscript({ref: 'placeholder'})
-	}
-
-	createContent() {
+	renderContent() {
 		return React.DOM.div(null,
 			//{className: this.buildOwnClassName('zContext', 'content')},
 			this.props.children)
 	}
 
-	createOverlay() {
+	renderOverlay() {
 		let props = {style: this.styles.overlay}
 		if (this.props.closeOnOverlayClick) {
 			props.onClick = this.onClose.bind(this)
@@ -99,14 +99,14 @@ class ZContextLayer extends React.Component {
 	}
 
 	open() {
-		let content = this.createContent()
+		let content = this.renderContent()
 		let elem = this.props.global ? null : ReactDOM.findDOMNode(this.refs.placeholder)
 
 		if (this.props.overlay) {
 			this.overlayLayerKey = ZContext.addLayer(
 				elem,
 				this.props.type,
-				this.createOverlay()
+				this.renderOverlay()
 			)
 		}
 
@@ -127,7 +127,7 @@ class ZContextLayer extends React.Component {
 
 	update() {
 		// TODO handle change of the overlay property
-		ZContext.updateLayer(this.layerKey, this.createContent(),
+		ZContext.updateLayer(this.layerKey, this.renderContent(),
 			this.props.onRender)
 	}
 
@@ -144,5 +144,3 @@ class ZContextLayer extends React.Component {
 		if (this.props.onClose) this.props.onClose()
 	}
 }
-
-export default ZContextLayer

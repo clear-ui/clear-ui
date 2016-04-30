@@ -17,6 +17,8 @@ export default class IconButton extends Button {
 		rightIcon: React.PropTypes.node
 	}
 
+	render() { return super.render() } // for react-docgen
+
 	renderRoot() {
 		let root = super.renderRoot()
 
@@ -40,6 +42,4 @@ export default class IconButton extends Button {
 			rightIcon
 		])
 	}
-
-	render() { return super.render() } // for react-docgen
 }

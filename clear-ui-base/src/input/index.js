@@ -12,9 +12,9 @@ export default class Input extends React.Component {
 		value: React.PropTypes.string,
 
 		/**
-		 * Handler of input's focus event.
+		 * Handler of the value change.
 		 *
-		 * (value: string) => void
+		 * `(value: string) => void`
 		 */
 		onChange: React.PropTypes.func,
 
@@ -26,6 +26,9 @@ export default class Input extends React.Component {
 
 		/** Disabled state of the input. */
 		disabled: React.PropTypes.bool,
+
+		/** Maximum length of the value in the input */
+		maxLength: React.PropTypes.number,
 
 		/**
 		 * If `true`, the input will be rendered using `textarea` tag.
@@ -63,14 +66,6 @@ export default class Input extends React.Component {
 		}
 	}
 
-	getRowsNumber(value) {
-		let matches = value.match(/\n/g)
-		let valueRows = matches ? (matches.length + 1) : 1
-		let rows = Math.max(this.props.rows, valueRows)
-		if (this.props.maxRows) rows = Math.min(this.props.maxRows, rows)
-		return rows
-	}
-
 	render() {
 		let props = {
 			style: this.styles.input,
@@ -92,6 +87,14 @@ export default class Input extends React.Component {
 		}
 
 		return React.DOM.div({style: this.styles.root}, input)
+	}
+
+	getRowsNumber(value) {
+		let matches = value.match(/\n/g)
+		let valueRows = matches ? (matches.length + 1) : 1
+		let rows = Math.max(this.props.rows, valueRows)
+		if (this.props.maxRows) rows = Math.min(this.props.maxRows, rows)
+		return rows
 	}
 
 	onChange(event) {

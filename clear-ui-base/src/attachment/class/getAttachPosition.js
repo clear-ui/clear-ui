@@ -35,15 +35,16 @@ function checkFitViewport(pos, m, padding) {
 }
 
 function constrainPosition(pos, m /* measurements */, padding) {
-	if (pos.left < m.bounds.left + padding) pos.left = m.bounds.left + padding
-	if (pos.top < m.bounds.top + padding) pos.top = m.bounds.top + padding
-	if (pos.left + m.element.width > m.bounds.right - padding) {
-		pos.left = m.bounds.right - m.element.width - padding
+	let res = {...pos}
+	if (res.left < m.bounds.left + padding) res.left = m.bounds.left + padding
+	if (res.top < m.bounds.top + padding) res.top = m.bounds.top + padding
+	if (res.left + m.element.width > m.bounds.right - padding) {
+		res.left = m.bounds.right - m.element.width - padding
 	}
-	if (pos.top + m.element.height > m.bounds.bottom - padding) {
-		pos.top = m.bounds.bottom - m.element.height - padding
+	if (res.top + m.element.height > m.bounds.bottom - padding) {
+		res.top = m.bounds.bottom - m.element.height - padding
 	}
-	return pos
+	return res
 }
 
 function getMirrorsList(mirror) {
@@ -67,6 +68,7 @@ export default function getAttachPosition(
 ) {
 	let mirrorsList = getMirrorsList(mirrorOption)
 	let pos, index, mirror
+	/* eslint-disable no-restricted-syntax, no-labels */
 	outer: for (index in attachments) {
 		let att = attachments[index]
 		for (let j in mirrorsList) {
@@ -75,6 +77,7 @@ export default function getAttachPosition(
 			if (checkFitViewport(pos, measurements, padding)) break outer
 		}
 	}
+	/* eslint-enable no-restricted-syntax, no-labels */
 	if (constrain && pos) {
 		pos = constrainPosition(pos, measurements, padding)
 	}

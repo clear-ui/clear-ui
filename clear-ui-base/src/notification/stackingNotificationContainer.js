@@ -22,7 +22,7 @@ export default class StackingNotificationContainer extends AbstractNotificationC
 		})
 
 		return React.createElement(TransitionMotion, {
-			styles: styles,
+			styles,
 			willEnter: () => { return {progress: 0} },
 			willLeave: () => { return {progress: spring(0, fastSpringPreset)} }
 		}, (interpolatedStyles) => {

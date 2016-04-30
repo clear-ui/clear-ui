@@ -21,6 +21,9 @@ export default class Attachment extends React.Component {
 		/** Controls the visibility of the attached element. */
 		open: React.PropTypes.bool,
 
+		/** Function that is called when attachment requests close. */
+		onClose: React.PropTypes.func,
+
 		/** Props passed to `ZContextLayer`. */
 		layerProps: React.PropTypes.object,
 

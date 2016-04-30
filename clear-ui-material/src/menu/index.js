@@ -7,10 +7,6 @@ import transferProps from 'clear-ui-base/lib/utils/transferProps'
 import MenuItem from './item'
 
 class Menu extends BaseScrollMenu {
-	static defaultProps = {
-		itemType: MenuItem
-	}
-
 	static styles = (props) => {
 		return {
 			root: {

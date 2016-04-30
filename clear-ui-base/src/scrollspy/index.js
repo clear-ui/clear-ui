@@ -5,6 +5,9 @@ import $ from 'jquery'
 /** Component for automatically updating value based on scroll position. */
 class Scrollspy extends React.Component {
 	static propTypes = {
+		/** TODO */
+		onChange: React.PropTypes.func,
+
 		/** Offset from top when scrolling to anchor, in px */
 		offset: React.PropTypes.number,
 
@@ -26,8 +29,6 @@ class Scrollspy extends React.Component {
 		container: document.body
 	}
 
-	anchors = []
-
 	componentWillMount() {
 		this.childrenWithAnchorsRefs = this.setChildrenAnchorsRefs(this.props.children)
 	}
@@ -45,6 +46,12 @@ class Scrollspy extends React.Component {
 		if (this.props.children !== nextProps.children) {
 			this.childrenWithAnchorsRefs = this.setChildrenAnchorsRefs(nextProps.children)
 		}
+	}
+
+	anchors = []
+
+	render() {
+		return React.DOM.div(null, this.childrenWithAnchorsRefs)
 	}
 
 	init(container) {
@@ -122,10 +129,6 @@ class Scrollspy extends React.Component {
 			topInContainer += this.container.scrollTop()
 		}
 		this.container.scrollTop(topInContainer - this.props.offset)
-	}
-
-	render() {
-		return React.DOM.div(null, this.childrenWithAnchorsRefs)
 	}
 }
 

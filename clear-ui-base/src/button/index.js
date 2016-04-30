@@ -43,10 +43,10 @@ export default class Button extends React.Component {
 		tapState: React.PropTypes.oneOf(['initial', 'hovered', 'pressed']),
 
 		/**
-		 * Function that is called on change button's tap state, when it is
+		 * Function that is called when button requests to change its tap state, when it is
 		 * controlled, i.e. prop `tapState` is defined.
 		 *
-		 * (tapState: string) => void
+		 * `(tapState: string) => void`
 		 */
 		onChangeTapState: React.PropTypes.func
 	}
@@ -60,21 +60,6 @@ export default class Button extends React.Component {
 		super()
 		this.initManagedState(['tapState'])
 		this.state = {tapState: 'initial'}
-	}
-
-	renderRoot() {
-		let label = React.DOM.div({
-			key: 'label',
-			style: this.styles.label
-		}, this.props.children)
-
-		// let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
-		let elemType = 'div'
-		return React.DOM[elemType]({
-			style: this.styles.root,
-			disabled: this.props.disabled,
-			ref: (ref) => { this.rootRef = ref }
-		}, label)
 	}
 
 	render() {
@@ -92,6 +77,22 @@ export default class Button extends React.Component {
 			onBlur: () => { this.setManagedState({focused: false}) }
 		}, this.renderRoot())
 	}
+
+	renderRoot() {
+		let label = React.DOM.div({
+			key: 'label',
+			style: this.styles.label
+		}, this.props.children)
+
+		// let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
+		let elemType = 'div'
+		return React.DOM[elemType]({
+			style: this.styles.root,
+			disabled: this.props.disabled,
+			ref: (ref) => { this.rootRef = ref }
+		}, label)
+	}
+
 
 	focus() {
 		this.rootRef.focus()

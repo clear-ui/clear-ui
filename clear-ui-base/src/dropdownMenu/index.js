@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import {Motion, spring} from 'react-motion'
 
-import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
+import FocusableTappable from '../focusableTappable'
 import Animation, {fade, fadeAndSlide, fadeAndScale} from '../animations'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
@@ -32,11 +32,27 @@ export default class DropdownMenu extends React.Component {
 		value: React.PropTypes.string,
 
 		/**
-		 * function(item: ?) => void
-		 *
 		 * Handler of the selecting item from the dropdown menu.
+		 *
+		 * `(item: element) => void`
 		 */
 		onSelect: React.PropTypes.func,
+
+		initialOpen: React.PropTypes.bool,
+		/**
+		 * Properties that allow you to control dropdowns's open state from the outside.
+		 * If they are not present, dropdown will manage opened state inside its
+		 * internal state.
+		 */
+		open: React.PropTypes.bool,
+
+		/**
+		 * Function that is called when dropdown requests to change its opened state,
+		 * when it is controlled, i.e. prop `open` is defined.
+		 *
+		 * `(open: bool) => void`
+		 */
+		onChangeOpen: React.PropTypes.func,
 
 		/** Width of the dropdown list, in px or % of trigger's width. */
 		width: React.PropTypes.string,
@@ -47,14 +63,17 @@ export default class DropdownMenu extends React.Component {
 		/** Vertical side where the list shows if there is enough space. */
 		vertSide: React.PropTypes.oneOf(['top', 'bottom']),
 
-		/** TODO */
-		animation: React.PropTypes.oneOf(['slide', 'fade']),
-
-		/** Maximum height of the list. */
+		/** Maximum height of the list, in px. */
 		maxHeight: React.PropTypes.number,
 
 		/** Distance between the trigger element and the list. */
-		listOffset: React.PropTypes.number
+		listOffset: React.PropTypes.number,
+
+		/** TODO change to <Tappable> */
+		tappable: React.PropTypes.bool,
+
+		/** TODO */
+		animation: React.PropTypes.oneOf(['fade', 'slide', 'scale', 'scaleVert'])
 	}
 
 	static defaultProps = {
@@ -109,16 +128,6 @@ export default class DropdownMenu extends React.Component {
 		// as in open() and close() methods.
 		if ('open' in nextProps && nextProps.open !== this.state.open) {
 			this.setState({rest: false})
-		}
-	}
-
-	updateSides(mirror) {
-		let vertSide = mirror.vert ?
-			this.props.vertSide : OPPOSITE_SIDES[this.props.vertSide]
-		let horizSide = mirror.horiz ?
-			this.props.expandSide : OPPOSITE_SIDES[this.props.expandSide]
-		if ((this.state.horizSide !== horizSide) || (this.state.vertSide !== vertSide)) {
-			this.setState({horizSide, vertSide})
 		}
 	}
 
@@ -186,6 +195,28 @@ export default class DropdownMenu extends React.Component {
 		}
 	}
 
+	renderTrigger() {
+		if (this.props.tappable) {
+			return React.cloneElement(this.props.trigger, {
+				onTap: this.open.bind(this)
+			})
+		} else {
+			return React.createElement(FocusableTappable, {
+				onTap: this.open.bind(this)
+			}, React.DOM.div({style: this.styles.trigger}, this.props.trigger))
+		}
+	}
+
+	updateSides(mirror) {
+		let vertSide = mirror.vert ?
+			this.props.vertSide : OPPOSITE_SIDES[this.props.vertSide]
+		let horizSide = mirror.horiz ?
+			this.props.expandSide : OPPOSITE_SIDES[this.props.expandSide]
+		if ((this.state.horizSide !== horizSide) || (this.state.vertSide !== vertSide)) {
+			this.setState({horizSide, vertSide})
+		}
+	}
+
 	getAttachmentConfig() {
 		let oppositeSide = OPPOSITE_SIDES[this.props.expandSide]
 		let oppositeVertSide = OPPOSITE_SIDES[this.props.vertSide]
@@ -196,18 +227,6 @@ export default class DropdownMenu extends React.Component {
 				offset: `0 ${this.props.listOffset}px`
 			},
 			mirrorAttachment: 'all'
-		}
-	}
-
-	renderTrigger() {
-		if (this.props.tappable) {
-			return React.cloneElement(this.props.trigger, {
-				onTap: this.open.bind(this)
-			})
-		} else {
-			return React.createElement(FocusableTappable, {
-				onTap: this.open.bind(this)
-			}, React.DOM.div({style: this.styles.trigger}, this.props.trigger))
 		}
 	}
 

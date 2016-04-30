@@ -36,9 +36,9 @@ export default class DropdownMenu extends BaseDropdownMenu {
 	}
 
 	getAttachmentConfig() {
-		let oppositeSide = (this.props.expandSide === 'left') ? 'right' : 'left'
-		let oppositeVertSide = (this.props.vertSide === 'bottom') ? 'top' : 'bottom'
-		let vOffset = -8
+		let oppositeSide = this.props.expandSide === 'left' ? 'right' : 'left'
+		let oppositeVertSide = this.props.vertSide === 'bottom' ? 'top' : 'bottom'
+		let vOffset = this.props.vertSide === 'top' ? 8 : -8
 		let hOffset = this.props.desktop ? -24 : -16
 		return {
 			attachment: {

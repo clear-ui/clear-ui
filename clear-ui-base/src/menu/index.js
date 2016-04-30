@@ -33,6 +33,14 @@ export default class Menu extends React.Component {
 	componentDidUpdate() { this.setActive() }
 	componentWillUnmount() { this.deactivate() }
 
+	render() {
+		return (
+			<div style={this.styles.root}>
+				{this.processItems(this.props.children)}
+			</div>
+		)
+	}
+
 	processItems(items, level = 0) {
 		return React.Children.map(items, function(elem) {
 			if (isSameOrInheritedType(elem.type, MenuItem)) {
@@ -71,13 +79,6 @@ export default class Menu extends React.Component {
 		}.bind(this))
 	}
 
-	render() {
-		return (
-			<div style={this.styles.root}>
-				{this.processItems(this.props.children)}
-			</div>
-		)
-	}
 
 	select(item) {
 		if (this.props.onSelect) this.props.onSelect(item)
@@ -99,7 +100,7 @@ export default class Menu extends React.Component {
 		// TODO nested items
 		let enabledItems = []
 		React.Children.forEach(this.props.children, (elem) => {
-			if (!elem.props.disabled && elem.type === this.props.itemType) {
+			if (!elem.props.disabled && isSameOrInheritedType(elem.type, MenuItem)) {
 				enabledItems.push(elem)
 			}
 		})

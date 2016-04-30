@@ -1,8 +1,8 @@
 import React from 'react'
 
-import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
-import {MenuItem} from 'clear-ui-base/lib/menu'
-import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
+import isSameOrInheritedType from '../utils/isSameOrInheritedType'
+import {MenuItem} from '../menu'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 
