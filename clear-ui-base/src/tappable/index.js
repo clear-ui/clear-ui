@@ -7,36 +7,33 @@ import BindMethodsMixin from '../utils/bindMethodsMixin'
 
 let blockMouseEvents
 
-/**
- * Helper for handling touch and mouse events for button-like components.
- * @param {function} [props.onTap] Tap event handler.
- * @param {function(event: object)} [props.onTapStart]
- * @param {function(event: object)} [props.onTapEnd]
- * @param {function} [props.onHoverStart] TODO & why
- * @param {function} [props.onHoverEnd] TODO & why
- * @param {function} [props.onChangeTapState] ({hovered: boolean, pressed: boolean)
- *     Handler of hovered and pressed states changes.
- */
+/** Helper for handling touch and mouse events for button-like components. */
 @mixin(BindMethodsMixin)
 export default class Tappable extends React.Component {
 	static propTypes = {
 		/** Single DOM-element */
 		children: React.PropTypes.element.isRequired,
 
+		/** Tap event handler. */
 		onTap: React.PropTypes.func,
 
+		/** TODO */
+		disabled: React.PropTypes.bool,
+
 		/**
-		 * ({hovered: boolean, pressed: boolean}) => void
+		 * `({hovered: boolean, pressed: boolean}) => void`
+		 *
+		 * Handler of hovered and pressed states changes.
 		 */
 		onChangeTapState: React.PropTypes.func,
 
 		/**
-		 * (touch) => void
+		 * `(touch) => void`
 		 */
 		onTapStart: React.PropTypes.func,
 
 		/**
-		 * (touch) => void
+		 * `(touch) => void`
 		 */
 		onTapEnd: React.PropTypes.func,
 
@@ -58,19 +55,24 @@ export default class Tappable extends React.Component {
 	}
 
 	render() {
-		return React.cloneElement(this.props.children, {
-			onMouseEnter: this.mouseEnter,
-			onMouseLeave: this.mouseLeave,
-			onMouseDown: this.mouseDown,
-			onTouchStart: this.touchStart,
-			onTouchMove: this.touchMove,
-			onTouchEnd: this.touchEnd,
-			onClick: (event) => { event.stopPropagation() },
+		let props = {
 			style: {
 				...this.props.children.props.style,
 				...this.props.style
 			}
-		})
+		}
+		if (!this.props.disabled) {
+			Object.assign(props, {
+				onMouseEnter: this.mouseEnter,
+				onMouseLeave: this.mouseLeave,
+				onMouseDown: this.mouseDown,
+				onTouchStart: this.touchStart,
+				onTouchMove: this.touchMove,
+				onTouchEnd: this.touchEnd,
+				onClick: (event) => { event.stopPropagation() },
+			})
+		}
+		return React.cloneElement(this.props.children, props)
 	}
 
 	mouseEnter() {
@@ -133,7 +135,7 @@ export default class Tappable extends React.Component {
 	touchEnd(event) {
 		if (!this.touch) return
 		event.preventDefault()
-		this.endTouch(true, event) // when to end? only when we have only one touch?
+		this.endTouch(true, event) // TODO when to end? only when we have only one touch?
 	}
 
 	endTouch(tap, event) {

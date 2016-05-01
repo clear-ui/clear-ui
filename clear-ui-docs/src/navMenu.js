@@ -1,12 +1,10 @@
 import React from 'react'
 
-import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
-import composeChildComponents from
-	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
-import TreeMenu, {TreeMenuItem, TreeMenuHeader, TreeMenuGroup, TreeMenuSubMenu}
-	from 'clear-ui-web/lib/treeMenu'
+import Menu, {MenuItem} from 'clear-ui-web/lib/menu'
+import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
+import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 
-class NavMenu extends TreeMenu {
+class NavMenu extends Menu {
 	static contextTypes = {
 		history: React.PropTypes.object.isRequired
 	}
@@ -17,60 +15,65 @@ class NavMenu extends TreeMenu {
 		prefix: ''
 	}
 
-	processItem(item, level = 0) {
-		let [isSelected, itemWithProps] = super.processItem(item, level)
-		isSelected = item.props.value !== undefined &&
-			this.context.history.isActive(this.props.prefix + item.props.value,
-				null, item.props.onlyIndex)
-		return [isSelected, React.cloneElement(itemWithProps, {selected: isSelected})]
+	processItems(items, level) {
+		let processedItems = super.processItems(items, level)
+		return React.Children.map(processedItems, (elem) => {
+			if (isSameOrInheritedType(elem.type, MenuItem)) {
+				let selected = elem.props.value !== undefined &&
+					this.context.history.isActive(this.props.prefix + elem.props.value,
+						null, elem.props.onlyIndex)
+				return React.cloneElement(elem, {selected})
+			} else {
+				return item
+			}
+		})
 	}
 
-	onSelect(item) {
+	onSelectItem(item) {
 		this.context.history.pushState(null, this.props.prefix + item.props.value)
 	}
 }
 
-function getItemStyles(props, state) {
-	let root = {}
-	let label = {}
+class NavMenuItem extends MenuItem {
+	static displayName = 'NavMenuItem'
 
-	if (state.tapState === 'hovered') root.background = '#e6e6e6'
-	else if (state.tapState === 'active') root.background = '#dadada'
+	static styles = composeStyles(
+		MenuItem.styles,
+		(props, state) => {
+			let root = {}
+			let label = {}
 
-	if (props.selected) {
-		label.fontWeight = 'normal'
-		label.color = 'rgb(30, 136, 229)'
+			if (state.tapState === 'hovered') root.background = '#e6e6e6'
+			else if (state.tapState === 'active') root.background = '#dadada'
+
+			if (props.selected) {
+				label.fontWeight = 'normal'
+				label.color = 'rgb(30, 136, 229)'
+			}
+
+			return {root, label}
+		}
+	)
+}
+
+class NavMenuHeader extends NavMenuItem {
+	static displayName = 'NavMenuHeader'
+
+	static defaultProps = {
+		...NavMenuItem.defaultProps,
+		tapTogglesNestedItems: true
 	}
-	return {root, label}
-}
 
-class NavMenuItem extends TreeMenuItem {
-	static childComponents = composeChildComponents(
-		TreeMenuItem.childComponents,
+	static styles = composeStyles(
+		NavMenuItem.styles,
 		{
-			menuItem: (props, state, defaultItem) => {
-				return React.cloneElement(defaultItem, {styles: getItemStyles})
+			label: {
+				fontWeight: '500',
+				textTransform: 'uppercase'
 			}
 		}
 	)
-}
-
-class NavMenuHeader extends TreeMenuHeader {
-	static childComponents = composeChildComponents(
-		TreeMenuHeader.childComponents,
-		{
-			menuItem: (props, state, defaultItem) => {
-				return React.cloneElement(defaultItem, {styles: getItemStyles})
-			}
-		}
-	)
-}
-
-export {
-	NavMenuItem,
-	NavMenuHeader,
-	TreeMenuGroup as NavMenuGroup,
-	TreeMenuSubMenu as NavMenuSubMenu
 }
 
 export default NavMenu
+export {NavMenuItem, NavMenuHeader}

@@ -8,13 +8,11 @@ import Notification from '../pages/docs/web/notification'
 import RadioButtons from '../pages/docs/web/radioButtons'
 import Select from '../pages/docs/web/select'
 import Tooltip from '../pages/docs/web/tooltip'
-import TreeMenu from '../pages/docs/web/treeMenu'
 
 export default [
 	{path: 'button', component: Button},
 	{path: 'dropdown-menu', component: DropdownMenu},
 	{path: 'menu', component: Menu},
-	{path: 'tree-menu', component: TreeMenu},
 	{path: 'checkbox', component: Checkbox},
 	{path: 'input', component: Input},
 	{path: 'select', component: Select},

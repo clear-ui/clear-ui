@@ -7,6 +7,7 @@ import FocusableTappable from '../focusableTappable'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
+import ChildComponentsMixin from '../utils/childComponentsMixin'
 
 const funcOrBoundFuncType = React.PropTypes.oneOfType([
 	React.PropTypes.func,
@@ -22,7 +23,7 @@ const funcOrBoundFuncType = React.PropTypes.oneOfType([
  * - leftIcon
  * - subMenu
  */
-@mixin(StylesMixin, ManagedStateMixin)
+@mixin(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
 export default class MenuItem extends React.Component {
 	static displayName = 'MenuItem'
 
@@ -32,6 +33,16 @@ export default class MenuItem extends React.Component {
 
 		/** Disabled state of the item. */
 		disabled: React.PropTypes.bool,
+
+		/**
+		 * Handler of the tap event on the item.
+		 * This property is set automatically,
+		 * instead you should use `onSelect` prop of the `Menu`.
+		 */
+		onTap: funcOrBoundFuncType,
+
+		/** TODO */
+		focusable: React.PropTypes.bool,
 
 		/**
 		 * Icon element that appears at the left side of the item.
@@ -44,13 +55,6 @@ export default class MenuItem extends React.Component {
 
 		/** Handler of the tap event on the right icon. */
 		onRightIconTap: React.PropTypes.func,
-
-		/**
-		 * Handler of the tap event on the item.
-		 * This property is set automatically,
-		 * instead you should use `onSelect` prop of the `Menu`.
-		 */
-		onTap: funcOrBoundFuncType,
 
 		/** TODO */
 		nestedItems: React.PropTypes.node,
@@ -181,7 +185,8 @@ export default class MenuItem extends React.Component {
 	}
 
 	renderTappable() {
-		return React.createElement(FocusableTappable, {
+		let tappableType = this.props.focusable ? FocusableTappable : Tappable
+		return React.createElement(tappableType, {
 			tabIndex: this.props.tabIndex,
 			disabled: this.props.disabled,
 			onTap: this.onTap.bind(this),

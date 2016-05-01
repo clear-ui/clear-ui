@@ -3,11 +3,12 @@ import React from 'react'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import composeChildComponents from
 	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
-import RippleItem from '../menu/rippleItem'
-import COLORS from '../styles/colors'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import Icon from 'clear-ui-base/lib/icon'
+
 import theme from '../styles/lightTheme'
+import RippleItem from '../menu/rippleItem'
+import COLORS from '../styles/colors'
 
 const ICON_SIZE = 24
 const AVATAR_SIZE = 38
@@ -57,6 +58,7 @@ function getStyles(props, state) {
 	}
 
 	let label = {
+		// TODO why not state.theme
 		color: theme.text,
 		overflowX: 'hidden',
 		lineHeight: '16px',

@@ -1,11 +1,12 @@
 import React from 'react'
+import _ from 'underscore'
 
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
+import BaseMenu from 'clear-ui-base/lib/menu'
+import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 import COLORS from '../styles/colors'
 
-import BaseMenu from 'clear-ui-base/lib/menu'
-import transferProps from 'clear-ui-base/lib/utils/transferProps'
 import MenuItem from './item'
 import MenuLabel from './label'
 
@@ -16,18 +17,19 @@ class Menu extends BaseMenu {
 		itemType: MenuItem
 	}
 
-	render() {
-		let container = super.render()
-
-		let content = React.Children.map(container.props.children, (elem) => {
-			if (elem.type === MenuLabel || elem.type === MenuItem) {
-				return transferProps(this, elem, TRANSFERED_PROPS)
+	processItems(items, level) {
+		let processedItems = super.processItems(items, level)
+		return React.Children.map(processedItems, (elem) => {
+			let r = React
+			if (
+				isSameOrInheritedType(elem.type, MenuItem) ||
+				isSameOrInheritedType(elem.type, MenuLabel)
+			) {
+				return React.cloneElement(elem, _.pick(this.props, TRANSFERED_PROPS))
 			} else {
 				return elem
 			}
 		})
-
-		return React.cloneElement(container, null, content)
 	}
 }
 

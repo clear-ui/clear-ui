@@ -18,17 +18,23 @@ const PADDINGS = {
  * @param {React.Element|boolean} [props.rightIcon] Icon on the right side.
  * @param {boolean} [props.indent] Indent text as in the element with left icon.
  * @param {boolean} [props.multiline] If `true`, label can have multiple lines.
+ * @param {number} [nestingLevel=0] Indent content of the element when it is
+ *     nested inside other elements.
  *
  * @returns {object} Styles for root, label, leftIcon and rightIcon elements.
  */
-export default function getIconLabelLayout(props) {
+export default function getIconElementStyle(props) {
 	let height = SIZES[props.height].height
 	let padding = PADDINGS[props.padding]
+
+	const nestingIndentSize = (props.padding === 'big') ? 1.5 : 1
+	const nestingIndent = 'nestingLevel' in props ? (props.nestingLevel * nestingIndentSize) : 0
 
 	let labelVertPadding = (height - LINE_HEIGHT) / 2
 	let labelLeftPadding = (props.leftIcon || props.indent) ?
 		(padding + ICON_SIZE + ICON_MARGIN) :
 		padding
+	labelLeftPadding += nestingIndent
 	let labelRightPadding = props.rightIcon ?
 		(padding + ICON_SIZE + ICON_MARGIN) :
 		padding

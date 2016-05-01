@@ -1,12 +1,10 @@
 import React from 'react'
 
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
-import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import BaseItem from 'clear-ui-base/lib/menu/item'
 import Ripples from '../ripples'
 
 // Item that contains inside Ripples component
-@mixin(ChildComponentsMixin)
 export default class RippleItem extends BaseItem {
 	static defaultProps = {
 		...BaseItem.defaultProps,

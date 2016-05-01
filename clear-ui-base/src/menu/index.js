@@ -48,13 +48,15 @@ export default class Menu extends React.Component {
 					nestingLevel: level
 				}
 
+				if ('focusable' in this.props) props.focusable = this.props.focusable
+
 				if (!elem.props.disabled) {
 					let isHovered = this.state.hoveredItem === elem
 					let isSelected = this.props.value !== undefined &&
 						elem.props.value === this.props.value
 					Object.assign(props, {
 						selected: isSelected,
-						onTap: new BoundFunction(this.select, this, elem),
+						onTap: new BoundFunction(this.onSelectItem, this, elem),
 						tapState: isHovered ?
 							(this.state.hoveredItemActive ? 'active' : 'hovered') :
 							'initial',
@@ -80,7 +82,7 @@ export default class Menu extends React.Component {
 	}
 
 
-	select(item) {
+	onSelectItem(item) {
 		if (this.props.onSelect) this.props.onSelect(item)
 	}
 
@@ -156,7 +158,7 @@ export default class Menu extends React.Component {
 				event.preventDefault()
 				break
 			case keyCodes.ENTER:
-				this.select(this.state.hoveredItem)
+				this.onSelectItem(this.state.hoveredItem)
 				event.preventDefault()
 				break
 			}
