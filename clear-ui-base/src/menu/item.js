@@ -56,10 +56,16 @@ export default class MenuItem extends React.Component {
 		/** Handler of the tap event on the right icon. */
 		onRightIconTap: React.PropTypes.func,
 
-		/** TODO */
+		/** An array of items nested inside of the current item. */
 		nestedItems: React.PropTypes.node,
+
+		/**
+		 * When `true`, nested list can be opened by tapping on the item itself,
+		 * not only by tapping on the opener icon.
+		 */
 		tapTogglesNestedItems: React.PropTypes.bool,
-		openerIcon: React.PropTypes.bool,
+
+		/** Property that is used internally by `Menu` component. */
 		nestingLevel: React.PropTypes.number
 	}
 

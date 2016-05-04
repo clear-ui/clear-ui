@@ -13,7 +13,7 @@ const ICON_SIZE = 1.5
 
 function getItemStyles(props, state) {
 	let openerIcon = props.nestedItems
-	let openerTogglesNestedItems = opener && !props.tapTogglesNestedItems
+	let openerTogglesNestedItems = openerIcon && !props.tapTogglesNestedItems
 
 	let {root, label, leftIcon, rightIcon} = getIconElementStyle({
 		...props,
@@ -79,7 +79,7 @@ function getItemStyles(props, state) {
 			leftIcon.color = COLORS.black3
 			leftIcon.fill = COLORS.black3
 		}
-		if (props.rightIcon || opener) {
+		if (props.rightIcon || openerIcon) {
 			rightIcon.color = COLORS.black3
 			rightIcon.fill = COLORS.black3
 		}

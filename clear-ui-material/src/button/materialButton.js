@@ -12,8 +12,17 @@ export default class MaterialButton extends RippleButton {
 	static propTypes = {
 		...RippleButton.propTypes,
 
-		/** Dense button */
-		dense: React.PropTypes.bool
+		/** Smaller size of the button. */
+		dense: React.PropTypes.bool,
+
+		/** Background color of the button (CSS color property). */
+		color: React.PropTypes.string,
+
+		/** Use primary color from the current theme as background. */
+		primary: React.PropTypes.bool,
+
+		/** Use accent color from the current theme as background. */
+		accent: React.PropTypes.bool
 	}
 
 	static contextTypes = {

@@ -16,9 +16,9 @@ export default class DocsPage extends React.Component {
 		root: {
 			display: 'flex',
 			minHeight: '100%',
-			// hack to stetch child of flex container to 100% of parent
-			position: 'absolute',
-			width: '100%'
+			width: '100%',
+			// hack to stretch height of the child of flex container to 100% of parent
+			position: 'absolute'
 		},
 		nav: {
 			paddingTop: '2rem',

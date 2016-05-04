@@ -10,6 +10,9 @@ import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
 
+import MenuExample from './example.js'
+import menuExampleCode from '!raw!./example.js'
+
 class MenuDemo extends React.Component {
 	constructor(props) {
 		super(props)
@@ -40,32 +43,26 @@ export default class MenuDoc extends React.Component {
 		return <DocPage>
 			<h1>Material<DocPage.ArrowIcon/>Menu</h1>
 
+			{`
 			Menus allow users to take an action by selecting from a list of choices.
+			`}
+
+			<a
+				href='https://www.google.com/design/spec/components/menus.html'
+				target='blank'
+			>
+				Menus specification
+			</a>
 
 			<h2>Example</h2>
 
 			<Example>
 				<Example.Demo>
-					<MenuDemo>
-						<MenuItem value='1'>First item</MenuItem>
-						<MenuItem value='2'>Second item</MenuItem>
-						<MenuItem value='3'>Third item</MenuItem>
-						<MenuItem value='4' disabled={true}>Disabled item</MenuItem>
-					</MenuDemo>
+					<MenuExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					import Menu, {MenuItem} from 'clear-ui-material/lib/menu'
-
-					<Menu
-						value={this.state.value}
-						onSelect={(item) => { this.setState({value: item.props.value}) }
-					>
-						<MenuItem value='1'>First item</MenuItem>
-						<MenuItem value='2'>Second item</MenuItem>
-						<MenuItem value='3'>Third item</MenuItem>
-						<MenuItem value='4' disabled={true}>Disabled item</MenuItem>
-					</Menu>
-				`}</Example.Code>
+				<Example.Code>
+					{menuExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>

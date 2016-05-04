@@ -182,10 +182,7 @@ export default class TooltipDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-
-			<h2>API</h2>
-
-			<h3>Props</h3>
+			<h2>Props</h2>
 
 			<PropsDoc
 				doc={tooltipPropsDoc}

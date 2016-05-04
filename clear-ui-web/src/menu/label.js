@@ -1,10 +1,11 @@
 import React from 'react'
 
-import mixin from 'clear-ui-base/lib/utils/mixin'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 import getIconElementStyle from '../styles/getIconElementStyle'
 
-class Label extends React.Component {
+@mixin(StylesMixin)
+export default class Label extends React.Component {
 	static defaultProps = {
 		height: 'default',
 		padding: 'default'
@@ -24,10 +25,10 @@ class Label extends React.Component {
 	}
 
 	render() {
-		return React.DOM.div({style: this.styles.root},
-			React.DOM.div({style: this.styles.label}, this.props.children)
+		return (
+			<div style={this.styles.root}>
+				<div style={this.styles.label}>{this.props.children}</div>
+			</div>
 		)
 	}
 }
-
-export default mixin(Label, StylesMixin)

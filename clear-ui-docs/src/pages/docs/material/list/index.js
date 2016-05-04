@@ -7,6 +7,10 @@ import Icon from 'clear-ui-base/lib/icon'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import materialDocs from '../../../../../docgen/material.json'
+let itemPropsDoc = materialDocs['list/item.js'].props
 
 export default class ListDoc extends React.Component {
 	render() {
@@ -28,8 +32,17 @@ export default class ListDoc extends React.Component {
 		return <DocPage>
 			<h1>Material<DocPage.ArrowIcon/>List</h1>
 
+			{`
 			Lists present multiple line items in a vertical arrangement
 			as a single continuous element.
+			`}
+
+			<a
+				href='https://www.google.com/design/spec/components/lists.html'
+				target='blank'
+			>
+				Lists specification
+			</a>
 
 			<h2>Example</h2>
 
@@ -225,31 +238,10 @@ export default class ListDoc extends React.Component {
 
 			<h2>ListItem props</h2>
 
-			<ApiDoc>
-				<ApiDoc.Row>
-					<a href='#/docs/base/menu'>Base > Menu > MenuItem props</a>
-				</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='leftAvatar'
-					type='element'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='secondaryText'
-					type='node'
-				>{`
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row
-					name='secondaryTextLines'
-					type='number'
-					defaultValue='1'
-				>{`
-				`}</ApiDoc.Row>
-
-			</ApiDoc>
+			<PropsDoc
+				doc={itemPropsDoc}
+				base={{name: 'Base > Menu > MenuItem props', url: '#/docs/base/menu'}}
+			/>
 		</DocPage>
 	}
 }

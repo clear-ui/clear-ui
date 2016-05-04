@@ -9,13 +9,12 @@ import Icon from 'clear-ui-base/lib/icon'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
-import ApiDoc from '../../../../apiDoc'
 import PropsDoc from '../../../../propsDoc'
 
 import materialDocs from '../../../../../docgen/material.json'
 let buttonPropsDoc = {
-	...materialDocs['button/materialButton.js'].props,
-	...materialDocs['button/rippleButton.js'].props
+	...materialDocs['button/rippleButton.js'].props,
+	...materialDocs['button/materialButton.js'].props
 }
 
 import ButtonExample from './example.js'
@@ -167,37 +166,6 @@ export default class ButtonDoc extends React.Component {
 				doc={buttonPropsDoc}
 				base={{name: 'Base > Button > IconButton', url: '#/docs/base/button'}}
 			/>
-
-			<br/>
-			<br/>
-			<br/>
-
-			<ApiDoc>
-				<ApiDoc.Row>
-					<Link to='/docs/base/button'>Base > Button Props</Link>
-				</ApiDoc.Row>
-
-				<ApiDoc.Row name='dense' type='boolean'>{`
-					Smaller size of the button.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='ripples' type='boolean' defaultValue='true'>{`
-					If true, ripple effect appears on press,
-					else button just changes background color.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='color' type='string'>{`
-					Background color of the button (CSS color property).
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='primary' type='boolean'>{`
-					Use primary color from the current theme as background.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='accent' type='boolean'>{`
-					Use accent color from the current theme as background.
-				`}</ApiDoc.Row>
-			</ApiDoc>
 		</DocPage>
 	}
 }

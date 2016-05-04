@@ -67,10 +67,7 @@ class NavMenuHeader extends NavMenuItem {
 	static styles = composeStyles(
 		NavMenuItem.styles,
 		{
-			label: {
-				fontWeight: '500',
-				textTransform: 'uppercase'
-			}
+			label: {fontWeight: '500'}
 		}
 	)
 }

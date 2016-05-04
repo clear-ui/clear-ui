@@ -11,7 +11,10 @@ export default class RippleButton extends BaseButton {
 	static propTypes = {
 		...BaseButton.propTypes,
 
-		/** Ripples */
+		/**
+		 * If true, ripple effect appears on press, otherwise
+		 * button just changes background color.
+		 */
 		ripples: React.PropTypes.bool
 	}
 

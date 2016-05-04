@@ -3,12 +3,58 @@ import React from 'react'
 import DocPage from '../../docPage'
 import Example from '../../example'
 
+import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
+import composeChildComponents from
+	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
+
 import RaisedButton from 'clear-ui-web/lib/button/raisedButton'
+import Select from 'clear-ui-web/lib/select'
+import MenuItem from 'clear-ui-web/lib/menu/item'
+
+class CrazyButton extends RaisedButton {
+	static styles = composeStyles(
+		RaisedButton.styles,
+		(props, state) => {
+			let root = {background: 'blue'}
+			let label = {color: 'aqua', fontFamily: 'cursive'}
+			let rightIcon = {color: 'aqua', fill: 'aqua'}
+			let leftIcon = {color: 'aqua', fill: 'aqua'}
+			if (state.tapState === 'hovered' || state.tapState === 'active') {
+				root.background = 'indigo'
+			}
+			return {root, label, leftIcon, rightIcon}
+		}
+	)
+}
+
+class CrazySelect extends Select {
+	static childComponents = composeChildComponents(
+		Select.childComponents,
+		{
+			button: <CrazyButton/>
+		}
+	)
+}
+
+class ColorSelect extends Select {
+	static childComponents = composeChildComponents(
+		Select.childComponents,
+		{
+			button: (props, state, defaultButton) => {
+				return React.cloneElement(defaultButton, {color: props.color})
+			}
+		}
+	)
+}
 
 export default class CustomizationDocs extends React.Component {
 	render() {
 		return <DocPage>
 			<h1>Customization</h1>
+
+			{`
+			Customization is the key feature of the Clear UI.
+			`}
 
 			<h2>Styles</h2>
 
@@ -17,7 +63,7 @@ export default class CustomizationDocs extends React.Component {
 			To allow you to modify styles, components use special \`StylesMixin\`.
 			It takes styles definitions from the static property \`styles\`
 			of the component’s class, or from React element’s prop \`styles\`.
-			It is an object containing styles for HTML-elements of the components.
+			It is an object containing styles for inner elements of the component.
 			Names of styleable elements of every component are listed in their docs pages.
 
 			For example, \`RaiseButton\` has root and label elements:
@@ -50,8 +96,8 @@ export default class CustomizationDocs extends React.Component {
 			This function will be called on every render.
 
 			It allows to set different styles depending on the state of the component,
-			providing possibility?? similar to ?? in CSS
-			(\`.component_someState .component__element\`).
+			providing possibility similar to nesting in CSS
+			(\`.component_someState .component__element { ... }\`).
 			`}
 
 			<Example>
@@ -90,7 +136,7 @@ export default class CustomizationDocs extends React.Component {
 
 			<Example.Code>{`
 				import composeStyles from
-				‘clear-ui-base/lib/utils/stylesMixin/composeStyles’
+					'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 
 				class CrazyButton extends RaisedButton {
 					static styles = composeStyles(
@@ -109,7 +155,7 @@ export default class CustomizationDocs extends React.Component {
 			{`
 			One more way to modify components is to modify their child components.
 
-			For this components use \`ChildComponentsMixin\`
+			For this components use \`ChildComponentsMixin\`.
 			It allows to change any props of child components and
 			even change one implementation with another with compatible API.
 
@@ -122,58 +168,59 @@ export default class CustomizationDocs extends React.Component {
 			that allows to extend child components in the chain.
 			`}
 
-			<Example.Code>{`
-				class CrazySelect extends Select {
-					static childComponents = composeChildComponents(
-						Select.childComponents,
-						{
+			<Example>
+				<Example.Code>{`
+					class CrazySelect extends Select {
+						static childComponents = composeChildComponents(Select.childComponents, {
 							button: <CrazyButton/>
-						}
-					)
-				}
+						})
+					}
 
-				class ColorSelect extends Select {
-					static childComponents = composeChildComponents(
-						Select.childComponents,
-						{
+					class ColorSelect extends Select {
+						static childComponents = composeChildComponents(Select.childComponents, {
 							button: (props, state, defaultButton) {
 								return React.cloneElement(defaultButton, {color: props.color})
 							}
-						}
-					)
-				}
-			`}</Example.Code>
+						})
+					}
+
+					<CrazySelect>
+						<MenuItem>First item</MenuItem>
+						<MenuItem>Second item</MenuItem>
+					</CrazySelect>
+
+					<ColorSelect color='green'>
+						<MenuItem>First item</MenuItem>
+						<MenuItem>Second item</MenuItem>
+					</ColorSelect>
+				`}</Example.Code>
+				<Example.Demo>
+					<CrazySelect>
+						<MenuItem>First item</MenuItem>
+						<MenuItem>Second item</MenuItem>
+					</CrazySelect>
+
+					{' '}
+
+					<ColorSelect color='green'>
+						<MenuItem>First item</MenuItem>
+						<MenuItem>Second item</MenuItem>
+					</ColorSelect>
+				</Example.Demo>
+			</Example>
 
 			{`
-			Для этого компоненты исппользуют методы с названиями вида get{ComponentName},
-			например, getButton(), который возвращает заготовку для компонента.
-
-			Переопределение этих методов в наследниках позволяет
-			change any props of child components and
-			even change one implementation with another with compatible API
+			Also, you can use \`ChildComponentsMixin\` in combination with the \`StylesMixin\`,
+			to modify styles of child components depending on the state of the parent component.
+			It is similar to using context in CSS:
 			`}
 
-			<Example.Code>{`
-				class CrazySelect extends Select {
-					getButton() {
-						return <CrazyButton/>
-					}
-				}
-
-				class ColorSelect extends Select {
-					getButton() {
-						return React.cloneElement(this.super.getButton(),
-							{color: this.props.color})
-					}
+			<Example.Code lang='css'>{`
+				.component_someState {
+					.childComponent { ...  }
+					.childComponents__someState { ...  }
 				}
 			`}</Example.Code>
-
-			{`
-			In combination with the \`StylesMixin\`,
-			you can use it?? to modify styles of child components
-			depending on the state of the parent component,
-			similarly to context from CSS (\`.component_someState .childComponent { … }\`).
-			`}
 		</DocPage>
 	}
 }

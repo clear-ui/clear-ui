@@ -7,6 +7,9 @@ import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
+import SelectExample from './example.js'
+import selectExampleCode from '!raw!./example.js'
+
 class SelectDemo extends React.Component {
 	constructor() {
 		super()
@@ -36,39 +39,18 @@ export default class SelectDoc extends React.Component {
 			manyItems2.push(<MenuItem value={i+1} key={i}>Item {i+1}</MenuItem>)
 		}
 
-		let options = []
-		for (let i = 0; i < 300; i++) {
-			options.push(<option value={i+1} key={i}>Item {i+1}</option>)
-		}
-
-		let select = <select>{options}</select>
-
 		return <DocPage>
 			<h1>Web<DocPage.ArrowIcon/>Select</h1>
 
 			<h2>Example</h2>
 
-			{select}
-
 			<Example>
 				<Example.Demo>
-					<SelectDemo>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</SelectDemo>
-					<br/>
-					<SelectDemo disabled={true} label='disabled select'>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</SelectDemo>
+					<SelectExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Select>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-						...
-					</Select>
-				`}</Example.Code>
+				<Example.Code>
+					{selectExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>

@@ -2,10 +2,10 @@ import React from 'react'
 
 import BaseSelect from 'clear-ui-base/lib/select'
 import Icon from 'clear-ui-base/lib/icon'
-import DropdownMenu from '../dropdownMenu'
+import ButtonDropdownMenu from '../dropdownMenu/buttonDropdownMenu'
 import RaisedButton from '../button/raisedButton'
 
-class Select extends BaseSelect {
+export default class Select extends BaseSelect {
 	static propTypes = {
 		...BaseSelect.propTypes,
 
@@ -15,24 +15,16 @@ class Select extends BaseSelect {
 
 	static childComponents = {
 		dropdownMenu: (props) => {
-			return <DropdownMenu
-				maxHeight={props.maxHeight}
-				tappable={true}
-			/>
-		}
+			return <ButtonDropdownMenu maxHeight={props.maxHeight}/>
+		},
+		button: <RaisedButton/>
 	}
 
 	renderTrigger() {
 		let icon = React.createElement(Icon, {icon: Icon.ICONS.triangleDown})
-		return (
-			<RaisedButton
-				rightIcon={icon}
-				disabled={this.props.disabled}
-			>
-				{this.renderTriggerContent()}
-			</RaisedButton>
-		)
+		return React.cloneElement(this.getChildComponent('button'), {
+			rightIcon: icon,
+			disabled: this.props.disabled
+		}, this.renderTriggerContent())
 	}
 }
-
-export default Select

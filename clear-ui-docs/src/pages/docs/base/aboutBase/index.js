@@ -11,7 +11,7 @@ export default class AboutBase extends React.Component {
 			\`clear-ui-base\` is a library with base abstractions of UI components behavour.
 
 			It contains base abstractions for user interfaces to simplify common tasks,
-			such as Tappable, ZContext, Attachment.
+			such as Tappable, ZContext, Attachment, Sticky.
 
 			Also it contains base components with implementation of their behaviour
 			but without any design. They are not usable out of the box,

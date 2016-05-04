@@ -157,6 +157,27 @@ function getStyles(props, state) {
 }
 
 export default class ListItem extends RippleItem {
+	static propTypes = {
+		...RippleItem.PropTypes,
+
+		/** Avatar element on the left side of the item. */
+		leftAvatar: React.PropTypes.node,
+
+		/** Avatar element on the right side of the item. */
+		rightAvatar: React.PropTypes.node,
+
+		/** Secondary text under the label of the item. */
+		secondaryText: React.PropTypes.node,
+
+		/** Number of lines of the secondary text. */
+		secondaryTextLines: React.PropTypes.oneOf([1, 2])
+	}
+
+	static defaultProps = {
+		...RippleItem.defaultProps,
+		secondaryTextLines: 1
+	}
+
 	static styles = composeStyles(RippleItem.styles, getStyles)
 
 	static childComponents = composeChildComponents(
@@ -169,6 +190,8 @@ export default class ListItem extends RippleItem {
 			}
 		}
 	)
+
+	render() { return super.render() } // for react-docgen
 
 	// Adds ripples to the right icon when is has handler, or it is tappable opener icon.
 	renderRightIcon() {
