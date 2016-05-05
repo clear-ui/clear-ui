@@ -6,6 +6,13 @@ import Input from 'clear-ui-web/lib/input'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import webDocs from '../../../../../docgen/web.json'
+let inputPropsDoc = webDocs['input/index.js'].props
+
+import InputExample from './example.js'
+import inputExampleCode from '!raw!./example.js'
 
 class InputDemo extends React.Component {
 	constructor(props) {
@@ -27,25 +34,17 @@ export default class InputDoc extends React.Component {
 		return <DocPage>
 			<h1>Web<DocPage.ArrowIcon/>Input</h1>
 
+			{`Text input component.`}
+
 			<h2>Example</h2>
 
 			<Example>
 				<Example.Demo>
-					<p>
-						<InputDemo value='test'/>
-					</p>
-					<p>
-						<InputDemo placeholder='placeholder'/>
-					</p>
-					<p>
-						<InputDemo disabled={true} value='disabled'/>
-					</p>
-					<p>
-						<InputDemo invalid={true} value='invalid'/>
-					</p>
+					<InputExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-				`}</Example.Code>
+				<Example.Code>
+					{inputExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -54,13 +53,29 @@ export default class InputDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<Input height='small' value='small'/>
+					<InputDemo height='small' value='small'/>
 					{' '}
-					<Input value='default'/>
+					<InputDemo value='default'/>
 					{' '}
-					<Input height='big' value='big'/>
+					<InputDemo height='big' value='big'/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
+					<Input height='small' value='small'/>
+					<Input value='default'/>
+					<Input height='big' value='big'/>
+				`}</Example.Code>
+			</Example>
+
+			<h3>Full width</h3>
+
+			{`Full width input takes 100% width of the container.`}
+
+			<Example>
+				<Example.Demo>
+					<InputDemo fullWidth/>
+				</Example.Demo>
+				<Example.Code lang='xml'>{`
+					<InputDemo fullWidth/>
 				`}</Example.Code>
 			</Example>
 
@@ -87,19 +102,12 @@ export default class InputDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>API</h2>
+			<h2>Props</h2>
 
-			<h3>Props</h3>
-
-			<ApiDoc>
-				<ApiDoc.Row label='align'>{`
-					Type: \`'begin'|'center'|'end'\`
-					<br/>
-					Default: \`'center'\`
-
-					Align of the tooltip on the side of the element.
-				`}</ApiDoc.Row>
-			</ApiDoc>
+			<PropsDoc
+				doc={inputPropsDoc}
+				base={{name: 'Base > Input', url: '#/docs/base/input'}}
+			/>
 
 		</DocPage>
 	}

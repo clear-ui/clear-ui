@@ -14,6 +14,9 @@ import PropsDoc from '../../../../propsDoc'
 import webDocs from '../../../../../docgen/web.json'
 let buttonPropsDoc = webDocs['button/index.js'].props
 
+import ButtonExample from './example.js'
+import buttonExampleCode from '!raw!./example.js'
+
 export default class ButtonDoc extends React.Component {
 	render() {
 		let starIcon = <Icon icon={Icon.ICONS.star}/>
@@ -29,17 +32,11 @@ export default class ButtonDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<RaisedButton>Raised button</RaisedButton>
-					{' '}
-					<FlatButton>Flat button</FlatButton>
-					{' '}
-					<OutlinedButton>Outlined button</OutlinedButton>
+					<ButtonExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<RaisedButton>Raised button</Button>
-					<FlatButton>Flat button<FlatButton>
-					<OutlinedButton>Outlined button</OutlinedButton>
-				`}</Example.Code>
+				<Example.Code>
+					{buttonExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>

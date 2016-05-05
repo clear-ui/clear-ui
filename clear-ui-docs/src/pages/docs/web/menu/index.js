@@ -7,6 +7,14 @@ import Menu, {MenuItem, MenuLabel, MenuDivider} from 'clear-ui-web/lib/menu'
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
+import PropsDoc from '../../../../propsDoc'
+
+import webDocs from '../../../../../docgen/web.json'
+let menuPropsDoc = webDocs['menu/index.js'].props
+let menuItemPropsDoc = webDocs['menu/item.js'].props
+
+import MenuExample from './example.js'
+import menuExampleCode from '!raw!./example.js'
 
 class MenuDemo extends React.Component {
 	constructor() {
@@ -43,9 +51,7 @@ export default class MenuDoc extends React.Component {
 		return <DocPage>
 			<h1>Web<DocPage.ArrowIcon/>Menu</h1>
 
-			{`
-			Menu is a list of items.
-			`}
+			{`Menu is a component that displays list of items and allows to select from it.`}
 
 			<h2>Example</h2>
 
@@ -58,20 +64,11 @@ export default class MenuDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<MenuDemo/>
+					<MenuExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Menu active={this.state.active} value={this.state.value}
-						onSelect={(item) => { this.setState({value: item.props.value}) }}
-					>
-						<MenuLabel>Label</MenuLabel>
-						<MenuItem value='1'>Item</MenuItem>
-						<MenuItem value='2'>Second item</MenuItem>
-						<MenuDivider/>
-						<MenuItem value='3'>Third item</MenuItem>
-						<MenuItem value='4' disabled={true}>Disabled item</MenuItem>
-					</Menu>
-				`}</Example.Code>
+				<Example.Code>
+					{menuExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -149,25 +146,6 @@ export default class MenuDoc extends React.Component {
 							Disabled item with icons
 						</MenuItem>
 					</Menu>
-					<hr/>
-					<Menu height='small'>
-						<MenuLabel indent={true}>Indented label</MenuLabel>
-						<MenuItem leftIcon={starIcon} rightIcon={starIcon}>
-							Item with icons
-						</MenuItem>
-						<MenuItem leftIcon={starIcon} rightIcon={kebabIcon}
-							onRightIconTap={() => { console.log('click') }}
-						>
-							Item with clickable right icon
-						</MenuItem>
-						<MenuItem indent={true}>
-							Indented item without icon
-						</MenuItem>
-						<MenuItem disabled={true}
-							leftIcon={starIcon} rightIcon={kebabIcon}>
-							Disabled item with icons
-						</MenuItem>
-					</Menu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Menu>
@@ -191,62 +169,19 @@ export default class MenuDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<hr/>
+			<h2>Menu Props</h2>
 
-			<h2>API</h2>
+			<PropsDoc
+				doc={menuPropsDoc}
+				base={{name: 'Base > Menu > Menu', url: '#/docs/base/menu'}}
+			/>
 
-			<h3>Menu</h3>
+			<h2>MenuItem Props</h2>
 
-			{`
-				<code>import Menu from 'clear-ui-web/lib/menu'</code>
-			`}
-
-			<h4>Props</h4>
-
-			<ApiDoc>
-				<ApiDoc.Row>
-					<a href='#/components/base/menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > Menu props...</a>
-				</ApiDoc.Row>
-
-				<ApiDoc.Row name='height' type='string' defaultValue='default'>{`
-					Height of menu items.
-					<br/>
-					Possible values are: \`small\`, \`big\`.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='padding' type='string' defaultValue='default'>{`
-					Horizontal padding of menu items.
-					<br/>
-					Possible values are: \`default\`, \`big\`.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='indent' type='boolean'>{`
-					Indentation on the left side of items and labels
-					that aligns text to the same position as in the item with \`leftIcon\`.
-				`}</ApiDoc.Row>
-			</ApiDoc>
-
-			<h3>MenuItem</h3>
-
-			{`
-				\`import {MenuItem} from 'clear-ui-web/lib/menu'\`
-			`}
-
-			<h4>Props</h4>
-
-			<ApiDoc>
-				<ApiDoc.Row>
-					<a href='#/components/base/menu' style={{
-						textDecoration: 'none',
-						color: 'rgb(57, 123, 230)',
-						fontWeight: 500
-					}}>Base > MenuItem props...</a>
-				</ApiDoc.Row>
-			</ApiDoc>
+			<PropsDoc
+				doc={menuItemPropsDoc}
+				base={{name: 'Base > Menu > MenuItem', url: '#/docs/base/menu'}}
+			/>
 		</DocPage>
 	}
 }

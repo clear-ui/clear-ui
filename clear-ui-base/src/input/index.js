@@ -27,20 +27,23 @@ export default class Input extends React.Component {
 		/** Disabled state of the input. */
 		disabled: React.PropTypes.bool,
 
-		/** Maximum length of the value in the input */
+		/** Type of the input, value of the type HTML-attribute. */
+		type: React.PropTypes.string,
+
+		/** Maximum length of the value in the input. */
 		maxLength: React.PropTypes.number,
 
 		/**
 		 * If `true`, the input will be rendered using `textarea` tag.
-		 * Also, it will automatically grow according to the specified number
-		 * of maximum rows.
+		 * Also, it will automatically grow according to the specified
+		 * maximum number of rows.
 		 */
 		multiline: React.PropTypes.bool,
 
-		/** Number of rows of multiline input. */
+		/** Number of rows of the multiline input. */
 		rows: React.PropTypes.number,
 
-		/** Maximum number of rows of multiline input. */
+		/** Maximum number of rows of the multiline input. */
 		maxRows: React.PropTypes.number
 	}
 
@@ -67,11 +70,15 @@ export default class Input extends React.Component {
 	}
 
 	render() {
+		let {disabled, maxLength, name, type} = this.props
+
 		let props = {
+			disabled,
+			maxLength,
+			name,
+			type,
 			style: this.styles.input,
 			value: this.state.value,
-			disabled: this.props.disabled,
-			maxLength: this.props.maxLength,
 			onChange: this.onChange.bind(this),
 			onFocus: this.onFocus.bind(this),
 			onBlur: this.onBlur.bind(this),
@@ -86,7 +93,7 @@ export default class Input extends React.Component {
 			input = React.DOM.input(props)
 		}
 
-		return React.DOM.div({style: this.styles.root}, input)
+		return <div style={this.styles.root}>{input}</div>
 	}
 
 	getRowsNumber(value) {

@@ -6,6 +6,9 @@ import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
+import CheckboxExample from './example.js'
+import checkboxExampleCode from '!raw!./example.js'
+
 class CheckboxDemo extends React.Component {
 	constructor(props) {
 		super(props)
@@ -34,15 +37,11 @@ export default class CheckboxDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<CheckboxDemo>Checkbox</CheckboxDemo>
-					<CheckboxDemo value={true}>Checked checkbox</CheckboxDemo>
-					<CheckboxDemo disabled={true}>Disabled checkbox</CheckboxDemo>
+					<CheckboxExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Checkbox>Checkbox</Checkbox>
-					<Checkbox value={true}>Checked checkbox</Checkbox>
-					<Checkbox disabled={true}>Disabled checkbox</Checkbox>
-				`}</Example.Code>
+				<Example.Code>
+					{checkboxExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>

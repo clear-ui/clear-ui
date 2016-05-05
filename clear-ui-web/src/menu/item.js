@@ -123,4 +123,6 @@ export default class Item extends BaseItem {
 		BaseItem.styles,
 		getItemStyles
 	)
+
+	render() { return super.render() } // for react-docgen
 }

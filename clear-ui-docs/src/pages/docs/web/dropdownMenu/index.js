@@ -33,9 +33,9 @@ export default class DropdownMenuDoc extends React.Component {
 			There are two types of dropdown components:
 			- \`DropdownMenu\` can use any element as trigger.
 			- \`ButtonDropdownMenu\` uses button component as trigger.
-				It adds triangle icon to the buttons.
-				It makes button stay  pressed, while dropdown is open,
-				and it prevents opening when button is disabled.
+				It adds triangle icon to the button.
+				Also, it makes button stay pressed while dropdown is open,
+				and it disables opening if button is disabled.
 			`}
 
 			<Example>

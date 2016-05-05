@@ -2,14 +2,11 @@ import React from 'react'
 import Checkbox from 'clear-ui-material/lib/checkbox'
 
 export default class CheckboxExample extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			value1: false,
-			value2: true,
-			value3: false,
-			value4: true
-		}
+	state = {
+		value1: false,
+		value2: true,
+		value3: false,
+		value4: true
 	}
 
 	render() {

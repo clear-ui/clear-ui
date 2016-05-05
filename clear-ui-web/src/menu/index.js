@@ -1,26 +1,30 @@
 import React from 'react'
 import _ from 'underscore'
 
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
-import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 import BaseMenu from 'clear-ui-base/lib/menu'
 import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
-import COLORS from '../styles/colors'
 
 import MenuItem from './item'
 import MenuLabel from './label'
+import MenuDivider from './divider'
 
 const TRANSFERED_PROPS = ['indent', 'height', 'padding', 'multiline']
 
 class Menu extends BaseMenu {
-	static defaultProps = {
-		itemType: MenuItem
+	static propTypes = {
+		/** Height of items and labels in the menu. */
+		height: React.PropTypes.oneOf(['small', 'default', 'big']),
+
+		/** Padding of items and labels in the menu. */
+		padding: React.PropTypes.oneOf(['default', 'big']),
+
+		/** Value of the `indent` prop of items and labels in the menu. */
+		indent: React.PropTypes.bool
 	}
 
 	processItems(items, level) {
 		let processedItems = super.processItems(items, level)
 		return React.Children.map(processedItems, (elem) => {
-			let r = React
 			if (
 				isSameOrInheritedType(elem.type, MenuItem) ||
 				isSameOrInheritedType(elem.type, MenuLabel)
@@ -31,19 +35,8 @@ class Menu extends BaseMenu {
 			}
 		})
 	}
-}
 
-@mixinDecorator(StylesMixin)
-class MenuDivider extends React.Component {
-	static styles = {
-		root: {
-			borderTop: `1px solid ${COLORS.black4}`
-		}
-	}
-
-	render() {
-		return <div style={this.styles.root}/>
-	}
+	render() { return super.render() } // for react-docgen
 }
 
 export default Menu

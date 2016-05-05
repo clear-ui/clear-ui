@@ -14,7 +14,7 @@ export default class MenuDoc extends React.Component {
 		return <DocPage>
 			<h1>Base<DocPage.ArrowIcon/>Menu</h1>
 
-			Menu is a component that displays list of items and allows to select from it.
+			{`Menu is a component that displays list of items and allows to select from it.`}
 
 			<h2>Props</h2>
 			<PropsDoc doc={menuPropsDoc}/>

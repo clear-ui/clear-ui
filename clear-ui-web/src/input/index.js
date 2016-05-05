@@ -63,6 +63,11 @@ function getStyles(props, state) {
 	Object.assign(input, sizeStyles)
 	Object.assign(placeholder, sizeStyles)
 
+	if (props.fullWidth) {
+		root.display = 'block'
+		root.width = 'auto'
+	}
+
 	if (props.disabled) {
 		Object.assign(input, {
 			background: COLORS.black5,
@@ -123,15 +128,26 @@ function getStyles(props, state) {
 	return {root, input, placeholder, leftIcon, rightIcon}
 }
 
-/**
- * @param {string} [props.height='default'] Height of the input.
- *     Possible values: 'small', 'default', and 'big'.
- * @param {} [props.placeholder] -
- * @param {} [props.leftIcon] -
- * @param {} [props.rightIcon] -
- * @param {function} [props.onRightIconClick] -
- */
 export default class Input extends BaseInput {
+	static propTypes = {
+		/** Height of the input. */
+		height: React.PropTypes.oneOf(['small', 'default', 'big']),
+
+		/** When `true`, the input will take 100% width of container. */
+		fullWidth: React.PropTypes.bool,
+
+		/** Placeholder text in the input. */
+		placeholder: React.PropTypes.node,
+
+		/** Left icon element. */
+		leftIcon: React.PropTypes.node,
+
+		/** Right icon element. */
+		rightIcon: React.PropTypes.node,
+
+		onRightIconTap: React.PropTypes.func
+	}
+
 	static defaultProps = {
 		...BaseInput.defaultProps,
 		height: 'default'
