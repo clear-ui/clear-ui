@@ -19,4 +19,7 @@ config.devServer = {
 	contentBase: DIST
 }
 
+// no need to resolve babel-runtime
+config.resolve.alias = {}
+
 module.exports = config

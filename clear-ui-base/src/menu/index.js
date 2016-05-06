@@ -18,7 +18,7 @@ export default class Menu extends React.Component {
 		/**
 		 * Handler of the selecting item from the menu.
 		 *
-		 * (item: element) => void
+		 * `(item: MenuItem) => void`
 		 */
 		onSelect: React.PropTypes.func,
 

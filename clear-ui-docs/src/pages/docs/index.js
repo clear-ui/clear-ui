@@ -45,9 +45,10 @@ export default class DocsPage extends React.Component {
 					<NavMenu prefix='docs/'>
 						<NavMenuHeader nestedItems={[
 							<NavMenuItem value='get-started'>- Get Started</NavMenuItem>,
-							<NavMenuItem value='customization'>+/- Customization</NavMenuItem>,
+							<NavMenuItem value='customization'>Customization</NavMenuItem>,
 							<NavMenuItem value='server-rendering' disabled={true}>
-								Server Rendering</NavMenuItem>
+								Server Rendering
+							</NavMenuItem>
 						]}>
 							Guides
 						</NavMenuHeader>
@@ -84,7 +85,7 @@ export default class DocsPage extends React.Component {
 							<NavMenuItem value='themes'>Themes</NavMenuItem>,
 							<NavMenuItem value='button'>Button</NavMenuItem>,
 							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,
-							<NavMenuItem value='dropdown'>-- Dropdown</NavMenuItem>,
+							<NavMenuItem value='dropdown'>Dropdown Menu</NavMenuItem>,
 							<NavMenuItem value='dialog'>Dialog</NavMenuItem>,
 							<NavMenuItem value='input'>Input</NavMenuItem>,
 							<NavMenuItem value='list'>List</NavMenuItem>,

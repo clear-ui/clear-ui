@@ -37,8 +37,8 @@ export default class ZContextDoc extends React.Component {
 			<Example>
 				<Example.Code lang='xml'>{`
 					<ZContext>initial</ZContext>
-					<ZContext.Layer type='modal'>modal</ZContext.Layer>
-					<ZContext.Layer type='popup'>popup</ZContext.Layer>
+					<ZContextLayer type='modal'>modal</ZContextLayer>
+					<ZContextLayer type='popup'>popup</ZContextLayer>
 				`}</Example.Code>
 			</Example>
 
@@ -66,11 +66,11 @@ export default class ZContextDoc extends React.Component {
 				<Example.Code lang='xml'>{`
 					<ZContext>
 						initial
-						<ZContext.Layer type='popup'>popup</ZContext.Layer>
-						<ZContext.Layer type='modal'>
+						<ZContextLayer type='popup'>popup</ZContextLayer>
+						<ZContextLayer type='modal'>
 							modal
-							<ZContext.Layer type='popup'>popup in the modal</ZContext.Layer>
-						</ZContext.Layer>
+							<ZContextLayer type='popup'>popup in the modal</ZContextLayer>
+						</ZContextLayer>
 					</ZContext>
 				`}</Example.Code>
 			</Example>

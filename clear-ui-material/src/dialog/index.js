@@ -12,7 +12,7 @@ export default class Dialog extends BaseModal {
 		/** Actions of the dialog. */
 		actions: React.PropTypes.node,
 
-		/** Header of the dialog. */
+		/** The title of the dialog. */
 		header: React.PropTypes.node
 	}
 
@@ -50,13 +50,15 @@ export default class Dialog extends BaseModal {
 		}
 	)
 
+	render() { return super.render() } // for react-docgen
+
 	renderModal() {
 		let modal = super.renderModal()
 
 		return React.cloneElement(modal, null, [
 			this.props.header && React.DOM.div({style: this.styles.header}, this.props.header),
 			React.DOM.div({style: this.styles.content}, modal.props.children),
-			React.DOM.div({style: this.styles.actions}, this.props.actions)
+			this.props.actions && React.DOM.div({style: this.styles.actions}, this.props.actions)
 		])
 	}
 }

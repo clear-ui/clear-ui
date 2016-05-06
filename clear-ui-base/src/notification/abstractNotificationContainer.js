@@ -3,7 +3,7 @@ import React from 'react'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
-import ZContext from '../zContext'
+import {ZContextLayer} from '../zContext'
 import Animation, {fade, fadeAndSlide} from '../animations'
 
 @mixin(StylesMixin, ChildComponentsMixin)
@@ -96,11 +96,11 @@ export default class AbstractNotificationsContainer extends React.Component {
 	render() {
 		return (
 			<span>
-				<ZContext.Layer type='notify' open={true}>
+				<ZContextLayer type='notify' open={true}>
 					<div style={this.styles.root}>
 						{this.renderNotifications()}
 					</div>
-				</ZContext.Layer>
+				</ZContextLayer>
 				{this.props.children}
 			</span>
 		)

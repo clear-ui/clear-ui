@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router'
 
-import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
-import Icon from 'clear-ui-base/lib/icon'
+import BindMethodsMixin from 'clear-ui-base/lib/utils/bindMethodsMixin'
+import Tappable from 'clear-ui-base/lib/tappable'
 
-@mixinDecorator(StylesMixin)
+@mixin(StylesMixin)
 class Header extends React.Component {
 	static styles = (props) => {
 		return {
@@ -37,32 +38,64 @@ class Header extends React.Component {
 	}
 }
 
-@mixinDecorator(StylesMixin)
+@mixin(StylesMixin, BindMethodsMixin)
 class HeaderItem extends React.Component {
-	static styles = {
-		root: {
+	static contextTypes = {
+		history: React.PropTypes.object.isRequired
+	}
+
+	static styles = (props, state) => {
+		let root = {
 			padding: '0 1rem',
 			color: 'white',
 			textDecoration: 'none',
 			cursor: 'pointer',
 			display: 'inline-block'
-		},
-
-		active: {
-			background: 'rgba(255,255,255,.15)'
 		}
+
+		let active = {background: 'rgba(255,255,255,.15)'}
+
+		if (state.tapState === 'hovered' || state.tapState === 'active') {
+			Object.assign(root, active)
+		}
+
+		return {root, active}
+	}
+
+	constructor() {
+		super()
+		this.bindMethods('onChangeTapState')
 	}
 
 	render() {
-		return (
-			<Link
-				style={this.styles.root}
-				activeStyle={this.styles.active}
-				to={this.props.link}
-			>
-				{this.props.children}
-			</Link>
-		)
+		let elem
+		if (this.props.external) {
+			let {link, target} = this.props
+			elem = (
+				<a href={link} target={target} style={this.styles.root}>
+					{this.props.children}
+				</a>
+			)
+		} else {
+			elem = (
+				<Link
+					onlyActiveOnIndex={this.props.onlyIndex}
+					to={this.props.link}
+					style={this.styles.root}
+					activeStyle={this.styles.active}
+				>
+					{this.props.children}
+				</Link>
+			)
+		}
+
+		return <Tappable onChangeTapState={this.onChangeTapState}>{elem}</Tappable>
+	}
+
+	onChangeTapState({hovered, pressed}) {
+		this.setState({
+			tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
+		})
 	}
 }
 

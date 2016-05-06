@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import $ from 'jquery'
 import _ from 'underscore'
 
-import ZContext from '../zContext'
+import {ZContextLayer} from '../zContext'
 
 export default class Sticky extends React.Component {
 	static propTypes = {
@@ -55,7 +55,7 @@ export default class Sticky extends React.Component {
 				...this.elemStyles
 			}
 			let container = React.DOM.div({style}, elem)
-			let content = React.createElement(ZContext.Layer, {
+			let content = React.createElement(ZContextLayer, {
 				open: true,
 				type: 'fixed',
 				key: 'layer'

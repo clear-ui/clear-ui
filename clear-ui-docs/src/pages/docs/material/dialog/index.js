@@ -8,6 +8,10 @@ import RaisedButton from 'clear-ui-material/lib/button/raisedButton'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import materialDocs from '../../../../../docgen/material.json'
+let dialogPropsDoc = materialDocs['dialog/index.js'].props
 
 import DialogExample from './example.js'
 import dialogExampleCode from '!raw!./example.js'
@@ -103,23 +107,12 @@ export default class DialogDoc extends React.Component {
 
 			<h2>Width?</h2>
 
-			<h2>API</h2>
+			<h2>Props</h2>
 
-			<h3>Props</h3>
-
-			<ApiDoc>
-				<ApiDoc.Row>
-					<Link to='/docs/base/modal'>Base > Modal Props</Link>
-				</ApiDoc.Row>
-
-				<ApiDoc.Row name='header' type='node'>{`
-					The title of the dialog.
-				`}</ApiDoc.Row>
-
-				<ApiDoc.Row name='actions' type='node'>{`
-					Actions to render in the dialog.
-				`}</ApiDoc.Row>
-			</ApiDoc>
+			<PropsDoc
+				doc={dialogPropsDoc}
+				base={{name: 'Base > Modal props', url: '#/docs/base/modal'}}
+			/>
 
 			<h3>Styleable elements</h3>
 

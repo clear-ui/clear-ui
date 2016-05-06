@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import _ from 'underscore'
 
 import cloneReferencedElement from '../utils/cloneReferencedElement'
-import ZContext from '../zContext'
+import {ZContextLayer} from '../zContext'
 import AttachmentClass from './class'
 
 /**
@@ -102,7 +102,7 @@ export default class Attachment extends React.Component {
 				onRender: this.onRender.bind(this),
 				open: this.props.open
 			}
-			layer = React.createElement(ZContext.Layer, layerProps, element)
+			layer = React.createElement(ZContextLayer, layerProps, element)
 		}
 
 		return React.DOM.span(null, [target, layer])

@@ -164,7 +164,7 @@ export default class ButtonDoc extends React.Component {
 
 			<PropsDoc
 				doc={buttonPropsDoc}
-				base={{name: 'Base > Button > IconButton', url: '#/docs/base/button'}}
+				base={{name: 'Base > Button > IconButton props', url: '#/docs/base/button'}}
 			/>
 		</DocPage>
 	}

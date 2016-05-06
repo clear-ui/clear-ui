@@ -2,7 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 import {Motion, spring} from 'react-motion'
 
-import ZContext from '../zContext'
+import {ZContextLayer} from '../zContext'
 import getScrollbarWidth from '../utils/getScrollbarWidth'
 import FocusScope from '../utils/focusScope'
 import mixin from '../utils/mixin/decorator'
@@ -112,7 +112,7 @@ export default class Modal extends React.Component {
 			ref: (ref) => { this.rootElemRef = ref }
 		}, modal)
 
-		let layer = React.createElement(ZContext.Layer, {
+		let layer = React.createElement(ZContextLayer, {
 			type: 'modal',
 			closeOnEsc: this.props.closeOnEsc,
 			open: this.props.open,

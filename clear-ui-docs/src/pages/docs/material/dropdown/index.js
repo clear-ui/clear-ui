@@ -8,6 +8,7 @@ import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
 import Button from 'clear-ui-material/lib/button/raisedButton'
+
 class Test extends React.Component {
 	state = {open: false}
 
@@ -37,7 +38,7 @@ class Test extends React.Component {
 export default class DropdownMenuDoc extends React.Component {
 	render() {
 		return <DocPage>
-			<h1>Material<DocPage.ArrowIcon/>DropdownMenu</h1>
+			<h1>Material<DocPage.ArrowIcon/>Dropdown Menu</h1>
 
 			DropdownMenu is a component that shows menu under the trigger element.
 
@@ -57,6 +58,10 @@ export default class DropdownMenuDoc extends React.Component {
 					</DropdownMenu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
+					<DropdownMenu trigger={'First menu item'}>
+						<MenuItem value='1'>First menu item</MenuItem>
+						<MenuItem value='2'>Second menu item</MenuItem>
+					</DropdownMenu>
 				`}</Example.Code>
 			</Example>
 
@@ -72,6 +77,9 @@ export default class DropdownMenuDoc extends React.Component {
 					</DropdownMenu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
+					<DropdownMenu desktop={true} ...>
+						...
+					</DropdownMenu>
 				`}</Example.Code>
 			</Example>
 

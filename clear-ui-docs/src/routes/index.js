@@ -26,8 +26,15 @@ class App extends React.Component {
 			<ZContext>
 				<div style={flex}>
 					<Header title='Clear UI' color={blue600}>
-						<HeaderItem link='/docs/'>Docs</HeaderItem>
-						<HeaderItem link='/github/'>Github</HeaderItem>
+						<HeaderItem link='/docs/' onlyIndex>Docs</HeaderItem>
+						<HeaderItem
+							link='https://github.com/clear-ui/clear-ui'
+							external
+							target='_blank'
+							style={{float: 'right'}}
+						>
+							Github
+						</HeaderItem>
 					</Header>
 					<div style={content}>
 						{this.props.children}

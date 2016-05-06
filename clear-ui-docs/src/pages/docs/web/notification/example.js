@@ -3,18 +3,14 @@ import {Notification, StackingNotificationContainer} from 'clear-ui-web/lib/noti
 import RaisedButton from 'clear-ui-web/lib/button/raisedButton.js'
 
 export default class NotificationExample extends React.Component {
-	constructor() {
-		super()
-		this.state = {}
-	}
+	state = {}
 
 	render() {
 		return <span>
 			<RaisedButton onTap={() => { this.setState({open: true}) }}>
 				Show notification
 			</RaisedButton>
-			<StackingNotificationContainer
-				vertPos='bottom'>
+			<StackingNotificationContainer>
 				<Notification
 					open={this.state.open}
 					onClose={() => { this.setState({open: false}) }}

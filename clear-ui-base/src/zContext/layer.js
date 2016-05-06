@@ -2,23 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 
-import mixinDecorator from '../utils/mixin/decorator'
+import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
-import ManagedStateMixin from '../utils/managedStateMixin'
-import ZContext from './index'
-import LAYER_TYPES from './layerTypes'
 
-/**
- * Renders content on separate layer using ZContext.
- * @param {string} [props.type='popup'] - ZContext layer type.
- * @param {boolean} [props.global=false]
- * @param {function} [props.onRender] - Function that is called on render content in the layer.
- * @param {boolean} [props.closeOnEsc=true]
- * @param {boolean} [props.overlay=false] - Close page with transparent overlay.
- * @param {boolean} [props.closeOnOverlayClick=false]
- * @param {function} [props.onClose]
- */
-@mixinDecorator(StylesMixin, ManagedStateMixin)
+import ZContext from './zContext.js'
+import LayerView from './layerView.js'
+import LAYER_TYPES from './layerTypes.js'
+
+/** Renders content on separate layer using ZContext. */
+@mixin(StylesMixin)
 export default class ZContextLayer extends React.Component {
 	static displayName = 'ZContextLayer'
 
@@ -49,7 +41,7 @@ export default class ZContextLayer extends React.Component {
 		/** When `true`, the layer will request close on clicking the overlay. */
 		closeOnOverlayClick: React.PropTypes.bool,
 
-		/** Function that is called when content is rendered in the layer. */
+		/** Function that is called when layer is rendered on the page. */
 		onRender: React.PropTypes.func
 	}
 
@@ -77,45 +69,34 @@ export default class ZContextLayer extends React.Component {
 
 	setLayer() {
 		if (this.props.open) {
-			if (!this.layerKey) this.open()
+			if (!this.layerId) this.open()
 			else this.update()
 		} else {
-			if (this.layerKey) this.close()
+			if (this.layerId) this.close()
 		}
 	}
 
-	renderContent() {
-		return React.DOM.div(null,
-			//{className: this.buildOwnClassName('zContext', 'content')},
-			this.props.children)
+	createLayerView() {
+		return <LayerView type={this.props.type}>{this.props.children}</LayerView>
 	}
 
-	renderOverlay() {
+	createOverlayLayerView() {
 		let props = {style: this.styles.overlay}
 		if (this.props.closeOnOverlayClick) {
 			props.onClick = this.onClose.bind(this)
 		}
-		return React.DOM.div(props)
+		let overlay = <div {...props}/>
+		return <LayerView type={this.props.type}>{overlay}</LayerView>
 	}
 
 	open() {
-		let content = this.renderContent()
 		let elem = this.props.global ? null : ReactDOM.findDOMNode(this.refs.placeholder)
 
 		if (this.props.overlay) {
-			this.overlayLayerKey = ZContext.addLayer(
-				elem,
-				this.props.type,
-				this.renderOverlay()
-			)
+			this.overlayLayerId = ZContext.addLayer(elem, this.createOverlayLayerView())
 		}
 
-		this.layerKey = ZContext.addLayer(
-			elem,
-			this.props.type,
-			content,
-			this.props.onRender
-		)
+		this.layerId = ZContext.addLayer(elem, this.createLayerView(), this.props.onRender)
 
 		if (this.props.closeOnEsc) {
 			this.listener = (event) => {
@@ -127,17 +108,16 @@ export default class ZContextLayer extends React.Component {
 
 	update() {
 		// TODO handle change of the overlay property
-		ZContext.updateLayer(this.layerKey, this.renderContent(),
-			this.props.onRender)
+		ZContext.updateLayer(this.layerId, this.createLayerView(), this.props.onRender)
 	}
 
 	close() {
 		if (this.listener) $(document).unbind('keydown', this.listener)
 		if (ZContext.instance) {
-			ZContext.removeLayer(this.layerKey)
-			ZContext.removeLayer(this.overlayLayerKey)
+			ZContext.removeLayer(this.layerId)
+			ZContext.removeLayer(this.overlayLayerId)
 		}
-		this.layerKey = undefined
+		this.layerId = undefined
 	}
 
 	onClose() {
