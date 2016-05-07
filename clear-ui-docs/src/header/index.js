@@ -14,27 +14,13 @@ class Header extends React.Component {
 				height: '4rem',
 				lineHeight: '4rem',
 				padding: '0 1rem',
-				background: props.color,
-				color: 'white'
-			},
-
-			title: {
-				fontSize: '1.15rem',
-				fontWeight: 500,
-				textTransform: 'uppercase'
+				background: props.color
 			}
 		}
 	}
 
 	render() {
-		return (
-			<div style={this.styles.root}>
-				<HeaderItem link='/' styles={{root: this.styles.title}}>
-					{this.props.title}
-				</HeaderItem>
-				{this.props.children}
-			</div>
-		)
+		return <div style={this.styles.root}>{this.props.children}</div>
 	}
 }
 
@@ -47,13 +33,13 @@ class HeaderItem extends React.Component {
 	static styles = (props, state) => {
 		let root = {
 			padding: '0 1rem',
-			color: 'white',
 			textDecoration: 'none',
+			color: 'white',
 			cursor: 'pointer',
 			display: 'inline-block'
 		}
 
-		let active = {background: 'rgba(255,255,255,.15)'}
+		let active = {background: 'rgba(255,255,255,0.1'}
 
 		if (state.tapState === 'hovered' || state.tapState === 'active') {
 			Object.assign(root, active)

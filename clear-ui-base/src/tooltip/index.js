@@ -222,8 +222,9 @@ export default class Tooltip extends React.Component {
 		return (
 			<Tappable
 				onChangeTapState={({hovered}) => { this.onChangeHovered(hovered, true) }}
+				style={this.styles.root}
 			>
-				<div style={this.styles.root}>
+				<div>
 					{this.props.tooltip}
 					{this.props.arrow && this.renderArrow()}
 				</div>

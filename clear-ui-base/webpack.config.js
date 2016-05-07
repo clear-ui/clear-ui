@@ -1,5 +1,5 @@
 var path = require('path')
-var config = require('clear-ui-webpack')
+var config = require('clear-ui-webpack-config')
 
 var DIST = path.join(__dirname, 'dist')
 
@@ -18,8 +18,5 @@ config.output = {
 config.devServer = {
 	contentBase: DIST
 }
-
-// no need to resolve babel-runtime
-config.resolve.alias = {}
 
 module.exports = config

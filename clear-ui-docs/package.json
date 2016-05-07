@@ -14,6 +14,7 @@
   "author": "sunflowerdeath",
   "license": "public domain",
   "dependencies": {
+    "babel-runtime": "^6.6.1",
     "highlight.js": "^9.2.0",
     "history": "^1.10.2",
     "jquery": "^2.1.4",
@@ -29,7 +30,8 @@
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
     "babel-eslint": "^4.1.3",
-    "clear-ui-webpack": "file:../webpack-config",
+	"babel-preset-clear-ui": "file:../configs/babel-preset",
+    "clear-ui-webpack-config": "file:../configs/webpack-config",
     "css-loader": "^0.23.1",
     "dirmatch": "^0.1.2",
     "eslint": "^1.7.1",

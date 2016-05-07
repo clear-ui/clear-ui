@@ -3,6 +3,6 @@ export default [
 	'popup',
 	'fixed',
 	'modal',
-	'notify'
+	'notify' // TODO rename to global
 ]
 

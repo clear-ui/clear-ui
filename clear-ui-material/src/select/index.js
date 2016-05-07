@@ -28,7 +28,9 @@ export default class Select extends BaseSelect {
 			position: 'relative',
 			paddingRight: 24,
 			color: state.theme.text,
-			outline: 'none'
+			outline: 'none',
+			userSelect: 'none',
+			WebkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
 		}
 
 		let underline = {

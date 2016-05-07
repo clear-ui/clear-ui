@@ -19,7 +19,9 @@ export default class MaterialSwitch extends BaseSwitch {
 		let root = {
 			height: 24,
 			cursor: 'pointer',
-			outline: 'none'
+			outline: 'none',
+			userSelect: 'none',
+			WebkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
 		}
 
 		let switchElement = {

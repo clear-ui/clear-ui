@@ -9,6 +9,7 @@
   "author": "sunflowerdeath",
   "license": "Unlicense",
   "dependencies": {
+    "babel-runtime": "^6.6.1",
     "color": "^0.11.1"
   }
 }

@@ -22,7 +22,8 @@ function getStyles(props, state) {
 	let root = {
 		height,
 		position: 'relative',
-		width: 256
+		width: 256,
+		WebkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
 	}
 
 	let input = {

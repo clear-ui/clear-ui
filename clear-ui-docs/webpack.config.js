@@ -1,6 +1,6 @@
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var config = require('clear-ui-webpack')
+var config = require('clear-ui-webpack-config')
 
 var DIST = path.join(__dirname, 'dist')
 
@@ -30,10 +30,12 @@ config.plugins.push(new HtmlWebpackPlugin({
 }))
 
 // Use source code of clear-ui
-config.resolve.alias['clear-ui-base/lib'] = path.join(__dirname, '../clear-ui-base/src')
-config.resolve.alias['clear-ui-material/lib'] = path.join(__dirname, '../clear-ui-material/src')
-config.resolve.alias['clear-ui-web/lib'] = path.join(__dirname, '../clear-ui-web/src')
-config.resolve.alias['clear-ui-ios/lib'] = path.join(__dirname, '../clear-ui-ios/src')
+config.resolve.alias = {
+	'clear-ui-base/lib': path.join(__dirname, '../clear-ui-base/src'),
+	'clear-ui-material/lib': path.join(__dirname, '../clear-ui-material/src'),
+	'clear-ui-web/lib': path.join(__dirname, '../clear-ui-web/src'),
+	'clear-ui-ios/lib': path.join(__dirname, '../clear-ui-ios/src')
+}
 
 // Enable preprocessing of clear-ui source with babel
 config.module.loaders[0].exclude = []

@@ -35,15 +35,9 @@ var loaders = [
 	{
 		test: /\.js$/,
 		loader: loadersToString({
-			'babel': {
+			babel: {
 				presets: [
-					path.join(__dirname, 'node_modules', 'babel-preset-es2015'),
-					path.join(__dirname, 'node_modules','babel-preset-stage-0'),
-					path.join(__dirname, 'node_modules','babel-preset-react')
-				],
-				plugins: [
-					path.join(__dirname, 'node_modules', 'babel-plugin-transform-runtime'),
-					path.join(__dirname, 'node_modules', 'babel-plugin-transform-decorators-legacy')
+					path.join(__dirname, '..', 'babel-preset-clear-ui')
 				],
 				cacheDirectory: true
 			}
@@ -82,15 +76,13 @@ module.exports = {
 	devtool: DEBUG ? 'source-map' : undefined,
 
 	resolve: {
-		alias: {
-			'babel-runtime': path.join(__dirname, 'node_modules/babel-runtime')
-		}
+		modulesDirectories: ['node_modules', path.join(__dirname, 'node_modules')]
+		// alias: {
+			// 'babel-runtime': path.join(__dirname, 'node_modules/babel-runtime')
+		// }
 	},
 
 	resolveLoader: {
-		modulesDirectories: [
-			'web_loaders', 'web_modules', 'node_loaders', 'node_modules', // default
-			path.join(__dirname, 'node_modules')
-		]
+		modulesDirectories: ['node_modules', path.join(__dirname, 'node_modules')]
 	}
 }

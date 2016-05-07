@@ -7,16 +7,14 @@ let logoStyle = {
 	fontSize: '4rem'
 }
 let captionStyle = {
-	fontSize: '1.5rem',
-	fontWeight: 300
+	fontSize: '1.25rem'
 }
 let bannerStyle = {
 	paddingTop: '2rem',
 	paddingBottom: '3rem',
 	background: 'rgba(242, 242, 242, 1)',
 	textAlign: 'center',
-	background: '#1976D2',
-	background: '#1565C0',
+	background: '#AFE2FB',
 	color: 'white'
 }
 

@@ -20,7 +20,8 @@ export default class Dialog extends BaseModal {
 		BaseModal.styles,
 		(props, state) => {
 			let root = {
-				backgroundColor: state.theme.secondary
+				backgroundColor: state.theme.secondary,
+				WebkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
 			}
 
 			let modal = {

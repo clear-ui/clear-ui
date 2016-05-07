@@ -83,7 +83,8 @@ class Toast extends Notification {
 			background: '#323232',
 			color: 'white',
 			maxWidth: 428,
-			lineHeight: '20px'
+			lineHeight: '20px',
+			userSelect: 'none'
 		}
 
 		if (props.containerHorizPos === 'left') root.marginLeft = MARGIN

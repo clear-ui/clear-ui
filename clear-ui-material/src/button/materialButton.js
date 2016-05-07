@@ -42,7 +42,6 @@ export default class MaterialButton extends RippleButton {
 				minWidth: 64,
 				height: 36,
 				lineHeight: '36px',
-				userSelect: 'none',
 				textAlign: 'center',
 				textTransform: 'uppercase',
 				cursor: props.disabled ? 'default' : 'pointer',
@@ -51,6 +50,7 @@ export default class MaterialButton extends RippleButton {
 					`box-shadow .25s ease-in,` +
 					`background-color .4s ${TRANSITIONS.strongEaseOut},` +
 					`color .4s ${TRANSITIONS.strongEaseOut}`,
+				userSelect: 'none',
 				WebkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
 			}
 

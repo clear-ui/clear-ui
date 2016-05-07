@@ -46,10 +46,6 @@ class ZContext extends React.Component {
 		ZContext.instance = this
 	}
 
-	componentWillUnmount() {
-		ZContext.instance = undefined
-	}
-
 	componentWillReceiveProps(nextProps) {
 		// Update initial layer
 		let layer = <LayerView type='initial'>{nextProps.children}</LayerView>
@@ -58,6 +54,10 @@ class ZContext extends React.Component {
 				0: {elem: {$set: layer}}
 			})
 		})
+	}
+
+	componentWillUnmount() {
+		ZContext.instance = undefined
 	}
 
 	render() {
@@ -131,7 +131,7 @@ class ZContext extends React.Component {
 	/**
 	 * Updates layer.
 	 * @param {string} id - Layer id.
-	 * @param {object} layer - New content of the layer.
+	 * @param {object} layer - New layer.
 	 * @param {function} onRender - Function that is called after layer is rendered.
 	 */
 	updateLayer(id, layer, onRender) {
@@ -169,7 +169,7 @@ class ZContext extends React.Component {
 	}
 }
 
-// Add static methods that call according methods of the mounted instance
+// Add static methods that proxy calls to the currently mounted instance
 let methods = [
 	'addLayer',
 	'updateLayer',
