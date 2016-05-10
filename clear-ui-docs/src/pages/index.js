@@ -26,8 +26,9 @@ export default class Index extends React.Component {
 				<div style={captionStyle}>UI components library for React</div>
 			</div>
 
-			<div style={{width: '50rem', margin: 'auto'}}>
-				<DocPage width={640}>
+			<div style={{width: 960, margin: 'auto'}}>
+				<DocPage>
+
 					<h2>About Clear UI</h2>
 
 					{`
@@ -40,31 +41,43 @@ export default class Index extends React.Component {
 					Instead of it Clear UI allows to completely customize 
 					visual appearance of all components.
 
-					## What
-
 					Clear UI includes several ready-to-use sets of components:
 
-					- [Clear UI Web](a) – Generic components for web design with most common features.
-					- [Clear UI Material](a) – Components following Google Material Design guidelines.
-					- [Clear UI iOS](a) – Apple iOS
-
-					Or you can make your own set of components with custom appearance
-					using components from [Clear UI Base](/qwe).
+					- [Clear UI Web](#/docs/web/about) – Generic components for web design with
+					most common features.
+					- [Clear UI Material](#/docs/material/about) – Components following
+					Google Material Design guidelines.
+					- [Clear UI iOS](#/docs/ios/about) – Apple iOS
 
 					## Features
-
-					### Cross-platform and cross-browser
-
-					Supports last versions of all popular browser and IE 9+,
-					and also mobile browsers on Android and mobile Safari.
-
-					### Modular
-
-					Clear UI can be used with different module loaders such as webpack or browserify,
-					so only used components will be included in the bundle.
-					Also, precompiled versions are available.
-
 					`}
+
+					<div style={{display: 'flex'}}>
+						<div style={{flex: '1 0 0'}}>
+						<b>Customizable</b>
+						<br/>
+						<br/>
+						Clear UI allows to completely customize visual appearance of all components,
+						or to implement your own custom design for components from Clear UI Base.
+						</div>
+
+						<div style={{margin: '0 2rem', flex: '1 0 0'}}>
+						<b>Cross-platform and cross-browser</b>
+						<br/>
+						<br/>
+						Supports last versions of all popular browsers and IE 9+,
+						and also mobile browsers on Android and mobile Safari.
+						</div>
+
+						<div style={{flex: '1 0 0'}}>
+						<b>Modular</b>
+						<br/>
+						<br/>
+						Clear UI can be used with different module loaders such as webpack or
+						browserify, so only used components will be included in the bundle.
+						Also, precompiled versions are available.
+						</div>
+					</div>
 				</DocPage>
 			</div>
 		</div>

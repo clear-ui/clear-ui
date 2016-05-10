@@ -36,8 +36,9 @@
     "babel": "^6.5.2",
     "babel-core": "^6.8.0",
     "babel-eslint": "^6.0.4",
-	"babel-preset-clear-ui": "file:../configs/babel-preset",
+    "babel-preset-clear-ui": "file:../configs/babel-preset",
     "clear-ui-webpack-config": "file:../configs/webpack-config",
+    "enzyme": "^2.3.0",
     "eslint": "^2.9.0",
     "eslint-config-airbnb": "^8.0.0",
     "eslint-plugin-import": "^1.6.1",
@@ -51,6 +52,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.2.5",
     "react-addons-test-utils": "^15.0.0",
+    "sinon": "^2.0.0-pre",
     "webpack": "^1.12.2"
   },
   "peerDependencies": {

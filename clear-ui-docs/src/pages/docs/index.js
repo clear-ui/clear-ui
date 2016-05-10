@@ -56,7 +56,7 @@ export default class DocsPage extends React.Component {
 
 					<NavMenu prefix='docs/base/'>
 						<NavMenuHeader nestedItems={[
-							<NavMenuItem value='about-base'>About</NavMenuItem>,
+							<NavMenuItem value='about'>About</NavMenuItem>,
 							<NavMenuItem value='attachment'>Attachment</NavMenuItem>,
 							<NavMenuItem value='button'>Button</NavMenuItem>,
 							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,
@@ -81,7 +81,7 @@ export default class DocsPage extends React.Component {
 
 					<NavMenu prefix='docs/material/'>
 						<NavMenuHeader nestedItems={[
-							<NavMenuItem value='about-material'>About</NavMenuItem>,
+							<NavMenuItem value='about'>About</NavMenuItem>,
 							<NavMenuItem value='themes'>Themes</NavMenuItem>,
 							<NavMenuItem value='button'>Button</NavMenuItem>,
 							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,

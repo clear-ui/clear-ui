@@ -11,6 +11,13 @@ config.module.loaders[0].include = [
 	path.resolve(__dirname, 'src')
 ]
 
+// for enzyme
+config.externals = {
+  'react/addons': true,
+  'react/lib/ExecutionEnvironment': true,
+  'react/lib/ReactContext': true
+}
+
 config.output = {
 	path: DIST,
 	filename: 'clear-ui.js'

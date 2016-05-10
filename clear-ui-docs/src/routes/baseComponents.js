@@ -1,4 +1,4 @@
-import AboutBase from '../pages/docs/base/aboutBase'
+import About from '../pages/docs/base/about'
 import Attachment from '../pages/docs/base/attachment'
 import Checkbox from '../pages/docs/base/checkbox'
 import Button from '../pages/docs/base/button'
@@ -15,7 +15,7 @@ import Tooltip from '../pages/docs/base/tooltip'
 import ZContext from '../pages/docs/base/zContext'
 
 export default [
-	{path: 'about-base', component: AboutBase},
+	{path: 'about', component: About},
 	{path: 'attachment', component: Attachment},
 	{path: 'button', component: Button},
 	{path: 'checkbox', component: Checkbox},

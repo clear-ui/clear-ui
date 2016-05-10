@@ -9,7 +9,7 @@ export default class AboutMaterial extends React.Component {
 			<h1>Clear UI Material</h1>
 
 			{`
-			\`clear-ui-material\` is a set of components that implement Goolge Material Design.
+			Clear UI Material is a set of components that implement Goolge Material Design.
 			Implementation is based on the
 			[official specification](https://www.google.com/design/spec/material-design/introduction.html#)
 			provided by Google.
