@@ -98,9 +98,13 @@ class Attachment {
 		let {parsedAttachments, constrain, viewportPadding, mirrorAttachment} = this.options
 		// if (!this.options.element.is(':visible') || !this.options.target.is(':visible')) return
 		let measurements = readMeasurements(this.options.element, this.options.target)
-		let [position, index, mirror] = getAttachPosition(
-			measurements, parsedAttachments, constrain, viewportPadding, mirrorAttachment
-		)
+		let [position, index, mirror] = getAttachPosition({
+			measurements,
+			constrain,
+			viewportPadding,
+			mirrorAttachment,
+			attachments: parsedAttachments,
+		})
 		if (position) this.setPosition(position)
 		if (this.prevAttachmentIndex !== index || this.prevMirror !== mirror) {
 			if (this.options.onChangeAttachment) {

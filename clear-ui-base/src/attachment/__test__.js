@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import testUtils from 'react-addons-test-utils'
 import $ from 'jquery'
 import _ from 'underscore'
 import assert from 'assert'
+import {mount} from 'enzyme'
 
-import ZContext from '../zContext'
+import ZContext, {ZContextLayerView} from '../zContext'
 import Attachment from './index'
 
 describe('attachment', function() {
-	let container
+	let wrapper, container
 
 	beforeEach(function() {
 		container = $('<div>').prependTo('body').css({
@@ -18,7 +18,7 @@ describe('attachment', function() {
 	})
 
 	afterEach(function() {
-		ReactDOM.unmountComponentAtNode(container[0])
+		if (wrapper) wrapper.unmount()
 		container.remove()
 	})
 
@@ -27,40 +27,39 @@ describe('attachment', function() {
 	const TOP = Math.round(winHeight * 0.1)
 	const HEIGHT = Math.round(winHeight * 0.2)
 
-	let target = React.DOM.div({
-		style: {
-			background: '#eee',
-			width: 100,
-			height: HEIGHT,
-			position: 'absolute',
-			top: TOP,
-			left: 100
-		}
-	}, 'target')
+	let targetStyle = {
+		background: '#eee',
+		width: 100,
+		height: HEIGHT,
+		position: 'absolute',
+		top: TOP,
+		left: 100
+	}
+	let target = <div style={targetStyle}>target</div>
 
-	let element = React.DOM.div({
-		className: 'element',
-		style: {width: 100, height: winHeight * 0.5, background: '#ccc'}
-	}, 'element')
+	let elementStyle = {width: 100, height: winHeight * 0.5, background: '#ccc'}
+	let element = <div className='element' style={elementStyle}>element</div>
 
 	it('renders element in Layer and attaches it to target', function() {
-		let attachment = React.createElement(Attachment, {
-			attachment: {
-				target: 'center bottom',
-				element: 'center top'
-			},
-			open: true,
-			element
-		}, target)
-		let page = React.createElement(ZContext, null, attachment)
-		ReactDOM.render(page, container[0])
+		wrapper = mount(<ZContext>
+			<Attachment
+				attachment={{
+					target: 'center bottom',
+					element: 'center top'
+				}}
+				open={true}
+				element={element}
+			>
+				{target}
+			</Attachment>
+		</ZContext>, {attachTo: container[0]})
 
-		let layers = testUtils.scryRenderedComponentsWithType(
-			ZContext.instance, ZContext.LayerContainer)
-		let layer = _.find(layers, (layer) => layer.props.type === 'popup')
-		assert(layer)
+		let layers = wrapper
+			.find(ZContextLayerView)
+			.filterWhere((layer) => { return layer.props().type === 'popup' })
+		assert(layers.get(0))
 
-		let elem = $(ReactDOM.findDOMNode(layer)).find('.element')
+		let elem = $(ReactDOM.findDOMNode(layers.get(0))).find('.element')
 		assert.equal(elem.length, 1)
 		assert.equal(elem.text(), 'element')
 		assert.equal(elem.css('top'), TOP + HEIGHT + 'px')

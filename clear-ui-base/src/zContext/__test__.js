@@ -8,7 +8,7 @@ import {mount} from 'enzyme'
 
 import ZContext, {ZContextLayer, ZContextLayerView} from './index.js'
 
-describe.only('zContext', function() {
+describe('zContext', function() {
 	let wrapper
 
 	afterEach(function() {
@@ -139,7 +139,7 @@ describe.only('zContext', function() {
 		assert(spy.calledOnce)
 	})
 
-	it('requests to close layer with closeOnOverlayClick on overlay click', function(done) {
+	it('requests to close layer with closeOnOverlayClick on overlay click', function() {
 		// render layer with overlay
 		let spy = sinon.spy()
 		wrapper = mount(<ZContext>
@@ -155,10 +155,6 @@ describe.only('zContext', function() {
 		let overlay = wrapper.find(ZContextLayerView).at(1)
 		overlay.children().simulate('click')
 
-		// onClose is called
-		setTimeout(() => {
-			assert(spy.calledOnce)
-			done()
-		})
+		assert(spy.calledOnce)
 	})
 })

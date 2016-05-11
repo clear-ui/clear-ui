@@ -63,10 +63,10 @@ function getMirrorsList(mirror) {
  *     First is position object, second is index of the chosen attachment config,
  *     third is mirrored state of the attachment.
  */
-export default function getAttachPosition(
-	measurements, attachments, constrain, padding, mirrorOption
-) {
-	let mirrorsList = getMirrorsList(mirrorOption)
+export default function getAttachPosition({
+	measurements, attachments, constrain, viewportPadding, mirrorAttachment
+}) {
+	let mirrorsList = getMirrorsList(mirrorAttachment)
 	let pos, index, mirror
 	/* eslint-disable no-restricted-syntax, no-labels */
 	outer: for (index in attachments) {
@@ -74,12 +74,12 @@ export default function getAttachPosition(
 		for (let j in mirrorsList) {
 			mirror = mirrorsList[j]
 			pos = calcPosition(measurements, att, mirror)
-			if (checkFitViewport(pos, measurements, padding)) break outer
+			if (checkFitViewport(pos, measurements, viewportPadding)) break outer
 		}
 	}
 	/* eslint-enable no-restricted-syntax, no-labels */
 	if (constrain && pos) {
-		pos = constrainPosition(pos, measurements, padding)
+		pos = constrainPosition(pos, measurements, viewportPadding)
 	}
 	return [pos, index, mirror]
 }
