@@ -34,17 +34,17 @@ export default class Attachment extends React.Component {
 		 * Format of the config object is following:
 		 *
 		 * - **element** `string` – Attachment point of the element.
-		 * String of the form of `vert-attachment horiz-attachment`.
-		 * Attachment value is a number with `px` or `%`.
-		 * Also it supports special values, `vert-attachment` can be
-		 * `'top'`, `'middle'`, `'bottom'`, and `horiz-attachment` can be
-		 * `'left'`, `'right'` and `'center'`.
+		 *     String of the form of `vert-attachment horiz-attachment`.
+		 *     Attachment value is a number with `px` or `%`.
+		 *     Also it supports special values, `vert-attachment` can be
+		 *     `'top'`, `'middle'`, `'bottom'`, and `horiz-attachment` can be
+		 *     `'left'`, `'right'` and `'center'`.
 		 *
 		 * - **target** `string` – Attachment point of the target element.
-		 *   Format is same as for element.
+		 *     Format is same as for element.
 		 *
 		 * - **offset** `string` _optional_ – Offset of the element.
-		 *   Format is same as for element and target, but without special values.
+		 *     Format is same as for element and target, but without special values.
 		 */
 		attachment: React.PropTypes.oneOfType([
 			React.PropTypes.array, React.PropTypes.object

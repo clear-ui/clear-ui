@@ -8,7 +8,8 @@ import FocusScope from '../utils/focusScope'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
-import Animation, {slide, scale, fade} from '../animations'
+import Animation from '../animation'
+import {slide, scale, fade} from '../animation/functions'
 
 const scrollbarWidth = getScrollbarWidth()
 

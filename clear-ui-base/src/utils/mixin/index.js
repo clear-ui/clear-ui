@@ -2,7 +2,6 @@
  * Mixes methods and properties from mixins to target's prototype.
  * Mixed methods can call super method with `this.__super()`.
  * Super is available only synchronously.
- * Mixins can define constructors in the `__constructor` property.
  *
  * @param target {function} - Constructor.
  * @param ...mixins {array<object>} - Mixins.

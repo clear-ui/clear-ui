@@ -4,7 +4,7 @@ import React from 'react'
 export default class Animation extends React.Component {
 	static propTypes = {
 		/** Animated element. */
-		children: React.PropTypes.element
+		children: React.PropTypes.element,
 
 		/** Progress of the animation, number from 0 to 1. */
 		progress: React.PropTypes.number.isRequired,
@@ -17,7 +17,7 @@ export default class Animation extends React.Component {
 		fn: React.PropTypes.func.isRequired,
 
 		/** Additional params passed to the animation function */
-		params: React.PropTypes.object,
+		params: React.PropTypes.object
 	}
 
 	render() {

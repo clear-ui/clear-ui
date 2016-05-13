@@ -78,6 +78,7 @@ describe('mixin', function() {
 		assert.equal(a.method(), 'Amix1mix2')
 	})
 
+	/*
 	it('inherits constructors', function() {
 		class A {
 			constructor() { this.prop = 'A' }
@@ -93,10 +94,9 @@ describe('mixin', function() {
 		let a = new A()
 		assert.equal(a.prop, 'Amix')
 
-		// I DONT KNOW HOW TO DO IT :(
-		//class B extends A {
-		//}
-		//let b = new B()
-		//assert.equal(b.prop, 'Amix')
+		class B extends A {}
+		let b = new B()
+		assert.equal(b.prop, 'Amix')
 	})
+	*/
 })

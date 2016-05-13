@@ -1,7 +1,7 @@
 import React from 'react'
 import color from 'color'
 
-import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
+import {FocusableTappable} from 'clear-ui-base/lib/tappable'
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 import ManagedStateMixin from 'clear-ui-base/lib/utils/managedStateMixin'

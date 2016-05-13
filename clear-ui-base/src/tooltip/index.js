@@ -7,7 +7,9 @@ import ManagedStateMixin from '../utils/managedStateMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Attachment from '../attachment'
 import Tappable from '../tappable'
-import Animation, {fadeAndSlide, fadeAndScale, fade} from '../animations'
+import Animation from '../animation'
+import {fadeAndSlide, fadeAndScale, fade} from '../animation/functions'
+import {fastAndHardSpring} from '../animation/springPresets'
 
 const OPPOSITE_SIDES = {
 	top: 'bottom',
@@ -27,8 +29,8 @@ function createAttachmentConfig(side, align, offset) {
 	 * 1. point on main axis is defined by side
 	 *     point on the element - side
 	 *     point on the tooltip - opposite of the side
-	 * 2. point on second axis is defined by position of arrow
-	 *     begin / center / end of the axis on both element's and target's points
+	 * 2. point on second axis is defined by position of the arrow
+	 *     begin/center/end of the axis on both element's and target's points
 	 */
 	let mainAxis = (side === 'top' || side === 'bottom') ? 'vert' : 'horiz'
 	let secondAxis = (mainAxis === 'vert') ? 'horiz' : 'vert'
@@ -37,23 +39,21 @@ function createAttachmentConfig(side, align, offset) {
 	let mainAxisOppositePoint = OPPOSITE_SIDES[side]
 	let secondAxisPoint = POSITION_POINTS[align][secondAxis]
 
-	let attachment
 	if (mainAxis === 'vert') {
 		let signedOffset = (side === 'bottom') ? offset : -offset
-		attachment = {
+		return {
 			element: `${secondAxisPoint} ${mainAxisOppositePoint}`,
 			target: `${secondAxisPoint} ${mainAxisPoint}`,
 			offset: `0 ${signedOffset}`
 		}
 	} else {
 		let signedOffset = (side === 'right') ? offset : -offset
-		attachment = {
+		return {
 			element: `${mainAxisOppositePoint} ${secondAxisPoint}`,
 			target: `${mainAxisPoint} ${secondAxisPoint}`,
 			offset: `${signedOffset} 0`
 		}
 	}
-	return attachment
 }
 
 @mixin(StylesMixin, ManagedStateMixin, ChildComponentsMixin)
@@ -163,32 +163,25 @@ export default class Tooltip extends React.Component {
 		}, target)
 
 		if (this.props.animation) {
-			return React.createElement(Motion, {
+			let motion = React.createElement(Motion, {
 				defaultStyle: {progress: 0},
-				style: {progress: spring(this.state.open ? 1 : 0, {stiffness: 320, damping: 30})}
+				style: {progress: spring(this.state.open ? 1 : 0, fastAndHardSpring)},
+				onRest: () => { this.setState({rest: true}) }
 			}, (value) => {
-				let tooltip = this.renderTooltip()
-
-				let tooltipAnimation = React.cloneElement(
+				return React.cloneElement(
 					this.getChildComponent('animation'),
 					{progress: value.progress},
-					tooltip
+					this.renderTooltip()
 				)
-				return React.cloneElement(attachment, {
-					open: this.state.open || value.progress !== 0,
-					element: tooltipAnimation
-				})
 			})
-			// TODO
-			// move out attachment from motion
-			// to prevent coninious reattaching during animation
-			// open: state.layerIsOpen
-			// set to true when open
-			// set to false in `onRest`
-		} else {
-			let tooltip = this.renderTooltip()
+
 			return React.cloneElement(attachment, {
-				element: tooltip
+				open: this.state.open || !this.state.rest,
+				element: motion
+			})
+		} else {
+			return React.cloneElement(attachment, {
+				element: this.renderTooltip()
 			})
 		}
 	}
@@ -206,13 +199,13 @@ export default class Tooltip extends React.Component {
 		if (hovered) {
 			if (!canOnlyClose && !this.state.open) {
 				this.timer = setTimeout(() => {
-					this.setManagedState({open: true})
+					this.setManagedState({open: true, rest: false})
 				}, this.props.openTimeout)
 			}
 		} else {
 			if (this.state.open) {
 				this.timer = setTimeout(() => {
-					this.setManagedState({open: false})
+					this.setManagedState({open: false, rest: false})
 				}, this.props.closeTimeout)
 			}
 		}
@@ -233,6 +226,6 @@ export default class Tooltip extends React.Component {
 	}
 
 	renderArrow() {
-		return React.DOM.div({style: this.styles.arrow})
+		return <div style={this.styles.arrow}/>
 	}
 }

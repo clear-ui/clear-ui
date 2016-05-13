@@ -3,7 +3,7 @@ import React from 'react'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
-import FocusableTappable from '../focusableTappable'
+import {FocusableTappable} from '../tappable'
 
 /**
  * Base button component.

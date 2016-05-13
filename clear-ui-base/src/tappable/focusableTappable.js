@@ -1,8 +1,8 @@
 import React from 'react'
 
+import keyCodes from '../utils/keyCodes'
+import cloneReferencedElement from '../utils/cloneReferencedElement.js'
 import Tappable from './tappable'
-import keyCodes from './utils/keyCodes'
-import cloneReferencedElement from './utils/cloneReferencedElement.js'
 
 /**
  * Tappable that supports focusing and pressing with Enter button.

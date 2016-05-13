@@ -1,7 +1,7 @@
 import React from 'react'
 
 import BaseSelect from 'clear-ui-base/lib/select'
-import FocusableTappable from 'clear-ui-base/lib/focusableTappable'
+import {FocusableTappable} from 'clear-ui-base/lib/tappable'
 import Icon from 'clear-ui-base/lib/icon'
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import ThemeMixin from '../themeMixin'

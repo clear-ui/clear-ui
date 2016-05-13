@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FocusableTappable from '../focusableTappable'
+import {FocusableTappable} from '../tappable'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 

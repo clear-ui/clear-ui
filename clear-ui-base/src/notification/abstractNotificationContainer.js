@@ -4,16 +4,13 @@ import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import {ZContextLayer} from '../zContext'
-import Animation, {fade, fadeAndSlide} from '../animations'
+import Animation from '../animation'
+import {fade, fadeAndSlide} from '../animation/functions'
 
 @mixin(StylesMixin, ChildComponentsMixin)
 export default class AbstractNotificationsContainer extends React.Component {
 	static childContextTypes = {
 		notificationContainer: React.PropTypes.object
-	}
-
-	getChildContext() {
-		return {notificationContainer: this}
 	}
 
 	static propTypes = {
@@ -81,6 +78,10 @@ export default class AbstractNotificationsContainer extends React.Component {
 	constructor() {
 		super()
 		this.nextKey = 1
+	}
+
+	getChildContext() {
+		return {notificationContainer: this}
 	}
 
 	componentDidMount() {

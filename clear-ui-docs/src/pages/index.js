@@ -47,7 +47,7 @@ export default class Index extends React.Component {
 					most common features.
 					- [Clear UI Material](#/docs/material/about) – Components following
 					Google Material Design guidelines.
-					- [Clear UI iOS](#/docs/ios/about) – Apple iOS
+					- Clear UI iOS – Apple iOS (in development).
 
 					## Features
 					`}
