@@ -10,18 +10,13 @@ import AbstractNotificationContainer from './abstractNotificationContainer.js'
 /** Component that renders notification inside container. */
 @mixin(StylesMixin)
 class NotificationView extends React.Component {
+	static displayName = 'NotificationView'
+
 	static propTypes = {
-		/** TODO */
 		actions: React.PropTypes.node,
-
-		/** TODO */
 		autoHideTimeout: React.PropTypes.number,
-
-		/** TODO */
 		onClose: React.PropTypes.func
 	}
-
-	static displayName = 'NotificationView'
 
 	static styles = {
 		root: {
@@ -82,7 +77,7 @@ class NotificationView extends React.Component {
  * Representation of the notification, that initiates render of the
  * NotificationView in the container.
  */
-@mixin(PureRenderMixin) // TODO why this is required wneh using context container
+@mixin(PureRenderMixin) // It is required when using context container
 export default class Notification extends React.Component {
 	static displayName = 'Notification'
 

@@ -38,14 +38,14 @@ export default class Index extends React.Component {
 					Different web apps on different platforms require different styles of
 					appearance, and you can not have one set of components that will fit in
 					all situations.
-					Instead of it Clear UI allows to completely customize 
+					Instead of it Clear UI allows to completely customize
 					visual appearance of all components.
 
 					Clear UI includes several ready-to-use sets of components:
 
 					- [Clear UI Web](#/docs/web/about) – Generic components for web design with
 					most common features.
-					- [Clear UI Material](#/docs/material/about) – Components following
+					- [Clear UI Material](#/docs/material/about) – Components implementing
 					Google Material Design guidelines.
 					- Clear UI iOS – Apple iOS (in development).
 

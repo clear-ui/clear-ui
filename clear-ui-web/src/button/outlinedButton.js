@@ -90,7 +90,7 @@ function getStyles(props, state) {
 	return {root, label, rightIcon, leftIcon, innerOutline, outerOutline}
 }
 
-export default class FlatButton extends Button {
+export default class OutlinedButton extends Button {
 	static defaultProps = {
 		...Button.defaultProps,
 		color: 'grey'

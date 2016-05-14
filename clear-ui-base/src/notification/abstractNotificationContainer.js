@@ -26,7 +26,8 @@ export default class AbstractNotificationsContainer extends React.Component {
 		/** Vertical position of the container. */
 		horizPos: React.PropTypes.oneOf(['left', 'right', 'center']),
 
-		animation: React.PropTypes.string // TODO
+		/** Showing and hiding animation of notifications. */
+		animation: React.PropTypes.oneOf(['fade', 'slide'])
 	}
 
 	static defaultProps = {
@@ -97,7 +98,7 @@ export default class AbstractNotificationsContainer extends React.Component {
 	render() {
 		return (
 			<span>
-				<ZContextLayer type='notify' open={true}>
+				<ZContextLayer type='global' open={true}>
 					<div style={this.styles.root}>
 						{this.renderNotifications()}
 					</div>

@@ -1,31 +1,11 @@
 import React from 'react'
 
-import {RadioGroup, RadioButton} from 'clear-ui-material/lib/radioButtons'
-
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
-class RadioButtonsDemo extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {value: this.props.value}
-	}
-
-	render() {
-		return (
-			<RadioGroup
-				{...this.props}
-				value={this.state.value}
-				onChange={(value) => { this.setState({value}) }}
-			>
-				<RadioButton value='1'>First option</RadioButton>
-				<RadioButton value='2'>Second option</RadioButton>
-				<RadioButton disabled={true} value='3'>Disabled option</RadioButton>
-			</RadioGroup>
-		)
-	}
-}
+import RadioButtonsExample from './example.js'
+import radioButtonsExampleCode from '!raw!./example.js'
 
 export default class RadioButtonsDoc extends React.Component {
 	render() {
@@ -42,11 +22,28 @@ export default class RadioButtonsDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<RadioButtonsDemo value='1'/>
+					<RadioButtonsExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-				`}</Example.Code>
+				<Example.Code>
+					{radioButtonsExampleCode}
+				</Example.Code>
 			</Example>
+
+			<h2>RadioButton Props</h2>
+
+			<ApiDoc>
+				<ApiDoc.Row>
+					<a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioButton props</a>
+				</ApiDoc.Row>
+			</ApiDoc>
+
+			<h2>RadioGroup Props</h2>
+
+			<ApiDoc>
+				<ApiDoc.Row>
+					<a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioGroup props</a>
+				</ApiDoc.Row>
+			</ApiDoc>
 
 		</DocPage>
 	}

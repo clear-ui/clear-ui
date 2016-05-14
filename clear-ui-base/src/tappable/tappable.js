@@ -17,32 +17,29 @@ export default class Tappable extends React.Component {
 		/** Tap event handler. */
 		onTap: React.PropTypes.func,
 
-		/** TODO */
+		/** Disables tap handling. */
 		disabled: React.PropTypes.bool,
 
 		/**
-		 * `({hovered: boolean, pressed: boolean}) => void`
-		 *
 		 * Handler of hovered and pressed states changes.
+		 *
+		 * `({hovered: boolean, pressed: boolean}) => void`
 		 */
 		onChangeTapState: React.PropTypes.func,
 
 		/**
-		 * `(touch) => void`
+		 * `(tap: object) => void`
 		 */
 		onTapStart: React.PropTypes.func,
 
 		/**
-		 * `(touch) => void`
+		 * `(tap: object) => void`
 		 */
 		onTapEnd: React.PropTypes.func,
 
 		/** Style passed down to the child element. */
 		style: React.PropTypes.object
 	}
-
-	pressed = false
-	hovered = false
 
 	constructor(props) {
 		super(props)
@@ -72,11 +69,14 @@ export default class Tappable extends React.Component {
 				onTouchStart: this.touchStart,
 				onTouchMove: this.touchMove,
 				onTouchEnd: this.touchEnd,
-				onClick: (event) => { event.stopPropagation() },
+				onClick: (event) => { event.stopPropagation() }
 			})
 		}
 		return React.cloneElement(this.props.children, props)
 	}
+
+	pressed = false
+	hovered = false
 
 	mouseEnter() {
 		if (blockMouseEvents) return

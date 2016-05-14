@@ -40,7 +40,7 @@ export default class MenuItem extends React.Component {
 		 */
 		onTap: funcOrBoundFuncType,
 
-		/** TODO */
+		/** When `true`, item can be focused using `Tab` key. */
 		focusable: React.PropTypes.bool,
 
 		/**

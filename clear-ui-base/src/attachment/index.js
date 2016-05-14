@@ -67,11 +67,13 @@ export default class Attachment extends React.Component {
 		constrain: React.PropTypes.bool,
 
 		/**
-		 * Function that is called when component chooses another attachment to
-		 * fit attached element on the screen.
+		 * Function that is called when component chooses another attachment or
+		 * mirrors it to fit attached element on the screen.
 		 *
-		 * (index: number) => void
+		 * (index: number, mirror: object) => void
 		 * - **index** – Index of the chosen attachment config.
+		 * - **mirror** – Object with keys `horiz` and `vert` that are `true` when
+		 *      attachment is mirrored.
 		 */
 		onChangeAttachment: React.PropTypes.func
 	}

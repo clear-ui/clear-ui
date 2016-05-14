@@ -66,7 +66,7 @@ export default class DocsPage extends React.Component {
 							<NavMenuItem value='menu'>Menu</NavMenuItem>,
 							<NavMenuItem value='modal'>Modal</NavMenuItem>,
 							<NavMenuItem value='notification'>Notification</NavMenuItem>,
-							<NavMenuItem value='radio-button'>Radio Button</NavMenuItem>,
+							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
 							<NavMenuItem value='scrollspy'>Scrollspy</NavMenuItem>,
 							<NavMenuItem value='sticky'>Sticky</NavMenuItem>,
 							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>,
@@ -102,6 +102,7 @@ export default class DocsPage extends React.Component {
 
 					<NavMenu prefix='docs/web/'>
 						<NavMenuHeader nestedItems={[
+							<NavMenuItem value='about'>About</NavMenuItem>,
 							<NavMenuItem value='button'>Button</NavMenuItem>,
 							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,
 							<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>,

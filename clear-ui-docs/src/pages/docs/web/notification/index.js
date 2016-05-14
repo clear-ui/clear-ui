@@ -69,6 +69,8 @@ export default class NotificationDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
+					<AbstractNotificationExample buttonText='TEST'
+						actions={<a href="#">Action</a>}/>
 					Stacking container:
 					{' '}
 					<AbstractNotificationExample buttonText='First'/>

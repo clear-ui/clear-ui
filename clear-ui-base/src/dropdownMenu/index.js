@@ -6,13 +6,12 @@ import {Motion, spring} from 'react-motion'
 import {FocusableTappable} from '../tappable'
 import Animation from '../animation'
 import {fade, fadeAndSlide, fadeAndScale} from '../animation/functions.js'
+import {veryFastAndHardSpring, fastAndHardSpring} from '../animation/springPresets.js'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import Attachment from '../attachment'
-
-import {veryFastAndHardSpring, fastAndHardSpring} from '../animation/springPresets.js'
 
 const OPPOSITE_SIDES = {
 	top: 'bottom',
@@ -38,6 +37,9 @@ export default class DropdownMenu extends React.Component {
 		 * `(item: element) => void`
 		 */
 		onSelect: React.PropTypes.func,
+
+		onFocus: React.PropTypes.func,
+		onBlur: React.PropTypes.func,
 
 		initialOpen: React.PropTypes.bool,
 		/**
@@ -70,10 +72,7 @@ export default class DropdownMenu extends React.Component {
 		/** Distance between the trigger element and the list. */
 		listOffset: React.PropTypes.number,
 
-		/** TODO change to <Tappable> */
-		tappable: React.PropTypes.bool,
-
-		/** TODO */
+		/** Animation of showing and hiding the menu. */
 		animation: React.PropTypes.oneOf(['fade', 'slide', 'scale', 'scaleVert'])
 	}
 
@@ -86,7 +85,7 @@ export default class DropdownMenu extends React.Component {
 	}
 
 	static styles = {
-		root: {display: 'inline-block'}, // TODO why?
+		root: {display: 'inline-block'},
 		list: {position: 'absolute'}
 	}
 
@@ -197,15 +196,13 @@ export default class DropdownMenu extends React.Component {
 	}
 
 	renderTrigger() {
-		if (this.props.tappable) {
-			return React.cloneElement(this.props.trigger, {
-				onTap: this.open.bind(this)
-			})
-		} else {
-			return React.createElement(FocusableTappable, {
-				onTap: this.open.bind(this)
-			}, React.DOM.div({style: this.styles.trigger}, this.props.trigger))
-		}
+		let {disabled, onFocus, onBlur} = this.props
+		return React.createElement(FocusableTappable, {
+			onFocus,
+			onBlur,
+			disabled,
+			onTap: this.open.bind(this),
+		}, <div style={this.styles.trigger}>{this.props.trigger}</div>)
 	}
 
 	updateSides(mirror) {

@@ -70,7 +70,7 @@ export default class Select extends BaseSelect {
 	static childComponents = {
 		dropdownMenu: (props) => {
 			return <DropdownMenu
-				tappable={true}
+				styles={{trigger: {outline: 'none'}}}
 				maxHeight={props.maxHeight}
 				desktop={props.desktop}
 				animation="scaleVert"
@@ -79,19 +79,23 @@ export default class Select extends BaseSelect {
 	}
 
 	renderTrigger() {
-		let trigger = React.DOM.div({style: this.styles.trigger}, [
-			this.renderTriggerContent(),
-			React.DOM.div({style: this.styles.underline}),
-			React.DOM.div({style: this.styles.triangleIcon},
-				React.createElement(Icon, {icon: Icon.ICONS.triangleDown})
-			)
-		])
+		let trigger = (
+			<div style={this.styles.trigger}>
+				{this.renderTriggerContent()}
+				<div style={this.styles.underline}/>
+				<div style={this.styles.triangleIcon}>
+					<Icon icon={Icon.ICONS.triangleDown}/>
+				</div>
+			</div>
+		)
 
-		return React.createElement(FocusableTappable, {
-			preventFocusOnTap: true,
-			disabled: this.props.disabled,
-			onFocus: () => { this.setState({focused: true}) },
-			onBlur: () => { this.setState({focused: false}) }
-		}, trigger)
+		return trigger
+
+		// return React.createElement(FocusableTappable, {
+			// preventFocusOnTap: true,
+			// disabled: this.props.disabled,
+			// onFocus: () => { this.setState({focused: true}) },
+			// onBlur: () => { this.setState({focused: false}) }
+		// }, trigger)
 	}
 }

@@ -29,7 +29,7 @@ export default class ZContextDoc extends React.Component {
 			- popup
 			- fixed
 			- modal
-			- notify
+			- global
 			`}
 
 			<h2>Example</h2>

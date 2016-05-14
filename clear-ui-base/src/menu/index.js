@@ -22,6 +22,9 @@ export default class Menu extends React.Component {
 		 */
 		onSelect: React.PropTypes.func,
 
+		/** Makes items in the menu focusable. */
+		focusable: React.PropTypes.bool,
+
 		/**
 		 * When `true`, menu activates keyboard navigation and allows
 		 * to use arrows to navigate and `Enter` to select items.

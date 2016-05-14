@@ -4,7 +4,7 @@ import $ from 'jquery'
 
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
-
+import keyCodes from '../utils/keyCodes'
 import ZContext from './zContext.js'
 import LayerView from './layerView.js'
 import LAYER_TYPES from './layerTypes.js'
@@ -22,7 +22,7 @@ export default class ZContextLayer extends React.Component {
 		 * Layer type. It affects order of layers.
 		 *
 		 * Possible layer types in order of their priority:
-		 * `'initial'`, `'popup'`, `'fixed'`, `'modal'`, `'notify'`.
+		 * `'initial'`, `'popup'`, `'fixed'`, `'modal'`, `'global'`.
 		 */
 		type: React.PropTypes.oneOf(LAYER_TYPES),
 
@@ -64,7 +64,7 @@ export default class ZContextLayer extends React.Component {
 	componentWillUnmount() { this.close() }
 
 	render() {
-		return React.DOM.noscript({ref: 'placeholder'})
+		return <noscript ref='placeholder'/>
 	}
 
 	setLayer() {
@@ -99,10 +99,10 @@ export default class ZContextLayer extends React.Component {
 		this.layerId = ZContext.addLayer(elem, this.createLayerView(), this.props.onRender)
 
 		if (this.props.closeOnEsc) {
-			this.listener = (event) => {
-				if (event.keyCode === 27) this.onClose() // TODO keycodes
+			this.escListener = (event) => {
+				if (event.keyCode === keyCodes.ESCAPE) this.onClose()
 			}
-			$(document).bind('keydown', this.listener)
+			$(document).bind('keydown', this.escListener)
 		}
 	}
 
@@ -112,7 +112,7 @@ export default class ZContextLayer extends React.Component {
 	}
 
 	close() {
-		if (this.listener) $(document).unbind('keydown', this.listener)
+		if (this.escListener) $(document).unbind('keydown', this.escListener)
 		if (ZContext.instance) {
 			ZContext.removeLayer(this.layerId)
 			ZContext.removeLayer(this.overlayLayerId)

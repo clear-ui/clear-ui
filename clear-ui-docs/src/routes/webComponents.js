@@ -1,3 +1,4 @@
+import About from '../pages/docs/web/about'
 import Button from '../pages/docs/web/button'
 import DropdownMenu from '../pages/docs/web/dropdownMenu'
 import Checkbox from '../pages/docs/web/checkbox'
@@ -10,6 +11,7 @@ import Select from '../pages/docs/web/select'
 import Tooltip from '../pages/docs/web/tooltip'
 
 export default [
+	{path: 'about', component: About},
 	{path: 'button', component: Button},
 	{path: 'dropdown-menu', component: DropdownMenu},
 	{path: 'menu', component: Menu},

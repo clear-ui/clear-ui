@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import _ from 'underscore'
 
 import parseAttachmentConfig from './parseAttachmentConfig'
 import readMeasurements from './readMeasurements'
@@ -106,7 +107,7 @@ class Attachment {
 			attachments: parsedAttachments,
 		})
 		if (position) this.setPosition(position)
-		if (this.prevAttachmentIndex !== index || this.prevMirror !== mirror) {
+		if (this.prevAttachmentIndex !== index || _.deepEqual(this.prevMirror, mirror)) {
 			if (this.options.onChangeAttachment) {
 				this.options.onChangeAttachment(index, mirror)
 			}
