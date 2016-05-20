@@ -3,8 +3,14 @@ import React from 'react'
 import DocPage from '../docPage'
 import Example from '../example'
 
+import RaisedButton from 'clear-ui-web/lib/button/raisedButton'
+
+import Icon from 'clear-ui-base/lib/icon'
+import logo from '../logo.icon.svg'
+
 let logoStyle = {
-	fontSize: '4rem'
+	fontSize: '4rem',
+	fill: 'white'
 }
 let captionStyle = {
 	fontSize: '1.25rem'
@@ -22,6 +28,7 @@ export default class Index extends React.Component {
 	render() {
 		return <div>
 			<div style={bannerStyle}>
+				<Icon icon={logo} style={{fill: 'white'}}/>
 				<div style={logoStyle}>Clear UI</div>
 				<div style={captionStyle}>UI components library for React</div>
 			</div>
@@ -33,7 +40,7 @@ export default class Index extends React.Component {
 
 					{`
 					Goal of Clear UI is to provide simple and powerful abstractions of
-					UI components behaviour, and not to make one set of complete components.
+					UI components behaviour, and not to make one complete set of components.
 
 					Different web apps on different platforms require different styles of
 					appearance, and you can not have one set of components that will fit in
@@ -78,7 +85,21 @@ export default class Index extends React.Component {
 						Also, precompiled versions are available.
 						</div>
 					</div>
+
+					<div style={{textAlign: 'center', padding: '5rem 0'}}>
+						<RaisedButton color='blue' height='big'>Get started</RaisedButton>
+					</div>
 				</DocPage>
+			</div>
+
+			<div style={{fontSize: '14px', borderTop: '1px solid #ddd', padding: '1.5rem 0'}}>
+				<div style={{width: 960, margin: 'auto'}}>
+					Created by <a href='#'>sunflowerdeath</a>.
+					{' '}
+					License:
+					{' '}
+					<a href='http://unlicense.org/UNLICENSE'>Public domain (Unlicence)</a>.
+				</div>
 			</div>
 		</div>
 	}

@@ -73,7 +73,16 @@ export default class DropdownMenu extends React.Component {
 		listOffset: React.PropTypes.number,
 
 		/** Animation of showing and hiding the menu. */
-		animation: React.PropTypes.oneOf(['fade', 'slide', 'scale', 'scaleVert'])
+		animation: React.PropTypes.oneOf(['fade', 'slide', 'scale', 'scaleVert']),
+
+		/**
+		 * By default, you can use any element as trigger, and dropdown will wrap it
+		 * in `Tappable` to handle tap events.
+		 * When this prop is `true`, trigger should be `Tappable` or a component
+		 * that supports props `onTap`, `onFocus`, `onBlur` and `disabled`, and it
+		 * will be used without wrapper.
+		 */
+		useTriggerAsTappable: React.PropTypes.bool
 	}
 
 	static defaultProps = {
@@ -197,12 +206,20 @@ export default class DropdownMenu extends React.Component {
 
 	renderTrigger() {
 		let {disabled, onFocus, onBlur} = this.props
-		return React.createElement(FocusableTappable, {
+		let props = {
 			onFocus,
 			onBlur,
 			disabled,
-			onTap: this.open.bind(this),
-		}, <div style={this.styles.trigger}>{this.props.trigger}</div>)
+			onTap: this.open.bind(this)
+		}
+		if (this.props.useTriggerAsTappable) {
+			return React.cloneElement(this.props.trigger, props)
+		} else {
+			let trigger = typeof this.props.trigger.type === 'string' ?
+				this.props.trigger :
+				<div style={this.styles.trigger}>{this.props.trigger}</div>
+			return React.createElement(FocusableTappable, props, trigger)
+		}
 	}
 
 	updateSides(mirror) {

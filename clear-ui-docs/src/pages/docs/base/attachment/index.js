@@ -51,7 +51,9 @@ export default class BaseAttachmentDoc extends React.Component {
 				</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
+
+			<h3>Props</h3>
 			<PropsDoc doc={attachmentPropsDoc}/>
 		</DocPage>
 	}

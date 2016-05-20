@@ -4,7 +4,7 @@ import Color from 'color'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import COLORS from '../styles/colors'
 import SIZES from '../styles/sizes'
-import Button from '../button'
+import Button from './webButton.js'
 
 import {getOuterOutlineStyle, getWhitelineStyle} from './outlineStyles'
 

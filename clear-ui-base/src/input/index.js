@@ -122,4 +122,8 @@ export default class Input extends React.Component {
 	focus() {
 		if (this.refs.input) this.refs.input.focus()
 	}
+
+	blur() {
+		if (this.refs.input) this.refs.input.blur()
+	}
 }

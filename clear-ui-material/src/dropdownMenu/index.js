@@ -3,7 +3,7 @@ import React from 'react'
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import BaseDropdownMenu from 'clear-ui-base/lib/dropdownMenu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
-import Menu from '../menu'
+import {Menu} from '../menu'
 import SHADOWS from '../styles/shadows'
 import ThemeMixin from '../themeMixin'
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 import Icon from 'clear-ui-base/lib/icon'
 import Button from 'clear-ui-web/lib/button/raisedButton'
-import Menu, {MenuItem, MenuLabel, MenuDivider} from 'clear-ui-web/lib/menu'
+import {Menu, MenuItem, MenuLabel, MenuDivider} from 'clear-ui-web/lib/menu'
 
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
@@ -10,7 +10,7 @@ import Example from '../../../../example'
 import PropsDoc from '../../../../propsDoc'
 
 import webDocs from '../../../../../docgen/web.json'
-let menuPropsDoc = webDocs['menu/index.js'].props
+let menuPropsDoc = webDocs['menu/menu.js'].props
 let menuItemPropsDoc = webDocs['menu/item.js'].props
 
 import MenuExample from './example.js'

@@ -15,7 +15,9 @@ export default class BaseTooltipDoc extends React.Component {
 			Base tooltip component.
 			`}
 
-			<h2>Props</h2>
+			<h2>API</h2>
+
+			<h3>Props</h3>
 
 			<PropsDoc doc={tooltipPropsDoc}/>
 		</DocPage>

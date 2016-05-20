@@ -11,6 +11,7 @@ import Notification from '../pages/docs/base/notification'
 import RadioButtons from '../pages/docs/base/radioButtons'
 import Scrollspy from '../pages/docs/base/scrollspy'
 import Sticky from '../pages/docs/base/sticky'
+import Switch from '../pages/docs/base/switch'
 import Tooltip from '../pages/docs/base/tooltip'
 import ZContext from '../pages/docs/base/zContext'
 
@@ -28,6 +29,7 @@ export default [
 	{path: 'radio-buttons', component: RadioButtons},
 	{path: 'scrollspy', component: Scrollspy},
 	{path: 'sticky', component: Sticky},
+	{path: 'switch', component: Switch},
 	{path: 'tooltip', component: Tooltip},
 	{path: 'zcontext', component: ZContext}
 ]

@@ -4,7 +4,7 @@ import Tooltip from 'clear-ui-material/lib/tooltip'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 
 export default class TooltipDoc extends React.Component {
 	render() {
@@ -106,27 +106,27 @@ export default class TooltipDoc extends React.Component {
 			<h3>Props</h3>
 
 			<ApiDoc>
-				<ApiDoc.Row
+				<ApiDocRow
 					name='showOnHover'
 					type='boolean'
 					defaultValue='true'
 				>{`
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 
-				<ApiDoc.Row
+				<ApiDocRow
 					name='showOnClick'
 					type='boolean'
 					defaultValue='false'
 				>{`
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 
-				<ApiDoc.Row
+				<ApiDocRow
 					name='sides'
 					type='array'
 					defaultValue={`['top', 'right', 'bottom', 'left']`}
 				>{`
 					List of sides where tooltip can be shown in the order of priority.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 			</ApiDoc>
 
 			{`

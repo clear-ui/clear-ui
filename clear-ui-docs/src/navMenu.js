@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Menu, {MenuItem} from 'clear-ui-web/lib/menu'
+import {Menu, MenuItem} from 'clear-ui-web/lib/menu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 

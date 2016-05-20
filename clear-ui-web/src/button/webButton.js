@@ -10,6 +10,7 @@ let PADDING = 1
 
 function getStyles(props) {
 	let root = {
+		verticalAlign: 'middle',
 		position: 'relative',
 		display: 'inline-block',
 		cursor: 'default',
@@ -18,6 +19,7 @@ function getStyles(props) {
 		backgroundClip: 'padding-box',
 		border: 'none',
 		padding: `0 ${PADDING}rem`,
+		maxWidth: '100%',
 		borderRadius: 2,
 		outline: 'none',
 		boxSizing: 'border-box',
@@ -28,12 +30,12 @@ function getStyles(props) {
 	}
 
 	let label = {
+		maxWidth: '100%',
 		verticalAlign: 'top',
 		whiteSpace: 'nowrap',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
-		display: 'inline-block',
-		height: '100%'
+		display: 'inline-block'
 	}
 
 	let leftIcon, rightIcon
@@ -94,7 +96,7 @@ function getStyles(props) {
  *
  * Additional styleable elements:
  * - outerOutline - shows focus and invalid states.
- * - innerOutline - shows white line inside colored buttons.
+ * - innerOutline - shows white line inside colored buttons to distinguish focus with background.
  */
 export default class Button extends BaseIconButton {
 	static propTypes = {

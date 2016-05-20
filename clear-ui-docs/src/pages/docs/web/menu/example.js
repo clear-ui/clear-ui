@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu, {MenuItem, MenuLabel, MenuDivider} from 'clear-ui-web/lib/menu'
+import {Menu, MenuItem, MenuLabel, MenuDivider} from 'clear-ui-web/lib/menu'
 import Button from 'clear-ui-web/lib/button/raisedButton'
 
 export default class MenuExample extends React.Component {

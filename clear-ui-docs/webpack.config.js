@@ -41,7 +41,6 @@ config.resolve.alias = {
 config.module.loaders[0].exclude = []
 config.module.loaders[0].include = [
 	path.resolve(__dirname, 'src'),
-	path.resolve(__dirname, '..', 'clear-ui-base', 'external'),
 	path.resolve(__dirname, '..', 'clear-ui-base', 'src'),
 	path.resolve(__dirname, '..', 'clear-ui-material', 'src'),
 	path.resolve(__dirname, '..', 'clear-ui-web', 'src'),
@@ -78,6 +77,7 @@ config.module.loaders.push({
 
 // Prevent multiple instances of clear-ui peerDependencies on page
 // when it is installed with 'npm link'
+// comment?
 config.resolve.alias.react = path.join(__dirname, 'node_modules', 'react')
 config.resolve.alias['react-dom'] = path.join(__dirname, 'node_modules', 'react-dom')
 config.resolve.alias.jquery = path.join(__dirname, 'node_modules', 'jquery')

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import PropsDoc from '../../../../propsDoc'
 
 import baseDocs from '../../../../../docgen/base.json'
@@ -24,9 +24,23 @@ export default class BaseModalDoc extends React.Component {
 			On close it returns focus to previously focused element.
 			`}
 
-			<h2>Props</h2>
+			<h2>API</h2>
+
+			<h3>Props</h3>
 
 			<PropsDoc doc={modalPropsDoc}/>
+
+			<h3>Styleable Elements</h3>
+
+			<ApiDoc>
+				<ApiDocRow name='root'>{`
+					Root element.
+				`}</ApiDocRow>
+
+				<ApiDocRow name='modal'>{`
+					Modal window element.
+				`}</ApiDocRow>
+			</ApiDoc>
 		</DocPage>
 	}
 }

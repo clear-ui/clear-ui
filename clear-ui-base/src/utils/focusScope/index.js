@@ -1,11 +1,10 @@
 import $ from 'jquery'
-import findTabbable from '../../../external/findTabbable'
-
 import keyCodes from '../keyCodes'
+import findTabbable from './findTabbable'
 
 /**
  * It restricts focus inside element.
- * On create is sets focus to first focusable element.
+ * On create it sets focus to first focusable element.
  * On destroy it returns focus to the element that was focused before.
  * @param element {element}
  */
@@ -58,9 +57,9 @@ export default class FocusScope {
 			this.unbindHandlers()
 			if (this.savedFocus) {
 				try {
-					// it might be not in the DOM already
+					// it can be not in the document already
 					this.savedFocus.focus()
-				} catch (ex) {} // eslint-disable-line no-empty
+				} catch (e) {} // eslint-disable-line no-empty
 			}
 		} else {
 			this.getActiveInstance().setFocus()

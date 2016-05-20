@@ -12,8 +12,6 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "karma start",
-    "start": "webpack-dev-server",
-    "build": "webpack --display-error-details --display-modules",
     "build-lib": "gulp build-lib"
   },
   "author": {
@@ -44,8 +42,6 @@
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "eslint-plugin-react": "^5.0.1",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^5.3.0",
     "karma": "^0.13.9",
     "karma-mocha": "^0.2.0",
     "karma-sourcemap-loader": "^0.3.5",

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import BaseDropdownMenu from 'clear-ui-base/lib/dropdownMenu'
-import Menu from '../menu'
+import {Menu} from '../menu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import SHADOWS from '../styles/shadows'
 

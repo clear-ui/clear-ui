@@ -4,7 +4,7 @@ import {FocusableTappable} from '../tappable'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 
-/** Base component that can display switched state and change it to opposite on tap. */
+/** Base component for displaying and toggling boolean state. */
 @mixin(StylesMixin)
 export default class Switch extends React.Component {
 	static propTypes = {

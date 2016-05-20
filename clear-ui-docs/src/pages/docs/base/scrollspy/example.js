@@ -1,7 +1,7 @@
 import React from 'react'
 import $ from 'jquery'
 
-import Scrollspy, {ScrollspyAnchor} from 'clear-ui-base/lib/scrollspy'
+import {Scrollspy, ScrollspyAnchor} from 'clear-ui-base/lib/scrollspy'
 import Button from 'clear-ui-web/lib/button/raisedButton'
 
 export default class ScrollspyExample extends React.Component {
@@ -27,21 +27,21 @@ export default class ScrollspyExample extends React.Component {
 		let deferred = $.Deferred()
 
 		return <div>
-			<p>
-				Current anchor id: <b>{this.state.anchor}</b>{' '}
-				<Button onTap={() => { this.refs.scrollspy.scrollToAnchor('2') }}>
-					Scroll to second
-				</Button>
-			</p>
+			Current anchor id: <b>{this.state.anchor}</b>{' '}
+			<Button onTap={() => { this.refs.scrollspy.scrollToAnchor('2') }}>
+				Scroll to second
+			</Button>
+
+			<br/><br/>
 
 			<div ref={(elem) => { deferred.resolve(elem) }} style={root}>
 				<Scrollspy ref='scrollspy' container={deferred}
 					onChange={(id) => { this.setState({anchor: id}) }}>
-					<Scrollspy.Anchor id='1'>First</Scrollspy.Anchor>
+					<ScrollspyAnchor id='1'>First</ScrollspyAnchor>
 					<div style={placeholder}/>
-					<Scrollspy.Anchor id='2'>Second</Scrollspy.Anchor>
+					<ScrollspyAnchor id='2'>Second</ScrollspyAnchor>
 					<div style={placeholder}/>
-					<Scrollspy.Anchor id='3'>Third</Scrollspy.Anchor>
+					<ScrollspyAnchor id='3'>Third</ScrollspyAnchor>
 					<div style={placeholder}/>
 				</Scrollspy>
 			</div>

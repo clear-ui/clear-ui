@@ -14,13 +14,14 @@
     "test": "karma start",
     "start": "webpack-dev-server",
     "build": "webpack",
-    "build-lib": "gulp build-lib"
+    "build-lib": "gulp build-lib",
+    "build-precompiled": "webpack -p"
   },
   "author": {
     "name": "sunflowerdeath",
     "email": "sunflowerdeath@gmail.com"
   },
-  "license": "Unlicence",
+  "license": "Unlicense",
   "dependencies": {
     "babel-runtime": "^6.6.1",
     "classnames": "^2.1.3",
@@ -30,16 +31,12 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-runtime": "^5.8.25",
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^6.0.4",
+    "babel-preset-clear-ui": "file:../configs/babel-preset",
+    "clear-ui-webpack-config": "file:../configs/webpack-config",
     "gulp": "^3.9.0",
-    "gulp-babel": "^5.3.0",
-    "karma": "^0.13.9",
-    "karma-mocha": "^0.2.0",
-    "karma-sourcemap-loader": "^0.3.5",
-    "karma-webpack": "^1.7.0",
-    "mocha": "^2.2.5",
-    "react-addons-test-utils": "^15.0.0",
+    "gulp-babel": "^6.1.2",
     "webpack": "^1.10.1"
   },
   "peerDependencies": {

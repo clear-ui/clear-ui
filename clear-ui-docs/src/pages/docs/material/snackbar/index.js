@@ -8,7 +8,7 @@ import RaisedButton from 'clear-ui-material/lib/button/raisedButton'
 import NotificationDemo from '../../../../demos/notificationDemo'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
 
 class ToastDemo extends NotificationDemo {
@@ -205,63 +205,63 @@ export default class SnackbarDoc extends React.Component {
 			<h2>Toast props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/notification'>
 						Base > Notification props
 					</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 
-				<ApiDoc.Row name='action' type='node'>{`
+				<ApiDocRow name='action' type='node'>{`
 					The label for the action in the snackbar.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 
-				<ApiDoc.Row name='onActionTap' type='function'>{`
+				<ApiDocRow name='onActionTap' type='function'>{`
 					Function that is called when action button is tapped.<br/>
 					After performing an action, \`onClose\` callback also will be called.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 
-				<ApiDoc.Row name='showCloseButton' type='boolean'>{`
+				<ApiDocRow name='showCloseButton' type='boolean'>{`
 					If true, the toast will have the close button.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 
-				<ApiDoc.Row name='closeButtonTitle' type='string' defaultValue={`'Dimiss'`}>{`
+				<ApiDocRow name='closeButtonTitle' type='string' defaultValue={`'Dimiss'`}>{`
 					Title that is shown when close button is hovered.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 			</ApiDoc>
 
 			<h2>ToastContainer props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/notification'>
 						Base > Notification > SingleNotificationContainer props
 					</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 			<h2>Snackbar props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/material/snackbar'>
 						Material > Toast props
 					</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 
-				<ApiDoc.Row name='mobile' type='boolean'>{`
+				<ApiDocRow name='mobile' type='boolean'>{`
 					Variation of the snackbar for the mobile platform that
 					takes up full width of the screen.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 			</ApiDoc>
 
 			<h2>SnackbarContainer props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/notification'>
 						Base > Notification > SingleNotificationContainer props
 					</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 		</DocPage>

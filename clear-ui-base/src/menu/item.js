@@ -17,7 +17,6 @@ const funcOrBoundFuncType = React.PropTypes.oneOfType([
  * Styleable elements:
  * - root
  * - label
- * - nestingIndent
  * - rightIcon
  * - leftIcon
  * - subMenu
@@ -73,7 +72,7 @@ export default class MenuItem extends React.Component {
 	}
 
 	static childComponents = {
-		/** Right icon when item has nested items. */
+		/** Right icon for items with nested items. */
 		openerIcon: undefined
 	}
 

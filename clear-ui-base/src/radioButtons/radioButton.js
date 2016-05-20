@@ -12,7 +12,7 @@ export default class RadioButton extends React.Component {
 		/** Makes this radio button disabled. */
 		disabled: React.PropTypes.bool,
 
-		/** HTML tabIndex attribute. */
+		/** HTML `tabIndex` attribute. */
 		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
 
 		preventFocusOnTap: React.PropTypes.bool,

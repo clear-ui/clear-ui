@@ -6,7 +6,7 @@ import css from './index.scss'
 
 const style = {
 	paddingTop: '2rem',
-	paddingBottom: '2rem'
+	paddingBottom: '4rem'
 }
 
 class DocPage extends React.Component {

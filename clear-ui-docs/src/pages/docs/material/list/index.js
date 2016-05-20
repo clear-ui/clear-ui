@@ -6,7 +6,7 @@ import Icon from 'clear-ui-base/lib/icon'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import PropsDoc from '../../../../propsDoc'
 
 import materialDocs from '../../../../../docgen/material.json'
@@ -231,9 +231,9 @@ export default class ListDoc extends React.Component {
 			<h2>Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/menu'>Base > Menu props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 			<h2>ListItem props</h2>

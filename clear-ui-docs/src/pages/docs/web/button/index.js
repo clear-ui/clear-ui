@@ -12,7 +12,7 @@ import ApiDoc from '../../../../apiDoc'
 import PropsDoc from '../../../../propsDoc'
 
 import webDocs from '../../../../../docgen/web.json'
-let buttonPropsDoc = webDocs['button/index.js'].props
+let buttonPropsDoc = webDocs['button/webButton.js'].props
 
 import ButtonExample from './example.js'
 import buttonExampleCode from '!raw!./example.js'
@@ -163,12 +163,15 @@ export default class ButtonDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
 
-			<PropsDoc
-				doc={buttonPropsDoc}
-				base={{name: 'Base > Button > IconButton', url: '#/docs/base/button'}}
-			/>
+			{`
+				Extends <a href='#/docs/base/button'>Base > Button > IconButton</a>
+			`}
+
+			<h3>Props</h3>
+
+			<PropsDoc doc={buttonPropsDoc}/>
 		</DocPage>
 	}
 }

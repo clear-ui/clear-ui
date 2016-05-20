@@ -10,12 +10,7 @@ gulp.task('build-lib-copy', function() {
 gulp.task('build-lib-babel', function() {
 	return gulp.src('src/**/*.js')
 		.pipe(babel({
-			stage: 0,
-			optional: [
-				'runtime',
-				'optimisation.react.inlineElements',
-				'optimisation.react.constantElements'
-			]
+			presets: ['babel-preset-clear-ui']
 		}))
 		.pipe(gulp.dest('lib'))
 })

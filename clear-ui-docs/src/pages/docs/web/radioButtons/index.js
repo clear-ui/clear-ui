@@ -1,7 +1,6 @@
 import React from 'react'
 
-import RadioGroup from 'clear-ui-web/lib/radioButtons/radioGroup'
-import RadioButton from 'clear-ui-web/lib/radioButtons/radioButton'
+import {RadioButton, RadioGroup} from 'clear-ui-web/lib/radioButtons'
 
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'

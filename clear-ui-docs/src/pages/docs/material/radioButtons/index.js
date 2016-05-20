@@ -1,7 +1,7 @@
 import React from 'react'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
 
 import RadioButtonsExample from './example.js'
@@ -32,17 +32,17 @@ export default class RadioButtonsDoc extends React.Component {
 			<h2>RadioButton Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioButton props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 			<h2>RadioGroup Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioGroup props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 		</DocPage>

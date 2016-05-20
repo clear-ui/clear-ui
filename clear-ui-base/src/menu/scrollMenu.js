@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import $ from 'jquery'
 
-import Menu from './index.js'
+import Menu from './menu.js'
 
 export default class ScrollMenu extends Menu {
 	componentDidMount() {

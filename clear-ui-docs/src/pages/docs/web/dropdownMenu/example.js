@@ -9,7 +9,7 @@ export default class DropdownMenuExample extends React.Component {
 	render() {
 		return (
 			<div>
-				<DropdownMenu trigger={<a href='#'>Open dropdown</a>}>
+				<DropdownMenu trigger={<a>Open dropdown</a>}>
 					<MenuItem value='1'>First menu item</MenuItem>
 					<MenuItem value='2'>Second menu item</MenuItem>
 				</DropdownMenu>

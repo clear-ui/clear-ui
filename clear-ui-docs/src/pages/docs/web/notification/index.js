@@ -6,7 +6,7 @@ import {Notification, SingleNotificationContainer, StackingNotificationContainer
 import Button from 'clear-ui-web/lib/button/raisedButton'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
 import PropsDoc from '../../../../propsDoc'
 
@@ -69,8 +69,6 @@ export default class NotificationDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<AbstractNotificationExample buttonText='TEST'
-						actions={<a href="#">Action</a>}/>
 					Stacking container:
 					{' '}
 					<AbstractNotificationExample buttonText='First'/>
@@ -155,9 +153,9 @@ export default class NotificationDoc extends React.Component {
 			<h2>Container Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/notification'>Base > Notification > Container props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 			<h2>Notification Props</h2>

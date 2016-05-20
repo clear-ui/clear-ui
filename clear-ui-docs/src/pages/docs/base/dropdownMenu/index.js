@@ -12,7 +12,13 @@ export default class DropdownMenuDoc extends React.Component {
 		return <DocPage>
 			<h1>Base<DocPage.ArrowIcon/>Dropdown Menu</h1>
 
-			<h2>Props</h2>
+			{`
+			Dropdown Menu is a component that shows menu and allows to select item from it.
+			`}
+
+			<h2>API</h2>
+
+			<h3>Props</h3>
 
 			<PropsDoc doc={dropdownMenuPropsDoc}/>
 		</DocPage>

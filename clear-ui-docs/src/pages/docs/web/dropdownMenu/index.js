@@ -9,7 +9,7 @@ import Link from 'clear-ui-web/lib/link'
 import {MenuItem} from 'clear-ui-web/lib/menu'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
 
 import DropdownMenuExample from './example.js'
@@ -146,9 +146,9 @@ export default class DropdownMenuDoc extends React.Component {
 			<h3>Props</h3>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/dropdown-menu'>Base > DropdownMenu props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 		</DocPage>
 	}

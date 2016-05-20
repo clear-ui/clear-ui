@@ -2,7 +2,7 @@ import React from 'react'
 
 import RaisedButton from 'clear-ui-material/lib/button/raisedButton'
 import FlatButton from 'clear-ui-material/lib/button/flatButton'
-import Menu, {MenuItem} from 'clear-ui-material/lib/menu'
+import {Menu, MenuItem} from 'clear-ui-material/lib/menu'
 import {RadioGroup, RadioButton} from 'clear-ui-material/lib/radioButtons'
 import Checkbox from 'clear-ui-material/lib/checkbox'
 import Paper from 'clear-ui-material/lib/paper'

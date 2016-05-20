@@ -3,6 +3,7 @@ import $ from 'jquery'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import PropsDoc from '../../../../propsDoc'
 
 import baseDocs from '../../../../../docgen/base.json'
@@ -96,13 +97,33 @@ export default class NotificationsDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Container Props</h2>
+			<h2>Containers API</h2>
+
+			<h3>Props</h3>
 
 			<PropsDoc doc={notificationContainerPropsDoc}/>
 
-			<h2>Notification Props</h2>
+			<h2>Notification API</h2>
+
+			<h3>Props</h3>
 
 			<PropsDoc doc={notificationPropsDoc}/>
+
+			<h3>Styleable Elements</h3>
+
+			<ApiDoc>
+				<ApiDocRow name='root'>{`
+					Root element.
+				`}</ApiDocRow>
+
+				<ApiDocRow name='content'>{`
+					Content of the notification.
+				`}</ApiDocRow>
+
+				<ApiDocRow name='actions'>{`
+					Container of the actions in the notification.
+				`}</ApiDocRow>
+			</ApiDoc>
 		</DocPage>
 	}
 }

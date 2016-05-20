@@ -6,7 +6,7 @@ import Input from 'clear-ui-web/lib/input'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 
 class ModalDemo extends React.Component {
 	static defaultProps = {
@@ -140,9 +140,9 @@ export default class ModalDoc extends React.Component {
 			<h2>Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/modal'>Base > Modal props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 
 		</DocPage>

@@ -3,7 +3,7 @@ import React from 'react'
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 import ThemeMixin from '../themeMixin'
-import BaseMenu from 'clear-ui-base/lib/menu'
+import {Menu as BaseMenu} from 'clear-ui-base/lib/menu'
 
 class List extends BaseMenu {
 	static styles = (props) => {

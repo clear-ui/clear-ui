@@ -10,9 +10,15 @@ import {FocusableTappable} from '../tappable'
  *
  * It allows to handle taps and display button states
  * consistently across different input methods - touch, mouse or keyboard.
+ *
+ * Styleable elements
+ * - root
+ * - label
  */
 @mixin(StylesMixin, ManagedStateMixin)
 export default class Button extends React.Component {
+	static displayName = 'Button'
+
 	static propTypes = {
 		/**
 		 * Handler of the tap event.
@@ -24,7 +30,7 @@ export default class Button extends React.Component {
 		/** Disabled state of the button. */
 		disabled: React.PropTypes.bool,
 
-		/** HTML tabIndex attribute. */
+		/** HTML `tabIndex` attribute. */
 		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
 
 		/**
@@ -46,7 +52,7 @@ export default class Button extends React.Component {
 		 * Function that is called when button requests to change its tap state, when it is
 		 * controlled, i.e. prop `tapState` is defined.
 		 *
-		 * `(tapState: string) => void`
+		 * Signature: `(tapState: string) => void`
 		 */
 		onChangeTapState: React.PropTypes.func
 	}
@@ -55,6 +61,8 @@ export default class Button extends React.Component {
 		preventFocusOnTap: true,
 		tabIndex: 0
 	}
+
+	static contextTypes = StylesMixin.contextTypes
 
 	constructor() {
 		super()

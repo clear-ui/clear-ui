@@ -1,5 +1,5 @@
 import React from 'react'
-import Menu, {MenuItem} from 'clear-ui-material/lib/menu'
+import {Menu, MenuItem} from 'clear-ui-material/lib/menu'
 
 export default class MenuExample extends React.Component {
 	constructor(props) {

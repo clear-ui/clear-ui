@@ -1,6 +1,7 @@
 import React from 'react'
 
-import ApiDoc, {ApiDocRow} from '../apiDoc'
+import {ApiDoc, ApiDocRow} from '../apiDoc'
+// import COLORS from 'clear-ui-web/lib/styles/colors'
 
 function generatePropType(type) {
 	if (type.name === 'func') return 'function'
@@ -15,10 +16,10 @@ function generatePropType(type) {
 			{"name": "string"}
 		]
 	}
-	To: number | string
+	To: number|string
 	*/
 	if (type.name === 'union') {
-		return type.value.map(generatePropType).join(' | ')
+		return type.value.map(generatePropType).join('|')
 	}
 
 	/*
@@ -30,11 +31,11 @@ function generatePropType(type) {
 			{"value": "'b'", "computed": false},
 		]
 	}
-	To: 'a' | 'b'
+	To: 'a'|'b'
 	*/
 	if (type.name === 'enum') {
 		if (Array.isArray(type.value)) {
-			return type.value.map(val => val.value).join(' | ')
+			return type.value.map(val => val.value).join('|')
 		} else {
 			return type.value
 		}
@@ -45,13 +46,21 @@ function generatePropType(type) {
 
 class PropDoc extends React.Component {
 	render() {
+		let type, defaultValue
+		if (this.props.type) {
+			type = (
+				<div>
+					type:
+					<code>{generatePropType(this.props.type)}</code>
+				</div>
+			)
+		}
+		if (this.props.defaultValue && this.props.defaultValue.value) {
+			defaultValue = <div>default: <code>{this.props.defaultValue.value}</code></div>
+		}
+
 		return (
-			<ApiDocRow
-				name={this.props.name}
-				required={this.props.required}
-				type={generatePropType(this.props.type)}
-				defaultValue={this.props.defaultValue && this.props.defaultValue.value}
-			>
+			<ApiDocRow name={this.props.name} header={[type, defaultValue]}>
 				{this.props.description}
 			</ApiDocRow>
 		)

@@ -10,6 +10,8 @@ let blockMouseEvents
 /** Helper for handling touch and mouse events for button-like components. */
 @mixin(BindMethodsMixin)
 export default class Tappable extends React.Component {
+	static displayName = 'Tappable'
+
 	static propTypes = {
 		/** Single DOM-element */
 		children: React.PropTypes.element.isRequired,

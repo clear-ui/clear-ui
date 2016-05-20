@@ -14,7 +14,7 @@ export default class RadioGroup extends React.Component {
 		/**
 		 * Handler of the selecting new value.
 		 *
-		 * (value: string) => void
+		 * `(value: string) => void`
 		 */
 		onChange: React.PropTypes.func,
 

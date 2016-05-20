@@ -2,7 +2,7 @@ import React from 'react'
 import $ from 'jquery'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import PropsDoc from '../../../../propsDoc'
 import Example from '../../../../example'
 
@@ -10,7 +10,7 @@ import ScrollspyExample from './example.js'
 import scrollspyExampleCode from '!raw!./example.js'
 
 import baseDocs from '../../../../../docgen/base.json'
-let scrollspyPropsDoc = baseDocs['scrollspy/index.js'].props
+let scrollspyPropsDoc = baseDocs['scrollspy/scrollspy.js'].props
 
 export default class ScrollspyDoc extends React.Component {
 	render() {
@@ -38,16 +38,18 @@ export default class ScrollspyDoc extends React.Component {
 				</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
+
+			<h3>Props</h3>
 
 			<PropsDoc doc={scrollspyPropsDoc}/>
 
-			<h2>Methods</h2>
+			<h3>Methods</h3>
 
 			<ApiDoc>
-				<ApiDoc.Row name='scrollToAnchor(anchorId)'>{`
+				<ApiDocRow name='scrollToAnchor(anchorId)'>{`
 					Scrolls to anchor specified by its id.
-				`}</ApiDoc.Row>
+				`}</ApiDocRow>
 			</ApiDoc>
 		</DocPage>
 	}

@@ -27,7 +27,7 @@ class App extends React.Component {
 				<div style={flex}>
 					<Header title='Clear UI' color={blue600}>
 						<HeaderItem link='/' onlyIndex>Clear UI</HeaderItem>
-						<HeaderItem link='/docs/' onlyIndex>Documentation</HeaderItem>
+						<HeaderItem link='/docs/'>Documentation</HeaderItem>
 						<HeaderItem
 							link='https://github.com/clear-ui/clear-ui'
 							external

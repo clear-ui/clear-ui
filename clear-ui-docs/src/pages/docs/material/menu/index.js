@@ -1,14 +1,13 @@
 import React from 'react'
 
 import Paper from 'clear-ui-material/lib/paper'
-import Menu from 'clear-ui-material/lib/menu'
-import MenuItem from 'clear-ui-material/lib/menu/item'
+import {Menu, MenuItem} from 'clear-ui-material/lib/menu'
 
 import Icon from 'clear-ui-base/lib/icon'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 
 import MenuExample from './example.js'
 import menuExampleCode from '!raw!./example.js'
@@ -93,20 +92,19 @@ export default class MenuDoc extends React.Component {
 			<h2>Props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/menu'>Base > Menu props</a>
-				</ApiDoc.Row>
-
-				<ApiDoc.Row name='desktop' type='boolean'>
-				</ApiDoc.Row>
+				</ApiDocRow>
+				<ApiDocRow name='desktop' type='boolean'>
+				</ApiDocRow>
 			</ApiDoc>
 
 			<h2>MenuItem props</h2>
 
 			<ApiDoc>
-				<ApiDoc.Row>
+				<ApiDocRow>
 					<a href='#/docs/base/menu'>Base > Menu > MenuItem props</a>
-				</ApiDoc.Row>
+				</ApiDocRow>
 			</ApiDoc>
 		</DocPage>
 	}

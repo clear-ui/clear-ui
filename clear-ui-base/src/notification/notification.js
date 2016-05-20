@@ -89,10 +89,19 @@ export default class Notification extends React.Component {
 		/** Controls whether the notification is open or not. */
 		open: React.PropTypes.bool.isRequired,
 
-		/** Function that is called when notification is requested to be closed. */
+		/** Function that is called when notification requests to be closed. */
 		onClose: React.PropTypes.func.isRequired,
 
-		/** Time in milliseconds before notification will automatically request closing. */
+		/** 
+		 * Elements for performing actions with notification.
+		 * They are displayed after content of the notification.
+		 */
+		actions: React.PropTypes.node,
+
+		/**
+		 * Time in milliseconds before notification will automatically request closing,
+		 * or `false` to disable auto-closing.
+		 */
 		autoHideTimeout: React.PropTypes.oneOfType([
 			React.PropTypes.number,
 			React.PropTypes.bool

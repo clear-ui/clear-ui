@@ -4,9 +4,7 @@ import keyCodes from '../utils/keyCodes'
 import cloneReferencedElement from '../utils/cloneReferencedElement.js'
 import Tappable from './tappable'
 
-/**
- * Tappable that supports focusing and pressing with Enter button.
- */
+/** Tappable that supports focusing and pressing with Enter button. */
 export default class FocusableTappable extends React.Component {
 	static propTypes = {
 		...Tappable.propTypes,
