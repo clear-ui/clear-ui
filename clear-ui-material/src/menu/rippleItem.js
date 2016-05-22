@@ -28,7 +28,7 @@ export default class RippleItem extends BaseItem {
 		let ripples
 		if (this.props.ripples &&
 			!this.props.disabled &&
-			this.state.rightIconTapState === 'initial'
+			!this.state.rightIconTapState.hovered
 		) {
 			ripples = React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})
 		}

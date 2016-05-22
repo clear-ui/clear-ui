@@ -10,10 +10,6 @@ import {FocusableTappable} from '../tappable'
  *
  * It allows to handle taps and display button states
  * consistently across different input methods - touch, mouse or keyboard.
- *
- * Styleable elements
- * - root
- * - label
  */
 @mixin(StylesMixin, ManagedStateMixin)
 export default class Button extends React.Component {
@@ -38,6 +34,9 @@ export default class Button extends React.Component {
 		 * using `Tab` key, but not on click or touch.
 		 **/
 		preventFocusOnTap: React.PropTypes.bool,
+
+		onFocus: React.PropTypes.func,
+		onBlur: React.PropTypes.func,
 
 		initialTapState: React.PropTypes.oneOf(['initial', 'hovered', 'pressed']),
 
@@ -67,7 +66,7 @@ export default class Button extends React.Component {
 	constructor() {
 		super()
 		this.initManagedState(['tapState'])
-		this.state = {tapState: 'initial'}
+		this.state = {tapState: {hovered: false, pressed: false}}
 	}
 
 	render() {
@@ -76,13 +75,15 @@ export default class Button extends React.Component {
 			tabIndex: this.props.tabIndex,
 			onTap: this.props.onTap,
 			preventFocusOnTap: true,
-			onChangeTapState: ({hovered, pressed}) => {
-				this.setManagedState({
-					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
-				})
+			onChangeTapState: (tapState) => { this.setManagedState({tapState}) },
+			onFocus: () => {
+				this.setState({focused: true})
+				if (this.props.onFocus) this.props.onFocus()
 			},
-			onFocus: () => { this.setManagedState({focused: true}) },
-			onBlur: () => { this.setManagedState({focused: false}) }
+			onBlur: () => {
+				this.setState({focused: false})
+				if (this.props.onBlur) this.props.onBlur()
+			}
 		}, this.renderRoot())
 	}
 

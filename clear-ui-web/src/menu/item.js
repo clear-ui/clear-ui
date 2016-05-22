@@ -20,8 +20,8 @@ function getItemStyles(props, state) {
 		rightIcon: props.rightIcon || openerIcon
 	})
 
-	const itemTapState = state.rightIconTapState === 'initial' ?
-		state.tapState : 'initial'
+	const itemTapState = state.rightIconTapState.hovered ?
+		{hovered: false, pressed: false} : state.tapState
 	const height = SIZES[props.height].height
 	const transition =
 		`background-color .4s ${TRANSITIONS.strongEaseOut},` +
@@ -37,13 +37,12 @@ function getItemStyles(props, state) {
 
 	if (props.selected) root.fontWeight = 'bold'
 
-	if (itemTapState === 'hovered' || state.focused) {
+	if (itemTapState.pressed) {
+		root.background = Color(COLORS.black5).clone().mix(Color('black'), 0.95)
+	} else if (itemTapState.hovered || state.focused) {
 		root.background = COLORS.black5
 	}
 
-	if (itemTapState === 'active') {
-		root.background = Color(COLORS.black5).clone().mix(Color('black'), 0.95)
-	}
 
 	if (props.leftIcon) {
 		leftIcon.color = COLORS.black2

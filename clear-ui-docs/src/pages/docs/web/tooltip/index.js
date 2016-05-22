@@ -1,6 +1,7 @@
 import React from 'react'
 
 import Tooltip from 'clear-ui-web/lib/tooltip'
+import RaisedButton from 'clear-ui-web/lib/button/raisedButton'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
@@ -37,6 +38,16 @@ export default class TooltipDoc extends React.Component {
 				</Example.Demo>
 				<Example.Code>
 					{tooltipExampleCode}
+				</Example.Code>
+			</Example>
+
+			<Example>
+				<Example.Demo>
+					<Tooltip useTargetAsTappable={true} showOnTap={true} tooltip={tooltip}>
+						<RaisedButton>Show tooltip</RaisedButton>
+					</Tooltip>
+				</Example.Demo>
+				<Example.Code>
 				</Example.Code>
 			</Example>
 

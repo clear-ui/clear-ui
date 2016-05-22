@@ -33,10 +33,11 @@ export default class FlatButton extends MaterialButton {
 				}
 
 				root.color = textColor
-				if (state.tapState === 'hovered' || state.focused) {
-					root.background = hoveredColor
-				} if (state.tapState === 'active') {
+
+				if (state.tapState.pressed) {
 					root.background = props.ripples ? hoveredColor : activeColor
+				} else if (state.tapState.hovered || state.focused) {
+					root.background = hoveredColor
 				}
 			}
 

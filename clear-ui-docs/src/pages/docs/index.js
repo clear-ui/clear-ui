@@ -68,6 +68,7 @@ export default class DocsPage extends React.Component {
 							<NavMenuItem value='notification'>Notification</NavMenuItem>,
 							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
 							<NavMenuItem value='scrollspy'>Scrollspy</NavMenuItem>,
+							<NavMenuItem value='select'>Select</NavMenuItem>,
 							<NavMenuItem value='sticky'>Sticky</NavMenuItem>,
 							<NavMenuItem value='switch'>Switch</NavMenuItem>,
 							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>,

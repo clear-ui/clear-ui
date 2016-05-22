@@ -11,7 +11,8 @@ import RippleItem from './rippleItem'
 const ICON_SIZE = 24
 
 function getStyles(props, state) {
-	const itemTapState = state.rightIconTapState === 'initial' ? state.tapState : 'initial'
+	const itemTapState = state.rightIconTapState.hovered ?
+		{hovered: false, pressed: false} : state.tapState
 
 	let transition = `all .4s ${TRANSITIONS.strongEaseOut}`
 
@@ -45,9 +46,9 @@ function getStyles(props, state) {
 	}
 
 	label.paddingLeft = props.leftIcon ? iconPadding : padding
-	label.paddingRight = props.righttIcon ? iconPadding : padding
+	label.paddingRight = props.rightIcon ? iconPadding : padding
 
-	if (itemTapState === 'hovered' || itemTapState === 'active' || state.focused) {
+	if (itemTapState.hovered || state.focused) {
 		root.background = state.theme.hovered
 	}
 

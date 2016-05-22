@@ -31,12 +31,12 @@ class ToastAction extends React.Component {
 
 		let baseColor = props.color || state.theme.accent
 		let color
-		if (state.tapState === 'initial') {
-			color = baseColor
-		} if (state.tapState === 'hovered') {
-			color = new Color(baseColor).mix(new Color('white'), 0.8)
-		} else if (state.tapState === 'active') {
+		if (state.tapState.pressed) {
 			color = new Color(baseColor).mix(new Color('white'), 0.6)
+		} else if (state.tapState.hovered) {
+			color = new Color(baseColor).mix(new Color('white'), 0.8)
+		} else {
+			color = baseColor
 		}
 
 		root.color = color
@@ -45,19 +45,12 @@ class ToastAction extends React.Component {
 		return {root}
 	}
 
-	constructor() {
-		super()
-		this.state = {tapState: 'initial'}
-	}
+	state = {tapState: {hovered:false, pressed: false}}
 
 	render() {
 		return React.createElement(Tappable, {
 			onTap: this.props.onTap,
-			onChangeTapState: ({hovered, pressed}) => {
-				this.setState({
-					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
-				})
-			}
+			onChangeTapState: (tapState) => { this.setState({tapState}) }
 		},
 			<div style={this.styles.root} title={this.props.title}>
 				{this.props.children}

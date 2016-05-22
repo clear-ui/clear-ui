@@ -17,7 +17,7 @@ export default class StickyDoc extends React.Component {
 			<h1>Base<DocPage.ArrowIcon/>Sticky</h1>
 
 			{`
-			Sticky is a component that fixes itself near the edge of the screen
+			Sticky is a component that fixes its content near the edge of the screen
 			when it leaves viewport while scrolling.
 
 			When content becomes fixed, component inserts placeholder

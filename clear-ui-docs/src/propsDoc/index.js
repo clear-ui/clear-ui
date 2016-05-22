@@ -51,6 +51,7 @@ class PropDoc extends React.Component {
 			type = (
 				<div>
 					type:
+					{' '}
 					<code>{generatePropType(this.props.type)}</code>
 				</div>
 			)

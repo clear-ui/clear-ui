@@ -43,8 +43,8 @@ class NavMenuItem extends MenuItem {
 			let root = {}
 			let label = {}
 
-			if (state.tapState === 'hovered') root.background = '#e6e6e6'
-			else if (state.tapState === 'active') root.background = '#dadada'
+			if (state.tapState.pressed) root.background = '#dadada'
+			else if (state.tapState.hovered) root.background = '#e6e6e6'
 
 			if (props.selected) {
 				label.fontWeight = 'normal'

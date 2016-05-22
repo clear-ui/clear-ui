@@ -14,7 +14,8 @@ const ICON_SIZE = 24
 const AVATAR_SIZE = 38
 
 function getStyles(props, state) {
-	const itemTapState = state.rightIconTapState === 'initial' ? state.tapState : 'initial'
+	const itemTapState = state.rightIconTapState.hovered ?
+		{hovered: false, pressed: false} : state.tapState
 
 	const paddingLeft = (props.leftIcon || props.leftAvatar || props.indent) ? 72 : 16
 	const paddingRight = (props.rightIcon || props.rightAvatar) ? 72 : 16
@@ -53,7 +54,7 @@ function getStyles(props, state) {
 		transition
 	}
 
-	if (itemTapState === 'hovered' || itemTapState === 'active' || state.focused) {
+	if (itemTapState.hovered || state.focused) {
 		root.background = theme.hovered
 	}
 

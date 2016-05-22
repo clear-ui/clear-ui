@@ -123,7 +123,9 @@ export default class Attachment extends React.Component {
 			'mirrorAttachment', 'onChangeAttachment')
 		Object.assign(options, {
 			element: ReactDOM.findDOMNode(this.elementRef),
-			target: ReactDOM.findDOMNode(this.targetRef)
+			target: ReactDOM.findDOMNode(this.targetRef),
+			// TODO try this
+			// originalElementTransform: this.props.target.style && this.props.target.style.transform
 		})
 
 		if (this.attachment) {

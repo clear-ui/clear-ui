@@ -54,14 +54,12 @@ export default {
 	},
 
 	setManagedState(state) {
-		let controlled = {}
 		let uncontrolled = {}
 		for (let key in state) {
-			if (key in this.props) controlled[key] = state[key]
-			else uncontrolled[key] = state[key]
+			if (!(key in this.props)) uncontrolled[key] = state[key]
 		}
 		this.setState(uncontrolled)
-		this.callOnChangeState(controlled)
+		this.callOnChangeState(state)
 	},
 
 	callOnChangeState(state) {

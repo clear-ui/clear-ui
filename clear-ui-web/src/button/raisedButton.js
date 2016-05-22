@@ -33,7 +33,7 @@ function getStyles(props, state) {
 			borderBottomColor: 'rgba(0,0,0,.15)'
 		})
 	} else {
-		if (state.tapState === 'active') {
+		if (state.tapState.pressed) {
 			Object.assign(root, {
 				boxShadow: 'inset 0 3px 5px rgba(0,0,0,.125)',
 				borderColor: 'rgba(0,0,0,.15)',
@@ -52,23 +52,23 @@ function getStyles(props, state) {
 		if (colorMod === 'grey') {
 			root.color = COLORS.black1
 			root.fill = COLORS.black1
-			if (state.tapState === 'initial') {
-				root.background = COLORS.black5
-			} else if (state.tapState === 'hovered') {
-				root.background = Color(COLORS.black4).clone().mix(Color(COLORS.black5), 0.66)
-			} else if (state.tapState === 'active') {
+			if (state.tapState.pressed) {
 				root.background = COLORS.black4
+			} else if (state.tapState.hovered) {
+				root.background = Color(COLORS.black4).clone().mix(Color(COLORS.black5), 0.66)
+			} else {
+				root.background = COLORS.black5
 			}
 		} else {
 			let color = COLORS[colorMod]
 			root.color = 'white'
 			root.fill = 'white'
-			if (state.tapState === 'initial') {
-				root.background = color
-			} else if (state.tapState === 'hovered') {
-				root.background = Color(color).clone().mix(Color('black'), 0.90)
-			} else if (state.tapState === 'active') {
+			if (state.tapState.pressed) {
 				root.background = Color(color).clone().mix(Color('black'), 0.85)
+			} else if (state.tapState.hovered) {
+				root.background = Color(color).clone().mix(Color('black'), 0.90)
+			} else {
+				root.background = color
 			}
 			if (state.focused || props.invalid) {
 				innerOutline = getWhitelineStyle()

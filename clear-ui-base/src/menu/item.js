@@ -78,7 +78,10 @@ export default class MenuItem extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.state = {rightIconTapState: 'initial', tapState: 'initial'}
+		this.state = {
+			rightIconTapState: {hovered: false, pressed: false},
+			tapState: {hovered: false, pressed: false}
+		}
 		this.initManagedState(['tapState'])
 	}
 
@@ -165,11 +168,8 @@ export default class MenuItem extends React.Component {
 				icon = React.createElement(Tappable, {
 					key: 'rightIcon',
 					onTap: handler,
-					onChangeTapState: ({hovered, pressed}) => {
-						this.setState({
-							rightIconTapState: pressed ? 'active' :
-								(hovered ? 'hovered' : 'initial')
-						})
+					onChangeTapState: (tapState) => {
+						this.setState({rightIconTapState: tapState})
 					}
 				}, icon)
 			}
@@ -194,11 +194,7 @@ export default class MenuItem extends React.Component {
 			tabIndex: this.props.tabIndex,
 			disabled: this.props.disabled,
 			onTap: this.onTap.bind(this),
-			onChangeTapState: ({hovered, pressed}) => {
-				this.setManagedState({
-					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
-				})
-			},
+			onChangeTapState: (tapState) => { this.setManagedState({tapState}) },
 			preventFocusOnTap: true,
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
@@ -212,7 +208,7 @@ export default class MenuItem extends React.Component {
 	onTap() {
 		if (this.props.tapTogglesNestedItems) {
 			this.toggleNestedItems()
-		} else if (this.props.onTap && this.state.rightIconTapState === 'initial') {
+		} else if (this.props.onTap && !this.state.rightIconTapState.hovered) {
 			let handler = this.props.onTap
 			if (handler instanceof BoundFunction) handler.call()
 			else if (typeof handler === 'function') handler()

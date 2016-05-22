@@ -26,23 +26,23 @@ function getStyles(props, state) {
 		if (colorMod === 'grey') {
 			root.color = COLORS.black1
 			root.fill = COLORS.black1
-			if (state.tapState === 'initial') {
-				root.background = COLORS.black4
-			} else if (state.tapState === 'hovered') {
-				root.background = Color(COLORS.black3).clone().mix(Color(COLORS.black4), 0.66)
-			} else if (state.tapState === 'active') {
+			if (state.tapState.pressed) {
 				root.background = COLORS.black3
+			} else if (state.tapState.hovered) {
+				root.background = Color(COLORS.black3).clone().mix(Color(COLORS.black4), 0.66)
+			} else {
+				root.background = COLORS.black4
 			}
 		} else {
 			let color = COLORS[colorMod]
 			root.color = 'white'
 			root.fill = 'white'
-			if (state.tapState === 'initial') {
-				root.background = color
-			} else if (state.tapState === 'hovered') {
-				root.background = Color(color).clone().mix(Color('black'), 0.90)
-			} else if (state.tapState === 'active') {
+			if (state.tapState.pressed) {
 				root.background = Color(color).clone().mix(Color('black'), 0.75)
+			} else if (state.tapState.hovered) {
+				root.background = Color(color).clone().mix(Color('black'), 0.90)
+			} else {
+				root.background = color
 			}
 			if (state.focused || props.invalid) {
 				innerOutline = getWhitelineStyle()

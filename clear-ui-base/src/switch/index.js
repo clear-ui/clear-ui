@@ -21,7 +21,7 @@ export default class Switch extends React.Component {
 
 	constructor(props) {
 		super(props)
-		this.state = {tapState: 'initial'}
+		this.state = {tapState: {hovered: false, pressed: false}}
 	}
 
 	render() {
@@ -31,11 +31,7 @@ export default class Switch extends React.Component {
 			tabIndex,
 			preventFocusOnTap,
 			onTap: this.props.onSwitch,
-			onChangeTapState: ({hovered, pressed}) => {
-				this.setState({
-					tapState: pressed ? 'active' : (hovered ? 'hovered' : 'initial')
-				})
-			},
+			onChangeTapState: (tapState) => { this.setState({tapState}) },
 			onFocus: () => { this.setState({focused: true}) },
 			onBlur: () => { this.setState({focused: false}) }
 		}, this.renderRoot())

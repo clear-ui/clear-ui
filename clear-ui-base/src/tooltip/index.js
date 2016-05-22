@@ -69,6 +69,8 @@ export default class Tooltip extends React.Component {
 
 		showOnHover: React.PropTypes.bool,
 		showOnClick: React.PropTypes.bool,
+		showOnFocus: React.PropTypes.bool,
+		useTargetAsTappable: React.PropTypes.bool,
 
 		/** List of sides where tooltip can be shown in the order of priority. */
 		sides: React.PropTypes.arrayOf(
@@ -130,23 +132,7 @@ export default class Tooltip extends React.Component {
 	// TODO constructor() { this.initManagedState(['open']) }
 
 	render() {
-		let target = this.props.children
-
-		if (this.props.showOnHover || this.props.showOnClick) {
-			if (typeof target.type !== 'string') {
-				throw new Error("When Tooltip has 'showOnHover: true' or " +
-					"'showOnClick: true' its children must be single DOM-component.")
-			}
-
-			let props = {}
-			//if (this.props.showOnClick) {
-				//props.onTap = () => { this.setManagedState({open: !this.state.open}) }
-			//} else
-			if (this.props.showOnHover) {
-				props.onChangeTapState = ({hovered}) => { this.onChangeHovered(hovered) }
-			}
-			target = React.createElement(Tappable, props, target)
-		}
+		let target = this.renderTarget()
 
 		let attachment = React.createElement(Attachment, {
 			open: this.state.open,
@@ -186,6 +172,68 @@ export default class Tooltip extends React.Component {
 		}
 	}
 
+	renderTarget() {
+		let tappable
+		if (this.props.useTargetAsTappable) {
+			tappable = this.props.children
+		} else {
+			let elem = (typeof this.props.children.type === 'string') ?
+				this.props.children : <span>{this.props.children}</span>
+			let tappableType = this.props.showOnFocus ? FocusableTappable : Tappable
+			tappable = React.createElement(tappableType, null, elem)
+		}
+
+		let props = {}
+		if (this.props.showOnTap) {
+			props.onTap = () => { this.setManagedState({open: !this.state.open}) }
+		} else {
+			if (this.props.showOnHover) {
+				props.onChangeTapState = ({hovered}) => {
+					if (this.props.showOnFocus && this.isFocused) return
+					this.onChangeHovered(hovered)
+				}
+			}
+			if (this.props.showOnFocus) {
+				props.onFocus = () => {
+					this.isFocused = true
+					this.setManagedState({open: true})
+				}
+				props.onBlur = () => {
+					this.isFocused = false
+					this.setManagedState({open: false})
+				}
+			}
+		}
+
+		return React.cloneElement(tappable, props)
+	}
+
+	renderTooltip() {
+		let tooltip = (
+			<div style={this.styles.root}>
+				{this.props.tooltip}
+				{this.props.arrow && this.renderArrow()}
+			</div>
+		)
+		if (!this.props.showOnTap && this.props.showOnHover) {
+			tooltip = (
+				<Tappable
+					onChangeTapState={({hovered}) => {
+						if (this.props.showOnFocus && this.isFocused) return
+						this.onChangeHovered(hovered, true)
+					}}
+				>
+					{tooltip}
+				</Tappable>
+			)
+		}
+		return tooltip
+	}
+
+	renderArrow() {
+		return <div style={this.styles.arrow}/>
+	}
+
 	updateSide(side) {
 		if (this.state.side !== side) this.setState({side})
 	}
@@ -209,23 +257,5 @@ export default class Tooltip extends React.Component {
 				}, this.props.closeTimeout)
 			}
 		}
-	}
-
-	renderTooltip() {
-		return (
-			<Tappable
-				onChangeTapState={({hovered}) => { this.onChangeHovered(hovered, true) }}
-				style={this.styles.root}
-			>
-				<div>
-					{this.props.tooltip}
-					{this.props.arrow && this.renderArrow()}
-				</div>
-			</Tappable>
-		)
-	}
-
-	renderArrow() {
-		return <div style={this.styles.arrow}/>
 	}
 }

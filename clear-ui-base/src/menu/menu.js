@@ -9,6 +9,8 @@ import isSameOrInheritedType from '../utils/isSameOrInheritedType.js'
 
 import MenuItem from './item'
 
+const INITIAL_TAP_STATE = {hovered: false, pressed: false}
+
 @mixin(StylesMixin)
 export default class Menu extends React.Component {
 	static propTypes = {
@@ -61,8 +63,8 @@ export default class Menu extends React.Component {
 						selected: isSelected,
 						onTap: new BoundFunction(this.onSelectItem, this, elem),
 						tapState: isHovered ?
-							(this.state.hoveredItemActive ? 'active' : 'hovered') :
-							'initial',
+							{hovered: isHovered, pressed: this.state.hoveredItemPressed} :
+							INITIAL_TAP_STATE,
 						onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem)
 					})
 					if (isHovered || isSelected) {
@@ -90,12 +92,12 @@ export default class Menu extends React.Component {
 	}
 
 	onChangeItemTapState(item, state) {
-		if (state === 'hovered' || state === 'active') {
+		if (state.hovered || state.pressed) {
 			this.setState({
 				hoveredItem: item,
-				hoveredItemActive: state === 'active'
+				hoveredItemPressed: state.pressed
 			})
-		} else if (state === 'initial') {
+		} else {
 			// don't remove hover when active
 			if (!this.props.active) this.setState({hoveredItem: false})
 		}

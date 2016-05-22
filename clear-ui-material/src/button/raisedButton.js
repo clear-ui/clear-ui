@@ -34,16 +34,16 @@ export default class RaisedButton extends MaterialButton {
 				}
 
 				root.color = textColor
-				if (state.tapState === 'initial') {
-					root.background = initialColor
-					root.boxShadow = SHADOWS[2]
-				} else if (state.tapState === 'hovered') {
-					root.background = initialColor
-					root.boxShadow = SHADOWS[8]
-				} else if (state.tapState === 'active') {
+				if (state.tapState.pressed) {
 					root.background = props.ripples ? initialColor : activeColor
 					root.boxShadow = SHADOWS[8]
-				}
+				} else if (state.tapState.hovered) {
+					root.background = initialColor
+					root.boxShadow = SHADOWS[8]
+				} else {
+					root.background = initialColor
+					root.boxShadow = SHADOWS[2]
+				} 
 				if (state.focused) root.boxShadow = SHADOWS[8]
 			}
 			

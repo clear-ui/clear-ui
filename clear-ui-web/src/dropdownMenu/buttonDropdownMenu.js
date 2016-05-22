@@ -12,13 +12,13 @@ export default class ButtonDropdownMenu extends DropdownMenu {
 	constructor() {
 		super()
 		if (!this.state) this.state = {}
-		this.state.buttonState = 'initial'
+		this.state.buttonState = {hovered: false, pressed: false}
 	}
 
 	renderTrigger() {
 		return React.cloneElement(this.props.trigger, {
-			tapState: this.state.open ? 'active' : this.state.buttonState,
-			onChangeTapState: (state) => { this.setState({buttonState: state}) },
+			tapState: this.state.open ? {pressed: true, hovered: true} : this.state.buttonState,
+			onChangeTapState: (tapState) => { this.setState({buttonState: tapState}) },
 			onTap: () => { this.setManagedState({open: true}) },
 			rightIcon: React.createElement(Icon, {icon: Icon.ICONS.triangleDown})
 		})

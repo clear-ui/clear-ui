@@ -8,14 +8,16 @@ import ChildComponentsMixin from '../utils/childComponentsMixin'
 
 @mixin(StylesMixin, ChildComponentsMixin)
 export default class Select extends React.Component {
+	static displayName = 'Select'
+
 	static propTypes = {
-		/** Value of the select. */
+		/* Value of the select. */
 		value: React.PropTypes.string,
 
-		/** Handler of value change. */
+		/* Handler of value change. */
 		onChange: React.PropTypes.func,
 
-		/** Label that shows when select has no value. */
+		/* Label that shows when select has no value. */
 		label: React.PropTypes.node
 	}
 
@@ -39,7 +41,7 @@ export default class Select extends React.Component {
 		}, this.props.children)
 	}
 
-	/** Returns content of currently selected element or placeholder text. */
+	/* Returns content of currently selected element or placeholder text. */
 	renderTriggerContent() {
 		if (this.props.value !== undefined) {
 			let childrenArray = React.Children.toArray(this.props.children)
@@ -48,18 +50,18 @@ export default class Select extends React.Component {
 				if (isSameOrInheritedType(elem.type, MenuItem) &&
 					elem.props.value === this.props.value
 				) {
-					return React.DOM.div({style: this.styles.value}, elem.props.children)
+					return <div style={this.styles.value}>{elem.props.children}</div>
 				}
 			}
+		} else {
+			return <div style={this.styles.label}>{this.props.label}</div>
 		}
-
-		return React.DOM.div({style: this.styles.label}, this.props.label)
 	}
 
-	/**
-	 * @method
-	 * @abstract
-	 * @returns {element}
+	/*
+	 * method
+	 * abstract
+	 * returns {element}
 	 */
 	renderTrigger() {
 		throw new Error('Not implemented')

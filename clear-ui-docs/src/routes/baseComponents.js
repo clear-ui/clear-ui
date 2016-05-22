@@ -10,6 +10,7 @@ import Modal from '../pages/docs/base/modal'
 import Notification from '../pages/docs/base/notification'
 import RadioButtons from '../pages/docs/base/radioButtons'
 import Scrollspy from '../pages/docs/base/scrollspy'
+import Select from '../pages/docs/base/select'
 import Sticky from '../pages/docs/base/sticky'
 import Switch from '../pages/docs/base/switch'
 import Tooltip from '../pages/docs/base/tooltip'
@@ -28,6 +29,7 @@ export default [
 	{path: 'notification', component: Notification},
 	{path: 'radio-buttons', component: RadioButtons},
 	{path: 'scrollspy', component: Scrollspy},
+	{path: 'select', component: Select},
 	{path: 'sticky', component: Sticky},
 	{path: 'switch', component: Switch},
 	{path: 'tooltip', component: Tooltip},
