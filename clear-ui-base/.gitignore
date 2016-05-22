@@ -1,6 +1,7 @@
 lib
 dist
 node_modules
+npm-debug.log
 
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]

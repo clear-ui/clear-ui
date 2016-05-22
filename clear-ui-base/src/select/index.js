@@ -11,13 +11,13 @@ export default class Select extends React.Component {
 	static displayName = 'Select'
 
 	static propTypes = {
-		/* Value of the select. */
+		/** Value of the select. */
 		value: React.PropTypes.string,
 
-		/* Handler of value change. */
+		/** Handler of value change. */
 		onChange: React.PropTypes.func,
 
-		/* Label that shows when select has no value. */
+		/** Label in the select when it has no selected value. */
 		label: React.PropTypes.node
 	}
 

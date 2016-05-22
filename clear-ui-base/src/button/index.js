@@ -38,20 +38,20 @@ export default class Button extends React.Component {
 		onFocus: React.PropTypes.func,
 		onBlur: React.PropTypes.func,
 
-		initialTapState: React.PropTypes.oneOf(['initial', 'hovered', 'pressed']),
+		initialTapState: React.PropTypes.object,
 
 		/**
-		 * Properties that allow you to control button's tap state from the outside.
-		 * If they are not present, button will manage tap state inside its
+		 * Object with fields `hovered` and `pressed`.
+		 * This property allows to control button's tap state from the outside.
+		 * If it is not present, button will manage tap state inside its
 		 * internal state.
 		 */
-		tapState: React.PropTypes.oneOf(['initial', 'hovered', 'pressed']),
+		tapState: React.PropTypes.object,
 
 		/**
-		 * Function that is called when button requests to change its tap state, when it is
-		 * controlled, i.e. prop `tapState` is defined.
+		 * Function that is called when button requests to change its tap state.
 		 *
-		 * Signature: `(tapState: string) => void`
+		 * Signature: `(tapState: object) => void`
 		 */
 		onChangeTapState: React.PropTypes.func
 	}

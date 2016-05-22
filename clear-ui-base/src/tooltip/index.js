@@ -10,6 +10,7 @@ import Tappable from '../tappable'
 import Animation from '../animation'
 import {fadeAndSlide, fadeAndScale, fade} from '../animation/functions'
 import {fastAndHardSpring} from '../animation/springPresets'
+import cloneElementWithHandlers from '../utils/cloneElementWithHandlers'
 
 const OPPOSITE_SIDES = {
 	top: 'bottom',
@@ -189,6 +190,7 @@ export default class Tooltip extends React.Component {
 		} else {
 			if (this.props.showOnHover) {
 				props.onChangeTapState = ({hovered}) => {
+					this.isHovered = hovered
 					if (this.props.showOnFocus && this.isFocused) return
 					this.onChangeHovered(hovered)
 				}
@@ -200,12 +202,13 @@ export default class Tooltip extends React.Component {
 				}
 				props.onBlur = () => {
 					this.isFocused = false
+					if (this.props.showOnHover && this.isHovered) return
 					this.setManagedState({open: false})
 				}
 			}
 		}
 
-		return React.cloneElement(tappable, props)
+		return cloneElementWithHandlers(tappable, props)
 	}
 
 	renderTooltip() {

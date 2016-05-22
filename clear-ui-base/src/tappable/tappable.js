@@ -4,6 +4,7 @@ import $ from 'jquery'
 
 import mixin from '../utils/mixin/decorator'
 import BindMethodsMixin from '../utils/bindMethodsMixin'
+import cloneElementWithHandlers from '../utils/cloneElementWithHandlers'
 
 let blockMouseEvents
 
@@ -57,14 +58,9 @@ export default class Tappable extends React.Component {
 	}
 
 	render() {
-		let props = {
-			style: {
-				...this.props.children.props.style,
-				...this.props.style
-			}
-		}
+		let elem = this.props.children
 		if (!this.props.disabled) {
-			Object.assign(props, {
+			elem = cloneElementWithHandlers(elem, {
 				onMouseEnter: this.mouseEnter,
 				onMouseLeave: this.mouseLeave,
 				onMouseDown: this.mouseDown,
@@ -74,7 +70,12 @@ export default class Tappable extends React.Component {
 				onClick: (event) => { event.stopPropagation() }
 			})
 		}
-		return React.cloneElement(this.props.children, props)
+		return React.cloneElement(elem, {
+			style: {
+				...this.props.children.props.style,
+				...this.props.style
+			}
+		})
 	}
 
 	pressed = false

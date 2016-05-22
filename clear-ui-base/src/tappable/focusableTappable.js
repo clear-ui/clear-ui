@@ -1,11 +1,17 @@
 import React from 'react'
 
+import mixin from '../utils/mixin/decorator'
+import BindMethodsMixin from '../utils/bindMethodsMixin'
 import keyCodes from '../utils/keyCodes'
+import cloneElementWithHandlers from '../utils/cloneElementWithHandlers'
 import cloneReferencedElement from '../utils/cloneReferencedElement.js'
 import Tappable from './tappable'
 
 /** Tappable that supports focusing and pressing with Enter button. */
+@mixin(BindMethodsMixin)
 export default class FocusableTappable extends React.Component {
+	static displayName = 'FocusableTappable'
+
 	static propTypes = {
 		...Tappable.propTypes,
 		onFocus: React.PropTypes.func,
@@ -18,17 +24,24 @@ export default class FocusableTappable extends React.Component {
 		tabIndex: 0
 	}
 
+	constructor(props) {
+		super(props)
+		this.bindMethods('onFocus', 'onBlur', 'onKeyDown')
+	}
+
 	render() {
 		if (this.props.disabled) {
 			return this.props.children
 		} else {
 			let elem = this.props.children
 			if (this.props.tabIndex !== undefined) {
+				elem = cloneElementWithHandlers(elem, {
+					onFocus: this.onFocus,
+					onBlur: this.onBlur,
+					onKeyDown: this.onKeyDown
+				})
 				elem = cloneReferencedElement(elem, {
 					tabIndex: this.props.tabIndex,
-					onFocus: this.onFocus.bind(this),
-					onBlur: this.onBlur.bind(this),
-					onKeyDown: this.onKeyDown.bind(this),
 					ref: (ref) => { this.elemRef = ref }
 				})
 			}

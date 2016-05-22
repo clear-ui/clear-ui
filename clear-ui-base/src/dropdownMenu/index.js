@@ -12,6 +12,7 @@ import StylesMixin from '../utils/stylesMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
 import Attachment from '../attachment'
+import cloneElementWithHandlers from '../utils/cloneElementWithHandlers'
 
 const OPPOSITE_SIDES = {
 	top: 'bottom',
@@ -213,7 +214,7 @@ export default class DropdownMenu extends React.Component {
 			onTap: this.open.bind(this)
 		}
 		if (this.props.useTriggerAsTappable) {
-			return React.cloneElement(this.props.trigger, props)
+			return cloneElementWithHandlers(this.props.trigger, props)
 		} else {
 			let trigger = typeof this.props.trigger.type === 'string' ?
 				this.props.trigger :
