@@ -13,6 +13,9 @@ export default class BaseButtonDoc extends React.Component {
 			<h1>Base<DocPage.ArrowIcon/>Select</h1>
 
 			{`
+
+			This component requires instance of [ZContext](#/docs/base/zcontext) to
+			be rendered on the page.
 			`}
 
 			<h2>API</h2>

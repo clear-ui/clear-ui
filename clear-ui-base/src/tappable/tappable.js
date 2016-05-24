@@ -59,7 +59,19 @@ export default class Tappable extends React.Component {
 
 	render() {
 		let elem = this.props.children
+		
+		elem = React.cloneElement(elem, {
+			style: {
+				...this.props.children.props.style,
+				...this.props.style
+			}
+		})
+
 		if (!this.props.disabled) {
+			if (typeof elem.type !== 'string') {
+				// TODO configurable
+				elem = <div style={{display: 'inline-block'}}>{elem}</div>
+			}
 			elem = cloneElementWithHandlers(elem, {
 				onMouseEnter: this.mouseEnter,
 				onMouseLeave: this.mouseLeave,
@@ -70,12 +82,8 @@ export default class Tappable extends React.Component {
 				onClick: (event) => { event.stopPropagation() }
 			})
 		}
-		return React.cloneElement(elem, {
-			style: {
-				...this.props.children.props.style,
-				...this.props.style
-			}
-		})
+
+		return elem
 	}
 
 	pressed = false

@@ -19,9 +19,11 @@ export default class StickyDoc extends React.Component {
 			{`
 			Sticky is a component that fixes its content near the edge of the screen
 			when it leaves viewport while scrolling.
-
 			When content becomes fixed, component inserts placeholder
 			with height equal to the height of the content.
+
+			This component requires instance of [ZContext](#/docs/base/zcontext) to
+			be rendered on the page.
 			`}
 
 			<h2>Example</h2>

@@ -12,7 +12,11 @@ export default class BaseTooltipDoc extends React.Component {
 			<h1>Base<DocPage.ArrowIcon/>Tooltip</h1>
 
 			{`
-			Base tooltip component.
+			Base tooltip component that can be shown next to an element on
+			tap, hover, focus or combination of these events.
+
+			This component requires instance of [ZContext](#/docs/base/zcontext) to
+			be rendered on the page.
 			`}
 
 			<h2>API</h2>

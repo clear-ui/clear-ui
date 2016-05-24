@@ -1,4 +1,6 @@
+import $ from 'jquery'
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 import mixin from '../utils/mixin/decorator'
 import BindMethodsMixin from '../utils/bindMethodsMixin'
@@ -29,19 +31,45 @@ export default class FocusableTappable extends React.Component {
 		this.bindMethods('onFocus', 'onBlur', 'onKeyDown')
 	}
 
+	componentDidMount() {
+		this.setPropsWithJqueryIfNeeded(this.props.children)
+	}
+
+	componentDidUpdate() {
+		this.setPropsWithJqueryIfNeeded(this.props.children)
+	}
+
+	// Sets props with jquery when elem is not DOM-component and thus may not
+	// support needed properties.
+	setPropsWithJqueryIfNeeded(elem) {
+		if (typeof elem.type === 'string') return
+
+		let domElem = ReactDOM.findDOMNode(this.elemRef)
+		if (this.domElem !== domElem) {
+			this.domElem = domElem
+			$(domElem)
+				.focus(this.onFocus)
+				.blur(this.onBlur)
+				.keydown(this.onKeyDown)
+				.attr('tabindex', this.props.tabIndex)
+		}
+	}
+
 	render() {
 		if (this.props.disabled) {
 			return this.props.children
 		} else {
 			let elem = this.props.children
 			if (this.props.tabIndex !== undefined) {
-				elem = cloneElementWithHandlers(elem, {
-					onFocus: this.onFocus,
-					onBlur: this.onBlur,
-					onKeyDown: this.onKeyDown
-				})
+				if (typeof elem.type === 'string') {
+					elem = cloneElementWithHandlers(elem, {
+						onFocus: this.onFocus,
+						onBlur: this.onBlur,
+						onKeyDown: this.onKeyDown,
+						tabIndex: this.props.tabIndex
+					})
+				}
 				elem = cloneReferencedElement(elem, {
-					tabIndex: this.props.tabIndex,
 					ref: (ref) => { this.elemRef = ref }
 				})
 			}
@@ -99,6 +127,6 @@ export default class FocusableTappable extends React.Component {
 	}
 
 	focus() {
-		this.elemRef.focus()
+		ReactDOM.findDOMNode(this.elemRef).focus()
 	}
 }

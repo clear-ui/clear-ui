@@ -3,6 +3,7 @@ import Color from 'color'
 
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import COLORS from '../styles/colors'
+import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import Button from './webButton.js'
 
 import {getOuterOutlineStyle, getWhitelineStyle} from './outlineStyles'
@@ -26,7 +27,8 @@ function getStyles(props, state) {
 			left: 0,
 			bottom: 0,
 			right: 0,
-			boxShadow: `0 0 0 2px ${color} inset`
+			boxShadow: `0 0 0 2px ${color} inset`,
+			transition: `box-shadow .4s ${TRANSITIONS.strongEaseOut}`
 		}
 	}
 

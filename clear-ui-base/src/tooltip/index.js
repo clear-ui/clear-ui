@@ -7,10 +7,10 @@ import ManagedStateMixin from '../utils/managedStateMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Attachment from '../attachment'
 import Tappable from '../tappable'
+import FocusableTappable from '../tappable/focusableTappable.js'
 import Animation from '../animation'
 import {fadeAndSlide, fadeAndScale, fade} from '../animation/functions'
 import {fastAndHardSpring} from '../animation/springPresets'
-import cloneElementWithHandlers from '../utils/cloneElementWithHandlers'
 
 const OPPOSITE_SIDES = {
 	top: 'bottom',
@@ -68,10 +68,23 @@ export default class Tooltip extends React.Component {
 		/** Content of the tooltip. */
 		tooltip: React.PropTypes.node.isRequired,
 
-		showOnHover: React.PropTypes.bool,
+		/**
+		 * When `true`, tooltip shows on tapping the element.
+		 * This options is not compatible with other show options.
+		 */
 		showOnClick: React.PropTypes.bool,
+
+		/**
+		 * When `true`, tooltip shows on hovering the element.
+		 * This option can be used with `showOnFocus` at the same time.
+		 * */
+		showOnHover: React.PropTypes.bool,
+
+		/**
+		 * When `true`, tooltip shows on focusing the element.
+		 * This option can be used with `showOnHover` at the same time.
+		 */
 		showOnFocus: React.PropTypes.bool,
-		useTargetAsTappable: React.PropTypes.bool,
 
 		/** List of sides where tooltip can be shown in the order of priority. */
 		sides: React.PropTypes.arrayOf(
@@ -94,7 +107,7 @@ export default class Tooltip extends React.Component {
 		openTimeout: React.PropTypes.number,
 
 		/** Time before the tooltip starts closing after the element loses hover, in ms. */
-		closeTimeout: React.PropTypes.number
+		closeTimeout: React.PropTypes.number,
 	}
 
 	static defaultProps = {
@@ -145,7 +158,7 @@ export default class Tooltip extends React.Component {
 				this.updateSide(this.props.sides[id])
 			}
 			//layerProps: {
-				//closeOnEsc: true when open with click but not hover
+				//closeOnEsc: TODO true when open with click but not hover
 			//},
 		}, target)
 
@@ -174,15 +187,8 @@ export default class Tooltip extends React.Component {
 	}
 
 	renderTarget() {
-		let tappable
-		if (this.props.useTargetAsTappable) {
-			tappable = this.props.children
-		} else {
-			let elem = (typeof this.props.children.type === 'string') ?
-				this.props.children : <span>{this.props.children}</span>
-			let tappableType = this.props.showOnFocus ? FocusableTappable : Tappable
-			tappable = React.createElement(tappableType, null, elem)
-		}
+		let tappableType = this.props.showOnFocus ? FocusableTappable : Tappable
+		let tappable = React.createElement(tappableType, null, this.props.children)
 
 		let props = {}
 		if (this.props.showOnTap) {
@@ -208,12 +214,12 @@ export default class Tooltip extends React.Component {
 			}
 		}
 
-		return cloneElementWithHandlers(tappable, props)
+		return React.cloneElement(tappable, props)
 	}
 
 	renderTooltip() {
 		let tooltip = (
-			<div style={this.styles.root}>
+			<div>
 				{this.props.tooltip}
 				{this.props.arrow && this.renderArrow()}
 			</div>
@@ -230,7 +236,8 @@ export default class Tooltip extends React.Component {
 				</Tappable>
 			)
 		}
-		return tooltip
+		// set styles on top element to allow Animation to access styles
+		return React.cloneElement(tooltip, {style: this.styles.root})
 	}
 
 	renderArrow() {

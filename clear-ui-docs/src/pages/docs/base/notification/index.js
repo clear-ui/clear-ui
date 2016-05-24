@@ -17,6 +17,9 @@ export default class NotificationsDoc extends React.Component {
 
 			{`
 			Notifications display small messages on the screen for the short time.
+
+			This component requires instance of [ZContext](#/docs/base/zcontext) to
+			be rendered on the page.
 			`}
 
 			<h2>Containers</h2>

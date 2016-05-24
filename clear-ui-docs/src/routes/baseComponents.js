@@ -13,6 +13,7 @@ import Scrollspy from '../pages/docs/base/scrollspy'
 import Select from '../pages/docs/base/select'
 import Sticky from '../pages/docs/base/sticky'
 import Switch from '../pages/docs/base/switch'
+import Tappable from '../pages/docs/base/tappable'
 import Tooltip from '../pages/docs/base/tooltip'
 import ZContext from '../pages/docs/base/zContext'
 
@@ -32,6 +33,7 @@ export default [
 	{path: 'select', component: Select},
 	{path: 'sticky', component: Sticky},
 	{path: 'switch', component: Switch},
+	{path: 'tappable', component: Tappable},
 	{path: 'tooltip', component: Tooltip},
 	{path: 'zcontext', component: ZContext}
 ]

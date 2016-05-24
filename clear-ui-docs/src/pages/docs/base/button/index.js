@@ -1,5 +1,4 @@
 import React from 'react'
-import Markdown from 'react-markdown-it'
 
 import DocPage from '../../../../docPage'
 import {ApiDoc, ApiDocRow} from '../../../../apiDoc'

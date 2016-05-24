@@ -22,10 +22,12 @@ class Link extends React.Component {
 			root.cursor = 'default'
 		} else {
 			root.cursor = 'pointer'
-			if (state.state === 'initial') root.color = COLORS.blue
-			if (state.state === 'hovered' || state.state === 'active') {
-				root.color = color(COLORS.blue).mix(color('black'), 0.9)
+			root.color = COLORS.blue
+			if (state.tapState.hovered) {
 				root.textDecoration = 'underline'
+			}
+			if (state.tapState.pressed) {
+				root.color = color(COLORS.blue).mix(color('black'), 0.9)
 			}
 		}
 
@@ -34,16 +36,13 @@ class Link extends React.Component {
 		return {root}
 	}
 
-	constructor() {
-		super()
-		this.state = {state: 'initial'}
-	}
+	state = {tapState: {hovered: false, pressed: false}}
 
 	render() {
 		return React.createElement(FocusableTappable, {
 			preventFocusOnTap: this.props.preventFocusOnTap,
 			disabled: this.props.disabled,
-			onChangeState: (state) => { this.setManagedState({state}) },
+			onChangeTapState: (tapState) => { this.setManagedState({tapState}) },
 			onFocus: (state) => { this.setState({focused: true}) },
 			onBlur: (state) => { this.setState({focused: false}) }
 		}, React.DOM.div({style: this.styles.root}, this.props.children))

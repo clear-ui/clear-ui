@@ -71,6 +71,7 @@ export default class DocsPage extends React.Component {
 							<NavMenuItem value='select'>Select</NavMenuItem>,
 							<NavMenuItem value='sticky'>Sticky</NavMenuItem>,
 							<NavMenuItem value='switch'>Switch</NavMenuItem>,
+							<NavMenuItem value='tappable'>Tappable</NavMenuItem>,
 							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>,
 							<NavMenuItem value='zcontext'>ZContext</NavMenuItem>,
 							<NavMenuItem disabled={true}>StylesMixin</NavMenuItem>,

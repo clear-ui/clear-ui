@@ -89,8 +89,12 @@ export default class ZContextLayer extends React.Component {
 		return <LayerView type={this.props.type}>{overlay}</LayerView>
 	}
 
+	getLayerElem() {
+		return this.props.global ? null : ReactDOM.findDOMNode(this.refs.placeholder)
+	}
+
 	open() {
-		let elem = this.props.global ? null : ReactDOM.findDOMNode(this.refs.placeholder)
+		let elem = this.getLayerElem()
 
 		if (this.props.overlay) {
 			this.overlayLayerId = ZContext.addLayer(elem, this.createOverlayLayerView())
@@ -107,8 +111,15 @@ export default class ZContextLayer extends React.Component {
 	}
 
 	update() {
-		// TODO handle change of the overlay property
 		ZContext.updateLayer(this.layerId, this.createLayerView(), this.props.onRender)
+		if (this.props.overlay && !this.overlayLayerId) {
+			let elem = this.getLayerElem()
+			this.overlayLayerId = ZContext.addLayer(elem, this.createOverlayLayerView())
+		}
+		if (!this.props.overlay && this.overlayLayerId) {
+			ZContext.removeLayer(this.overlayLayerId)
+			this.overlayLayerId = undefined
+		}
 	}
 
 	close() {
@@ -118,6 +129,7 @@ export default class ZContextLayer extends React.Component {
 			ZContext.removeLayer(this.overlayLayerId)
 		}
 		this.layerId = undefined
+		this.overlayLayerId = undefined
 	}
 
 	onClose() {
