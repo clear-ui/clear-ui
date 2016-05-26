@@ -227,21 +227,37 @@ export default class ListDoc extends React.Component {
 				</Example.Demo>
 			</Example>
 
+			<h2>List API</h2>
+			{`
+			Extends <a href='#/docs/base/menu'>Base > Menu</a>
+			`}
 
-			<h2>Props</h2>
+			<h2>ListItem API</h2>
 
+			{`
+			Extends <a href='#/docs/base/menu'>Base > Menu > MenuItem</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={itemPropsDoc}/>
+
+			<h3>Styleable Elements</h3>
 			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/menu'>Base > Menu props</a>
-				</ApiDocRow>
+				<ApiDocRow name='secondaryText'>{`
+				`}</ApiDocRow>
+				<ApiDocRow name='leftAvatar'>{`
+				`}</ApiDocRow>
+				<ApiDocRow name='rightAvatar'>{`
+				`}</ApiDocRow>
 			</ApiDoc>
 
-			<h2>ListItem props</h2>
-
-			<PropsDoc
-				doc={itemPropsDoc}
-				base={{name: 'Base > Menu > MenuItem props', url: '#/docs/base/menu'}}
-			/>
+			<h3>Child Components</h3>
+			<ApiDoc>
+				<ApiDocRow name='ripples'>{`
+					Instance of <a href='#/docs/material/ripples'>Ripples</a> component
+					used to show ripples effect on tap.
+				`}</ApiDocRow>
+			</ApiDoc>
 		</DocPage>
 	}
 }

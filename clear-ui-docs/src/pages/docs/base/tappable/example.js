@@ -1,6 +1,5 @@
 import React from 'react'
 import Tappable from 'clear-ui-base/lib/tappable'
-import FocusableTappable from 'clear-ui-base/lib/tappable/focusableTappable.js'
 
 class MyButton extends React.Component {
 	state = {tapState: {hovered: false, pressed: false}}

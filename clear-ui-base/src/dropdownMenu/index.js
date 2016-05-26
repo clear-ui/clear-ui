@@ -25,8 +25,8 @@ export default class DropdownMenu extends React.Component {
 	static displayName = 'DropdownMenu'
 
 	static propTypes = {
-		/** Trigger element of the dropdown */
-		trigger: React.PropTypes.node,
+		/** Trigger of the dropdown. Single React-element. */
+		trigger: React.PropTypes.element.isRequired,
 
 		/** Value of the currently selected item. */
 		value: React.PropTypes.string,
@@ -137,7 +137,7 @@ export default class DropdownMenu extends React.Component {
 		})
 
 		let menu = React.cloneElement(this.getChildComponent('menu'), {
-			active: true,
+			active: this.state.open,
 			value: this.props.value,
 			onSelect: this.onItemSelect.bind(this),
 			styles: {

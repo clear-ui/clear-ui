@@ -6,6 +6,12 @@ import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType
 import MenuItem from './item'
 
 export default class Menu extends BaseScrollMenu {
+	static propTypes = {
+		...BaseScrollMenu.propTypes,
+
+		desktop: React.PropTypes.bool
+	}
+
 	static styles = (props) => {
 		return {
 			root: {
@@ -18,7 +24,7 @@ export default class Menu extends BaseScrollMenu {
 		let processedItems = super.processItems(items, level)
 		return React.Children.map(processedItems, (elem) => {
 			if (
-				isSameOrInheritedType(elem.type, MenuItem) && 
+				isSameOrInheritedType(elem.type, MenuItem) &&
 				'desktop' in this.props
 			) {
 				return React.cloneElement(elem, {desktop: this.props.desktop})
@@ -27,4 +33,6 @@ export default class Menu extends BaseScrollMenu {
 			}
 		})
 	}
+
+	render() { return super.render() } // for react-docgen
 }

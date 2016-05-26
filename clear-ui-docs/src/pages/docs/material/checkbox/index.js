@@ -32,13 +32,11 @@ export default class CheckboxDoc extends React.Component {
 				</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
 
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/checkbox'>Base > Checkbox props</a>
-				</ApiDocRow>
-			</ApiDoc>
+			{`
+			Extends <a href='#/docs/base/checkbox'>Base > Checkbox</a>
+			`}
 
 		</DocPage>
 	}

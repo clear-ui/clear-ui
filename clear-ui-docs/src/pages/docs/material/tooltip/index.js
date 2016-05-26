@@ -5,6 +5,13 @@ import Tooltip from 'clear-ui-material/lib/tooltip'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
+
+import TooltipExample from './example.js'
+import tooltipExampleCode from '!raw!./example.js'
+
+import materialDocs from '../../../../../docgen/material.json'
+let tooltipPropsDoc = materialDocs['tooltip/index.js'].props
 
 export default class TooltipDoc extends React.Component {
 	render() {
@@ -23,21 +30,24 @@ export default class TooltipDoc extends React.Component {
 		return <DocPage>
 			<h1>Material<DocPage.ArrowIcon/>Tooltip</h1>
 
+			{`
+			Tooltips are text labels that appear when the user hovers over,
+			focuses on, or touches an element.
+			`}
+
+			<a href='https://www.google.com/design/spec/components/tooltips.html' target='_blank'>
+				Tooltip specification
+			</a>
+
 			<h2>Example</h2>
 
 			<Example>
 				<Example.Demo>
-					<Tooltip tooltip={tooltip}>
-						<div style={style}>Tooltip</div>
-					</Tooltip>
+					<TooltipExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					let tooltip = 'Content of the tooltip!'
-
-					<Tooltip tooltip={tooltip}>
-						<div style={style}>Material tooltip</div>
-					</Tooltip>
-				`}</Example.Code>
+				<Example.Code>
+					{tooltipExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -103,39 +113,12 @@ export default class TooltipDoc extends React.Component {
 
 			<h2>API</h2>
 
-			<h3>Props</h3>
-
-			<ApiDoc>
-				<ApiDocRow
-					name='showOnHover'
-					type='boolean'
-					defaultValue='true'
-				>{`
-				`}</ApiDocRow>
-
-				<ApiDocRow
-					name='showOnClick'
-					type='boolean'
-					defaultValue='false'
-				>{`
-				`}</ApiDocRow>
-
-				<ApiDocRow
-					name='sides'
-					type='array'
-					defaultValue={`['top', 'right', 'bottom', 'left']`}
-				>{`
-					List of sides where tooltip can be shown in the order of priority.
-				`}</ApiDocRow>
-			</ApiDoc>
-
 			{`
-			showTimeout
-			hideTimeout
-			animation?
-			closeButton?
+			Extends <a href='#/docs/material/tooltip'>Base > Tooltip</a>
 			`}
 
+			<h3>Props</h3>
+			<PropsDoc doc={tooltipPropsDoc}/>
 		</DocPage>
 	}
 }

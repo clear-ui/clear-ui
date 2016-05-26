@@ -30,6 +30,14 @@ export default class TappableDoc extends React.Component {
 			pressed state is removed. Element becomes pressed again when cursor returns.
 			`}
 
+			<h2>FocusableTappable</h2>
+
+			{`
+			FocusableTappable helps to handle keyboard interaction with an element.
+			It makes an element focusable, allows to handle focus and blur events 
+			and calls \`onTap\` handler on pressing the \`Enter\` key.
+			`}
+
 			<h2>Example</h2>
 
 			{`

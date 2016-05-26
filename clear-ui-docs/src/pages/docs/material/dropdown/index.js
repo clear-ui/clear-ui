@@ -9,32 +9,6 @@ import Example from '../../../../example'
 
 import Button from 'clear-ui-material/lib/button/raisedButton'
 
-class Test extends React.Component {
-	state = {open: false}
-
-	render() {
-		return <div>
-			<Button onTap={() => {
-				this.setState({open: true})
-				setTimeout(() => {this.setState({open: false}) }, 1000)
-			 }}>
-			 	Open
-			</Button>
-
-			<DropdownMenu trigger={'First menu item'}
-				open={this.state.open}
-				onChangeOpen={(open) => {
-					console.log('OPEN', open)
-					this.setState({open})
-				}}
-			>
-				<MenuItem value='1'>First menu item</MenuItem>
-				<MenuItem value='2'>Second menu item</MenuItem>
-			</DropdownMenu>
-		</div>
-	}
-}
-
 export default class DropdownMenuDoc extends React.Component {
 	render() {
 		return <DocPage>
@@ -46,13 +20,7 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<Test/>
-				</Example.Demo>
-			</Example>
-
-			<Example>
-				<Example.Demo>
-					<DropdownMenu trigger={'First menu item'}>
+					<DropdownMenu trigger={<span>First menu item</span>}>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
 					</DropdownMenu>
@@ -71,7 +39,7 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<DropdownMenu trigger={'First menu item'} desktop={true}>
+					<DropdownMenu trigger={<span>First menu item</span>} desktop={true}>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
 					</DropdownMenu>
@@ -88,7 +56,7 @@ export default class DropdownMenuDoc extends React.Component {
 			<Example>
 				<Example.Demo>
 					<DropdownMenu
-						trigger={'Top'}
+						trigger={<span>Top</span>}
 						vertSide='top'
 						animation='scale'
 					>
@@ -97,7 +65,7 @@ export default class DropdownMenuDoc extends React.Component {
 					</DropdownMenu>
 					{' '}
 					<DropdownMenu
-						trigger='Bottom'
+						trigger={<span>Bottom</span>}
 						animation='scale'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
@@ -107,6 +75,16 @@ export default class DropdownMenuDoc extends React.Component {
 				<Example.Code lang='xml'>{`
 				`}</Example.Code>
 			</Example>
+
+			<h2>API</h2>
+
+			{`
+			Extends <a href='#/docs/base/dropdown-menu'>Base > DropdownMenu</a>
+			`}
+
+			<h3>Props</h3>
+
+
 
 		</DocPage>
 	}

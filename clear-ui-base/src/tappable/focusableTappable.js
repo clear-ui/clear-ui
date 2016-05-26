@@ -16,9 +16,20 @@ export default class FocusableTappable extends React.Component {
 
 	static propTypes = {
 		...Tappable.propTypes,
+
+		/** Handler of focusing the element. */
 		onFocus: React.PropTypes.func,
+
+		/** Handler of removing focus from the element. */
 		onBlur: React.PropTypes.func,
+
+		/** HTML `tabIndex` attribute. */
 		tabIndex: React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.string]),
+
+		/**
+		 * If `true`, element will became focused when you navigate to it
+		 * using `Tab` key, but not on click or touch.
+		 **/
 		preventFocusOnTap: React.PropTypes.bool
 	}
 

@@ -148,7 +148,8 @@ export default class Menu extends React.Component {
 		}
 		this.setState({hoveredItem: selectedItem || enabledItems[0]})
 
-		this.bindKeyboardEvents()
+		// When menu is opened as result of keypress event it shouldn't listen this event.
+		setTimeout(this.bindKeyboardEvents.bind(this))
 	}
 
 	bindKeyboardEvents() {

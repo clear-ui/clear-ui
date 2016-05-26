@@ -5,11 +5,15 @@ import {Snackbar, SnackbarContainer} from 'clear-ui-material/lib/snackbar'
 import {Toast, ToastContainer} from 'clear-ui-material/lib/toast'
 import RaisedButton from 'clear-ui-material/lib/button/raisedButton'
 
-import NotificationDemo from '../../../../demos/notificationDemo'
-
 import DocPage from '../../../../docPage'
 import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
+import PropsDoc from '../../../../propsDoc'
+
+import materialDocs from '../../../../../docgen/material.json'
+let toastPropsDoc = materialDocs['toast/toast.js'].props
+
+import NotificationDemo from '../../../../demos/notificationDemo'
 
 class ToastDemo extends NotificationDemo {
 	static defaultProps = {
@@ -202,68 +206,48 @@ export default class SnackbarDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Toast props</h2>
+			<h2>Toast API</h2>
 
+			{`
+			Extends
+			<a href='#/docs/base/notification'>Base > Notification</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={toastPropsDoc}/>
+
+			<h2>ToastContainer API</h2>
+
+			{`
+			Extends
+			<a href='#/docs/base/notification'>
+				Base > Notification > SingleNotificationContainer
+			</a>
+			`}
+
+			<h2>Snackbar API</h2>
+
+			{`
+			Extends
+			<a href='#/docs/material/snackbar'>Material > Toast</a>
+			`}
+
+			<h3>Props</h3>
 			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/notification'>
-						Base > Notification props
-					</a>
-				</ApiDocRow>
-
-				<ApiDocRow name='action' type='node'>{`
-					The label for the action in the snackbar.
-				`}</ApiDocRow>
-
-				<ApiDocRow name='onActionTap' type='function'>{`
-					Function that is called when action button is tapped.<br/>
-					After performing an action, \`onClose\` callback also will be called.
-				`}</ApiDocRow>
-
-				<ApiDocRow name='showCloseButton' type='boolean'>{`
-					If true, the toast will have the close button.
-				`}</ApiDocRow>
-
-				<ApiDocRow name='closeButtonTitle' type='string' defaultValue={`'Dimiss'`}>{`
-					Title that is shown when close button is hovered.
-				`}</ApiDocRow>
-			</ApiDoc>
-
-			<h2>ToastContainer props</h2>
-
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/notification'>
-						Base > Notification > SingleNotificationContainer props
-					</a>
-				</ApiDocRow>
-			</ApiDoc>
-
-			<h2>Snackbar props</h2>
-
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/material/snackbar'>
-						Material > Toast props
-					</a>
-				</ApiDocRow>
-
 				<ApiDocRow name='mobile' type='boolean'>{`
 					Variation of the snackbar for the mobile platform that
 					takes up full width of the screen.
 				`}</ApiDocRow>
 			</ApiDoc>
 
-			<h2>SnackbarContainer props</h2>
+			<h2>SnackbarContainer API</h2>
 
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/notification'>
-						Base > Notification > SingleNotificationContainer props
-					</a>
-				</ApiDocRow>
-			</ApiDoc>
-
+			{`
+			Extends
+			<a href='#/docs/base/notification'>
+				Base > Notification > SingleNotificationContainer
+			</a>
+			`}
 		</DocPage>
 	}
 }

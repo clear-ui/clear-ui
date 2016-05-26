@@ -30,11 +30,9 @@ export default class BaseModalDoc extends React.Component {
 			<h2>API</h2>
 
 			<h3>Props</h3>
-
 			<PropsDoc doc={modalPropsDoc}/>
 
 			<h3>Styleable Elements</h3>
-
 			<ApiDoc>
 				<ApiDocRow name='root'>{`
 					Root element.

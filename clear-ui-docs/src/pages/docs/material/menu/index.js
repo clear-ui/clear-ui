@@ -8,9 +8,13 @@ import Icon from 'clear-ui-base/lib/icon'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
 
 import MenuExample from './example.js'
 import menuExampleCode from '!raw!./example.js'
+
+import materialDocs from '../../../../../docgen/material.json'
+let menuPropsDoc = materialDocs['menu/menu.js'].props
 
 class MenuDemo extends React.Component {
 	constructor(props) {
@@ -89,22 +93,27 @@ export default class MenuDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>Menu API</h2>
 
+			{`
+			Extends <a href='#/docs/base/menu'>Base > Menu</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={menuPropsDoc}/>
+
+			<h2>MenuItem API</h2>
+
+			{`
+			Extends <a href='#/docs/base/menu'>Base > Menu > MenuItem</a>
+			`}
+
+			<h3>Child Components</h3>
 			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/menu'>Base > Menu props</a>
-				</ApiDocRow>
-				<ApiDocRow name='desktop' type='boolean'>
-				</ApiDocRow>
-			</ApiDoc>
-
-			<h2>MenuItem props</h2>
-
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/menu'>Base > Menu > MenuItem props</a>
-				</ApiDocRow>
+				<ApiDocRow name='ripples'>{`
+					Instance of <a href='#/docs/material/ripples'>Ripples</a> component
+					used to show ripples effect on tap.
+				`}</ApiDocRow>
 			</ApiDoc>
 		</DocPage>
 	}

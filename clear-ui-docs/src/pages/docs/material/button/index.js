@@ -10,6 +10,7 @@ import Icon from 'clear-ui-base/lib/icon'
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import PropsDoc from '../../../../propsDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 
 import materialDocs from '../../../../../docgen/material.json'
 let buttonPropsDoc = {
@@ -160,12 +161,22 @@ export default class ButtonDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
 
-			<PropsDoc
-				doc={buttonPropsDoc}
-				base={{name: 'Base > Button > IconButton props', url: '#/docs/base/button'}}
-			/>
+			{`
+			Extends <a href='#/docs/base/button'>Base > Button</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={buttonPropsDoc}/>
+
+			<h3>Child Components</h3>
+			<ApiDoc>
+				<ApiDocRow name='ripples'>{`
+					Instance of <a href='#/docs/material/ripples'>Ripples</a> component
+					used to show ripples effect on tap.
+				`}</ApiDocRow>
+			</ApiDoc>
 		</DocPage>
 	}
 }

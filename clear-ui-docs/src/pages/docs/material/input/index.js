@@ -7,6 +7,9 @@ import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import PropsDoc from '../../../../propsDoc'
 
+import InputExample from './example.js'
+import inputExampleCode from '!raw!./example.js'
+
 import materialDocs from '../../../../../docgen/material.json'
 let inputPropsDoc = materialDocs['input/index.js'].props
 
@@ -41,15 +44,11 @@ export default class InputDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<InputDemo value='value'/>
-					<InputDemo disabled={true} value='disabled'/>
-					<InputDemo label='label'/>
+					<InputExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Input value='value'/>
-					<Input disabled={true} value='disabled'/>
-					<Input label='label'/>
-				`}</Example.Code>
+				<Example.Code>
+					{inputExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -141,12 +140,13 @@ export default class InputDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
+			{`
+			Extends <a href='#/docs/base/input'>Base > Input</a>
+			`}
 
-			<PropsDoc
-				doc={inputPropsDoc}
-				base={{name: 'Base > Input', url: '#/docs/base/input'}}
-			/>
+			<h2>Props</h2>
+			<PropsDoc doc={inputPropsDoc}/>
 		</DocPage>
 	}
 }

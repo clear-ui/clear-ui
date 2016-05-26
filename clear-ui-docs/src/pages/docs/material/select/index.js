@@ -4,8 +4,11 @@ import Select from 'clear-ui-material/lib/select'
 import {MenuItem} from 'clear-ui-material/lib/menu'
 
 import DocPage from '../../../../docPage'
-import ApiDoc from '../../../../apiDoc'
+import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
+
+import SelectExample from './example.js'
+import selectExampleCode from '!raw!./example.js'
 
 class SelectDemo extends React.Component {
 	constructor() {
@@ -43,23 +46,11 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<SelectDemo>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</SelectDemo>
-					<br/>
-					<SelectDemo disabled={true} label='disabled select'>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-					</SelectDemo>
+					<SelectExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Select>
-						<MenuItem value='1'>First menu item</MenuItem>
-						<MenuItem value='2'>Second menu item</MenuItem>
-						...
-					</Select>
-				`}</Example.Code>
+				<Example.Code>
+					{selectExampleCode}
+				</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>
@@ -97,6 +88,26 @@ export default class DropdownMenuDoc extends React.Component {
 					</Select>
 				`}</Example.Code>
 			</Example>
+
+			<h2>API</h2>
+
+			{`
+			Extends <a href='#/docs/base/select'>Base > Select</a>
+			`}
+
+			<h3>Props</h3>
+
+			<h3>Styleable elements</h3>
+
+			<ApiDoc>
+				<ApiDocRow name='underline'>{`
+					Line under the trigger.
+				`}</ApiDocRow>
+				<ApiDocRow name='triangleIcon'>{`
+					Container element of the icon in the trigger.
+				`}</ApiDocRow>
+			</ApiDoc>
+
 		</DocPage>
 	}
 }

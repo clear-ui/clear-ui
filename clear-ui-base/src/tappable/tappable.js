@@ -14,13 +14,16 @@ export default class Tappable extends React.Component {
 	static displayName = 'Tappable'
 
 	static propTypes = {
-		/** Single DOM-element */
+		/**
+		 * Single element.
+		 * When not DOM-component is provided, it is wrapped with `div`.
+		 */
 		children: React.PropTypes.element.isRequired,
 
 		/** Tap event handler. */
 		onTap: React.PropTypes.func,
 
-		/** Disables tap handling. */
+		/** Disables events handling. */
 		disabled: React.PropTypes.bool,
 
 		/**

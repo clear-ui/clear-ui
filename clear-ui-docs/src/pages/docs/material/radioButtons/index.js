@@ -29,21 +29,17 @@ export default class RadioButtonsDoc extends React.Component {
 				</Example.Code>
 			</Example>
 
-			<h2>RadioButton Props</h2>
+			<h2>RadioButton API</h2>
 
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioButton props</a>
-				</ApiDocRow>
-			</ApiDoc>
+			{`
+			Extends <a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioButton</a>
+			`}
 
-			<h2>RadioGroup Props</h2>
+			<h2>RadioGroup API</h2>
 
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioGroup props</a>
-				</ApiDocRow>
-			</ApiDoc>
+			{`
+			Extends <a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioGroup</a>
+			`}
 
 		</DocPage>
 	}

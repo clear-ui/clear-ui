@@ -4,6 +4,14 @@ import BaseTooltip from 'clear-ui-base/lib/tooltip'
 import COLORS from '../styles/colors'
 
 export default class Tooltip extends BaseTooltip {
+	static propTypes = {
+		...BaseTooltip.propTypes,
+
+		desktop: React.PropTypes.bool,
+
+		animation: React.PropTypes.oneOf(['slide', 'scale', 'fade'])
+	}
+
 	static defaultProps = {
 		...BaseTooltip.defaultProps,
 		animation: 'slide'
@@ -33,4 +41,6 @@ export default class Tooltip extends BaseTooltip {
 	getOffset() {
 		return this.props.desktop ? 14 : 24
 	}
+
+	render() { return super.render() } // for react-docgen
 }
