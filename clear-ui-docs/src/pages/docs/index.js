@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router'
+import bowser from 'bowser'
 
 import ZContext from 'clear-ui-base/lib/zContext'
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
@@ -39,12 +40,8 @@ export default class DocsPage extends React.Component {
 
 	render() {
 		return (
-			<div style={{
-				...this.styles.root,
-				display: 'flex' // TODO bug in chrome
-			}}>
+			<div style={{...this.styles.root}}>
 				<div style={this.styles.nav}>
-
 					<NavMenu prefix='docs/'>
 						<NavMenuHeader nestedItems={[
 							<NavMenuItem value='get-started'>- Get Started</NavMenuItem>,

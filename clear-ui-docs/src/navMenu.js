@@ -24,7 +24,7 @@ class NavMenu extends Menu {
 						null, elem.props.onlyIndex)
 				return React.cloneElement(elem, {selected})
 			} else {
-				return item
+				return elem
 			}
 		})
 	}

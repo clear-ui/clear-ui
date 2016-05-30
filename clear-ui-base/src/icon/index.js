@@ -74,7 +74,9 @@ export default class Icon extends React.Component {
 
 		return (
 			<span style={this.styles.root}>
-				<svg style={this.styles.svg}>
+				<svg style={this.styles.svg}
+					focusable={false} // IE: prevent focusing icons
+				>
 					<use xlinkHref={this.props.icon}/>
 				</svg>
 			</span>

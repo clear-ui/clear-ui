@@ -1,7 +1,8 @@
 export default function isSameOrInheritedType(type, constructor) {
-	let proto = type
+	if (!type) return
+	let proto = type.prototype
 	while (proto) {
-		if (proto === constructor) return true
+		if (proto.constructor === constructor) return true
 		proto = Object.getPrototypeOf(proto)
 	}
 }
