@@ -86,6 +86,12 @@ export default class Tooltip extends React.Component {
 		 */
 		showOnFocus: React.PropTypes.bool,
 
+		/**
+		 * Additional props that you may need to set on the inner Tappable component,
+		 * like `preventFocusOnTap` or `wrapperDisplay`.
+		 */
+		tappableProps: React.PropTypes.object,
+
 		/** List of sides where tooltip can be shown in the order of priority. */
 		sides: React.PropTypes.arrayOf(
 			React.PropTypes.oneOf(['top', 'bottom', 'right', 'left'])
@@ -143,7 +149,12 @@ export default class Tooltip extends React.Component {
 		}
 	}
 
-	// TODO constructor() { this.initManagedState(['open']) }
+	constructor(props) {
+		super(props)
+		// TODO this.initManagedState(['open'])
+		if (!this.state) this.state = {}
+		this.state.rest = true
+	}
 
 	render() {
 		let target = this.renderTarget()
@@ -190,7 +201,9 @@ export default class Tooltip extends React.Component {
 		let tappableType = this.props.showOnFocus ? FocusableTappable : Tappable
 		let tappable = React.createElement(tappableType, null, this.props.children)
 
-		let props = {}
+		let props = {
+			...this.props.tappableProps
+		}
 		if (this.props.showOnTap) {
 			props.onTap = () => { this.setManagedState({open: !this.state.open}) }
 		} else {

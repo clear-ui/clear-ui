@@ -1,10 +1,9 @@
 import React from 'react'
 
 import BaseSelect from 'clear-ui-base/lib/select'
-import {FocusableTappable} from 'clear-ui-base/lib/tappable'
 import Icon from 'clear-ui-base/lib/icon'
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 import DropdownMenu from '../dropdownMenu'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 
@@ -73,7 +72,7 @@ export default class Select extends BaseSelect {
 				styles={{trigger: {outline: 'none'}}}
 				maxHeight={props.maxHeight}
 				desktop={props.desktop}
-				animation="scaleVert"
+				animation='scaleVert'
 			/>
 		}
 	}
@@ -90,12 +89,5 @@ export default class Select extends BaseSelect {
 		)
 
 		return trigger
-
-		// return React.createElement(FocusableTappable, {
-			// preventFocusOnTap: true,
-			// disabled: this.props.disabled,
-			// onFocus: () => { this.setState({focused: true}) },
-			// onBlur: () => { this.setState({focused: false}) }
-		// }, trigger)
 	}
 }

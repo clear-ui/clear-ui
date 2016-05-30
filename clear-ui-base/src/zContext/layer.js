@@ -5,7 +5,7 @@ import $ from 'jquery'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
 import keyCodes from '../utils/keyCodes'
-import ZContext from './zContext.js'
+import ZContext, {ZContextInstance} from './zContext.js'
 import LayerView from './layerView.js'
 import LAYER_TYPES from './layerTypes.js'
 
@@ -55,7 +55,9 @@ export default class ZContextLayer extends React.Component {
 			position: 'fixed',
 			height: '100%',
 			width: '100%',
-			WebkitTapHighlightColor: 'rgba(0,0,0,0)'
+			WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+			// TODO 1x1 transparent GIF to prevent click event leaking in IE
+			// background: 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);'
 		}
 	}
 
@@ -124,7 +126,7 @@ export default class ZContextLayer extends React.Component {
 
 	close() {
 		if (this.escListener) $(document).unbind('keydown', this.escListener)
-		if (ZContext.instance) {
+		if (ZContextInstance.instance) {
 			ZContext.removeLayer(this.layerId)
 			ZContext.removeLayer(this.overlayLayerId)
 		}

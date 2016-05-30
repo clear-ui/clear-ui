@@ -14,6 +14,8 @@ import LAYER_TYPES from './layerTypes'
 
 import LayerView, {LAYER_ATTR_NAME} from './layerView.js'
 
+export let ZContextInstance = {instance: null}
+
 /**
  * Manager of vertical context layers. It helps to avoid conflicts of z-indexes.
  * It must be rendered on the page only once at the top context.
@@ -42,8 +44,8 @@ class ZContext extends React.Component {
 	}
 
 	componentWillMount() {
-		if (ZContext.instance) throw new Error('Page can have only one "ZContext"')
-		ZContext.instance = this
+		if (ZContextInstance.instance) throw new Error('Page can have only one "ZContext"')
+		ZContextInstance.instance = this
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -57,7 +59,7 @@ class ZContext extends React.Component {
 	}
 
 	componentWillUnmount() {
-		ZContext.instance = undefined
+		ZContextInstance.instance = undefined
 	}
 
 	render() {
@@ -178,7 +180,7 @@ let methods = [
 
 methods.forEach(function(name) {
 	ZContext[name] = function(...args) {
-		let instance = ZContext.instance
+		let instance = ZContextInstance.instance
 		if (!instance) {
 			throw new Error('You can\'t use methods without "ZContext" on page')
 		}

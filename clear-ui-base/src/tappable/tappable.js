@@ -43,8 +43,15 @@ export default class Tappable extends React.Component {
 		 */
 		onTapEnd: React.PropTypes.func,
 
+		/** CSS `display` property of the wrapper element when child is not DOM-component. */
+		wrapperDisplay: React.PropTypes.string,
+
 		/** Style passed down to the child element. */
 		style: React.PropTypes.object
+	}
+
+	static defaultProps = {
+		wrapperDisplay: 'inline-block'
 	}
 
 	constructor(props) {
@@ -72,8 +79,7 @@ export default class Tappable extends React.Component {
 
 		if (!this.props.disabled) {
 			if (typeof elem.type !== 'string') {
-				// TODO configurable
-				elem = <div style={{display: 'inline-block'}}>{elem}</div>
+				elem = <div style={{display: this.props.wrapperDisplay}}>{elem}</div>
 			}
 			elem = cloneElementWithHandlers(elem, {
 				onMouseEnter: this.mouseEnter,

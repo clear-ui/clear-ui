@@ -51,7 +51,8 @@ export default class TooltipDoc extends React.Component {
 						<RaisedButton>Show on tap</RaisedButton>
 					</Tooltip>
 					{' '}
-					<Tooltip useTargetAsTappable={true} showOnFocus={true} tooltip={tooltip}>
+					<Tooltip useTargetAsTappable={true} showOnFocus={true} tooltip={tooltip}
+						tappableProps={{preventFocusOnTap: true}}>
 						<RaisedButton>Show on hover and focus</RaisedButton>
 					</Tooltip>
 					{' '}

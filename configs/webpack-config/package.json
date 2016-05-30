@@ -7,9 +7,7 @@
   "license": "public domain",
   "dependencies": {
     "babel-core": "^6.7.2",
-    "babel-runtime": "^6.6.1",
     "babel-loader": "^6.2.4",
-    "image-webpack-loader": "^1.6.1",
     "node-libs-browser": "^0.5.2",
     "svg-sprite-loader": "0.0.7",
     "webpack": "^1.12.14",

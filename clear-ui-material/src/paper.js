@@ -4,7 +4,7 @@ import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
 import StylesMixin from 'clear-ui-base/lib/utils/stylesMixin'
 
 import SHADOWS from './styles/shadows'
-import ThemeMixin from './themeMixin'
+import ThemeMixin from './themes/themeMixin'
 
 @mixinDecorator(StylesMixin, ThemeMixin)
 class Paper extends React.Component {

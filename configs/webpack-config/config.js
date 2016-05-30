@@ -58,8 +58,7 @@ var loaders = [
 			'svg-sprite': {
 				name: '[name]_[hash]',
 				prefixize: true
-			},
-			'image': {}
+			}
 		})
 	}
 ]

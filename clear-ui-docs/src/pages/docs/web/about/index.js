@@ -19,7 +19,7 @@ export default class AboutWeb extends React.Component {
 
 			{`
 			Clear UI Web uses \`rem\` units, so you can scale all sizes of components
-			by changing \`font-size\` on \`html\`-element.
+			by changing \`font-size\` on the \`<html>\` element.
 			`}
 
 		</DocPage>

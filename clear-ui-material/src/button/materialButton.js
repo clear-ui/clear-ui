@@ -3,7 +3,7 @@ import React from 'react'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import RippleButton from './rippleButton'
 import mixinDecorator from 'clear-ui-base/lib/utils/mixin/decorator'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 
 // Button with basic material styles.
@@ -33,6 +33,7 @@ export default class MaterialButton extends RippleButton {
 		RippleButton.styles,
 		(props) => {
 			let root = {
+				verticalAlign: 'middle',
 				display: 'inline-block',
 				fontSize: 14,
 				fontWeight: 500,

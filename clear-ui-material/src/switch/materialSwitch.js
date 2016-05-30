@@ -5,7 +5,7 @@ import BaseSwitch from 'clear-ui-base/lib/switch'
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ChildComponentsMixin from 'clear-ui-base/lib/utils/childComponentsMixin'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 import Ripples from '../ripples'
 
 /** Switch that shows ripples around the switch element. */

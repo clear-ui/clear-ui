@@ -6,6 +6,11 @@ module.exports = {
 	],
 	plugins: [
 		require('babel-plugin-transform-runtime'),
-		'babel-plugin-transform-decorators-legacy'
+		'babel-plugin-transform-decorators-legacy',
+		'transform-class-properties',
+		['transform-es2015-classes', {
+			loose: true
+		}],
+		'transform-proto-to-assign'
 	]
 }

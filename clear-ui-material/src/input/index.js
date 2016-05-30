@@ -1,7 +1,7 @@
 import React from 'react'
 
 import BaseInput from 'clear-ui-base/lib/input'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 

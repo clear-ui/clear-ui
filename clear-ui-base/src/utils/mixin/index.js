@@ -28,5 +28,10 @@ export default function(target, ...mixins) {
 		}
 	}
 
+	// if IE<=10 copy static props from target to mixin
+	for (let staticProperty in target) {
+		MixinClass[staticProperty] = target[staticProperty]
+	}
+
 	return MixinClass
 }

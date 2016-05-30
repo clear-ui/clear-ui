@@ -4,7 +4,7 @@ import composeChildComponents from
 	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import RippleItem from './rippleItem'
 

@@ -6,7 +6,8 @@ import composeChildComponents from
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
 import Icon from 'clear-ui-base/lib/icon'
 
-import theme from '../styles/lightTheme'
+import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
+import ThemeMixin from '../themes/themeMixin'
 import RippleItem from '../menu/rippleItem'
 import COLORS from '../styles/colors'
 
@@ -55,12 +56,11 @@ function getStyles(props, state) {
 	}
 
 	if (itemTapState.hovered || state.focused) {
-		root.background = theme.hovered
+		root.background = state.theme.hovered
 	}
 
 	let label = {
-		// TODO why not state.theme
-		color: theme.text,
+		color: state.theme.text,
 		overflowX: 'hidden',
 		lineHeight: '16px',
 		paddingLeft: paddingLeft + nestingIndent,
@@ -74,22 +74,22 @@ function getStyles(props, state) {
 		fontSize: '14px',
 		lineHeight: '18px',
 		marginTop: 4,
-		color: theme.secondary
+		color: state.theme.secondary
 	}
 
 	if (props.disabled) {
 		root.cursor = 'default'
-		label.color = theme.disabled
-		secondaryText.color = theme.disabled
+		label.color = state.theme.disabled
+		secondaryText.color = state.theme.disabled
 	} else if (props.selected) {
-		label.color = theme.primary
+		label.color = state.theme.primary
 	}
 
 	let iconOrAvatar = {
 		position: 'absolute',
 		lineHeight: '1rem',
-		color: theme.secondary,
-		fill: theme.secondary,
+		color: state.theme.secondary,
+		fill: state.theme.secondary,
 		transition
 	}
 
@@ -112,8 +112,8 @@ function getStyles(props, state) {
 		}
 
 		if (props.disabled) {
-			icon.color = theme.disabled
-			icon.fill = theme.disabled
+			icon.color = state.theme.disabled
+			icon.fill = state.theme.disabled
 		} else if (props.selected) {
 			let color = COLORS.blue500
 			icon.color = color
@@ -134,9 +134,9 @@ function getStyles(props, state) {
 				})
 				if (linesNumber === 3) rightIcon.marginTop = -12
 				if (state.rightIconState === 'hovered') {
-					rightIcon.background = theme.hovered
+					rightIcon.background = state.theme.hovered
 				} else if (state.rightIconState === 'active') {
-					rightIcon.background = theme.pressed
+					rightIcon.background = state.theme.pressed
 				}
 			}
 		}
@@ -157,6 +157,7 @@ function getStyles(props, state) {
 	return {root, label, secondaryText, leftIcon, rightIcon, leftAvatar, rightAvatar}
 }
 
+@mixin(ThemeMixin)
 export default class ListItem extends RippleItem {
 	static propTypes = {
 		...RippleItem.PropTypes,

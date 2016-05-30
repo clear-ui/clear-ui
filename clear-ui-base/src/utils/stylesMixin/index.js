@@ -2,31 +2,10 @@ import React from 'react'
 import Prefixer from 'inline-style-prefixer'
 import composeStyles from './composeStyles'
 
-let prefixer
-
-function prefixStyle(style, userAgent) {
-	if (!prefixer) prefixer = new Prefixer(userAgent)
-	return prefixer.prefix(style)
-}
-
-function postprocessStyle(style, userAgent) {
-	for (let i in style) {
-		let value = style[i]
-		if (value && value.rgbaString) style[i] = value.rgbaString()
-	}
-	return prefixStyle(style, userAgent)
-}
+let prefixers = {}
+let allNotSupportedWarnedOnce, unsuppliedUserAgentWarnedOnce, serverRenderingWarnedOnce
 
 let StylesMixin = {
-	getStyles(props, state) {
-		let stylesFn = composeStyles(this.constructor.styles, props.styles, {root: props.style})
-		let styles = stylesFn(props, state, this.context)
-		for (let elem in styles) {
-			styles[elem] = postprocessStyle(styles[elem], this.context.userAgent)
-		}
-		this.styles = styles
-	},
-
 	componentWillMount() {
 		this.__super()
 		if (!this.state) this.state = {}
@@ -36,12 +15,80 @@ let StylesMixin = {
 	componentWillUpdate(nextProps, nextState) {
 		this.__super()
 		this.getStyles(nextProps, nextState)
+	},
+
+	getStyles(props, state) {
+		let stylesFn = composeStyles(this.constructor.styles, props.styles, {root: props.style})
+		let styles = stylesFn(props, state, this.context)
+
+		for (let elem in styles) {
+			styles[elem] = this.postprocessStyle(styles[elem])
+		}
+		this.styles = styles
+	},
+
+	postprocessStyle(style) {
+		for (let i in style) {
+			let value = style[i]
+			if (value && value.rgbaString) style[i] = value.rgbaString()
+		}
+
+		let autoPrefix = this.context.clearUIAutoPrefix
+		if (autoPrefix === 'off') {
+			return style
+		} else if (autoPrefix === 'all') {
+			// FUTURE: remove warn, use Prefixer.prefixAll()
+			if (!allNotSupportedWarnedOnce) {
+				console.warn('Clear UI: AutoPrefix: "all" is not supported, ' +
+					'autoprefixing is disabled.')
+				allNotSupportedWarnedOnce = true
+			}
+			return style
+		} else {
+			let prefixer = this.getPrefixer()
+			if (prefixer) return prefixer.prefix(style)
+			else return style
+		}
+	},
+
+	getPrefixer() {
+		let userAgent
+		if (this.context.clearUIUserAgent !== undefined) {
+			userAgent = this.context.clearUIUserAgent
+		} else if (typeof navigator !== 'undefined') {
+			userAgent = navigator.userAgent
+		} else {
+			// FUTURE: do not disable autoprefixing, allow auto fallback to prefixAll
+			if (!serverRenderingWarnedOnce) {
+				serverRenderingWarnedOnce = true
+				console.warn('Clear UI: userAgent should be supplied with the UserAgentProvider' +
+					'for server-side rendering, autoprefixing is disabled.')
+			}
+			return
+		}
+
+		if (!prefixers[userAgent]) prefixers[userAgent] = new Prefixer({userAgent})
+		let prefixer = prefixers[userAgent]
+		// FUTURE: remove check and warn, allow auto fallback to prefixAll
+		if (prefixer._browserInfo.browser === '') {
+			if (!unsuppliedUserAgentWarnedOnce) {
+				unsuppliedUserAgentWarnedOnce = true
+				console.warn('Clear UI: supplied userAgent is not supported, ' +
+					'autoprefixing is disabled.')
+			}
+			return
+		} else {
+			return prefixer
+		}
 	}
 }
 
 // Use as `static contextTypes = StylesMixin.contextTypes`
 Object.defineProperty(StylesMixin, 'contextTypes', {
-	value: {clearUiUserAgent: React.PropTypes.string}
+	value: {
+		clearUiUserAgent: React.PropTypes.string,
+		clearUIAutoPrefix: React.PropTypes.string
+	}
 })
 
 export default StylesMixin

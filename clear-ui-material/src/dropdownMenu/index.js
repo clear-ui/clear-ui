@@ -5,7 +5,7 @@ import BaseDropdownMenu from 'clear-ui-base/lib/dropdownMenu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import {Menu} from '../menu'
 import SHADOWS from '../styles/shadows'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 
 @mixin(ThemeMixin)
 export default class DropdownMenu extends BaseDropdownMenu {

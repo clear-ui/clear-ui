@@ -107,7 +107,8 @@ export default class Attachment extends React.Component {
 			layer = React.createElement(ZContextLayer, layerProps, element)
 		}
 
-		return React.DOM.span(null, [target, layer])
+		// TODO add this.props.wrapperDisplay ?
+		return <div style={{display: 'inline-block'}}>{target}{layer}</div>
 	}
 
 	onRender() {

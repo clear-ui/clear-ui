@@ -39,7 +39,10 @@ export default class DocsPage extends React.Component {
 
 	render() {
 		return (
-			<div style={this.styles.root}>
+			<div style={{
+				...this.styles.root,
+				display: 'flex' // TODO bug in chrome
+			}}>
 				<div style={this.styles.nav}>
 
 					<NavMenu prefix='docs/'>
@@ -95,7 +98,6 @@ export default class DocsPage extends React.Component {
 							<NavMenuItem value='menu'>Menu</NavMenuItem>,
 							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
 							<NavMenuItem value='select'>Select</NavMenuItem>,
-							<NavMenuItem disabled={true}>Slider</NavMenuItem>,
 							<NavMenuItem value='snackbar'>Snackbar & Toast</NavMenuItem>,
 							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
 						]}>
@@ -115,7 +117,6 @@ export default class DocsPage extends React.Component {
 							<NavMenuItem value='notification'>Notification</NavMenuItem>,
 							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
 							<NavMenuItem value='select'>Select</NavMenuItem>,
-							<NavMenuItem disabled={true}>Slider</NavMenuItem>,
 							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
 						]}>Web</NavMenuHeader>
 					</NavMenu>

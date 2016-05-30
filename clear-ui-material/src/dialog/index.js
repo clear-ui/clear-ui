@@ -4,7 +4,7 @@ import BaseModal from 'clear-ui-base/lib/modal'
 import SHADOWS from '../styles/shadows'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
-import ThemeMixin from '../themeMixin'
+import ThemeMixin from '../themes/themeMixin'
 
 @mixin(ThemeMixin)
 export default class Dialog extends BaseModal {

@@ -1,14 +1,10 @@
-import lightTheme from './styles/lightTheme'
+import lightTheme from './lightTheme.js'
 
 export default {
 	componentWillMount() {
-		// TODO missing values
 		this.state = {
 			...this.state,
-			theme: {
-				...lightTheme,
-				...this.context.clearUiMaterialTheme
-			}
+			theme: this.context.clearUiMaterialTheme || lightTheme
 		}
 		this.__super()
 	},
@@ -17,10 +13,7 @@ export default {
 		this.__super(...arguments)
 		if (this.context.clearUiMaterialTheme !== nextContext.clearUiMaterialTheme) {
 			this.setState({
-				theme: {
-					...lightTheme,
-					...nextContext.clearUiMaterialTheme
-				}
+				theme: nextContext.clearUiMaterialTheme || lightTheme
 			})
 		}
 	}
