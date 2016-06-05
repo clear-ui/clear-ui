@@ -56,14 +56,21 @@ export default class FocusableTappable extends React.Component {
 		if (typeof elem.type === 'string') return
 
 		let domElem = ReactDOM.findDOMNode(this.elemRef)
-		if (this.domElem !== domElem) {
-			this.domElem = domElem
+		if (this.domElem === domElem) {
+			$(domElem)
+				.unbind('focus', this.onFocus)
+				.unbind('blur', this.onBlur)
+				.unbind('keydown', this.onKeyDown)
+				.removeAttr('tabindex')
+		}
+		if (!this.props.disabled) {
 			$(domElem)
 				.focus(this.onFocus)
 				.blur(this.onBlur)
 				.keydown(this.onKeyDown)
 				.attr('tabindex', this.props.tabIndex)
 		}
+		this.domElem = domElem
 	}
 
 	render() {

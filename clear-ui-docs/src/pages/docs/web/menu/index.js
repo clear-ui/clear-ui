@@ -56,7 +56,6 @@ export default class MenuDoc extends React.Component {
 			<h2>Example</h2>
 
 			{`
-
 			Menu supports keyboard interaction.
 			When menu is active you can use arrows to move hover and
 			\`Enter\` to select item.
@@ -75,7 +74,7 @@ export default class MenuDoc extends React.Component {
 
 			<h3>Height</h3>
 
-			Height of items. **TODO**
+			{`Height of items and labels.`}
 
 			<Example>
 				<Example.Demo>
@@ -96,7 +95,7 @@ export default class MenuDoc extends React.Component {
 
 			<h3>Padding</h3>
 
-			Bigger left and right paddings of items.
+			{`Bigger left and right paddings of items.`}
 
 			<Example>
 				<Example.Demo>
@@ -169,19 +168,23 @@ export default class MenuDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Menu Props</h2>
+			<h2>Menu API</h2>
 
-			<PropsDoc
-				doc={menuPropsDoc}
-				base={{name: 'Base > Menu > Menu', url: '#/docs/base/menu'}}
-			/>
+			{`
+			Extends <a href='#/docs/base/menu'>Base > Menu > Menu</a>
+			`}
 
-			<h2>MenuItem Props</h2>
+			<h3>Props</h3>
+			<PropsDoc doc={menuPropsDoc}/>
 
-			<PropsDoc
-				doc={menuItemPropsDoc}
-				base={{name: 'Base > Menu > MenuItem', url: '#/docs/base/menu'}}
-			/>
+			<h2>MenuItem API</h2>
+
+			{`
+			Extends <a href='#/docs/base/menu'>Base > Menu > MenuItem</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={menuItemPropsDoc}/>
 		</DocPage>
 	}
 }

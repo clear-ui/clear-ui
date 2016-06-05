@@ -69,18 +69,16 @@ class CheckboxSwitch extends Switch {
 export default class Checkbox extends BaseCheckbox {
 	static propTypes = {
 		...BaseCheckbox.propTypes,
-
 		height: React.PropTypes.oneOf(['small', 'default', 'big']),
-
-		padding: React.PropTypes.oneOf(['small', 'default', 'big'])
 	}
 
 	static defaultProps = {
-		height: 'default',
-		padding: 'default'
+		height: 'default'
 	}
 
 	static childComponents = {
 		'switch': <CheckboxSwitch/>
 	}
+
+	render() { return super.render() } // for react-docgen
 }

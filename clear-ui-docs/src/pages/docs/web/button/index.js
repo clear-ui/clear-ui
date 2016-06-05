@@ -170,7 +170,6 @@ export default class ButtonDoc extends React.Component {
 			`}
 
 			<h3>Props</h3>
-
 			<PropsDoc doc={buttonPropsDoc}/>
 		</DocPage>
 	}

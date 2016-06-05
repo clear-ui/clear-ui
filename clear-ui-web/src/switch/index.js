@@ -6,9 +6,10 @@ import getIconElementStyle from '../styles/getIconElementStyle'
 @mixinDecorator(ChildComponentsMixin)
 export default class Switch extends BaseSwitch {
 	static styles = (props) => {
-		let {height, padding, multiline} = props
 		let styles = getIconElementStyle({
-			height, padding, multiline,
+			height: props.height,
+			multiline: true,
+			padding: 'default',
 			leftIcon: true
 		})
 

@@ -1,9 +1,4 @@
 import React from 'react'
-import {Link} from 'react-router'
-
-import Dialog from 'clear-ui-material/lib/dialog'
-import FlatButton from 'clear-ui-material/lib/button/flatButton'
-import RaisedButton from 'clear-ui-material/lib/button/raisedButton'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
@@ -15,45 +10,7 @@ let dialogPropsDoc = materialDocs['dialog/index.js'].props
 
 import DialogExample from './example.js'
 import dialogExampleCode from '!raw!./example.js'
-
-class DialogDemo extends React.Component {
-	static defaultProps = {
-		buttonText: 'Open dialog'
-	}
-
-	constructor(props) {
-		super(props)
-		this.state = {}
-	}
-
-	render() {
-		let header = 'Dialog header'
-		let content = 'Dialog content'
-		let actions = [
-			<FlatButton primary={true} onTap={() => { this.setState({dialogOpen: false}) }}>
-				Cancel
-			</FlatButton>,
-			<FlatButton accent={true} onTap={() => { this.setState({dialogOpen: false}) }}>
-				OK
-			</FlatButton>
-		]
-
-		return <span>
-			<FlatButton onTap={() => { this.setState({dialogOpen: true}) }}>
-				{this.props.buttonText}
-			</FlatButton>
-			<Dialog
-				{...this.props}
-				header={header}
-				actions={actions}
-				open={this.state.dialogOpen}
-				onClose={(value) => { this.setState({dialogOpen: false}) }}
-			>
-				{content}
-			</Dialog>
-		</span>
-	}
-}
+import CustomizableDialogExample from './customizableExample.js'
 
 export default class DialogDoc extends React.Component {
 	render() {
@@ -89,13 +46,13 @@ export default class DialogDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<DialogDemo buttonText='Fade (default)' animation='fade'/>
+					<CustomizableDialogExample buttonText='Fade (default)' animation='fade'/>
 					{' '}
-					<DialogDemo buttonText='Scale' animation='scale'/>
+					<CustomizableDialogExample buttonText='Scale' animation='scale'/>
 					{' '}
-					<DialogDemo buttonText='SlideDown' animation='slideDown'/>
+					<CustomizableDialogExample buttonText='SlideDown' animation='slideDown'/>
 					{' '}
-					<DialogDemo buttonText='No animation' animation={false}/>
+					<CustomizableDialogExample buttonText='No animation' animation={false}/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Dialog animation='fade'>...</Dialog>
@@ -104,8 +61,6 @@ export default class DialogDoc extends React.Component {
 					<Dialog animation={false}>...</Dialog>
 				`}</Example.Code>
 			</Example>
-
-			<h2>Width?</h2>
 
 			<h2>API</h2>
 			{`
@@ -120,11 +75,9 @@ export default class DialogDoc extends React.Component {
 				<ApiDocRow name='header'>{`
 					Header of the dialog.
 				`}</ApiDocRow>
-
 				<ApiDocRow name='content'>{`
 					Container element for content.
 				`}</ApiDocRow>
-
 				<ApiDocRow name='actions'>{`
 					Container element for actions.
 				`}</ApiDocRow>

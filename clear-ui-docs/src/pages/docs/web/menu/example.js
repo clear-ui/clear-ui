@@ -8,7 +8,7 @@ export default class MenuExample extends React.Component {
 	render() {
 		return <div>
 			<p>
-				<Button onClick={() => { this.setState({active: !this.state.active}) }}>
+				<Button onTap={() => { this.setState({active: !this.state.active}) }}>
 					{this.state.active ? 'deactivate' : 'activate'}
 				</Button>
 			</p>

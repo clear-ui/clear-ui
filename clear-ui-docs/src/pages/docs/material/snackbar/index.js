@@ -10,34 +10,16 @@ import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
 import PropsDoc from '../../../../propsDoc'
 
+import ToastExample from './toastExample.js'
+import toastExampleCode from '!raw!./toastExample.js'
+import ReusableToastExample from './reusableToastExample.js'
+
+import SnackbarExample from './snackbarExample.js'
+import snackbarExampleCode from '!raw!./snackbarExample.js'
+import ReusableSnackbarExample from './reusableSnackbarExample.js'
+
 import materialDocs from '../../../../../docgen/material.json'
 let toastPropsDoc = materialDocs['toast/toast.js'].props
-
-import NotificationDemo from '../../../../demos/notificationDemo'
-
-class ToastDemo extends NotificationDemo {
-	static defaultProps = {
-		buttonText: 'Show toast',
-		children: 'Toast text'
-	}
-
-	static childComponents = {
-		button: <RaisedButton/>,
-		notification: <Toast/>,
-	}
-}
-
-class SnackbarDemo extends NotificationDemo {
-	static defaultProps = {
-		buttonText: 'Show snackbar',
-		children: 'Snackbar text'
-	}
-
-	static childComponents = {
-		button: <RaisedButton/>,
-		notification: <Snackbar/>,
-	}
-}
 
 export default class SnackbarDoc extends React.Component {
 	render() {
@@ -67,22 +49,11 @@ export default class SnackbarDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<ToastDemo container={toastContainer}/>
+					<ToastExample/>
 				</Example.Demo>
-				<Example.Code lang='js'>{`
-					import {Toast, ToastContainer} from 'clear-ui-material/lib/toast'
-					let toastContainer = $.Deferred()
-
-					<ToastContainer ref={(ref) => { toastContainer.resolve(ref) }}/>
-					<Button onTap={() => { this.setState({open: true}) }}>Show toast</Button>
-					<Toast
-						container={toastContainer}
-						open={this.state.open}
-						onClose={() => { this.setState({open: false}) }}
-					>
-						Toast text
-					</Toast>
-				`}</Example.Code>
+				<Example.Code>
+					{toastExampleCode}
+				</Example.Code>
 			</Example>
 
 			{`
@@ -95,14 +66,15 @@ export default class SnackbarDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<ToastDemo container={toastContainer}
+					<ReusableToastExample
+						container={toastContainer}
 						action='Action'
 						onActionTap={() => { console.log('tap') }}
 						showCloseButton={true}
 						buttonText={'Toast with buttons'}
 					>
 						Toast with action and close button
-					</ToastDemo>
+					</ReusableToastExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Toast
@@ -125,22 +97,11 @@ export default class SnackbarDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<SnackbarDemo container={snackbarContainer}/>
+					<SnackbarExample/>
 				</Example.Demo>
-				<Example.Code lang='js'>{`
-					import {Snackbar, SnackbarContainer} from 'clear-ui-material/lib/snackbar'
-					let snackbarContainer = $.Deferred()
-
-					<SnackbarContainer ref={(ref) => { snackbarContainer.resolve(ref) }}/>
-					<Button onTap={() => { this.setState({open: true}) }}>Show snackbar</Button>
-					<Snackbar
-						container={snackbarContainer}
-						open={this.state.open}
-						onClose={() => { this.setState({open: false}) }}
-					>
-						Snackbar text
-					</Snackbar>
-				`}</Example.Code>
+				<Example.Code>
+					{snackbarExampleCode}
+				</Example.Code>
 			</Example>
 
 			{`
@@ -149,14 +110,15 @@ export default class SnackbarDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<SnackbarDemo container={snackbarContainer}
+					<ReusableSnackbarExample
+						buttonText={'Snackbar with buttons'}
+						container={snackbarContainer}
 						action='test'
 						onActionTap={() => { console.log('tap') }}
 						showCloseButton={true}
-						buttonText={'Snackbar with buttons'}
 					>
 						Snackbar with close button and action
-					</SnackbarDemo>
+					</ReusableSnackbarExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Snackbar
@@ -176,17 +138,18 @@ export default class SnackbarDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<SnackbarDemo container={snackbarContainer} multiline={true}
-						buttonText='Multiline snackbar'>
+					<ReusableSnackbarExample
+						buttonText='Multiline snackbar'
+						container={snackbarContainer}
+						multiline={true}
+					>
 						Snackbars provide lightweight feedback about an operation
 						by showing a brief message at the bottom of the screen.
 						Snackbars can contain an action.
-					</SnackbarDemo>
+					</ReusableSnackbarExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
-					<Snackbar multiline={true} ...>
-						...
-					</Snackbar>
+					<Snackbar multiline={true} ...>...</Snackbar>
 				`}</Example.Code>
 			</Example>
 
@@ -196,10 +159,13 @@ export default class SnackbarDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<SnackbarDemo container={snackbarContainer} mobile={true}
-						buttonText='Mobile snackbar'>
+					<ReusableSnackbarExample
+						buttonText='Mobile snackbar'
+						container={snackbarContainer}
+						mobile={true}
+					>
 						Mobile snackbar
-					</SnackbarDemo>
+					</ReusableSnackbarExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Snackbar mobile={true} ...>Mobile snackbar</Snackbar>

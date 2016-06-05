@@ -1,51 +1,18 @@
 import React from 'react'
 
-import Modal from 'clear-ui-web/lib/modal'
-import Button from 'clear-ui-web/lib/button/raisedButton'
 import Input from 'clear-ui-web/lib/input'
 
 import DocPage from '../../../../docPage'
 import Example from '../../../../example'
 import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 
-class ModalDemo extends React.Component {
-	static defaultProps = {
-		buttonText: 'Open modal'
-	}
-
-	constructor(props) {
-		super(props)
-		this.state = {}
-	}
-
-	render() {
-		return <span>
-			<Button onTap={() => { this.setState({open: true}) }}>
-				{this.props.buttonText}
-			</Button>
-			<Modal
-				{...this.props}
-				open={this.state.open}
-				onClose={(value) => { this.setState({open: false}) }}
-			>
-				{this.props.children}
-			</Modal>
-		</span>
-	}
-}
+import ModalExample from './example.js'
+import modalExampleCode from '!raw!./example.js'
+import ReusableModalExample from './reusableExample.js'
 
 export default class ModalDoc extends React.Component {
 	render() {
-		let content = <div>
-			<h3>Modal</h3>
-			Content of the modal
-			<br/>
-			<br/>
-			1 <Input/>
-			<br/>
-			<br/>
-			2 <Input/>
-		</div>
+		let content = 'Content'
 
 		return <DocPage>
 			<h1>Web<DocPage.ArrowIcon/>Modal</h1>
@@ -58,18 +25,11 @@ export default class ModalDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<ModalDemo>{content}</ModalDemo>
+					<ModalExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-					<Button onClick={() => { this.setState({modalIsOpen: true}) }}>
-						Open modal
-					</Button>
-
-					<Modal open={this.state.modalIsOpen}
-						onClose={() => { this.setState({modalIsOpen: value}) }}}>
-						{/* content */}
-					</Modal>
-				`}</Example.Code>
+				<Example.Code>
+					{modalExampleCode}
+				</Example.Code>
 			</Example>
 
 			{`
@@ -81,7 +41,7 @@ export default class ModalDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<ModalDemo>
+					<ReusableModalExample>
 						<p>content</p>
 						<p>content</p>
 						<p>content</p>
@@ -113,7 +73,7 @@ export default class ModalDoc extends React.Component {
 						<p>content</p>
 						<p>content</p>
 						<p>content</p>
-					</ModalDemo>
+					</ReusableModalExample>
 				</Example.Demo>
 			</Example>
 
@@ -121,13 +81,21 @@ export default class ModalDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<ModalDemo buttonText={'Fade (default)'} animation='fade'>{content}</ModalDemo>
+					<ReusableModalExample buttonText={'Fade (default)'} animation='fade'>
+						Fade
+					</ReusableModalExample>
 					{' '}
-					<ModalDemo buttonText='Scale' animation='scale'>{content}</ModalDemo>
+					<ReusableModalExample buttonText='Scale' animation='scale'>
+						Scale
+					</ReusableModalExample>
 					{' '}
-					<ModalDemo buttonText='SlideDown' animation='slideDown'>{content}</ModalDemo>
+					<ReusableModalExample buttonText='SlideDown' animation='slideDown'>
+						Slide down
+					</ReusableModalExample>
 					{' '}
-					<ModalDemo buttonText='No animation' animation={false}>{content}</ModalDemo>
+					<ReusableModalExample buttonText='No animation' animation={false}>
+						No animation
+					</ReusableModalExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Modal animation='fade'>...<Modal>
@@ -137,13 +105,11 @@ export default class ModalDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
 
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/modal'>Base > Modal props</a>
-				</ApiDocRow>
-			</ApiDoc>
+			{`
+			Extends <a href='#/docs/base/modal'>Base > Modal</a>
+			`}
 
 		</DocPage>
 	}

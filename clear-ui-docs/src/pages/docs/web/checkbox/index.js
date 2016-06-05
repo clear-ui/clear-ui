@@ -1,32 +1,16 @@
 import React from 'react'
 
-import Checkbox from 'clear-ui-web/lib/checkbox'
-
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
+import PropsDoc from '../../../../propsDoc'
 import Example from '../../../../example'
 
 import CheckboxExample from './example.js'
 import checkboxExampleCode from '!raw!./example.js'
+import ReusableCheckboxExample from './reusableExample.js'
 
-class CheckboxDemo extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {value: this.props.value}
-	}
-
-	render() {
-		return (
-			<Checkbox
-				{...this.props}
-				value={this.state.value}
-				onChange={(value) => { this.setState({value}) }}
-			>
-				{this.props.children}
-			</Checkbox>
-		)
-	}
-}
+import webDocs from '../../../../../docgen/web.json'
+let checkboxPropsDoc = webDocs['checkbox/index.js'].props
 
 export default class CheckboxDoc extends React.Component {
 	render() {
@@ -50,16 +34,25 @@ export default class CheckboxDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<CheckboxDemo height='small'>Small</CheckboxDemo>
-					<CheckboxDemo>Default</CheckboxDemo>
-					<CheckboxDemo height='big'>Big</CheckboxDemo>
+					<ReusableCheckboxExample height='small'>Small</ReusableCheckboxExample>
+					<ReusableCheckboxExample>Default</ReusableCheckboxExample>
+					<ReusableCheckboxExample height='big'>Big</ReusableCheckboxExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
-					<CheckboxDemo height='small'>Small</CheckboxDemo>
-					<CheckboxDemo>Default</CheckboxDemo>
-					<CheckboxDemo height='big'>Big</CheckboxDemo>
+					<Checkbox height='small' ...>Small</Checkbox>
+					<Checkbox ...>Default</Checkbox>
+					<Checkbox height='big' ...>Big</Checkbox>
 				`}</Example.Code>
 			</Example>
+
+			<h2>API</h2>
+
+			{`
+			Extends <a href='#/docs/base/checkbox'>Base > Checkbox</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={checkboxPropsDoc}/>
 		</DocPage>
 	}
 }

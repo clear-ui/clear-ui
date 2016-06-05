@@ -211,15 +211,14 @@ export default class TooltipDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			<h2>Props</h2>
+			<h2>API</h2>
 
-			<PropsDoc
-				doc={tooltipPropsDoc}
-				base={{
-					name: 'Base > Tooltip Props',
-					url: '#/docs/base/tooltip'
-				}}
-			/>
+			{`
+			Extends <a href='#/docs/base/tooltip'>Base > Tooltip</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={tooltipPropsDoc}/>
 		</DocPage>
 	}
 }

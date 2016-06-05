@@ -11,10 +11,8 @@ export default function TooltipExample() {
 		webkitTapHighlightColor: 'rgba(0,0,0,0)'
 	}
 
-	const tooltip = 'Content of the tooltip!'
-
 	return (
-		<Tooltip tooltip={tooltip}>
+		<Tooltip tooltip='Content of the tooltip!'>
 			<div style={elementStyle}>Show tooltip on hover</div>
 		</Tooltip>
 	)

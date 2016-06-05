@@ -6,13 +6,12 @@ import {Notification, SingleNotificationContainer, StackingNotificationContainer
 import Button from 'clear-ui-web/lib/button/raisedButton'
 
 import DocPage from '../../../../docPage'
-import {ApiDoc, ApiDocRow} from '../../../../apiDoc'
 import Example from '../../../../example'
 import PropsDoc from '../../../../propsDoc'
 
 import NotificationExample from './example.js'
 import notificationExampleCode from '!raw!./example.js'
-import AbstractNotificationExample from './abstractExample.js'
+import ReusableNotificationExample from './reusableExample.js'
 
 import webDocs from '../../../../../docgen/web.json'
 let notificationPropsDoc = webDocs['notification/notification.js'].props
@@ -71,16 +70,24 @@ export default class NotificationDoc extends React.Component {
 				<Example.Demo>
 					Stacking container:
 					{' '}
-					<AbstractNotificationExample buttonText='First'/>
+					<ReusableNotificationExample buttonText='First'>
+						Notification 1
+					</ReusableNotificationExample>
 					{' '}
-					<AbstractNotificationExample buttonText='Second'/>
+					<ReusableNotificationExample buttonText='Second'>
+						Notification 2
+					</ReusableNotificationExample>
 					<br/>
 					<br/>
 					Single container:
 					{' '}
-					<AbstractNotificationExample container={singleContainer} buttonText='First'/>
+					<ReusableNotificationExample container={singleContainer} buttonText='First'>
+						Notification 1
+					</ReusableNotificationExample>
 					{' '}
-					<AbstractNotificationExample container={singleContainer} buttonText='Second'/>
+					<ReusableNotificationExample container={singleContainer} buttonText='Second'>
+						Notification 2
+					</ReusableNotificationExample>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 				let stackingContainer = $.Deferred()
@@ -97,10 +104,10 @@ export default class NotificationDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<AbstractNotificationExample container={bottomLeftContainer}
+					<ReusableNotificationExample container={bottomLeftContainer}
 						buttonText='Bottom left'/>
 					{' '}
-					<AbstractNotificationExample container={topCenterContainer}
+					<ReusableNotificationExample container={topCenterContainer}
 						buttonText='Top center'/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
@@ -122,11 +129,11 @@ export default class NotificationDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<AbstractNotificationExample size='small' buttonText='Small' key='1'/>
+					<ReusableNotificationExample size='small' buttonText='Small' key='1'/>
 					{' '}
-					<AbstractNotificationExample size='default' buttonText='Default' key='2'/>
+					<ReusableNotificationExample size='default' buttonText='Default' key='2'/>
 					{' '}
-					<AbstractNotificationExample size='big' buttonText='Big' key='3'/>
+					<ReusableNotificationExample size='big' buttonText='Big' key='3'/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Notifications size='small'>...</Notification>
@@ -139,7 +146,7 @@ export default class NotificationDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<AbstractNotificationExample dark={true}/>
+					<ReusableNotificationExample dark={true}/>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 					<Notification dark={true}>Dark notification</Notification>
@@ -150,23 +157,20 @@ export default class NotificationDoc extends React.Component {
 
 			TODO
 
-			<h2>Container Props</h2>
+			<h2>Containers API</h2>
 
-			<ApiDoc>
-				<ApiDocRow>
-					<a href='#/docs/base/notification'>Base > Notification > Container props</a>
-				</ApiDocRow>
-			</ApiDoc>
+			{`
+			Extends <a href='#/docs/base/notification'>Base > Notification > Containers</a>
+			`}
 
-			<h2>Notification Props</h2>
+			<h2>Notification API</h2>
 
-			<PropsDoc
-				base={{
-					name: 'Base > Notification > Notification props',
-					url: '#/docs/base/notification'
-				}}
-				doc={notificationPropsDoc}
-			/>
+			{`
+			Extends <a href='#/docs/base/notification'>Base > Notification > Notification</a>
+			`}
+
+			<h3>Props</h3>
+			<PropsDoc doc={notificationPropsDoc}/>
 		</DocPage>
 	}
 }

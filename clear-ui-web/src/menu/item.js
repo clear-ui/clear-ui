@@ -43,7 +43,6 @@ function getItemStyles(props, state) {
 		root.background = COLORS.black5
 	}
 
-
 	if (props.leftIcon) {
 		leftIcon.color = COLORS.black2
 		leftIcon.fill = COLORS.black2
@@ -63,10 +62,10 @@ function getItemStyles(props, state) {
 				marginTop: -rightIconPadding + 'rem',
 				marginRight: -rightIconPadding + 'rem'
 			}
-			if (state.rightIconTapState === 'hovered') {
-				rightIcon.background = COLORS.black5
-			} else if (state.rightIconTapState === 'active') {
+			if (state.rightIconTapState.pressed) {
 				rightIcon.background = COLORS.black4
+			} else if (state.rightIconTapState.hovered) {
+				rightIcon.background = COLORS.black5
 			}
 		}
 	}
