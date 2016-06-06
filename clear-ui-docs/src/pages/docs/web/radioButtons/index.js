@@ -1,56 +1,11 @@
 import React from 'react'
 
-import {RadioButton, RadioGroup} from 'clear-ui-web/lib/radioButtons'
-
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
 import Example from '../../../../example'
 
-class RadioButtonsDemo extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {value: this.props.value}
-	}
-
-	render() {
-		return (
-			<RadioGroup
-				{...this.props}
-				value={this.state.value}
-				onChange={(value) => { this.setState({value}) }}
-			>
-				<RadioButton value='1'>First option</RadioButton>
-				<RadioButton value='2'>Second option</RadioButton>
-				<RadioButton disabled={true} value='3'>Disabled option</RadioButton>
-			</RadioGroup>
-		)
-	}
-}
-
-import {SegmentedControl, SegmentedControlSegment} from 'clear-ui-ios/lib/segmentedControl'
-
-class SegmentedControlExample extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {value: this.props.value}
-	}
-
-	render() {
-		return (
-			<SegmentedControl
-				{...this.props}
-				value={this.state.value}
-				onChange={(value) => { this.setState({value}) }}
-			>
-				<SegmentedControlSegment value='1'>First option</SegmentedControlSegment>
-				<SegmentedControlSegment value='2'>Second option</SegmentedControlSegment>
-				<SegmentedControlSegment disabled={true} value='3'>
-					Disabled option
-				</SegmentedControlSegment>
-			</SegmentedControl>
-		)
-	}
-}
+import RadioButtonsExample from './example.js'
+import radioButtonsExampleCode from '!raw!./example.js'
 
 export default class RadioButtonsDoc extends React.Component {
 	render() {
@@ -61,13 +16,24 @@ export default class RadioButtonsDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<SegmentedControlExample value='1'/>
-					<RadioButtonsDemo value='1'/>
+					<RadioButtonsExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>{`
-				`}</Example.Code>
+				<Example.Code>
+					{radioButtonsExampleCode}
+				</Example.Code>
 			</Example>
 
+			<h2>RadioButton API</h2>
+
+			{`
+			Extends <a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioButton</a>
+			`}
+
+			<h2>RadioGroup API</h2>
+
+			{`
+			Extends <a href='#/docs/base/radio-buttons'>Base > Radio Buttons > RadioGroup</a>
+			`}
 		</DocPage>
 	}
 }

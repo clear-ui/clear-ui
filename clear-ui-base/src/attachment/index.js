@@ -75,7 +75,14 @@ export default class Attachment extends React.Component {
 		 * - **mirror** – Object with keys `horiz` and `vert` that are `true` when
 		 *      attachment is mirrored on that axis.
 		 */
-		onChangeAttachment: React.PropTypes.func
+		onChangeAttachment: React.PropTypes.func,
+
+		/** CSS `display` property of the wrapper element. */
+		display: React.PropTypes.string,
+	}
+
+	static defaultProps = {
+		display: 'inline-block'
 	}
 
 	componentDidUpdate() {
@@ -107,8 +114,7 @@ export default class Attachment extends React.Component {
 			layer = React.createElement(ZContextLayer, layerProps, element)
 		}
 
-		// TODO add this.props.wrapperDisplay ?
-		return <div style={{display: 'inline-block'}}>{target}{layer}</div>
+		return <div style={{display: this.props.display}}>{target}{layer}</div>
 	}
 
 	onRender() {

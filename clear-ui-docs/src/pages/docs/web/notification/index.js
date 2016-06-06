@@ -52,7 +52,7 @@ export default class NotificationDoc extends React.Component {
 			{`
 			To create notification, first you need to create container.
 			You can read more about containers on the page
-			[Base > Notifications](#/docs/base/notifications).
+			[Base > Notification](#/docs/base/notification).
 
 			Here are some variations of notification containers.
 			`}

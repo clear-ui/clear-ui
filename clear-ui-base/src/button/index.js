@@ -74,7 +74,7 @@ export default class Button extends React.Component {
 			disabled: this.props.disabled,
 			tabIndex: this.props.tabIndex,
 			onTap: this.props.onTap,
-			preventFocusOnTap: true,
+			preventFocusOnTap: this.props.preventFocusOnTap,
 			onChangeTapState: (tapState) => { this.setManagedState({tapState}) },
 			onFocus: () => {
 				this.setState({focused: true})

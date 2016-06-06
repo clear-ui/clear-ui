@@ -103,14 +103,15 @@ export default class FocusableTappable extends React.Component {
 				},
 				onTap: this.props.onTap,
 				onTapStart: this.props.onTapStart,
-				onTapEnd: this.props.onTapEnd
+				onTapEnd: this.props.onTapEnd,
+				display: this.props.display
 			}, elem)
 		}
 	}
 
 	onFocus(event) {
 		if (this.preventFocus) {
-			event.preventDefault()
+			event.stopPropagation()
 		} else {
 			this.isFocused = true
 			if (this.props.onFocus) this.props.onFocus(event)

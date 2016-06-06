@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'underscore'
 
-import {Menu as BaseMenu} from 'clear-ui-base/lib/menu'
+import BaseScrollMenu from 'clear-ui-base/lib/menu/scrollMenu'
 import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 
 import MenuItem from './item.js'
@@ -9,7 +9,7 @@ import MenuLabel from './label.js'
 
 const TRANSFERED_PROPS = ['indent', 'height', 'padding', 'multiline']
 
-export default class Menu extends BaseMenu {
+export default class Menu extends BaseScrollMenu {
 	static propTypes = {
 		/** Height of items and labels in the menu. */
 		height: React.PropTypes.oneOf(['small', 'default', 'big']),

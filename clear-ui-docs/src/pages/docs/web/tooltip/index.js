@@ -43,27 +43,41 @@ export default class TooltipDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<Tooltip useTargetAsTappable={true} tooltip={tooltip}>
+					<Tooltip tooltip={tooltip}>
 						<RaisedButton>Show on hover</RaisedButton>
 					</Tooltip>
 					{' '}
-					<Tooltip useTargetAsTappable={true} showOnTap={true} tooltip={tooltip}>
+					<Tooltip showOnTap={true} tooltip={tooltip}>
 						<RaisedButton>Show on tap</RaisedButton>
 					</Tooltip>
 					{' '}
-					<Tooltip useTargetAsTappable={true} showOnFocus={true} tooltip={tooltip}
-						tappableProps={{preventFocusOnTap: true}}>
+					<Tooltip showOnFocus={true} tooltip={tooltip}>
+						<RaisedButton preventFocusOnTap={false}>
+							Show on hover and focus</RaisedButton>
+					</Tooltip>
+					{' '}
+					<Tooltip showOnFocus={true} tooltip={tooltip}>
 						<RaisedButton>Show on hover and focus</RaisedButton>
 					</Tooltip>
 					{' '}
-					<Tooltip
-						useTargetAsTappable={true}
-						showOnHover={false}
-						showOnFocus={true}
-						tooltip={tooltip}
-					>
+					<Tooltip showOnHover={false} showOnFocus={true} tooltip={tooltip}>
 						<RaisedButton>Show on focus</RaisedButton>
 					</Tooltip>
+					
+					<br/>
+					<br/>
+
+					<Tooltip tooltip={tooltip} display='block'>
+						<div style={{
+							height: '50px',
+							lineHeight: '50px',
+							background: '#eee',
+							padding: '0 1rem'
+						}}>
+							Tooltip on block element
+						</div>
+					</Tooltip>
+
 				</Example.Demo>
 				<Example.Code>
 				</Example.Code>

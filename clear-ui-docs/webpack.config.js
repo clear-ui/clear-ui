@@ -1,5 +1,6 @@
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var config = require('clear-ui-webpack-config')
 
 var DIST = path.join(__dirname, 'dist')
@@ -26,8 +27,10 @@ config.plugins.push(new HtmlWebpackPlugin({
 	title: 'Clear UI',
 	template: 'src/index.html',
 	inject: true,
-	debug: process.env.NODE_ENV !== 'production'
+	debug: DEBUG
 }))
+
+config.plugins.push(new ExtractTextPlugin('styles.css'))
 
 // Use source code of clear-ui
 config.resolve.alias = {
@@ -60,24 +63,22 @@ var autoprefixerLoaderOptions = {
 
 config.module.loaders.push({
 	test: /\.css$/,
-	loader:
-		'style-loader!' +
+	loader: ExtractTextPlugin.extract('style-loader',
 		'css-loader?' + JSON.stringify(cssLoaderOptions) + '!' +
 		'autoprefixer-loader?' + JSON.stringify(autoprefixerLoaderOptions)
+	)
 })
 
 config.module.loaders.push({
 	test: /\.scss$/,
-	loader:
-		'style-loader!' +
+	loader: ExtractTextPlugin.extract('style-loader',
 		'css-loader?' + JSON.stringify(cssLoaderOptions) + '!' +
 		'autoprefixer-loader?' + JSON.stringify(autoprefixerLoaderOptions) + '!' +
 		'sass-loader'
+	)
 })
 
 // Prevent multiple instances of clear-ui peerDependencies on page
-// when it is installed with 'npm link'
-// comment?
 config.resolve.alias.react = path.join(__dirname, 'node_modules', 'react')
 config.resolve.alias['react-dom'] = path.join(__dirname, 'node_modules', 'react-dom')
 config.resolve.alias.jquery = path.join(__dirname, 'node_modules', 'jquery')

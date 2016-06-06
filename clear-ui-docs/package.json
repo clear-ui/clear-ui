@@ -7,9 +7,7 @@
     "docgen": "gulp docgen",
     "docgen-watch": "gulp docgen-watch",
     "start": "webpack-dev-server --progress --host=0.0.0.0",
-    "start-prod": "webpack-dev-server -p --progress",
-    "build": "webpack --progress",
-    "build-prod": "webpack -p --progress"
+    "build": "NODE_ENV=production webpack -p --progress"
   },
   "author": "sunflowerdeath",
   "license": "public domain",
@@ -37,9 +35,10 @@
     "eslint": "^1.7.1",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-react-docgen": "^0.1.1",
-    "html-webpack-plugin": "^1.6.2",
+    "html-webpack-plugin": "^2.19.0",
     "node-sass": "^3.5.3",
     "raw-loader": "^0.5.1",
     "sass-loader": "^3.2.0",

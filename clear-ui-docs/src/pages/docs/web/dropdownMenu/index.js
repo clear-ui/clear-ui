@@ -60,25 +60,25 @@ export default class DropdownMenuDoc extends React.Component {
 			<Example>
 				<Example.Demo>
 					{' '}
-					<DropdownMenu
-						trigger={<Button rightIcon={triangleIcon}>Width in %</Button>}
+					<ButtonDropdownMenu
+						trigger={<Button>Width in %</Button>}
 						width='150%'>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
+					</ButtonDropdownMenu>
 					{' '}
-					<DropdownMenu
-						trigger={<Button rightIcon={triangleIcon}>Width in px</Button>}
+					<ButtonDropdownMenu
+						trigger={<Button>Width in px</Button>}
 						width='200px'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
+					</ButtonDropdownMenu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
-					<DropdownMenu trigger={trigger} width='150%'>...</DropdownMenu>
+					<ButtonDropdownMenu trigger={trigger} width='150%'>...</ButtonDropdownMenu>
 
-					<DropdownMenu trigger={trigger} width='200px'>...</DropdownMenu>
+					<ButtonDropdownMenu trigger={trigger} width='200px'>...</ButtonDropdownMenu>
 				`}</Example.Code>
 			</Example>
 
@@ -93,26 +93,26 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<DropdownMenu
-						trigger={<Button rightIcon={triangleIcon}>Show at the top</Button>}
+					<ButtonDropdownMenu
+						trigger={<Button>Show at the top</Button>}
 						vertSide='top'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
+					</ButtonDropdownMenu>
 					{' '}
-					<DropdownMenu
-						trigger={<Button rightIcon={triangleIcon}>Expand to the left</Button>}
+					<ButtonDropdownMenu
+						trigger={<Button>Expand to the left</Button>}
 						expandSide='left'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item with long text</MenuItem>
-					</DropdownMenu>
+					</ButtonDropdownMenu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
-					<DropdownMenu trigger={trigger} vertSide='top'>...</DropdownMenu>
+					<ButtonDropdownMenu trigger={trigger} vertSide='top'>...</ButtonDropdownMenu>
 
-					<DropdownMenu trigger={trigger} expandSide='left'>...</DropdownMenu>
+					<ButtonDropdownMenu trigger={trigger} expandSide='left'>...</ButtonDropdownMenu>
 				`}</Example.Code>
 			</Example>
 
@@ -120,22 +120,22 @@ export default class DropdownMenuDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<DropdownMenu
-						trigger={<Button rightIcon={triangleIcon}>Top</Button>}
+					<ButtonDropdownMenu
+						trigger={<Button>Top</Button>}
 						vertSide='top'
 						animation='scale'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
+					</ButtonDropdownMenu>
 					{' '}
-					<DropdownMenu
-						trigger={<Button rightIcon={triangleIcon}>Bottom</Button>}
+					<ButtonDropdownMenu
+						trigger={<Button>Bottom</Button>}
 						animation='scale'
 					>
 						<MenuItem value='1'>First menu item</MenuItem>
 						<MenuItem value='2'>Second menu item</MenuItem>
-					</DropdownMenu>
+					</ButtonDropdownMenu>
 				</Example.Demo>
 				<Example.Code lang='xml'>{`
 				`}</Example.Code>
