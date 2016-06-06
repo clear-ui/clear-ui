@@ -73,9 +73,9 @@ let BOTTOM_POS = {
 describe('attachment/class/getAttachPosition', function() {
 	it('calculates attach position', function() {
 		let res = getAttachPosition({
-			measurements: MEASUREMENTS, 
+			measurements: MEASUREMENTS,
 			attachments: [BOTTOM_ATTACHMENT],
-			constrain: false, 
+			constrain: false,
 			viewportPadding: 0,
 			mirrorAttachment: 'none'
 		})
@@ -84,10 +84,10 @@ describe('attachment/class/getAttachPosition', function() {
 
 	it('chooses attach position that fits', function() {
 		let res = getAttachPosition({
-			measurements: MEASUREMENTS, 
+			measurements: MEASUREMENTS,
 			attachments: [TOP_ATTACHMENT, BOTTOM_ATTACHMENT],
 			constrain: false,
-			viewportPadding: 0, 
+			viewportPadding: 0,
 			mirrorAttachment: 'none'
 		})
 		assert.deepEqual(res[0], BOTTOM_POS)
@@ -98,7 +98,7 @@ describe('attachment/class/getAttachPosition', function() {
 			measurements: MEASUREMENTS,
 			attachments: [TOP_ATTACHMENT],
 			constrain: false,
-			viewportPadding: 0, 
+			viewportPadding: 0,
 			mirrorAttachment: 'all'
 		})
 		assert.deepEqual(res[0], BOTTOM_POS)

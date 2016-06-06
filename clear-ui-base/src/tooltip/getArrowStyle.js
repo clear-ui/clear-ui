@@ -29,7 +29,7 @@ export default function getArrowStyle({side, align, width, height, margin, unit}
 			arrow.left = margin + unit
 		} else if (align === 'center') {
 			arrow.left = '50%'
-			arrow.marginLeft = (-width/2) + unit
+			arrow.marginLeft = (-width / 2) + unit
 		} else if (align === 'end') {
 			arrow.left = '100%'
 			arrow.marginLeft = (-margin - width) + unit
@@ -42,7 +42,7 @@ export default function getArrowStyle({side, align, width, height, margin, unit}
 			arrow.top = margin + unit
 		} else if (align === 'center') {
 			arrow.top = '50%'
-			arrow.marginTop = (-width/2) + unit
+			arrow.marginTop = (-width / 2) + unit
 		} else if (align === 'end') {
 			arrow.top = '100%'
 			arrow.marginTop = (-margin - width) + unit

@@ -7,8 +7,8 @@ import PropsDoc from '../../../../propsDoc'
 import baseDocs from '../../../../../docgen/base.json'
 let attachmentPropsDoc = baseDocs['attachment/index.js'].props
 
-import AttachmentDemo from './demo.js'
-import attachmentDemoCode from '!raw!./demo.js'
+import AttachmentExample from './example.js'
+import attachmentExampleCode from '!raw!./example.js'
 
 export default class BaseAttachmentDoc extends React.Component {
 	render() {
@@ -35,6 +35,12 @@ export default class BaseAttachmentDoc extends React.Component {
 			It renders attached element in the separate \`ZContext.Layer\`.
 			`}
 
+			<DocPage.Note>
+				This component requires instance of{' '}
+				<a href='#/docs/base/zcontext'>ZContext</a>
+				{' '}to be rendered on the page.
+			</DocPage.Note>
+
 			<h2>Example</h2>
 
 			{`
@@ -44,10 +50,10 @@ export default class BaseAttachmentDoc extends React.Component {
 
 			<Example>
 				<Example.Demo>
-					<AttachmentDemo/>
+					<AttachmentExample/>
 				</Example.Demo>
-				<Example.Code lang='xml'>
-					{attachmentDemoCode}
+				<Example.Code>
+					{attachmentExampleCode}
 				</Example.Code>
 			</Example>
 

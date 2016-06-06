@@ -18,7 +18,7 @@ describe('BoundFunction', function() {
 	it('only same functions with same contexts and args are equal', function() {
 		let boundFn = new BoundFunction(testFn, context, firstArg)
 		let equalBoundFn = new BoundFunction(testFn, context, firstArg)
-		let differentBoundFn = new BoundFunction(()=>{}, context, firstArg)
+		let differentBoundFn = new BoundFunction(() => {}, context, firstArg)
 		let boundFnWithDifferentArgs = new BoundFunction(testFn, context, 8)
 		let boundFnWithDifferentContext = new BoundFunction(testFn, {}, firstArg)
 

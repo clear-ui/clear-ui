@@ -1,9 +1,8 @@
 import React from 'react'
-
 import Attachment from 'clear-ui-base/lib/attachment'
 import RaisedButton from 'clear-ui-web/lib/button/raisedButton.js'
 
-export default function AttachmentDemo() {
+export default function AttachmentExample() {
 	let element = (
 		<div style={{
 			position: 'absolute',

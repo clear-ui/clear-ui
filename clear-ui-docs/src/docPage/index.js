@@ -1,8 +1,9 @@
 import React from 'react'
 import Markdown from 'react-markdown-it'
 
-import ArrowIcon from './arrowIcon.js'
 import css from './index.scss'
+import ArrowIcon from './arrowIcon.js'
+import Note from './note.js'
 
 const style = {
 	paddingTop: '2rem',
@@ -26,5 +27,6 @@ class DocPage extends React.Component {
 }
 
 DocPage.ArrowIcon = ArrowIcon
+DocPage.Note = Note
 
 export default DocPage

@@ -72,7 +72,9 @@ export default class ButtonDoc extends React.Component {
 				`}</Example.Code>
 			</Example>
 
-			*`OutlinedButton` does not support `invalid`.*
+			<DocPage.Note>
+				OutlinedButton does not support invalid state.
+			</DocPage.Note>
 
 			<h3>Icons</h3>
 

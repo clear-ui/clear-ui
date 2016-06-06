@@ -66,10 +66,9 @@ describe('attachment', function() {
 	})
 
 	xit('passes popupOptions to Popup', function() {
-		//TODO test merging onRender
+		// TODO test merging onRender
 	})
 
 	xit('updates content and position', function() {
 	})
-
 })

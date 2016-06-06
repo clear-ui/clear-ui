@@ -18,7 +18,10 @@ export default class Select extends React.Component {
 		onChange: React.PropTypes.func,
 
 		/** Label in the select when it has no selected value. */
-		label: React.PropTypes.node
+		label: React.PropTypes.node,
+
+		/** Disabled state of the select */
+		disabled: React.PropTypes.bool
 	}
 
 	static defaultProps = {

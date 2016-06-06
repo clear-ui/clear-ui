@@ -13,10 +13,13 @@ export default class BaseButtonDoc extends React.Component {
 			<h1>Base<DocPage.ArrowIcon/>Select</h1>
 
 			{`
-
-			This component requires instance of [ZContext](#/docs/base/zcontext) to
-			be rendered on the page.
 			`}
+
+			<DocPage.Note>
+				This component requires instance of{' '}
+				<a href='#/docs/base/zcontext'>ZContext</a>
+				{' '}to be rendered on the page.
+			</DocPage.Note>
 
 			<h2>API</h2>
 

@@ -70,7 +70,7 @@ export default class Tappable extends React.Component {
 
 	render() {
 		let elem = this.props.children
-		
+
 		elem = React.cloneElement(elem, {
 			style: {
 				...this.props.children.props.style,

@@ -73,7 +73,7 @@ export default class DropdownMenu extends React.Component {
 		listOffset: React.PropTypes.number,
 
 		/** Animation of showing and hiding the menu. */
-		animation: React.PropTypes.oneOf(['fade', 'slide', 'scale', 'scaleVert']),
+		animation: React.PropTypes.oneOf(['fade', 'slide', 'scale', 'scaleVert'])
 	}
 
 	static defaultProps = {

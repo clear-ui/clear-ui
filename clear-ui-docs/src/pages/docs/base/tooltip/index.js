@@ -14,15 +14,17 @@ export default class BaseTooltipDoc extends React.Component {
 			{`
 			Base tooltip component that appears next to an element on
 			tap, hover, focus or combination of these events.
-
-			This component requires instance of [ZContext](#/docs/base/zcontext) to
-			be rendered on the page.
 			`}
+
+			<DocPage.Note>
+				This component requires instance of{' '}
+				<a href='#/docs/base/zcontext'>ZContext</a>
+				{' '}to be rendered on the page.
+			</DocPage.Note>
 
 			<h2>API</h2>
 
 			<h3>Props</h3>
-
 			<PropsDoc doc={tooltipPropsDoc}/>
 		</DocPage>
 	}

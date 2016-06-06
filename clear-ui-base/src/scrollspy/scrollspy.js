@@ -9,7 +9,7 @@ export default class Scrollspy extends React.Component {
 	static propTypes = {
 		/**
 		 * Function that is called when active anchor is changed.
-		 * 
+		 *
 		 * `(anchorId) => void`
 		 */
 		onChange: React.PropTypes.func,
@@ -54,7 +54,7 @@ export default class Scrollspy extends React.Component {
 		}
 	}
 
-	componentWillUnmmount() {
+	componentWillUnmount() {
 		this.scrollTarget.unbind(this.scrollListener)
 		$(window).unbind(this.resizeListener)
 	}

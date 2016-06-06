@@ -26,6 +26,8 @@
 		"no-nested-ternary": [0],
 		"default-case": [0],
 
+		"jsx-quotes": [2, "prefer-single"],
+		"react/jsx-boolean-value": [2, "always"],
 		"react/jsx-indent": [2, "tab"],
 		"react/jsx-indent-props": [2, "tab"],
 		"react/jsx-no-bind": [0],

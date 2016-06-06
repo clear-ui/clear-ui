@@ -104,7 +104,7 @@ class Attachment {
 			constrain,
 			viewportPadding,
 			mirrorAttachment,
-			attachments: parsedAttachments,
+			attachments: parsedAttachments
 		})
 		if (position) this.setPosition(position)
 		if (this.prevAttachmentIndex !== index || _.deepEqual(this.prevMirror, mirror)) {

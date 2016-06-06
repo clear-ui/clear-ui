@@ -15,10 +15,13 @@ export default class DropdownMenuDoc extends React.Component {
 			{`
 			Dropdown Menu is a component that shows menu under an element
 			and allows to select items from it.
-
-			This component requires instance of [ZContext](#/docs/base/zcontext) to
-			be rendered on the page.
 			`}
+
+			<DocPage.Note>
+				This component requires instance of{' '}
+				<a href='#/docs/base/zcontext'>ZContext</a>
+				{' '}to be rendered on the page.
+			</DocPage.Note>
 
 			<h2>API</h2>
 

@@ -92,7 +92,7 @@ export default class Notification extends React.Component {
 		/** Function that is called when notification requests to be closed. */
 		onClose: React.PropTypes.func.isRequired,
 
-		/** 
+		/**
 		 * Elements for performing actions with notification.
 		 * They are displayed after content of the notification.
 		 */

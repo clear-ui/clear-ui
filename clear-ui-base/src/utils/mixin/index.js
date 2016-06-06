@@ -16,10 +16,10 @@ export default function(target, ...mixins) {
 			if (typeof value === 'function') {
 				let base = MixinClass.prototype[key] || function() {}
 				let mixed = value
-				value = function() {
+				value = function(...args) {
 					let savedSuper = this.__super
 					this.__super = base
-					let res = mixed.apply(this, arguments)
+					let res = mixed.apply(this, args)
 					this.__super = savedSuper
 					return res
 				}

@@ -14,10 +14,13 @@ export default class BaseModalDoc extends React.Component {
 
 			{`
 			Modal displays content in the window above the page.
-
-			This component requires instance of [ZContext](#/docs/base/zcontext) to
-			be rendered on the page.
 			`}
+
+			<DocPage.Note>
+				This component requires instance of{' '}
+				<a href='#/docs/base/zcontext'>ZContext</a>
+				{' '}to be rendered on the page.
+			</DocPage.Note>
 
 			<h2>Focus management</h2>
 

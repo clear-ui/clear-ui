@@ -95,5 +95,4 @@ describe('focusScope', function() {
 			assert.equal(container.find('.scoped1').find('input')[0], document.activeElement)
 		})
 	})
-
 })

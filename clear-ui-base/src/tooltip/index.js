@@ -72,7 +72,7 @@ export default class Tooltip extends React.Component {
 		 * When `true`, tooltip shows on tapping the element.
 		 * This options is not compatible with other show options.
 		 */
-		showOnClick: React.PropTypes.bool,
+		showOnTap: React.PropTypes.bool,
 
 		/**
 		 * When `true`, tooltip shows on hovering the element.
@@ -110,7 +110,7 @@ export default class Tooltip extends React.Component {
 		openTimeout: React.PropTypes.number,
 
 		/** Time before the tooltip starts closing after the element loses hover, in ms. */
-		closeTimeout: React.PropTypes.number,
+		closeTimeout: React.PropTypes.number
 	}
 
 	static defaultProps = {
@@ -166,9 +166,6 @@ export default class Tooltip extends React.Component {
 			onChangeAttachment: (id) => {
 				this.updateSide(this.props.sides[id])
 			}
-			//layerProps: {
-				//closeOnEsc: TODO true when open with click but not hover
-			//},
 		}, target)
 
 		if (this.props.animation) {

@@ -21,10 +21,13 @@ export default class StickyDoc extends React.Component {
 			when it leaves viewport while scrolling.
 			When content becomes fixed, component inserts placeholder
 			with height equal to the height of the content.
-
-			This component requires instance of [ZContext](#/docs/base/zcontext) to
-			be rendered on the page.
 			`}
+
+			<DocPage.Note>
+				This component requires instance of{' '}
+				<a href='#/docs/base/zcontext'>ZContext</a>
+				{' '}to be rendered on the page.
+			</DocPage.Note>
 
 			<h2>Example</h2>
 

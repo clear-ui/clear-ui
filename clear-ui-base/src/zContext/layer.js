@@ -55,9 +55,10 @@ export default class ZContextLayer extends React.Component {
 			position: 'fixed',
 			height: '100%',
 			width: '100%',
-			WebkitTapHighlightColor: 'rgba(0,0,0,0)',
+			WebkitTapHighlightColor: 'rgba(0,0,0,0)'
 			// TODO 1x1 transparent GIF to prevent click event leaking in IE
-			// background: 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);'
+			// background: 'url(data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///' +
+			// 	'yH5BAEAAAAALAAAAAABAAEAAAIBRAA7);'
 		}
 	}
 

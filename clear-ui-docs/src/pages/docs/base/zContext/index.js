@@ -13,14 +13,12 @@ export default class ZContextDoc extends React.Component {
 			<h1>Base<DocPage.ArrowIcon/>ZContext</h1>
 
 			{`
-			ZContext is a component that manages vertical ordering of layers.
-			It must be placed at the top level in the \`<body>\`.
-
+			ZContext is a component for managing vertical ordering of layers.
 			Layers create own vertical contexts.
 			Contexts created with \`z-index\` or with other css properties
 			do not affect ordering of layers.
 
-			Order of layers in the same context is defined by layers types.
+			Order of layers in the same context is defined by their types.
 			Layers with higher priority will have higher \`z-index\`.
 
 			Possible layer types in order of their priority:
@@ -31,6 +29,11 @@ export default class ZContextDoc extends React.Component {
 			- modal
 			- global
 			`}
+
+			<DocPage.Note>
+				Page can have only one instance of <code>ZContext</code>.
+				It must be placed at the top left corner of the page.
+			</DocPage.Note>
 
 			<h2>Example</h2>
 
