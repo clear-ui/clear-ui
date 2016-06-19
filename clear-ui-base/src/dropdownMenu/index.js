@@ -119,8 +119,7 @@ export default class DropdownMenu extends React.Component {
 	constructor() {
 		super()
 		this.initManagedState(['open'])
-		if (!this.state) this.state = {}
-		this.state.rest = true
+		this.state = {rest: true}
 	}
 
 	componentWillReceiveProps(nextProps) {

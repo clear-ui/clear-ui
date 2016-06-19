@@ -88,10 +88,7 @@ export default class Button extends React.Component {
 	}
 
 	renderRoot() {
-		let label = React.DOM.div({
-			key: 'label',
-			style: this.styles.label
-		}, this.props.children)
+		let label = <div key='label' style={this.styles.label}>{this.props.children}</div>
 
 		// let elemType = this.props.tabIndex === undefined ? 'div' : 'button'
 		let elemType = 'div'

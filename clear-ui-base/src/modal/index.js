@@ -88,7 +88,9 @@ export default class Modal extends React.Component {
 		}
 	}
 
-	// TODO component did mount
+	componentDidMount() {
+		if (this.props.open) this.open()
+	}
 
 	componentWillReceiveProps(nextProps) {
 		if (!this.props.open && nextProps.open) this.open()

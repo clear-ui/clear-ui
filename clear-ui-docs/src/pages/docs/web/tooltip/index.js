@@ -41,6 +41,8 @@ export default class TooltipDoc extends React.Component {
 				</Example.Code>
 			</Example>
 
+			{`Tooltip can be shown on hover, tap, focus or combination of these events:`}
+
 			<Example>
 				<Example.Demo>
 					<Tooltip tooltip={tooltip}>
@@ -52,35 +54,27 @@ export default class TooltipDoc extends React.Component {
 					</Tooltip>
 					{' '}
 					<Tooltip showOnFocus={true} tooltip={tooltip}>
-						<RaisedButton preventFocusOnTap={false}>
-							Show on hover and focus</RaisedButton>
-					</Tooltip>
-					{' '}
-					<Tooltip showOnFocus={true} tooltip={tooltip}>
 						<RaisedButton>Show on hover and focus</RaisedButton>
 					</Tooltip>
 					{' '}
 					<Tooltip showOnHover={false} showOnFocus={true} tooltip={tooltip}>
 						<RaisedButton>Show on focus</RaisedButton>
 					</Tooltip>
-					
-					<br/>
-					<br/>
-
-					<Tooltip tooltip={tooltip} display='block'>
-						<div style={{
-							height: '50px',
-							lineHeight: '50px',
-							background: '#eee',
-							padding: '0 1rem'
-						}}>
-							Tooltip on block element
-						</div>
-					</Tooltip>
-
 				</Example.Demo>
-				<Example.Code>
-				</Example.Code>
+				<Example.Code>{`
+					<Tooltip tooltip={tooltip}>
+						<RaisedButton>Show on hover</RaisedButton>
+					</Tooltip>
+					<Tooltip showOnTap={true} tooltip={tooltip}>
+						<RaisedButton>Show on tap</RaisedButton>
+					</Tooltip>
+					<Tooltip showOnFocus={true} tooltip={tooltip}>
+						<RaisedButton>Show on hover and focus</RaisedButton>
+					</Tooltip>
+					<Tooltip showOnHover={false} showOnFocus={true} tooltip={tooltip}>
+						<RaisedButton>Show on focus</RaisedButton>
+					</Tooltip>
+				`}</Example.Code>
 			</Example>
 
 			<h2>Variations</h2>

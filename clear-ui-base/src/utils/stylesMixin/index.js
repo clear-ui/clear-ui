@@ -86,7 +86,7 @@ let StylesMixin = {
 // Use as `static contextTypes = StylesMixin.contextTypes`
 Object.defineProperty(StylesMixin, 'contextTypes', {
 	value: {
-		clearUiUserAgent: React.PropTypes.string,
+		clearUIUserAgent: React.PropTypes.string,
 		clearUIAutoPrefix: React.PropTypes.string
 	}
 })

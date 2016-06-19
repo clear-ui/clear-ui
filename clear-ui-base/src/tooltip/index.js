@@ -86,6 +86,21 @@ export default class Tooltip extends React.Component {
 		 */
 		showOnFocus: React.PropTypes.bool,
 
+		initialOpen: React.PropTypes.bool,
+		/**
+		 * Properties that allow you to control tooltip's open state from the outside.
+		 * If they are not present, tooltip will manage opened state inside its
+		 * internal state.
+		 */
+		open: React.PropTypes.bool,
+
+		/**
+		 * Function that is called when tooltip requests to change its opened state.
+		 *
+		 * `(open: bool) => void`
+		 */
+		onChangeOpen: React.PropTypes.func,
+
 		/** CSS `display` property of the wrapper element. */
 		display: React.PropTypes.string,
 
@@ -148,9 +163,17 @@ export default class Tooltip extends React.Component {
 
 	constructor(props) {
 		super(props)
-		// TODO this.initManagedState(['open'])
-		if (!this.state) this.state = {}
-		this.state.rest = true
+		this.initManagedState(['open'])
+		this.state = {rest: true}
+	}
+
+	//!
+	componentWillReceiveProps(nextProps) {
+		// Every time opened state is changed with props it should reset value of 'rest',
+		// as in open() and close() methods.
+		if ('open' in nextProps && nextProps.open !== this.state.open) {
+			this.setState({rest: false})
+		}
 	}
 
 	render() {
@@ -213,12 +236,12 @@ export default class Tooltip extends React.Component {
 			if (this.props.showOnFocus) {
 				props.onFocus = () => {
 					this.isFocused = true
-					this.setManagedState({open: true})
+					this.open()
 				}
 				props.onBlur = () => {
 					this.isFocused = false
 					if (this.props.showOnHover && this.isHovered) return
-					this.setManagedState({open: false})
+					this.close()
 				}
 			}
 		}
@@ -265,16 +288,20 @@ export default class Tooltip extends React.Component {
 		clearTimeout(this.timer)
 		if (hovered) {
 			if (!canOnlyClose && !this.state.open) {
-				this.timer = setTimeout(() => {
-					this.setManagedState({open: true, rest: false})
-				}, this.props.openTimeout)
+				this.timer = setTimeout(this.open.bind(this), this.props.openTimeout)
 			}
 		} else {
 			if (this.state.open) {
-				this.timer = setTimeout(() => {
-					this.setManagedState({open: false, rest: false})
-				}, this.props.closeTimeout)
+				this.timer = setTimeout(this.close.bind(this), this.props.closeTimeout)
 			}
 		}
+	}
+
+	open() {
+		this.setManagedState({open: true, rest: false})
+	}
+
+	close() {
+		this.setManagedState({open: false, rest: false})
 	}
 }

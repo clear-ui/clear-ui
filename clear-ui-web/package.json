@@ -1,6 +1,6 @@
 {
   "name": "clear-ui-web",
-  "version": "0.0.1",
+  "version": "0.0.1-alpha.0",
   "description": "UI components for React",
   "keywords": [
     "react"
@@ -13,9 +13,9 @@
   "scripts": {
     "test": "karma start",
     "start": "webpack-dev-server",
-    "build": "webpack",
-    "build-lib": "gulp build-lib",
-    "build-precompiled": "webpack -p"
+    "build-npm": "gulp build-npm",
+    "build-precompiled": "webpack -p",
+    "build": "npm run build-npm && npm run build-precompiled"
   },
   "author": {
     "name": "sunflowerdeath",
@@ -34,9 +34,9 @@
     "babel-core": "^6.8.0",
     "babel-eslint": "^6.0.4",
     "babel-preset-clear-ui": "file:../configs/babel-preset",
+    "clear-ui-gulp": "file:../configs/gulp",
     "clear-ui-webpack-config": "file:../configs/webpack-config",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.2",
+    "gulp": "^3.9.1",
     "webpack": "^1.10.1"
   },
   "peerDependencies": {
