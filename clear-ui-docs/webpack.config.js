@@ -83,4 +83,8 @@ config.resolve.alias.react = path.join(__dirname, 'node_modules', 'react')
 config.resolve.alias['react-dom'] = path.join(__dirname, 'node_modules', 'react-dom')
 config.resolve.alias.jquery = path.join(__dirname, 'node_modules', 'jquery')
 
+// Spent 4 hours fixing it
+// https://github.com/webpack/webpack/issues/2740 
+config.resolveLoader.root = path.join(__dirname, "node_modules")
+
 module.exports = config
