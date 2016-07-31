@@ -1,6 +1,6 @@
 # Clear UI scripts
 
-`clear-ui-scripts` is a set of common scripts for working with react code.
+`clear-ui-scripts` is a set of utility scripts for working with react code.
 It can be used with both apps that need to be deployed to a server, 
 and libraries that need to be published to the npm.
 
@@ -16,7 +16,7 @@ simple `<script>` and `<link>` element.
 ### compile
 
 Compiles source files with babel separately and puts results to the `lib` directory.
-It prepares library to publish to the npm.
+It prepares library to publishing to the npm.
 
 ### start
 
@@ -29,8 +29,8 @@ It loads `src/tests_index.js` as index file.
 
 ## Webpack config
 
-Default config is located at 'clear-ui-scripts/config/webpack.js',
-it is used when there is no 'webpack.config.js' in the project's directory.
+Default config is located at `clear-ui-scripts/config/webpack.js`,
+it is used when there is no `webpack.config.js` in the project's directory.
 
 Also, project's config can extend default config, for example, like this:
 
