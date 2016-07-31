@@ -1,27 +1,10 @@
 var path = require('path')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var config = require('clear-ui-webpack-config')
 
-var DIST = path.join(__dirname, 'dist')
+var config = require('clear-ui-scripts/config/webpack.js')
 
 var DEBUG = process.env.NODE_ENV !== 'production'
-
-config.entry.push('./src/index.js')
-
-config.output = {
-	path: DIST,
-	filename: 'main.js'
-}
-
-config.devServer = {
-	contentBase: DIST
-}
-
-config.watchOptions = {
-    aggregateTimeout: 250,
-    poll: 50
-}
 
 config.plugins.push(new HtmlWebpackPlugin({
 	title: 'Clear UI',

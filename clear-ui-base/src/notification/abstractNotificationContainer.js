@@ -113,7 +113,7 @@ export default class AbstractNotificationsContainer extends React.Component {
 	}
 
 	renderNotifications() { throw new Error('Not implemented') }
-	add(/* notification */) /* : key */ { throw new Error('Not implemented') }
+	add(/* notification */) /* => key */ { throw new Error('Not implemented') }
 	remove(/* key */) { throw new Error('Not implemented') }
 	update(/* key, notification */) { throw new Error('Not implemented') }
 }

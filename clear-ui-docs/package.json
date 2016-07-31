@@ -26,16 +26,10 @@
     "underscore": "^1.8.3"
   },
   "devDependencies": {
+	"clear-ui-scripts": "../scripts",
     "autoprefixer-loader": "^3.2.0",
-    "babel-core": "^6.10.4",
-    "babel-eslint": "^4.1.3",
-    "babel-preset-clear-ui": "file:../configs/babel-preset",
-    "clear-ui-webpack-config": "file:../configs/webpack-config",
     "css-loader": "^0.23.1",
     "dirmatch": "^0.1.2",
-    "eslint": "^1.7.1",
-    "eslint-config-airbnb": "^0.1.0",
-    "eslint-plugin-react": "^3.5.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-react-docgen": "^0.1.1",
@@ -43,8 +37,6 @@
     "node-sass": "^3.5.3",
     "raw-loader": "^0.5.1",
     "sass-loader": "^3.2.0",
-    "style-loader": "^0.13.1",
-    "webpack": "^1.12.2",
-    "webpack-dev-server": "^1.12.0"
+    "style-loader": "^0.13.1"
   }
 }

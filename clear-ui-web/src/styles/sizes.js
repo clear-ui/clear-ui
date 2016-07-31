@@ -1,7 +1,7 @@
 export default {
 	small: {
 		height: 1.75,
-		fontSize: 0.95
+		fontSize: 0.9
 	},
 	default: {
 		height: 2,

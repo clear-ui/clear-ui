@@ -155,7 +155,18 @@ export default class NotificationDoc extends React.Component {
 
 			<h3>Animation</h3>
 
-			TODO
+			<Example>
+				<Example.Demo>
+          <StackingNotificationContainer>
+            <ReusableNotificationExample buttonText='Fade'/>
+          </StackingNotificationContainer>
+				</Example.Demo>
+				<Example.Code lang='xml'>{`
+					<Notification animation='fade'>...</Notification>
+					<Notification animation='slide'>...</Notification>
+					<Notification animation={false}>...</Notification>
+				`}</Example.Code>
+			</Example>
 
 			<h2>Containers API</h2>
 
