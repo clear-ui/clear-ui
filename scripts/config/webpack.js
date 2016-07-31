@@ -27,7 +27,11 @@ var plugins = [
 if (DEBUG) {
 	plugins.push(new webpack.HotModuleReplacementPlugin())
 } else {
-	plugins.push(new webpack.optimize.UglifyJsPlugin())
+	plugins.push(new webpack.optimize.UglifyJsPlugin({
+		compress: {
+			warnings: false
+		}
+	}))
 	plugins.push(new webpack.optimize.DedupePlugin())
 }
 

@@ -6,8 +6,8 @@
   "scripts": {
     "docgen": "gulp docgen",
     "docgen-watch": "gulp docgen-watch",
-    "start": "webpack-dev-server --progress --host=0.0.0.0",
-    "build": "NODE_ENV=production webpack -p --progress"
+    "start": "clear-ui-scripts start",
+    "build": "clear-ui-scripts build"
   },
   "author": "sunflowerdeath",
   "license": "public domain",
