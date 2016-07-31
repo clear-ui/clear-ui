@@ -1,9 +1,5 @@
 var path = require('path')
-var config = require('clear-ui-webpack-config')
-
-var DIST = path.join(__dirname, 'dist')
-
-config.entry.push('./src/index.js')
+var config = require('clear-ui-scripts/config/webpack.js')
 
 config.externals = {
 	jquery: 'jQuery',
@@ -21,11 +17,8 @@ config.module.loaders[0].include = [
 	path.join(__dirname, 'src')
 ]
 
-config.output = {
-	path: DIST,
-	filename: 'clear-ui-material.js',
-	libraryTarget: 'umd',
-	library: 'ClearUIMaterial'
-}
+config.output.filename = 'clear-ui-material.js'
+config.output.libraryTarget = 'umd'
+config.output.library = 'ClearUIMaterial'
 
 module.exports = config

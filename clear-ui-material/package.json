@@ -11,11 +11,9 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "karma start",
-    "start": "webpack-dev-server",
-    "build-npm": "gulp build-npm",
-    "build-precompiled": "webpack -p",
-    "build": "npm run build-npm && npm run build-precompiled"
+    "test": "clear-ui-scripts test",
+    "compile": "clear-ui-scripts compile",
+    "build": "clear-ui-scripts build"
   },
   "author": {
     "name": "sunflowerdeath",
@@ -34,15 +32,6 @@
     "jquery": "^2.1.4"
   },
   "devDependencies": {
-    "babel-core": "^6.9.1",
-    "babel-eslint": "^4.1.6",
-    "babel-preset-clear-ui": "file:../configs/babel-preset",
-    "clear-ui-gulp": "file:../configs/gulp",
-    "clear-ui-webpack-config": "file:../configs/webpack-config",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^1.0.2",
-    "eslint-plugin-react": "^3.11.2",
-    "gulp": "^3.9.1",
-    "webpack": "^1.13.1"
+    "clear-ui-scripts": "file:../scripts"
   }
 }
