@@ -2,15 +2,16 @@
 
 `clear-ui-scripts` is a set of common scripts for working with react code.
 It can be used with both apps that need to be deployed to a server, 
-and libraries that need to be published to npm.
+and libraries that need to be published to the npm.
 
 ## Scripts
 
 ### build
 
 Builds production bundle with webpack in the 'dist' directory.
-For apps it creates bundle to deploy to a server,
-for libraries it creates precompiled files for quick usage without any building process.
+For apps it creates bundle that should be deployed to a server.
+For libraries it creates precompiled files for quick usage with
+simple `<script>` and `<link>` element.
 
 ### compile
 
@@ -19,11 +20,11 @@ It prepares library to publish to the npm.
 
 ### start
 
-Starts webpack-dev-server.
+Runs the app in the development mode.
 
 ### test
 
-Runs tests in browser using karma.
+Runs tests in a browser using karma.
 It loads `src/tests_index.js` as index file.
 
 ## Webpack config
@@ -47,3 +48,9 @@ config.plugins.push(new HtmlWebpackPlugin({
 
 module.exports = config
 ```
+
+## License
+
+Idea of this module and some code are taken from 
+[create-react-app](https://github.com/facebookincubator/create-react-app) project.
+It is distributed under the BSD license, see the text in the `LICENSE` file.
