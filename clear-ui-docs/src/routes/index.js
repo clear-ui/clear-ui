@@ -51,7 +51,7 @@ class App extends React.Component {
 
 import Index from '../pages/index'
 import Docs from '../pages/docs'
-import GetStarted from '../pages/docs/getStarted'
+import GetStarted from '../pages/docs/gettingStarted'
 import Customization from '../pages/docs/customization'
 import BaseComponentsRoutes from './baseComponents'
 import WebComponentsRoutes from './webComponents'

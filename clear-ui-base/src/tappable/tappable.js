@@ -55,6 +55,14 @@ export default class Tappable extends React.Component {
 		display: 'inline-block'
 	}
 
+  componentDidMount() {
+    this._isMounted = true
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
+  }
+
 	constructor(props) {
 		super(props)
 		this.bindMethods(
@@ -126,8 +134,10 @@ export default class Tappable extends React.Component {
 	}
 
 	mouseUp(event) {
+    // Parent component can unmount button on tap
+    if (!this._isMounted) return
+
 		this.active = false
-		// TODO check isMounted
 		let isOnButton = $(event.target).closest(ReactDOM.findDOMNode(this)).length
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
 		if (isOnButton) {
