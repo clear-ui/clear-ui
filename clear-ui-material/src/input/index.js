@@ -170,18 +170,27 @@ export default class Input extends BaseInput {
 
 	render() {
 		let elem = super.render()
-		let icon = this.props.icon &&
-			React.DOM.div({style: this.styles.icon}, this.props.icon)
-		let label = this.props.label && React.DOM.div({
-			style: this.styles.label,
-			onClick: this.focus.bind(this)
-		}, this.props.label)
+
+		let icon
+		if (this.props.icon) {
+			icon = React.DOM.div({key: 'icon', style: this.styles.icon}, this.props.icon)
+		}
+
+		let label
+		if (this.props.label) {
+			label = React.DOM.div({
+				key: 'label',
+				style: this.styles.label,
+				onClick: this.focus.bind(this)
+			}, this.props.label)
+		}
+
 		return React.cloneElement(elem, null, [
 			elem.props.children,
 			icon,
 			label,
-			React.DOM.div({style: this.styles.underline}),
-			React.DOM.div({style: this.styles.underlineFill})
+			React.DOM.div({key: 'underline', style: this.styles.underline}),
+			React.DOM.div({key: 'underlineFill', style: this.styles.underlineFill})
 		])
 	}
 }

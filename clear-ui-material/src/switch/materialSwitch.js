@@ -99,10 +99,10 @@ export default class MaterialSwitch extends BaseSwitch {
 		let switchElement = super.renderSwitchElement()
 		return React.cloneElement(switchElement, null, [
 			switchElement.props.children,
-			<div style={this.styles.ripples}>
+			<div key='ripples' style={this.styles.ripples}>
 				{React.cloneElement(this.getChildComponent('ripples'), {ref: 'ripples'})}
 			</div>,
-			<div style={this.styles.focusRipple}/>
+			<div key='focusRipple' style={this.styles.focusRipple}/>
 		])
 	}
 }

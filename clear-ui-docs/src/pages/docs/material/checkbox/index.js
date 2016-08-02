@@ -12,7 +12,7 @@ import checkboxExampleCode from '!raw!./example.js'
 export default class CheckboxDoc extends React.Component {
 	render() {
 		return <DocPage>
-			<h1>Material<DocPage.ArrowIcon/>Checkbox</h1>
+			<h1 key='h1'>Material<DocPage.ArrowIcon/>Checkbox</h1>
 
 			{`
 			Checkbox is a component that allows the user to toggle

@@ -73,6 +73,8 @@ export default class Input extends React.Component {
 		let {disabled, maxLength, name, type} = this.props
 
 		let props = {
+			key: 'input',
+			ref: 'input',
 			disabled,
 			maxLength,
 			name,
@@ -81,8 +83,7 @@ export default class Input extends React.Component {
 			value: this.state.value,
 			onChange: this.onChange.bind(this),
 			onFocus: this.onFocus.bind(this),
-			onBlur: this.onBlur.bind(this),
-			ref: 'input'
+			onBlur: this.onBlur.bind(this)
 		}
 
 		let input

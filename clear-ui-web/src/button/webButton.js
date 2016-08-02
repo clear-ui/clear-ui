@@ -26,7 +26,7 @@ function getStyles(props) {
 		transition:
 			`background-color .4s ${TRANSITIONS.strongEaseOut},` +
 			`color .4s ${TRANSITIONS.strongEaseOut}`,
-		webkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
+		WebkitTapHighlightColor: 'rgba(0,0,0,0)' // mobile
 	}
 
 	let label = {

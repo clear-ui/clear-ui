@@ -40,7 +40,7 @@ export default class Switch extends React.Component {
 	renderRoot() {
 		let label
 		if (this.props.children) {
-			label = <div style={this.styles.label}>{this.props.children}</div>
+			label = <div key='label' style={this.styles.label}>{this.props.children}</div>
 		}
 
 		return (
@@ -52,6 +52,6 @@ export default class Switch extends React.Component {
 	}
 
 	renderSwitchElement() {
-		return <div style={this.styles.switchElement}/>
+		return <div key='switchElement' style={this.styles.switchElement}/>
 	}
 }

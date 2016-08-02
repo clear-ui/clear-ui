@@ -11,19 +11,19 @@ export default class CheckboxExample extends React.Component {
 
 	render() {
 		return <div>
-			<Checkbox value={this.state.value1}
+			<Checkbox key='1' value={this.state.value1}
 				onChange={(value) => { this.setState({value1: value}) }}>
 				Checkbox
 			</Checkbox>
-			<Checkbox value={this.state.value2}
+			<Checkbox key='2' value={this.state.value2}
 				onChange={(value) => { this.setState({value2: value}) }}>
 				Checked checkbox
 			</Checkbox>
-			<Checkbox value={this.state.value3} disabled={true}
+			<Checkbox key='3' value={this.state.value3} disabled={true}
 				onChange={(value) => { this.setState({value3: value}) }}>
 				Disabled checkbox
 			</Checkbox>
-			<Checkbox value={this.state.value4} disabled={true}
+			<Checkbox key='4' value={this.state.value4} disabled={true}
 				onChange={(value) => { this.setState({value4: value}) }}>
 				Checked disabled checkbox
 			</Checkbox>

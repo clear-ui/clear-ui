@@ -47,10 +47,10 @@ class CheckboxSwitch extends MaterialSwitch {
 		let switchElement = super.renderSwitchElement()
 		return React.cloneElement(switchElement, null, [
 			switchElement.props.children,
-			<div style={this.styles.outline}>
+			<div key='outline' style={this.styles.outline}>
 				<Icon icon={checkboxOutlineIcon}/>
 			</div>,
-			<div style={this.styles.checkmark}>
+			<div key='checkmark' style={this.styles.checkmark}>
 				<Icon icon={checkboxIcon}/>
 			</div>
 		])

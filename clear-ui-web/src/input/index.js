@@ -159,13 +159,15 @@ export default class Input extends BaseInput {
 		let elem = super.render()
 
 		let leftIcon, rightIcon
-
 		if (this.props.leftIcon) {
-			leftIcon = React.DOM.div({style: this.styles.leftIcon}, this.props.leftIcon)
+			leftIcon = React.DOM.div({
+				key: 'leftIcon',
+				style: this.styles.leftIcon
+			}, this.props.leftIcon)
 		}
-
 		if (this.props.rightIcon) {
 			rightIcon = React.DOM.div({
+				key: 'rightIcon',
 				style: this.styles.rightIcon,
 				onClick: this.props.onRightIconClick
 			}, this.props.rightIcon)
@@ -174,6 +176,7 @@ export default class Input extends BaseInput {
 		let placeholder
 		if (this.props.placeholder && !this.state.value) {
 			placeholder = React.DOM.div({
+				key: 'placeholder',
 				style: this.styles.placeholder,
 				onClick: this.focus.bind(this)
 			}, this.props.placeholder)
