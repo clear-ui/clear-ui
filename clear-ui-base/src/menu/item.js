@@ -123,6 +123,25 @@ export default class MenuItem extends React.Component {
 		let item = this.renderTappable()
 		if (this.props.nestedItems) {
 			let subMenu
+      /*
+      TODO
+      if (
+        (this.props.toggleNestedItems === 'hover' && this.state.tapState.hovered) ||
+        this.state.showNestedItems
+      )
+      */
+
+      /*
+      if (this.props.renderSubMenuInLayer) {
+        return (
+          <Attachment element={item} ...>
+            {this.props.nestedItems}
+          </Attachment>
+        )
+      } else {
+      }
+      */
+
 			if (this.state.showNestedItems) {
 				subMenu = (
 					<div key='subMenu' style={this.styles.subMenu}>
@@ -132,6 +151,21 @@ export default class MenuItem extends React.Component {
 			}
 
 			return <div>{item}{subMenu}</div>
+
+      /*
+      return (
+        <Attachment elem={item}>
+          {subMenu}
+        </Attachment>
+      )
+
+      return (
+        <DropdownMenu trigger={item}>
+          {this.props.nestedItems}
+        </DropdownMenu>
+      )
+      */
+
 		} else {
 			return item
 		}

@@ -104,7 +104,6 @@ export default class Menu extends React.Component {
 	}
 
 	getEnabledItems() {
-		// TODO nested items
 		let enabledItems = []
 		React.Children.forEach(this.props.children, (elem) => {
 			if (!elem.props.disabled && isSameOrInheritedType(elem.type, MenuItem)) {
@@ -119,6 +118,16 @@ export default class Menu extends React.Component {
 
 		let index = enabledItems.indexOf(this.state.hoveredItem)
 		let nextIndex
+
+		// TODO
+		// if currently hovered item (get by ref) has props.nestedItems and is open
+		// increase state.hoveredNestedItemIndex, until reach last, then set in to null
+		//
+		// MenuItem should call onHover(nestedItemIndex) when
+		// some of its nested items hovered with mouse
+		//
+		// when nestedItem is hovered and item closes submenu
+		// it should call onHover for self
 
 		if (direction === 'up') {
 			nextIndex = (index === 0) ? (enabledItems.length - 1) : (index - 1)
@@ -168,6 +177,9 @@ export default class Menu extends React.Component {
 				event.preventDefault()
 				break
 			}
+			// TODO
+			// add right/left arrow
+			// when item has nestedItems is opens/closes subMenu
 		}
 		$(document).bind('keydown', this.listener)
 	}
