@@ -10,6 +10,7 @@ import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ThemeMixin from '../themes/themeMixin'
 import RippleItem from '../menu/rippleItem'
 import COLORS from '../styles/colors'
+import SHADOWS from '../styles/shadows'
 
 const ICON_SIZE = 24
 const AVATAR_SIZE = 38
@@ -154,7 +155,16 @@ function getStyles(props, state) {
 		if (props.rightAvatar) rightAvatar = {...avatar, right: 16}
 	}
 
-	return {root, label, secondaryText, leftIcon, rightIcon, leftAvatar, rightAvatar}
+	let subMenu = {}
+	if (props.renderSubMenuInLayer) {
+		Object.assign(subMenu, {
+			position: 'relative',
+			background: 'white',
+			boxShadow: SHADOWS[2]
+		})
+	}
+
+	return {root, label, secondaryText, leftIcon, rightIcon, leftAvatar, rightAvatar, subMenu}
 }
 
 @mixin(ThemeMixin)

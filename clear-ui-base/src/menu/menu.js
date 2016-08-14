@@ -8,6 +8,7 @@ import StylesMixin from '../utils/stylesMixin'
 import isSameOrInheritedType from '../utils/isSameOrInheritedType.js'
 
 import MenuItem from './item'
+import MenuItemWithSubMenu from './itemWithSubMenu'
 
 const INITIAL_TAP_STATE = {hovered: false, pressed: false}
 
@@ -31,7 +32,15 @@ export default class Menu extends React.Component {
 		 * When `true`, menu activates keyboard navigation and allows
 		 * to use arrows to navigate and `Enter` to select items.
 		 */
-		active: React.PropTypes.bool
+		active: React.PropTypes.bool,
+
+		/** TODO
+		 * used internally for nested menus */
+		nestingLevel: React.PropTypes.number
+	}
+
+	static defaultProps = {
+		nestingLevel: 0
 	}
 
 	componentDidMount() { this.setActive() }
@@ -46,46 +55,63 @@ export default class Menu extends React.Component {
 		)
 	}
 
-	processItems(items, level = 0) {
+	processItems(items) {
 		return React.Children.map(items, function(elem) {
 			if (isSameOrInheritedType(elem.type, MenuItem)) {
-				let props = {
-					nestingLevel: level
-				}
-
-				if ('focusable' in this.props) props.focusable = this.props.focusable
-
-				if (!elem.props.disabled) {
-					let isHovered = this.state.hoveredItem === elem
-					let isSelected = this.props.value !== undefined &&
-						elem.props.value === this.props.value
-					Object.assign(props, {
-						selected: isSelected,
-						onTap: new BoundFunction(this.onSelectItem, this, elem),
-						tapState: isHovered ?
-							{hovered: isHovered, pressed: this.state.hoveredItemPressed} :
-							INITIAL_TAP_STATE,
-						onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem)
-					})
-					if (isHovered || isSelected) {
-						props.ref = (ref) => {
-							if (isHovered) this.hoveredItem = ref
-							if (isSelected) this.selectedItem = ref
-						}
-					}
-				}
-
-				if (elem.props.nestedItems) {
-					props.nestedItems = this.processItems(elem.props.nestedItems, level + 1)
-				}
-
-				return React.cloneElement(elem, props)
+				return processItem(item)
+			} else if (isSameOrInheritedType(elem.type, MenuItemWithSubMenu)) {
+				return processItemWithSubMenu(item)
 			} else {
 				return elem
 			}
 		}.bind(this))
 	}
 
+	processItem(item) {
+		let props = {
+			nestingLevel: this.props.nestingLevel
+		}
+
+		if ('focusable' in this.props) props.focusable = this.props.focusable
+
+		if (!elem.props.disabled) {
+			let isHovered = this.state.hoveredItem === elem
+			let isSelected = this.props.value !== undefined &&
+				elem.props.value === this.props.value
+			Object.assign(props, {
+				selected: isSelected,
+				onTap: new BoundFunction(this.onSelectItem, this, elem),
+				tapState: isHovered ?
+					{hovered: isHovered, pressed: this.state.hoveredItemPressed} :
+					INITIAL_TAP_STATE,
+				onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem),
+			})
+			if (isHovered || isSelected) {
+				props.ref = (ref) => {
+					if (isHovered) this.hoveredItem = ref
+					if (isSelected) this.selectedItem = ref
+				}
+			}
+		}
+
+		return React.cloneElement(elem, props)
+	}
+
+	processItemWithSubMenu(item) {
+		item = processItem(item)
+
+		if (item.props.subMenu) {
+			let props = {
+				renderSubMenuInLayer: this.props.renderSubMenuInLayer,
+				menuComponent: this.constructor,
+				onHoverNestedItem: new BoundFunction(this.onHoverNestedItem, this),
+				onSelectNestedItems: new BoundFunction(this.onSelectItem, this)
+			}
+			return React.cloneElement(item, props)
+		} else {
+			return item
+		}
+	}
 
 	onSelectItem(item) {
 		if (this.props.onSelect) this.props.onSelect(item)
@@ -95,12 +121,20 @@ export default class Menu extends React.Component {
 		if (state.hovered || state.pressed) {
 			this.setState({
 				hoveredItem: item,
-				hoveredItemPressed: state.pressed
+				hoveredItemPressed: state.pressed,
+				hoveredNestedItem: false
 			})
 		} else {
 			// don't remove hover when active
 			if (!this.props.active) this.setState({hoveredItem: false})
 		}
+	}
+
+	onHoverNestedItem(item) {
+		this.setState({
+			hoveredItem: item,
+			hoveredNestedItem: true
+		})
 	}
 
 	getEnabledItems() {
@@ -113,7 +147,7 @@ export default class Menu extends React.Component {
 		return enabledItems
 	}
 
-	moveHover(direction) {
+	moveHover(direction, moveOverEdges = true /* TODO */) {
 		let enabledItems = this.getEnabledItems()
 
 		let index = enabledItems.indexOf(this.state.hoveredItem)
@@ -176,6 +210,14 @@ export default class Menu extends React.Component {
 				this.onSelectItem(this.state.hoveredItem)
 				event.preventDefault()
 				break
+			case keyCodes.LEFT:
+			case keyCodes.RIGHT:
+				// TODO right open/left closes
+				// hover first item of nestedMenu
+				let item = this.hoveredItem
+				if (item && item.props.nestedItems && item.props.nestedItems.length)
+					item.toggleNestedItems()
+				break;
 			}
 			// TODO
 			// add right/left arrow

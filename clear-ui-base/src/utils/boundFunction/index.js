@@ -1,4 +1,10 @@
+import React from 'react'
 import shallowEqual from 'shallowequal'
+
+export const funcOrBoundFuncType = React.PropTypes.oneOfType([
+	React.PropTypes.func,
+	React.PropTypes.instanceOf(BoundFunction)
+])
 
 /** Version of function.bind() that supports comparing. */
 export default class BoundFunction {
@@ -8,6 +14,11 @@ export default class BoundFunction {
 			a.context === b.context &&
 			shallowEqual(a.boundArgs, b.boundArgs)
 		)
+	}
+
+	static call(handler, ...args) {
+		if (handler instanceof BoundFunction) handler.call(...args)
+		else if (typeof handler === 'function') handler(...args)
 	}
 
 	constructor(fn, context, ...boundArgs) {

@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {List, ListItem, ListSubheader, ListDivider} from 'clear-ui-material/lib/list'
+import Button from 'clear-ui-material/lib/button/raisedButton'
 import Paper from 'clear-ui-material/lib/paper'
 import Icon from 'clear-ui-base/lib/icon'
 
@@ -11,6 +12,34 @@ import PropsDoc from '../../../../propsDoc'
 
 import materialDocs from '../../../../../docgen/material.json'
 let itemPropsDoc = materialDocs['list/item.js'].props
+
+class ListExample extends React.Component {
+	state = {}
+
+	render() {
+		let list = React.cloneElement(this.props.children, {
+			active: this.state.active,
+			onSelect: this.onSelect.bind(this)
+		})
+		return (
+			<div>
+				<Button onTap={this.toggleActive.bind(this)}>Activate/Deactivate</Button>
+				{this.state.selectedItem && (' Selected ' + this.state.selectedItem.props.value)}
+				{list}
+			</div>
+		)
+	}
+
+	toggleActive() {
+		this.setState({active: !this.state.active})
+	}
+
+	onSelect(item) {
+		this.setState({selectedItem: item})
+		clearTimeout(this.timeout)
+		this.timeout = setTimeout(() => { this.setState({selectedItem: undefined}) }, 3000)
+	}
+}
 
 export default class ListDoc extends React.Component {
 	render() {
@@ -224,6 +253,36 @@ export default class ListDoc extends React.Component {
 						</ListItem>
 						<ListItem value='3'>Item 3</ListItem>
 					</List>
+
+					<hr/>
+
+					<ListExample>
+						<List
+							style={{width: 300}}
+							renderSubMenuInLayer={true}
+						>
+							<ListItem value='1'
+								tapTogglesNestedItems={true}
+								nestedItems={[
+									<ListItem value='1.1'>Item 1.1</ListItem>,
+									<ListItem value='1.2'>Item 1.2</ListItem>
+								]}
+							>
+								Item 1
+							</ListItem>
+							<ListItem value='2' disabled={true}
+								tapTogglesNestedItems={true}
+								nestedItems={[
+									<ListItem value='2.1'>Item 2.1</ListItem>,
+									<ListItem value='2.2'>Item 2.2</ListItem>
+								]}
+							>
+								Item 2
+							</ListItem>
+							<ListItem value='3'>Item 3</ListItem>
+						</List>
+					</ListExample>
+
 				</Example.Demo>
 			</Example>
 
