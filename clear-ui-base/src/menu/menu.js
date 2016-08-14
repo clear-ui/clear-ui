@@ -58,9 +58,9 @@ export default class Menu extends React.Component {
 	processItems(items) {
 		return React.Children.map(items, function(elem) {
 			if (isSameOrInheritedType(elem.type, MenuItem)) {
-				return processItem(item)
+				return this.processItem(elem)
 			} else if (isSameOrInheritedType(elem.type, MenuItemWithSubMenu)) {
-				return processItemWithSubMenu(item)
+				return this.processItemWithSubMenu(elem)
 			} else {
 				return elem
 			}
@@ -74,17 +74,17 @@ export default class Menu extends React.Component {
 
 		if ('focusable' in this.props) props.focusable = this.props.focusable
 
-		if (!elem.props.disabled) {
-			let isHovered = this.state.hoveredItem === elem
+		if (!item.props.disabled) {
+			let isHovered = this.state.hoveredItem === item
 			let isSelected = this.props.value !== undefined &&
-				elem.props.value === this.props.value
+				item.props.value === this.props.value
 			Object.assign(props, {
 				selected: isSelected,
-				onTap: new BoundFunction(this.onSelectItem, this, elem),
+				onTap: new BoundFunction(this.onSelectItem, this, item),
 				tapState: isHovered ?
 					{hovered: isHovered, pressed: this.state.hoveredItemPressed} :
 					INITIAL_TAP_STATE,
-				onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, elem),
+				onChangeTapState: new BoundFunction(this.onChangeItemTapState, this, item),
 			})
 			if (isHovered || isSelected) {
 				props.ref = (ref) => {
@@ -94,11 +94,11 @@ export default class Menu extends React.Component {
 			}
 		}
 
-		return React.cloneElement(elem, props)
+		return React.cloneElement(item, props)
 	}
 
 	processItemWithSubMenu(item) {
-		item = processItem(item)
+		item = this.processItem(item)
 
 		if (item.props.subMenu) {
 			let props = {

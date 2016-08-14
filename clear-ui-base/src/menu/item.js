@@ -47,6 +47,12 @@ export default class MenuItem extends React.Component {
 
 		/** Handler of the tap event on the right icon. */
 		onRightIconTap: React.PropTypes.func,
+
+		nestingLevel: React.PropTypes.number 
+	}
+
+	static defaultProps = {
+		nestingLevel: 0
 	}
 
 	constructor(props) {

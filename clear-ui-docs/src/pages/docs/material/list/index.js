@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {List, ListItem, ListSubheader, ListDivider} from 'clear-ui-material/lib/list'
+import ListItemWithSubMenu from 'clear-ui-material/lib/list/itemWithSubMenu'
 import Button from 'clear-ui-material/lib/button/raisedButton'
 import Paper from 'clear-ui-material/lib/paper'
 import Icon from 'clear-ui-base/lib/icon'
@@ -261,24 +262,29 @@ export default class ListDoc extends React.Component {
 							style={{width: 300}}
 							renderSubMenuInLayer={true}
 						>
-							<ListItem value='1'
-								tapTogglesNestedItems={true}
-								nestedItems={[
-									<ListItem value='1.1'>Item 1.1</ListItem>,
-									<ListItem value='1.2'>Item 1.2</ListItem>
-								]}
+							<ListItemWithSubMenu value='1'
+								subMenuTrigger='hover'
+								subMenu={
+									<List>
+										<ListItem value='1.1'>Item 1.1</ListItem>
+										<ListItem value='1.2'>Item 1.2</ListItem>
+									</List>
+								}
 							>
 								Item 1
-							</ListItem>
-							<ListItem value='2' disabled={true}
-								tapTogglesNestedItems={true}
-								nestedItems={[
-									<ListItem value='2.1'>Item 2.1</ListItem>,
-									<ListItem value='2.2'>Item 2.2</ListItem>
-								]}
+							</ListItemWithSubMenu>
+							<ListItemWithSubMenu value='2'
+								disabled={true}
+								triggerSubMenu='tap'
+								subMenu={
+									<List>
+										<ListItem value='2.1'>Item 2.1</ListItem>
+										<ListItem value='2.2'>Item 2.2</ListItem>
+									</List>
+								}
 							>
 								Item 2
-							</ListItem>
+							</ListItemWithSubMenu>
 							<ListItem value='3'>Item 3</ListItem>
 						</List>
 					</ListExample>

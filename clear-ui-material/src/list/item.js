@@ -1,16 +1,12 @@
 import React from 'react'
 
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
-import composeChildComponents from
-	'clear-ui-base/lib/utils/childComponentsMixin/composeChildComponents'
 import TRANSITIONS from 'clear-ui-base/lib/utils/transitions'
-import Icon from 'clear-ui-base/lib/icon'
 
 import mixin from 'clear-ui-base/lib/utils/mixin/decorator'
 import ThemeMixin from '../themes/themeMixin'
 import RippleItem from '../menu/rippleItem'
 import COLORS from '../styles/colors'
-import SHADOWS from '../styles/shadows'
 
 const ICON_SIZE = 24
 const AVATAR_SIZE = 38
@@ -101,11 +97,8 @@ function getStyles(props, state) {
 		iconOrAvatar.transform = 'translateY(-50%)'
 	}
 
-	let opener = props.nestedItems
-	let openerTogglesNestedItems = opener && !props.tapTogglesNestedItems
-
 	let leftIcon, rightIcon
-	if (props.leftIcon || props.rightIcon || opener) {
+	if (props.leftIcon || props.rightIcon) {
 		let icon = {
 			...iconOrAvatar,
 			width: ICON_SIZE,
@@ -116,17 +109,17 @@ function getStyles(props, state) {
 			icon.color = state.theme.disabled
 			icon.fill = state.theme.disabled
 		} else if (props.selected) {
-			let color = COLORS.blue500
+			let color = COLORS.blue500 // TODO theme
 			icon.color = color
 			icon.fill = color
 		}
 
 		if (props.leftIcon) leftIcon = {...icon, left: 16 + nestingIndent}
 
-		if (props.rightIcon || opener) {
+		if (props.rightIcon) {
 			rightIcon = {...icon, right: 16}
 
-			if (props.onRightIconTap || openerTogglesNestedItems) {
+			if (props.onRightIconTap) {
 				Object.assign(rightIcon, {
 					padding: 12,
 					marginRight: -12,
@@ -155,16 +148,7 @@ function getStyles(props, state) {
 		if (props.rightAvatar) rightAvatar = {...avatar, right: 16}
 	}
 
-	let subMenu = {}
-	if (props.renderSubMenuInLayer) {
-		Object.assign(subMenu, {
-			position: 'relative',
-			background: 'white',
-			boxShadow: SHADOWS[2]
-		})
-	}
-
-	return {root, label, secondaryText, leftIcon, rightIcon, leftAvatar, rightAvatar, subMenu}
+	return {root, label, secondaryText, leftIcon, rightIcon, leftAvatar, rightAvatar}
 }
 
 @mixin(ThemeMixin)
@@ -192,24 +176,11 @@ export default class ListItem extends RippleItem {
 
 	static styles = composeStyles(RippleItem.styles, getStyles)
 
-	static childComponents = composeChildComponents(
-		RippleItem.childComponents,
-		{
-			openerIcon: (props, state) => {
-				let icon = state.showNestedItems ?
-					Icon.ICONS.triangleUp : Icon.ICONS.triangleDown
-				return <Icon icon={icon}/>
-			}
-		}
-	)
-
 	render() { return super.render() } // for react-docgen
 
 	// Adds ripples to the right icon when is has handler, or it is tappable opener icon.
 	renderRightIcon() {
-		let openerTapTogglesNestedItems = this.props.nestedItems &&
-			!this.props.tapTogglesNestedItems
-		if (!this.props.disabled && (this.props.onRightIconTap || openerTapTogglesNestedItems)) {
+		if (!this.props.disabled && this.props.onRightIconTap) {
 			let tappable = super.renderRightIcon()
 			let icon = tappable.props.children
 			let iconRipple = React.cloneElement(this.getChildComponent('ripples'), {
