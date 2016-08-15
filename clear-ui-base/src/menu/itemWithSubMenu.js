@@ -5,7 +5,7 @@ import mixin from '../utils/mixin/decorator'
 import BoundFunction, {funcOrBoundFuncType} from '../utils/boundFunction'
 import Tappable from '../tappable'
 import StylesMixin from '../utils/stylesMixin'
-// import ManagedStateMixin from '../utils/managedStateMixin'
+import ManagedStateMixin from '../utils/managedStateMixin'
 import ChildComponentsMixin from '../utils/childComponentsMixin'
 
 import MenuItem from './item'
@@ -19,7 +19,7 @@ import MenuItem from './item'
  * Sub menu can be shown under the item or in the separate layer attached to the side of the item.
  * MenuItem with sub menu has opener icon on the right.
  */
-@mixin(ChildComponentsMixin, StylesMixin)
+@mixin(ChildComponentsMixin, StylesMixin, ManagedStateMixin)
 export default class MenuItemWithSubMenu extends React.Component {
 	static displayName = 'MenuItemWithSubMenu'
 
@@ -76,10 +76,23 @@ export default class MenuItemWithSubMenu extends React.Component {
 		/** Right icon for items with nested items. */
 		openerIcon: null,
 	}
+	
+	constructor(props) {
+		super(props)
+		this.state = {
+			showSubMenu: false,
+			tapState: {hovered: false, pressed: false},
+			subMenuTapState: {hovered: false, pressed: false}
+		}
+		this.initManagedState(['tapState'])
+	}
 
-	state = {
-		showSubMenu: false,
-		tapState: {}
+	componentDidUpdate() {
+		if (this.props.subMenuTrigger === 'hover') {
+			this.onChangeHovered(
+				this.state.tapState.hovered || this.state.subMenuTapState.hovered
+			)
+		}
 	}
 
 	render() {
@@ -124,7 +137,7 @@ export default class MenuItemWithSubMenu extends React.Component {
 			} else if (subMenuTrigger === 'tap') {
 				itemProps.onTap = this.toggleSubMenu.bind(this)
 			} else if (subMenuTrigger === 'hover') {
-				itemProps.onChangeTapState = this.onChangeTapState.bind(this)
+				itemProps.onChangeTapState = (tapState) => this.setManagedState({tapState})
 				itemProps.tapState = this.state.tapState
 			}
 		}
@@ -148,7 +161,7 @@ export default class MenuItemWithSubMenu extends React.Component {
 
 		if (this.props.subMenuTrigger === 'hover') {
 			subMenu = React.createElement(Tappable, {
-				onChangeTapState: ({hovered}) => this.onChangeHovered(hovered, true)
+				onChangeTapState: (tapState) => this.setState({subMenuTapState: tapState})
 			}, subMenu)
 		}
 
@@ -187,18 +200,14 @@ export default class MenuItemWithSubMenu extends React.Component {
 			}
 		} else {
 			if (this.state.showSubMenu) {
+				// Timeout is required here because componentDidUpdate
+				// leads to pending ZContextLayer onRender,
+				// and layer can't be hidden until it runs.
 				this.openCloseTimeout = setTimeout(
 					() => this.setState({showSubMenu: false}),
 					0
 				)
 			}
 		}
-	}
-
-	onChangeTapState(tapState) {
-		// TODO setManagedState
-		this.setState({tapState})
-		this.onChangeHovered(tapState.hovered)
-		//BoundFunction.call(this.props.onChangeTapState)
 	}
 }

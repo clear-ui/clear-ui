@@ -104,8 +104,8 @@ export default class Menu extends React.Component {
 			let props = {
 				renderSubMenuInLayer: this.props.renderSubMenuInLayer,
 				menuComponent: this.constructor,
-				onHoverNestedItem: new BoundFunction(this.onHoverNestedItem, this),
-				onSelectNestedItems: new BoundFunction(this.onSelectItem, this)
+				onHoverSubMenuItem: new BoundFunction(this.onHoverNestedItem, this),
+				onSelectSubMenuItem: new BoundFunction(this.onSelectItem, this)
 			}
 			return React.cloneElement(item, props)
 		} else {
@@ -140,7 +140,13 @@ export default class Menu extends React.Component {
 	getEnabledItems() {
 		let enabledItems = []
 		React.Children.forEach(this.props.children, (elem) => {
-			if (!elem.props.disabled && isSameOrInheritedType(elem.type, MenuItem)) {
+			if (
+				!elem.props.disabled &&
+				(
+					isSameOrInheritedType(elem.type, MenuItem) ||
+					isSameOrInheritedType(elem.type, MenuItemWithSubMenu)
+				)
+			) {
 				enabledItems.push(elem)
 			}
 		})
