@@ -70,6 +70,14 @@ export default class Input extends React.Component {
 	}
 
 	render() {
+		return (
+			<div style={this.styles.root}>
+				{this.renderInput()}
+			</div>
+		)
+	}
+
+	renderInput() {
 		let {disabled, maxLength, name, type} = this.props
 
 		let props = {
@@ -94,7 +102,7 @@ export default class Input extends React.Component {
 			input = React.DOM.input(props)
 		}
 
-		return <div style={this.styles.root}>{input}</div>
+		return input
 	}
 
 	getRowsNumber(value) {

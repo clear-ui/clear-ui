@@ -49,7 +49,12 @@ function getStyles(props, state) {
 		color: COLORS.black3,
 		transition: 'color .25s',
 		cursor: 'text',
-		userSelect: 'none'
+		userSelect: 'none',
+		whiteSpace: 'nowrap,',
+		maxWidth: '100%',
+		boxSizing: 'border-box',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis'
 	}
 
 	let leftIcon, rightIcon

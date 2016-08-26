@@ -134,9 +134,6 @@ export default class Tappable extends React.Component {
 	}
 
 	mouseUp(event) {
-		// Parent component can unmount button on tap
-		if (!this.mounted) return
-
 		this.active = false
 		let isOnButton = $(event.target).closest(ReactDOM.findDOMNode(this)).length
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
@@ -145,6 +142,10 @@ export default class Tappable extends React.Component {
 		} else {
 			this.hovered = false
 		}
+
+		// Parent component can unmount button on tap
+		if (!this.mounted) return
+
 		this.pressed = false
 		this.onChangeTapState()
 	}

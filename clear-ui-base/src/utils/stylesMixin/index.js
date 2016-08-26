@@ -9,15 +9,15 @@ let StylesMixin = {
 	componentWillMount() {
 		this.__super()
 		if (!this.state) this.state = {}
-		this.getStyles(this.props, this.state)
+		this.getStyles(this.props, this.state, this.context)
 	},
 
-	componentWillUpdate(nextProps, nextState) {
+	componentWillUpdate(nextProps, nextState, nextContext) {
 		this.__super()
-		this.getStyles(nextProps, nextState)
+		this.getStyles(nextProps, nextState, nextContext)
 	},
 
-	getStyles(props, state) {
+	getStyles(props, state, context) {
 		let stylesFn = composeStyles(this.constructor.styles, props.styles, {root: props.style})
 		let styles = stylesFn(props, state, this.context)
 

@@ -1,6 +1,6 @@
 {
   "name": "clear-ui-base",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.5",
   "description": "UI components for React",
   "keywords": [
     "react"
@@ -15,7 +15,8 @@
   },
   "scripts": {
     "test": "karma start",
-    "build": "gulp build-npm"
+    "build": "gulp build-npm",
+	"compile": "clear-ui-scripts compile"
   },
   "author": {
     "name": "sunflowerdeath",
