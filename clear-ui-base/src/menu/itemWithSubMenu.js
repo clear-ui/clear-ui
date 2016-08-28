@@ -14,7 +14,7 @@ import MenuItem from './item'
 // StylesMixin / menuItem as childComponent
 
 /**
- * Wrapper component for MenuItem that can to contain a sub menu.
+ * Wrapper component for MenuItem that can contain a sub menu.
  * Sub menu can be shown under the item or in the separate layer
  * attached to the side of the item.
  * MenuItem with sub menu shows opener icon on the right.
@@ -58,13 +58,13 @@ export default class MenuItemWithSubMenu extends React.Component {
 		subMenuHoverShowDelay: React.PropTypes.number,
 
 		/**
-		 * (item) => void
+		 * `(item: MenuItem) => void`
 		 *
 		 */
 		onHoverSubMenuItem: funcOrBoundFuncType,
 
 		/**
-		 * (item) => void
+		 * `(item: MenuItem) => void`
 		 *
 		 */
 		onSelectSubMenuItem: funcOrBoundFuncType

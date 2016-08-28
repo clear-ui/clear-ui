@@ -3,6 +3,7 @@ import React from 'react'
 import Icon from 'clear-ui-base/lib/icon'
 import Button from 'clear-ui-web/lib/button/raisedButton'
 import {Menu, MenuItem, MenuLabel, MenuDivider} from 'clear-ui-web/lib/menu'
+import MenuItemWithSubMenu from 'clear-ui-web/lib/menu/itemWithSubMenu'
 
 import DocPage from '../../../../docPage'
 import ApiDoc from '../../../../apiDoc'
@@ -164,6 +165,78 @@ export default class MenuDoc extends React.Component {
 							leftIcon={starIcon} rightIcon={kebabIcon}>
 							Disabled item with icons
 						</MenuItem>
+					</Menu>
+				`}</Example.Code>
+			</Example>
+
+			<h2>Items with sub menus</h2>
+
+			{`
+			A menu item may contain another menu nested inside.
+			For this you need to use wrapper component \`MenuItemWithSubMenu\` instead of 
+			\`MenuItem\`.
+			`}
+
+			<Example>
+				<Example.Demo>
+					<Menu>
+						<MenuItemWithSubMenu subMenu={
+							<Menu>
+								<MenuItem>Item 1.1</MenuItem>
+								<MenuItem>Item 1.2</MenuItem>
+							</Menu>
+						}>
+							Item 1
+						</MenuItemWithSubMenu>
+					</Menu>
+				</Example.Demo>
+				<Example.Code>{`
+					<Menu>
+						<MenuItemWithSubMenu subMenu={
+							<Menu>
+								<MenuItem>Item 1.1</MenuItem>
+								<MenuItem>Item 1.2</MenuItem>
+							</Menu>
+						}>
+							Item 1
+						</MenuItemWithSubMenu>
+					</Menu>
+				`}</Example.Code>
+			</Example>
+
+			{`
+			Sub menu that opens on hover and renders in the separate layer:
+			`}
+
+			<Example>
+				<Example.Demo>
+					<Menu renderSubMenuInLayer={true}>
+						<MenuItemWithSubMenu 
+							subMenuTrigger='hover'
+							subMenu={
+								<Menu>
+									<MenuItem>Item 1.1</MenuItem>
+									<MenuItem>Item 1.2</MenuItem>
+								</Menu>
+							}
+						>
+							Item 1
+						</MenuItemWithSubMenu>
+					</Menu>
+				</Example.Demo>
+				<Example.Code>{`
+					<Menu renderSubMenuInLayer={true}>
+						<MenuItemWithSubMenu 
+							subMenuTrigger='hover'
+							subMenu={
+								<Menu>
+									<MenuItem>Item 1.1</MenuItem>
+									<MenuItem>Item 1.2</MenuItem>
+								</Menu>
+							}
+						>
+							Item 1
+						</MenuItemWithSubMenu>
 					</Menu>
 				`}</Example.Code>
 			</Example>

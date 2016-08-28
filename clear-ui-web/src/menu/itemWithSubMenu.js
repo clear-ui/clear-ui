@@ -17,7 +17,13 @@ export default class MenuItemWithSubMenu extends BaseMenuItemWithSubMenu {
 		openerIcon: (props, state) => {
 			let icon = state.showNestedItems ?
 				Icon.ICONS.triangleUp : Icon.ICONS.triangleDown
-			return <Icon icon={icon}/>
+
+			let style
+			if (props.renderSubMenuInLayer) {
+				style = {transform: 'rotate(-90deg)'}
+			}
+
+			return <Icon icon={icon} style={style} />
 		}
 	}
 
