@@ -2,7 +2,7 @@ import React from 'react'
 
 import Attachment from '../attachment'
 import mixin from '../utils/mixin/decorator'
-import BoundFunction, {funcOrBoundFuncType} from '../utils/boundFunction'
+import BoundFunction, {funcOrBoundFuncType, shouldComponentUpdate} from '../utils/boundFunction'
 import Tappable from '../tappable'
 import StylesMixin from '../utils/stylesMixin'
 import ManagedStateMixin from '../utils/managedStateMixin'
@@ -12,12 +12,15 @@ import MenuItem from './item'
 
 // TODO
 // StylesMixin / menuItem as childComponent
-// shouldComponentUpdate (bound function)
 
 /**
- * Wrapper component for MenuItem that allows it to contain a sub menu.
- * Sub menu can be shown under the item or in the separate layer attached to the side of the item.
- * MenuItem with sub menu has opener icon on the right.
+ * Wrapper component for MenuItem that can to contain a sub menu.
+ * Sub menu can be shown under the item or in the separate layer
+ * attached to the side of the item.
+ * MenuItem with sub menu shows opener icon on the right.
+ *
+ * Styleable elements:
+ * - subMenu
  */
 @mixin(ChildComponentsMixin, StylesMixin, ManagedStateMixin)
 export default class MenuItemWithSubMenu extends React.Component {
@@ -73,8 +76,8 @@ export default class MenuItemWithSubMenu extends React.Component {
 	}
 
 	static childComponents = {
-		/** Right icon for items with nested items. */
-		openerIcon: null,
+		/** Right icon for items with sub menus. */
+		openerIcon: null
 	}
 	
 	constructor(props) {
@@ -85,6 +88,17 @@ export default class MenuItemWithSubMenu extends React.Component {
 			subMenuTapState: {hovered: false, pressed: false}
 		}
 		this.initManagedState(['tapState'])
+	}
+	
+	shouldComponentUpdate(nextProps, nextState) {
+		return shouldComponentUpdate(
+			this.props, this.state,
+			nextProps, nextState,
+			[
+				'onTap', 'onChangeTapState',
+				'onHoverSubMenuItem', 'onSelectSubMenuItem'
+			]
+		)
 	}
 
 	componentDidUpdate() {
@@ -203,6 +217,7 @@ export default class MenuItemWithSubMenu extends React.Component {
 				// Timeout is required here because componentDidUpdate
 				// leads to pending ZContextLayer onRender,
 				// and layer can't be hidden until it runs.
+				// FIXME remove onrender callback in layer's unmount?
 				this.openCloseTimeout = setTimeout(
 					() => this.setState({showSubMenu: false}),
 					0

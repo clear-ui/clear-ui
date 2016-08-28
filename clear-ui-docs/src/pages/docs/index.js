@@ -42,80 +42,84 @@ export default class DocsPage extends React.Component {
 		return (
 			<div style={{...this.styles.root}}>
 				<div style={this.styles.nav}>
-					<NavMenu prefix='docs/'>
-						<NavMenuHeader nestedItems={[
-							<NavMenuItem value='get-started'>- Get Started</NavMenuItem>,
-							<NavMenuItem value='customization'>Customization</NavMenuItem>,
-							<NavMenuItem value='server-rendering' disabled={true}>
-								Server Rendering
-							</NavMenuItem>
-						]}>
+					<NavMenu>
+						<NavMenuHeader subMenu={
+							<NavMenu prefix='docs/'>
+								<NavMenuItem value='get-started'>- Get Started</NavMenuItem>
+								<NavMenuItem value='customization'>Customization</NavMenuItem>
+								<NavMenuItem value='server-rendering' disabled={true}>
+									Server Rendering
+								</NavMenuItem>
+							</NavMenu>
+						}>
 							Guides
 						</NavMenuHeader>
-					</NavMenu>
 
-					<NavMenu prefix='docs/base/'>
-						<NavMenuHeader nestedItems={[
-							<NavMenuItem value='about'>About</NavMenuItem>,
-							<NavMenuItem value='attachment'>Attachment</NavMenuItem>,
-							<NavMenuItem value='button'>Button</NavMenuItem>,
-							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,
-							<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>,
-							<NavMenuItem value='icon'>Icon</NavMenuItem>,
-							<NavMenuItem value='input'>Input</NavMenuItem>,
-							<NavMenuItem value='menu'>Menu</NavMenuItem>,
-							<NavMenuItem value='modal'>Modal</NavMenuItem>,
-							<NavMenuItem value='notification'>Notification</NavMenuItem>,
-							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
-							<NavMenuItem value='scrollspy'>Scrollspy</NavMenuItem>,
-							<NavMenuItem value='select'>Select</NavMenuItem>,
-							<NavMenuItem value='sticky'>Sticky</NavMenuItem>,
-							<NavMenuItem value='switch'>Switch</NavMenuItem>,
-							<NavMenuItem value='tappable'>Tappable</NavMenuItem>,
-							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>,
-							<NavMenuItem value='zcontext'>ZContext</NavMenuItem>,
-							<NavMenuItem disabled={true}>StylesMixin</NavMenuItem>,
-							<NavMenuItem disabled={true}>ChildComponentsMixin</NavMenuItem>,
-							<NavMenuItem disabled={true}>ManagedStateMixin</NavMenuItem>
-						]}>
+						<NavMenuHeader subMenu={
+							<NavMenu prefix='docs/base/'>
+								<NavMenuItem value='about'>About</NavMenuItem>
+								<NavMenuItem value='attachment'>Attachment</NavMenuItem>
+								<NavMenuItem value='button'>Button</NavMenuItem>
+								<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>
+								<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>
+								<NavMenuItem value='icon'>Icon</NavMenuItem>
+								<NavMenuItem value='input'>Input</NavMenuItem>
+								<NavMenuItem value='menu'>Menu</NavMenuItem>
+								<NavMenuItem value='modal'>Modal</NavMenuItem>
+								<NavMenuItem value='notification'>Notification</NavMenuItem>
+								<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>
+								<NavMenuItem value='scrollspy'>Scrollspy</NavMenuItem>
+								<NavMenuItem value='select'>Select</NavMenuItem>
+								<NavMenuItem value='sticky'>Sticky</NavMenuItem>
+								<NavMenuItem value='switch'>Switch</NavMenuItem>
+								<NavMenuItem value='tappable'>Tappable</NavMenuItem>
+								<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
+								<NavMenuItem value='zcontext'>ZContext</NavMenuItem>
+								<NavMenuItem disabled={true}>StylesMixin</NavMenuItem>
+								<NavMenuItem disabled={true}>ChildComponentsMixin</NavMenuItem>
+								<NavMenuItem disabled={true}>ManagedStateMixin</NavMenuItem>
+							</NavMenu>
+						}>
 							Base
 						</NavMenuHeader>
-					</NavMenu>
 
-					<NavMenu prefix='docs/material/'>
-						<NavMenuHeader nestedItems={[
-							<NavMenuItem value='about'>About</NavMenuItem>,
-							<NavMenuItem value='themes'>Themes</NavMenuItem>,
-							<NavMenuItem value='button'>Button</NavMenuItem>,
-							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,
-							<NavMenuItem value='dropdown'>Dropdown Menu</NavMenuItem>,
-							<NavMenuItem value='dialog'>Dialog</NavMenuItem>,
-							<NavMenuItem value='input'>Input</NavMenuItem>,
-							<NavMenuItem value='list'>List</NavMenuItem>,
-							<NavMenuItem value='menu'>Menu</NavMenuItem>,
-							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
-							<NavMenuItem value='select'>Select</NavMenuItem>,
-							<NavMenuItem value='snackbar'>Snackbar & Toast</NavMenuItem>,
-							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
-						]}>
+						<NavMenuHeader subMenu={
+							<NavMenu prefix='docs/material/'>
+								<NavMenuItem value='about'>About</NavMenuItem>
+								<NavMenuItem value='themes'>Themes</NavMenuItem>
+								<NavMenuItem value='button'>Button</NavMenuItem>
+								<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>
+								<NavMenuItem value='dropdown'>Dropdown Menu</NavMenuItem>
+								<NavMenuItem value='dialog'>Dialog</NavMenuItem>
+								<NavMenuItem value='input'>Input</NavMenuItem>
+								<NavMenuItem value='list'>List</NavMenuItem>
+								<NavMenuItem value='menu'>Menu</NavMenuItem>
+								<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>
+								<NavMenuItem value='select'>Select</NavMenuItem>
+								<NavMenuItem value='snackbar'>Snackbar & Toast</NavMenuItem>
+								<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
+							</NavMenu>
+						}>
 							Material
 						</NavMenuHeader>
-					</NavMenu>
 
-					<NavMenu prefix='docs/web/'>
-						<NavMenuHeader nestedItems={[
-							<NavMenuItem value='about'>About</NavMenuItem>,
-							<NavMenuItem value='button'>Button</NavMenuItem>,
-							<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>,
-							<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>,
-							<NavMenuItem value='input'>Input</NavMenuItem>,
-							<NavMenuItem value='menu'>Menu</NavMenuItem>,
-							<NavMenuItem value='modal'>Modal</NavMenuItem>,
-							<NavMenuItem value='notification'>Notification</NavMenuItem>,
-							<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>,
-							<NavMenuItem value='select'>Select</NavMenuItem>,
-							<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
-						]}>Web</NavMenuHeader>
+						<NavMenuHeader subMenu={
+							<NavMenu prefix='docs/web/'>
+								<NavMenuItem value='about'>About</NavMenuItem>
+								<NavMenuItem value='button'>Button</NavMenuItem>
+								<NavMenuItem value='checkbox'>Checkbox</NavMenuItem>
+								<NavMenuItem value='dropdown-menu'>Dropdown Menu</NavMenuItem>
+								<NavMenuItem value='input'>Input</NavMenuItem>
+								<NavMenuItem value='menu'>Menu</NavMenuItem>
+								<NavMenuItem value='modal'>Modal</NavMenuItem>
+								<NavMenuItem value='notification'>Notification</NavMenuItem>
+								<NavMenuItem value='radio-buttons'>Radio Buttons</NavMenuItem>
+								<NavMenuItem value='select'>Select</NavMenuItem>
+								<NavMenuItem value='tooltip'>Tooltip</NavMenuItem>
+							</NavMenu>
+						}>
+							Web
+						</NavMenuHeader>
 					</NavMenu>
 
 				</div>

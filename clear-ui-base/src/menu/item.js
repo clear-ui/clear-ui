@@ -2,7 +2,7 @@ import React from 'react'
 import shallowEqual from 'shallowequal'
 
 import Attachment from '../attachment'
-import BoundFunction, {funcOrBoundFuncType} from '../utils/boundFunction'
+import BoundFunction, {funcOrBoundFuncType, shouldComponentUpdate} from '../utils/boundFunction'
 import Tappable, {FocusableTappable} from '../tappable'
 import mixin from '../utils/mixin/decorator'
 import StylesMixin from '../utils/stylesMixin'
@@ -64,37 +64,11 @@ export default class MenuItem extends React.Component {
 		this.initManagedState(['tapState'])
 	}
 
-	/**
-	 * Menu stores currently hovered element in its state, so every time hover is moved,
-	 * menu runs rerender, that causes rerender of all items. That's why items need
-	 * shouldComponentUpdate.
-	 * Items can not use simple PureRenderMixin, because it can not compare
-	 * function props created using 'Function.bind()', because it returns new
-	 * function every time.
-	 * This function can compare function props correctly when they use class 'BoundFunction'
-	 * instead of 'Function.bind()', that supports comparing with method
-	 * 'BoundFunction.compare(a, b)'.
-	 */
 	shouldComponentUpdate(nextProps, nextState) {
-		function compareFunctionProp(a, b) {
-			if (a instanceof BoundFunction && b instanceof BoundFunction) {
-				return BoundFunction.compare(a, b)
-			} else {
-				return a === b
-			}
-		}
-
-		const functionProps = ['onTap', 'onChangeTapState']
-
-		return !(
-			shallowEqual(this.props, nextProps, (a, b, key) => {
-				// undefined key means comparing the objects themselves
-				if (key === undefined) return undefined
-
-				if (functionProps.indexOf(key) !== -1) return compareFunctionProp(a, b)
-				else return a === b
-			}) &&
-			shallowEqual(this.state, nextState)
+		return shouldComponentUpdate(
+			this.props, this.state,
+			nextProps, nextState,
+			['onTap', 'onChangeTapState']
 		)
 	}
 

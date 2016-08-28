@@ -5,6 +5,7 @@ import BaseScrollMenu from 'clear-ui-base/lib/menu/scrollMenu'
 import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 
 import MenuItem from './item.js'
+import MenuItemWithSubMenu from './itemWithSubMenu.js'
 import MenuLabel from './label.js'
 
 const TRANSFERED_PROPS = ['indent', 'height', 'padding', 'multiline']
@@ -26,6 +27,7 @@ export default class Menu extends BaseScrollMenu {
 		return React.Children.map(processedItems, (elem) => {
 			if (
 				isSameOrInheritedType(elem.type, MenuItem) ||
+				isSameOrInheritedType(elem.type, MenuItemWithSubMenu) ||
 				isSameOrInheritedType(elem.type, MenuLabel)
 			) {
 				return React.cloneElement(elem, _.pick(this.props, TRANSFERED_PROPS))

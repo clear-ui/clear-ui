@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Menu, MenuItem} from 'clear-ui-web/lib/menu'
+import MenuItemWithSubMenu from 'clear-ui-web/lib/menu/itemWithSubMenu'
 import composeStyles from 'clear-ui-base/lib/utils/stylesMixin/composeStyles'
 import isSameOrInheritedType from 'clear-ui-base/lib/utils/isSameOrInheritedType'
 
@@ -10,15 +11,19 @@ class NavMenu extends Menu {
 	}
 
 	static defaultProps = {
+		...Menu.defaultProps,
 		padding: 'big',
 		height: 'small',
 		prefix: ''
 	}
 
-	processItems(items, level) {
-		let processedItems = super.processItems(items, level)
+	processItems(items) {
+		let processedItems = super.processItems(items)
 		return React.Children.map(processedItems, (elem) => {
-			if (isSameOrInheritedType(elem.type, MenuItem)) {
+			if (
+				isSameOrInheritedType(elem.type, MenuItem) ||
+				isSameOrInheritedType(elem.type, MenuItemWithSubMenu)
+			) {
 				let selected = elem.props.value !== undefined &&
 					this.context.history.isActive(this.props.prefix + elem.props.value,
 						null, elem.props.onlyIndex)
@@ -34,9 +39,7 @@ class NavMenu extends Menu {
 	}
 }
 
-class NavMenuItem extends MenuItem {
-	static displayName = 'NavMenuItem'
-
+class NavMenuInnerItem extends MenuItem {
 	static styles = composeStyles(
 		MenuItem.styles,
 		(props, state) => {
@@ -56,20 +59,33 @@ class NavMenuItem extends MenuItem {
 	)
 }
 
-class NavMenuHeader extends NavMenuItem {
-	static displayName = 'NavMenuHeader'
-
-	static defaultProps = {
-		...NavMenuItem.defaultProps,
-		tapTogglesNestedItems: true
-	}
-
+class NavMenuInnerHeaderItem extends NavMenuInnerItem {
 	static styles = composeStyles(
-		NavMenuItem.styles,
+		NavMenuInnerItem.styles,
 		{
 			label: {fontWeight: '500'}
 		}
 	)
+}
+
+class NavMenuItem extends MenuItemWithSubMenu {
+	static displayName = 'NavMenuItem'
+
+	static defaultProps = {
+		...MenuItemWithSubMenu.defaultProps,
+		itemComponent: NavMenuInnerItem
+	}
+}
+
+
+class NavMenuHeader extends MenuItemWithSubMenu {
+	static displayName = 'NavMenuHeader'
+
+	static defaultProps = {
+		...MenuItemWithSubMenu.defaultProps,
+		itemComponent: NavMenuInnerHeaderItem,
+		subMenuTrigger: 'tap'
+	}
 }
 
 export default NavMenu
