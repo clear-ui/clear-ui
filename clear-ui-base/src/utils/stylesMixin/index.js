@@ -19,7 +19,7 @@ let StylesMixin = {
 
 	getStyles(props, state, context) {
 		let stylesFn = composeStyles(this.constructor.styles, props.styles, {root: props.style})
-		let styles = stylesFn(props, state, this.context)
+		let styles = stylesFn(props, state, context)
 
 		for (let elem in styles) {
 			styles[elem] = this.postprocessStyle(styles[elem])
