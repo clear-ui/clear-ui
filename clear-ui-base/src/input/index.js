@@ -106,7 +106,7 @@ export default class Input extends React.Component {
 	}
 
 	getRowsNumber(value) {
-    if (!value) return 1
+		if (!value) return 1
 
 		let matches = value.match(/\n/g)
 		let valueRows = matches ? (matches.length + 1) : 1
