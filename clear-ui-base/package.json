@@ -1,6 +1,6 @@
 {
   "name": "clear-ui-base",
-  "version": "0.0.1-alpha.6",
+  "version": "0.0.1-alpha.11",
   "description": "UI components for React",
   "keywords": [
     "react"
@@ -16,7 +16,7 @@
   "scripts": {
     "test": "karma start",
     "build": "gulp build-npm",
-	"compile": "clear-ui-scripts compile"
+    "compile": "clear-ui-scripts compile"
   },
   "author": {
     "name": "sunflowerdeath",
@@ -32,10 +32,11 @@
     "react-addons-update": "^15.0.1",
     "react-motion": "^0.4.2",
     "shallowequal": "^0.2.2",
+    "text-mask-core": "^0.16.0",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
-	"clear-ui-scripts": "../scripts",
+    "clear-ui-scripts": "../scripts",
     "sinon": "^2.0.0-pre"
   },
   "peerDependencies": {

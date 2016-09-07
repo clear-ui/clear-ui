@@ -179,7 +179,7 @@ export default class Input extends BaseInput {
 		}
 
 		let placeholder
-		if (this.props.placeholder && !this.state.value) {
+		if (this.props.placeholder && !this.props.value) {
 			placeholder = React.DOM.div({
 				key: 'placeholder',
 				style: this.styles.placeholder,

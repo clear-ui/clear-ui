@@ -57,7 +57,7 @@ function getStyles(props, state) {
 	}
 
 	if (props.labelType === 'floating' || props.labelType === 'auto') {
-		if (props.labelType === 'floating' || state.focused || state.value) {
+		if (props.labelType === 'floating' || state.focused || props.value) {
 			Object.assign(label, {
 				top: vertPadding,
 				fontSize: 12,
@@ -75,7 +75,7 @@ function getStyles(props, state) {
 			top: heightAboveInput,
 			cursor: 'text'
 		})
-		if (state.value) label.opacity = 0
+		if (props.value) label.opacity = 0
 	}
 
 	let underline = {

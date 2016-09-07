@@ -11,6 +11,9 @@ export default class Input extends React.Component {
 		/** Value of the input. */
 		value: React.PropTypes.string,
 
+		/** Initial value of the input. */
+		defaultValue: React.PropTypes.string,
+
 		/**
 		 * Handler of the value change.
 		 *
@@ -48,22 +51,19 @@ export default class Input extends React.Component {
 	}
 
 	static defaultProps = {
-		rows: 1,
-		value: ''
+		rows: 1
 	}
 
 	constructor(props) {
 		super(props)
 		this.state = {
-			value: this.props.value,
-			rows: this.getRowsNumber(this.props.value)
+			rows: this.getRowsNumber(this.props.value || this.props.defaultValue)
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (this.state.value !== nextProps.value) {
+		if (this.props.value !== nextProps.value) {
 			this.setState({
-				value: nextProps.value,
 				rows: this.getRowsNumber(nextProps.value)
 			})
 		}
@@ -88,7 +88,7 @@ export default class Input extends React.Component {
 			name,
 			type,
 			style: this.styles.input,
-			value: this.state.value,
+			value: this.props.value,
 			onChange: this.onChange.bind(this),
 			onFocus: this.onFocus.bind(this),
 			onBlur: this.onBlur.bind(this)
@@ -106,6 +106,8 @@ export default class Input extends React.Component {
 	}
 
 	getRowsNumber(value) {
+    if (!value) return 1
+
 		let matches = value.match(/\n/g)
 		let valueRows = matches ? (matches.length + 1) : 1
 		let rows = Math.max(this.props.rows, valueRows)
