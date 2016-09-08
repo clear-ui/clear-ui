@@ -7,7 +7,7 @@ export default class MaskedInputWrapper extends React.Component {
 	}
 
 	getInputElement() {
-		return this.refs.input.refs.input
+		return this.input.refs.input
 	}
 
 	componentDidMount() {
@@ -26,7 +26,7 @@ export default class MaskedInputWrapper extends React.Component {
 		let {value, mask, component, ...restProps} = this.props
 		return React.createElement(component, {
 			...restProps,
-			ref: 'input',
+			ref: (ref) => this.input = ref,
 			defaultValue: value,
 			onChange: this.onChange.bind(this)
 		})
