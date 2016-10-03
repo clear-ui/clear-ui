@@ -13,31 +13,35 @@ export default class MaskedInput extends React.Component {
 	}
 
 	static defaultProps = {
+		value: '',
 		inputType: 'input',
 		getNode: (inputRef) => ReactDOM.findDOMNode(inputRef),
 		getValue: (event) => event.target.value
 	}
 
 	componentDidMount() {
-		this.mask = createTextMaskInputElement({
-			inputElement: this.getNode(this.inputRef),
-			...this.props.mask
-		})
-		this.mask.update(this.props.value)
+		if (this.props.mask) {
+			this.mask = createTextMaskInputElement({
+				inputElement: this.getNode(this.inputRef),
+				...this.props.mask
+			})
+			this.mask.update(this.props.value)
+		}
 	}
 
 	componentDidUpdate() {
-		this.mask.update(this.props.value)
+		if (this.props.mask) this.mask.update(this.props.value)
 	}
 
 	render() {
 		let {value, mask, inputType, getNode, ...restProps} = this.props
-		return React.createElement(inputType, {
+		let props = {
 			...restProps,
 			ref: (ref) => this.inputRef = ref,
-			defaultValue: value,
 			onChange: this.onChange.bind(this)
-		})
+		}
+		if (!this.props.mask) props.value = value
+		return React.createElement(inputType, props)
 	}
 
 	getNode() {
@@ -46,7 +50,7 @@ export default class MaskedInput extends React.Component {
 	
 	onChange(...args) {
 		let value = this.props.getValue(...args)
-		this.mask.update(value)
+		if (this.props.mask) this.mask.update(value)
 		if (this.props.onChange) this.props.onChange(this.getNode(this.inputRef).value)
 	}
 }
