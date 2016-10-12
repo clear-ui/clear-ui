@@ -134,6 +134,9 @@ export default class Tappable extends React.Component {
 	}
 
 	mouseUp(event) {
+		// Component can be unmounted on blur
+		if (!this.mounted) return
+
 		this.active = false
 		let isOnButton = $(event.target).closest(ReactDOM.findDOMNode(this)).length
 		if (this.props.onTapEnd) this.props.onTapEnd(event)
