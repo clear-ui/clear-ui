@@ -101,6 +101,11 @@ export default class Tooltip extends React.Component {
 		 */
 		onChangeOpen: React.PropTypes.func,
 
+		/**
+		 * When `true`, tooltip opens with overlay layer and requests close on click overlay.
+		 */
+		closeOnClickOutside: React.PropTypes.bool,
+
 		/** CSS `display` property of the wrapper element. */
 		display: React.PropTypes.string,
 
@@ -179,7 +184,16 @@ export default class Tooltip extends React.Component {
 	render() {
 		let target = this.renderTarget()
 
+		let layerProps
+		if (this.props.closeOnClickOutside) {
+			layerProps = {
+				overlay: true,
+				closeOnOverlayClick: true
+			}
+		}
+
 		let attachment = React.createElement(Attachment, {
+			layerProps,
 			display: this.props.display,
 			open: this.state.open,
 			onClose: () => { this.setManagedState({open: false}) },

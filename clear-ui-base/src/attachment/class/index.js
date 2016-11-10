@@ -1,6 +1,8 @@
 import $ from 'jquery'
 import _ from 'underscore'
 
+import getScrollParent from '../../utils/getScrollParent.js'
+
 import parseAttachmentConfig from './parseAttachmentConfig'
 import readMeasurements from './readMeasurements'
 import getAttachPosition from './getAttachPosition'
@@ -11,14 +13,14 @@ import getAttachPosition from './getAttachPosition'
  * to the target element. It has two points, one on the attached element and
  * second on the target element, that will be connected together, and an offset.
  * @param {string} element - Attachment point of the element.
- *     String of the form of 'vert-attachment horiz-attachment'.
- *     Attachment value is a number with 'px' or '%'.
- *     Also, 'vert-attachment' can be: 'top', 'middle' and 'bottom',
- *     and 'horiz-attachment' can be 'left', 'right' and 'center'.
+ *		 String of the form of 'vert-attachment horiz-attachment'.
+ *		 Attachment value is a number with 'px' or '%'.
+ *		 Also, 'vert-attachment' can be: 'top', 'middle' and 'bottom',
+ *		 and 'horiz-attachment' can be 'left', 'right' and 'center'.
  * @param {string} target - Attachment point of the target element.
- *     Format is same as for 'element'.
+ *		 Format is same as for 'element'.
  * @param {string} [offset] - Offset of the element. Format is same as for
- *     'element' and 'target', but without special values.
+ *		 'element' and 'target', but without special values.
  */
 
 /**
@@ -27,10 +29,11 @@ import getAttachPosition from './getAttachPosition'
  * @param {Element|$} target - Attachment target
  * @param {AttachmentConfig|Array<AttachmentConfig>} attachment -
  *     Configuration of attachment points or a list of possible configs.
- *     Component will choose an attachment that allows element to fit to the viewport.
+ *		 Configuration of attachment points or a list of possible configs.
+ *		 Component will choose an attachment that allows element to fit to the viewport.
  * @param {'all'|'vert'|'horiz'|'none'} [mirrorAttachment='none'] -
- *     Axis of attachment that can be mirrored to fit element to the viewport.
- *     It is used when single attachment used. FIXME why not always?
+ *		 Axis of attachment that can be mirrored to fit element to the viewport.
+ *		 It is used when single attachment used. FIXME why not always?
  * @param {number} [viewportPadding=0] - Minimal distance from element to the viewport bound.
  * @param {boolean} [constrain] - TODO
  * @param {function(index: number, mirror: AttachmentMirrorAxis)} [onChangeAttachment] - TODO
@@ -120,6 +123,20 @@ class Attachment {
 		this.options.element.css(position)
 	}
 
+	bindHandlers() {
+		this.scrollParent = getScrollParent(this.options.target)
+		if (this.scrollParent[0] !== document) {
+			this.listener = this.updatePosition.bind(this)
+			this.scrollParent.bind('scroll', this.listener)
+		}
+	}
+
+	unbindHandlers() {
+		if (this.listener) {
+			this.scrollParent.unbind('scroll', this.listener)
+		}
+	}
+
 	static updatedInstances = new Set();
 
 	/** @public TODO */
@@ -136,11 +153,13 @@ class Attachment {
 	static addInstance(inst) {
 		if (this.updatedInstances.size === 0) this.bindHandlers()
 		this.updatedInstances.add(inst)
+		inst.bindHandlers()
 	}
 
 	static removeInstance(inst) {
 		this.updatedInstances.delete(inst)
 		if (this.updatedInstances.size === 0) this.unbindHandlers()
+		inst.unbindHandlers()
 	}
 
 	static bindHandlers() {
