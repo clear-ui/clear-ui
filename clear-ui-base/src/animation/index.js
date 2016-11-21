@@ -7,7 +7,7 @@ export default class Animation extends React.Component {
 		children: React.PropTypes.element,
 
 		/** Progress of the animation, number from 0 to 1. */
-		progress: React.PropTypes.number.isRequired,
+		progress: React.PropTypes.number,
 
 		/**
 		 * Animation function.

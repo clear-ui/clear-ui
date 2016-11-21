@@ -11,6 +11,7 @@ import Notification from '../pages/docs/base/notification'
 import RadioButtons from '../pages/docs/base/radioButtons'
 import Scrollspy from '../pages/docs/base/scrollspy'
 import Select from '../pages/docs/base/select'
+import SideNav from '../pages/docs/base/sideNav'
 import Sticky from '../pages/docs/base/sticky'
 import Switch from '../pages/docs/base/switch'
 import Tappable from '../pages/docs/base/tappable'
@@ -31,6 +32,7 @@ export default [
 	{path: 'radio-buttons', component: RadioButtons},
 	{path: 'scrollspy', component: Scrollspy},
 	{path: 'select', component: Select},
+	{path: 'side-nav', component: SideNav},
 	{path: 'sticky', component: Sticky},
 	{path: 'switch', component: Switch},
 	{path: 'tappable', component: Tappable},
