@@ -1,3 +1,5 @@
+import _ from 'underscore'
+
 /**
  * Composes `styles` props for each element.
  * If styles uses functions, they are combined
@@ -6,8 +8,9 @@
 export default function composeStyles(...stylesList) {
 	return function(props, state, context) {
 		let composed = {}
-		for (let i in stylesList) {
-			let styles = stylesList[i]
+		let flatStylesList = _.flatten(stylesList)
+		for (let i in flatStylesList) {
+			let styles = flatStylesList[i]
 			let result = typeof styles === 'function' ? styles(props, state, context) : styles
 			for (let item in result) {
 				if (composed[item] === undefined) composed[item] = {}

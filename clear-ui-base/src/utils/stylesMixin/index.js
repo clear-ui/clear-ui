@@ -18,7 +18,11 @@ let StylesMixin = {
 	},
 
 	getStyles(props, state, context) {
-		let stylesFn = composeStyles(this.constructor.styles, props.styles, {root: props.style})
+		let rootStyles = Array.isArray(props.style) ?
+			props.style.map((style) => { return {root: style} }) :
+			{root: props.style}
+
+		let stylesFn = composeStyles(this.constructor.styles, props.styles, rootStyles)
 		let styles = stylesFn(props, state, context)
 
 		for (let elem in styles) {
