@@ -26,7 +26,6 @@ export default class ZContextLayerView extends React.Component {
 		return {root}
 	}
 
-
 	shouldComponentUpdate(nextProps) {
 		// This prevents cyclic updates, when something in the layer
 		// updates ZContext on its 'didUpdate', e.g. adds new layer.

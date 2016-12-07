@@ -41,6 +41,7 @@ class ZContext extends React.Component {
 			}]
 		}
 		this._state = this.state
+		this.layersRefs = {}
 	}
 
 	componentWillMount() {
@@ -63,11 +64,12 @@ class ZContext extends React.Component {
 	}
 
 	render() {
-		let layers = this.state.layers.map(function(item, index) {
+		let layers = this.state.layers.map((item, index) => {
 			return React.cloneElement(item.elem, {
 				index,
 				id: item.id,
-				key: item.id
+				key: item.id,
+				ref: (ref) => this.layersRefs[item.id] = ref
 			})
 		})
 		return <div style={this.styles.root}>{layers}</div>
