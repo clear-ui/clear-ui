@@ -172,7 +172,7 @@ export default class Tappable extends React.Component {
 
 	touchEnd(event) {
 		if (!this.touch) return
-		event.preventDefault()
+		// event.preventDefault()
 		this.endTouch(true, event) // TODO when to end? only when we have only one touch?
 	}
 
