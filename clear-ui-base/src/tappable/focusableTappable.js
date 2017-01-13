@@ -97,20 +97,29 @@ export default class FocusableTappable extends React.Component {
 					this.pressed = pressed
 					this.onChangeTapState()
 					if (this.props.preventFocusOnTap && this.pressed) {
-						this.preventFocus = true
-						setTimeout(() => { this.preventFocus = false })
+						this.preventFocus()
 					}
 				},
 				onTap: this.props.onTap,
 				onTapStart: this.props.onTapStart,
-				onTapEnd: this.props.onTapEnd,
+				onTapEnd: this.onTapEnd.bind(this),
 				display: this.props.display
 			}, elem)
 		}
 	}
 
+	preventFocus() {
+		this.shouldPreventFocus = true
+		setTimeout(() => { this.shouldPreventFocus = false })
+	}
+
+	onTapEnd(event) {
+		if (event.type === 'touchend') this.preventFocus() // always prevent on touch
+		if (this.props.onTapEnd) this.props.onTapEnd(event)
+	}
+
 	onFocus(event) {
-		if (this.preventFocus) {
+		if (this.shouldPreventFocus) {
 			event.stopPropagation()
 		} else {
 			this.isFocused = true
