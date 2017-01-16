@@ -11,6 +11,7 @@ export default class SideNavExample extends React.Component {
 				Open SideNav
 			</RaisedButton>
 			<SideNav
+        side={this.props.side}
 				open={this.state.open}
 				onClose={(value) => { this.setState({open: false}) }}
 				styles={{

@@ -9,6 +9,13 @@ import ChildComponentsMixin from '../utils/childComponentsMixin'
 import Animation from '../animation'
 import {slide, scale, fade} from '../animation/functions'
 
+const OPPOSITE_SIDES = {
+	left: 'right',
+	right: 'left',
+	top: 'bottom',
+	bottom: 'top'
+}
+
 @mixin(StylesMixin, ChildComponentsMixin)
 export default class SideNav extends React.Component {
 	static displayName = 'SideNav'
@@ -27,8 +34,11 @@ export default class SideNav extends React.Component {
 
 		closeOnClickOutside: React.PropTypes.bool,
 
-		/** Width of the SideNav (value of the CSS-property width). */
-		width: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
+		/** Size of the SideNav (value of the CSS-property width/height). */
+		size: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.bool]),
+
+		/** Side of the screen where the SideNav will be showed. */
+		side: React.PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
 
 		/**
 		 * Type of opening and closing animation.
@@ -41,7 +51,8 @@ export default class SideNav extends React.Component {
 		closeOnClickOutside: true,
 		closeOnEsc: true,
 		animation: 'fade',
-		width: 280
+		width: 280,
+		side: 'left'
 	}
 
 	static styles = (props) => {
@@ -56,12 +67,20 @@ export default class SideNav extends React.Component {
 
 		let sideNav = {
 			position: 'fixed',
-			top: 0,
-			left: 0,
-			width: props.width,
+			width: props.size,
 			height: '100%',
 			willChange: 'left',
 			boxSizing: 'border-box'
+		}
+
+		if (props.side == 'left' || props.side == 'right') {
+			Object.assign(sideNav, {width: props.size, height: '100%', top: 0})
+			if (props.side == 'left') sideNav.left = 0
+			if (props.side == 'right') sideNav.right = 0
+		} else if (props.side == 'top' || props.side == 'bottom') {
+			Object.assign(sideNav, {width: '100%', height: props.size, left: 0})
+			if (props.side == 'top') sideNav.top = 0
+			if (props.side == 'bottom') sideNav.bottom = 0
 		}
 
 		return {root, sideNav}
@@ -72,7 +91,7 @@ export default class SideNav extends React.Component {
 			if (props.animation === 'slide') {
 				return React.createElement(Animation, {
 					fn: slide,
-					params: {side: 'right', distance: 100, unit: '%'}
+					params: {side: OPPOSITE_SIDES[props.side], distance: 100, unit: '%'}
 				})
 			}
 		}

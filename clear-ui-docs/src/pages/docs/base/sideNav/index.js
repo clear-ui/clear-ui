@@ -28,6 +28,23 @@ export default class SideNavDoc extends React.Component {
 				</Example.Code>
 			</Example>
 
+      <h2>Sides</h2>
+
+			<Example>
+				<Example.Demo>
+					Left (default): <SideNavExample/>
+					<br/>
+					<br/>
+					Right: <SideNavExample side='right'/>
+					<br/>
+					<br/>
+					Top: <SideNavExample side='top'/>
+					<br/>
+					<br/>
+					Bottom: <SideNavExample side='bottom'/>
+				</Example.Demo>
+      </Example>
+
 			<h2>API</h2>
 
 			<h3>Props</h3>
