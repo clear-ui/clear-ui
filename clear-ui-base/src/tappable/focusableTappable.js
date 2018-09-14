@@ -139,7 +139,7 @@ export default class FocusableTappable extends React.Component {
 			setTimeout(() => {
 				this.pressed = false
 				this.onChangeTapState()
-				if (this.props.onTapEnd) this.props.onTapEnd()
+				if (this.props.onTapEnd) this.props.onTapEnd(event)
 			}, 150)
 		}
 	}
